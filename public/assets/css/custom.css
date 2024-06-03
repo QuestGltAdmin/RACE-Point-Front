@@ -1,0 +1,368 @@
+body{
+    font-family: Rubik , sans-serif;
+    background-color: #000;
+}
+.header-landing{
+position: fixed;
+left: 0;
+right: 0;
+top: 0;
+background-color: #000;
+}
+.header-landing .navbar-brand h1 {
+    color: #fff;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+.header-landing .navbar-brand img{
+    height: 50px;
+}
+.header-landing .nav-link{
+font-size: 0.9rem;
+font-weight: 500;
+line-height: 20px;
+letter-spacing: 0.1px;
+color: #fff;
+}
+.header-landing .nav-link img{
+    height: 40px;
+}
+.landing-banner-sec {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 95px 0px;
+}
+.landing-banner-sec .left-img img {
+    max-width: 90%;
+    margin-top: 5rem;
+}
+.landing-banner-sec .right-sid-content h2{
+    font-size: 4rem;
+    color: #fff;
+    line-height: 4.8rem;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+}
+.landing-banner-sec .right-sid-content p{
+    color: #fff;
+    font-size:1.5rem;
+    line-height: 1.9rem;
+    font-weight:400;
+    margin: 2rem 0 2rem;
+}
+.common-btn {
+    background: linear-gradient(to bottom, #b37a56 0%,#fbcba7 34%,#c38a79 65%,#c38a79 65%,#945b3b 100%);
+    padding: 10px;
+    display: inline-block;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+    color: #000 !important;
+    text-decoration: none;
+    font-weight: 500;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.common-btn span{
+    font-size: 1rem;
+    display: block;
+    font-weight: 400;
+}
+.banner-btn{
+    display: flex;
+    align-items: center;
+}
+.banner-btn .common-btn{
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+    min-width: 230px;
+    justify-content: center;
+    margin-right: 20px;
+}
+.common-btn img{
+    height: 24px;
+    margin-right: 10px;
+}
+.new-user-modal .modal-content{
+background-color: #05131B;
+border-radius: 24px;
+}
+.new-user-modal .modal-content .modal-header {
+    border: none !important;
+    padding: 0 !important;
+}
+.new-user-modal .modal-content .modal-header .btn-close {
+    background-image: url(../img/Icon-close.png);
+    opacity: 1;
+    right: 20px;
+    position: absolute;
+    top: 20px;
+    height: 24px;
+    width: 24px;
+    padding: 0;
+    background-size: contain;
+    z-index: 10;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.new-user-modal .modal-content .modal-body{
+    text-align: center;
+    padding: 40px 30px;
+}
+.new-user-modal .modal-content .modal-body img.logo {
+    height: 54px;
+    margin-bottom: 10px;
+} 
+.new-user-modal .modal-content .modal-body p {
+    color: #fff;
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+}
+.new-user-modal .modal-content .modal-body .outer-input {
+    position: relative;
+    text-align: left;
+    margin-top: 30px;
+}
+.new-user-modal .modal-content .modal-body .outer-input .form-label {
+    color: #fff;
+    font-size: 0.7rem;
+    line-height: 1rem;
+    font-weight: 500;
+    position: absolute;
+    left: 4%;
+    top: -8px;
+    background-color: #05131B;
+    margin: 0;
+    display: inline-block;
+    padding: 0px 5px;
+}
+.new-user-modal .modal-content .modal-body .outer-input .form-control {
+    background-color: transparent;
+    padding: 12px 15px;
+    border: 1px solid #64748B;
+    border-radius: 8px;
+    color: #fff;
+    outline: none !important;
+    box-shadow: none !important;
+    font-size: 1rem;
+}
+.new-user-modal .modal-content .common-btn {
+    width: 100%;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+.common-btn.bg-left{
+    background: linear-gradient(to right, #b37a56 0%,#fbcba7 34%,#c38a79 65%,#c38a79 65%,#945b3b 100%);
+    border-radius: 10px;
+}
+/* .new-user-modal.wallet-connect .modal-content .modal-body p{
+    font-size: 1rem;
+} */
+.new-user-modal .modal-content .modal-body p a.links {
+    display: inline-block;
+    color: #398CD1 !important;
+    text-decoration: none !important;
+}
+.new-user-modal .modal-content .modal-body p a.links img {
+    height: 22px;
+}
+.wallet-connect .browse-btn {
+    display: block;
+    background-color: #E2E8F0;
+    padding: 16px;
+    border-radius: 16px;
+    color: #053863;
+    font-weight: 600;
+    text-decoration: none !important;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wallet-connect .browse-btn img{
+    height: 24px;
+    margin-right: 10px;
+}
+
+.wallet-connect .wallet-connect {
+    display: block;
+    background-color: #06487E;
+    padding: 16px;
+    border-radius: 16px;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none !important;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wallet-connect .wallet-connect img{
+    height: 24px;
+    margin-right: 10px;
+}
+
+.banner-btn .common-btn.disable-btn {
+    background: #94A3B8;
+    filter: grayscale(35%);
+    opacity: 0.5;
+    color: #334155 !important;
+    cursor: not-allowed;
+}
+.referal-copy-row {
+    background-color: #1E293B;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid #334155;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+}
+.referal-copy-row > div {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #fff;
+}
+.referal-copy-row > div span {
+    background: linear-gradient(to bottom, #b37a56 0%,#fbcba7 34%,#c38a79 65%,#c38a79 65%,#945b3b 100%);
+    height: 22px;
+    width: 22px;
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 500;
+    color: #000;
+    margin-right: 10px;
+}
+.referal-copy-row a{
+display: inline-block;
+}
+.referal-copy-row img {
+    height: 44px;
+}
+
+
+@media (max-width:1300px) {
+    .landing-banner-sec .right-sid-content h2 {
+        font-size: 3.4rem;
+        line-height: 4.4rem;
+    } 
+    .landing-banner-sec .left-img img {
+        margin-top: 4rem;
+    }
+}
+@media (max-width:1200px){
+    .landing-banner-sec .right-sid-content h2 {
+        font-size: 2.7rem;
+        line-height: 3.8rem;
+    }
+    .landing-banner-sec .right-sid-content p {
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+    }
+}
+
+@media (max-width:992px){
+    .landing-banner-sec .right-sid-content h2 {
+        font-size: 2.7rem;
+        line-height: 3.8rem;
+        text-align: center;
+    }
+    .landing-banner-sec .right-sid-content p {
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+        text-align: center;
+    }
+    .banner-btn .common-btn {
+        margin: 0 10px;
+    }
+    .banner-btn {
+        justify-content: center;
+    }
+}
+@media (max-width:580px) {
+    .landing-banner-sec .left-img{
+       text-align: center;
+    }
+    .landing-banner-sec .left-img img {
+        margin: 0 auto;
+        max-width: 60%;
+    }
+    .landing-banner-sec .right-sid-content h2 {
+        font-size: 1.5rem;
+        line-height: 2.4rem;
+    }
+    .landing-banner-sec .right-sid-content p {
+        font-size: 0.9rem;
+        line-height: 1.2;
+        margin: 1rem 0 2rem;
+    }
+    .banner-btn {
+        display: block;
+    }
+    .banner-btn .common-btn {
+        margin: 10px 0px;
+        padding: 0;
+        min-height: 65px;
+        font-size: 1.1rem;
+        line-height: 1.3rem;
+    }
+    .banner-btn .common-btn span{
+        font-size: 0.8rem;
+    }
+    .header-landing .nav-link {
+        font-size: 0.55rem;
+    }
+    .header-landing .nav-link img {
+        height: 30px;
+    }
+    .header-landing .navbar-brand img {
+        height: 32px;
+    }
+    .header-landing .navbar-brand h1 {
+        font-size: 0.9rem;
+    }
+    .landing-banner-sec {
+        padding: 70px 0px 0;
+    }
+    .new-user-modal .modal-content .modal-body img.logo {
+        height: 40px;
+    }
+    .new-user-modal .modal-content .modal-body p {
+         font-size: 0.8rem;
+        line-height: 1.1rem;
+    }
+    .new-user-modal .modal-content .modal-body {
+        padding: 25px 15px;
+    }
+    .new-user-modal .modal-content .modal-body .outer-input .form-control {
+        padding: 10px 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+    }
+    .new-user-modal .modal-content .modal-body .outer-input .form-label {
+        font-size: 0.6rem;
+    }
+    .new-user-modal .modal-content .common-btn {
+        font-size: 0.8rem;
+        margin-top: 5px;
+    }
+    .new-user-modal .modal-content .common-btn img {
+        height: 16px;
+    }
+    .new-user-modal .modal-dialog {
+        max-width: 300px;
+        margin: auto;
+    }
+}
