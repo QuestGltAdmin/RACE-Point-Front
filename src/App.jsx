@@ -2,6 +2,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Landing } from "./Pages/Landing";
+import { Depositstepfirst } from "./Pages/Depositstepfirst";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/deposit-step-1" element={<Depositstepfirst />} />
         </Routes>
       </BrowserRouter>
     </>

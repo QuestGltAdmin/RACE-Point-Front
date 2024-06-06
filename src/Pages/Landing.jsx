@@ -73,7 +73,7 @@ export const Landing = () => {
       </Modal> */}
 
       {/* New share step 2 */}
-      <Modal className="new-user-modal" centered show={show} onHide={handleClose}>
+      {/* <Modal className="new-user-modal" centered show={show} onHide={handleClose}>
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
             <div>
@@ -117,11 +117,11 @@ export const Landing = () => {
                 
             </div>
         </Modal.Body>
-      </Modal>
+      </Modal> */}
 
 
       {/* wallet connect popup */}
-      {/* <Modal className="new-user-modal wallet-connect" centered show={show} onHide={handleClose}>
+      <Modal className="new-user-modal wallet-connect" centered show={show} onHide={handleClose}>
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
             <div>
@@ -134,7 +134,7 @@ export const Landing = () => {
                 <a href="" className="wallet-connect"><img src="assets/img/connect.png" alt="" /> Wallet Connect</a>
             </div>
         </Modal.Body>
-      </Modal> */}
+      </Modal>
 
       
     </>
