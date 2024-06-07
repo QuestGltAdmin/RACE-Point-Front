@@ -3,6 +3,8 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Landing } from "./Pages/Landing";
 import { Depositstepfirst } from "./Pages/Depositstepfirst";
+import { Dashboard } from "./Pages/Dashboard";
+import { Leaderboard } from "./Pages/Leaderboard";
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/deposit-step-1" element={<Depositstepfirst />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
         </Routes>
       </BrowserRouter>
     </>
