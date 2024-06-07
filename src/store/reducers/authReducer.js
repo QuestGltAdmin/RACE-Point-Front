@@ -1,0 +1,112 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+const isUserAuthenticated = localStorage.getItem("isUserAuthenticated");
+const userData = localStorage.getItem("userData");
+const usertoken = localStorage.getItem("usertoken");
+// console.log(usertoken,"usertoken")
+const authSlice = createSlice({
+  name: "auth",
+  initialState: {
+    isLoading: false,
+    isUserAuthenticated: !!isUserAuthenticated ? true : false,
+    user: !!userData ? JSON.parse(userData) : {},
+    usertoken: !!usertoken ? JSON.parse(usertoken) : {},
+  },
+
+  reducers: {
+    loginSaga: (state, action) => {
+      return { ...state };
+    },
+
+    userLoginSaga: (state, action) => {
+      return { ...state };
+    },
+    userLoginStart: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    },
+    setUserprofileData: (state, action) => {
+      localStorage.setItem("userData", JSON.stringify(action.payload));
+      return {
+        ...state,
+        user: action.payload,
+      };
+    },
+    userloginSuccess: (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        isUserAuthenticated: true,
+        user: action.payload,
+        authToken: action.payload.token,
+      };
+    },
+    userLoginFail: (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        isUserAuthenticated: false,
+        user: {},
+        errorMsg: action.payload,
+      };
+    },
+
+    logout: (state) => {
+      localStorage.clear();
+      return {
+        ...state,
+        isLoading: false,
+        isUserAuthenticated: false,
+        isAuthenticated: false,
+        user: {},
+        errorMsg: "",
+      };
+    },
+
+    registerSaga: (state, action) => {
+      return { ...state };
+    },
+
+    registerStart: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    },
+
+    registerSuccess: (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        signupData: action.payload,
+        errorMsg: "",
+      };
+    },
+    registerFail: (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: false,
+        signupData: {},
+        errorMsg: action.payload,
+      };
+    },
+  },
+});
+
+export const {
+  logout,
+  registerSaga,
+  registerSuccess,
+  registerStart,
+  registerFail,
+  setUserprofileData,
+  userLoginSaga,
+  userLoginStart,
+  userloginSuccess,
+  userLoginFail,
+} = authSlice.actions;
+
+export default authSlice.reducer;
