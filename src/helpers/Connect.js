@@ -1,5 +1,11 @@
 import { web3, Provider, Disconnect } from "./Web3Helper";
-import { DisconnectWalletConnect, OpenModal, getAccountDetail, reConnect, web3Modal } from "./web3Model";
+import {
+  DisconnectWalletConnect,
+  OpenModal,
+  getAccountDetail,
+  reConnect,
+  web3Modal,
+} from "./web3Model";
 
 export const Connect = async (type) => {
   if (type === "walletConnect") {
@@ -16,7 +22,7 @@ export const Connect = async (type) => {
           if (account) {
             dispatch(e.data.event, account);
           }
-          if(e.data.event == "MODAL_CLOSE"){
+          if (e.data.event == "MODAL_CLOSE") {
             window.location.reload();
           }
         });
@@ -26,8 +32,8 @@ export const Connect = async (type) => {
     const web3connect = await web3(type);
 
     const accounts = await web3connect.eth.getAccounts();
-
     let selectedAccount = accounts[0];
+
     const chainId = await web3connect.eth.getChainId();
     return {
       selectedAccount: selectedAccount,
@@ -36,7 +42,6 @@ export const Connect = async (type) => {
     };
   }
 };
-
 
 export const ReConnect = async (type) => {
   if (type === "walletConnect") {

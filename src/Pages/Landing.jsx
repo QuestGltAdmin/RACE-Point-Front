@@ -2,13 +2,17 @@ import React, { useMemo, useState } from "react";
 import { Header } from "../Components/Header";
 import { Col, Container, Form, Modal, Row } from "react-bootstrap";
 import ConnectWalletModal from "../../src/Components/Ui/ConnectWalletModal";
+import useAuth from "../hooks/useAuth";
 
 export const Landing = () => {
+  const { WalletEVM } = useAuth();
+  console.log(WalletEVM?.selectedAccount);
   const [show, setShow] = useState(false);
+  const [showreferral1, setShowReferral1] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const handleShowReferral1 = () => setShowReferral1(true);
 
   const ConnectWalletModalProps = useMemo(() => ({
     modalProps: {
@@ -18,6 +22,7 @@ export const Landing = () => {
     // chainData: switchForWallet === "EVM" ? "EVM" : "SOL",
     // forMobileView,
   }));
+
   return (
     <>
       <Header />
@@ -45,7 +50,7 @@ export const Landing = () => {
                       <p>Watch out for the multipliers!</p>
                       <div className="banner-btn">
                         {/* <a className="common-btn disable-btn" href=""><img src="assets/img/dash.png" alt="" /><div>Connect Wallet <span>Track your points here</span></div> </a> */}
-                        <a  className="common-btn" onClick={handleShow}>
+                        <a className="common-btn" onClick={handleShow}>
                           <img src="assets/img/dash.png" alt="" />
                           <div>
                             Connect Wallet <span>Track your points here</span>
@@ -65,22 +70,36 @@ export const Landing = () => {
         </Container>
       </section>
 
+      <ConnectWalletModal {...ConnectWalletModalProps} />
       {/* new user popup  */}
-      {/* <Modal className="new-user-modal" centered show={show} onHide={handleClose}>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={showreferral1}
+        onHide={handleClose}
+      >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-            <div>
-                <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
-                <p>Welcome to the RACE Points System!</p>
-                <p>This site is only available to invited users. Please input the referral code you’ve received to proceed</p>
-                <Form.Group className="mb-3 outer-input">
-                    <Form.Label>Referral Code</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Referral Code here" />
-                </Form.Group>
-                <button className="common-btn bg-left">Enter <img src="assets/img/arrow_forward.png" alt="" /></button>
-            </div>
+          <div>
+            <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
+            <p>Welcome to the RACE Points System!</p>
+            <p>
+              This site is only available to invited users. Please input the
+              referral code you’ve received to proceed
+            </p>
+            <Form.Group className="mb-3 outer-input">
+              <Form.Label>Referral Code</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter Referral Code here"
+              />
+            </Form.Group>
+            <button className="common-btn bg-left">
+              Enter <img src="assets/img/arrow_forward.png" alt="" />
+            </button>
+          </div>
         </Modal.Body>
-      </Modal> */}
+      </Modal>
 
       {/* New share */}
       {/* <Modal className="new-user-modal" centered show={show} onHide={handleClose}>
@@ -94,7 +113,7 @@ export const Landing = () => {
                 <button className="common-btn bg-left">Proceed with wisdom <img src="assets/img/arrow_forward.png" alt="" /></button>
             </div>
         </Modal.Body>
-      </Modal> */}
+      </Modal>  */}
 
       {/* New share step 2 */}
       {/* <Modal className="new-user-modal" centered show={show} onHide={handleClose}>
@@ -142,7 +161,6 @@ export const Landing = () => {
             </div>
         </Modal.Body>
       </Modal> */}
-      <ConnectWalletModal {...ConnectWalletModalProps} />
 
       {/* wallet connect popup */}
       {/* <Modal

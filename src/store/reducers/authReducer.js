@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const isUserAuthenticated = localStorage.getItem("isUserAuthenticated");
 const userData = localStorage.getItem("userData");
 const usertoken = localStorage.getItem("usertoken");
-// console.log(usertoken,"usertoken")
+
+const WalletEVM = localStorage.getItem("WalletEVM");
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -11,6 +13,8 @@ const authSlice = createSlice({
     isUserAuthenticated: !!isUserAuthenticated ? true : false,
     user: !!userData ? JSON.parse(userData) : {},
     usertoken: !!usertoken ? JSON.parse(usertoken) : {},
+    WalletEVM:
+      !!WalletEVM && WalletEVM !== "undefined" ? JSON.parse(WalletEVM) : {},
   },
 
   reducers: {
@@ -21,12 +25,14 @@ const authSlice = createSlice({
     userLoginSaga: (state, action) => {
       return { ...state };
     },
+
     userLoginStart: (state) => {
       return {
         ...state,
         isLoading: true,
       };
     },
+
     setUserprofileData: (state, action) => {
       localStorage.setItem("userData", JSON.stringify(action.payload));
       return {
@@ -34,6 +40,7 @@ const authSlice = createSlice({
         user: action.payload,
       };
     },
+
     userloginSuccess: (state, action) => {
       return {
         ...state,
@@ -43,6 +50,7 @@ const authSlice = createSlice({
         authToken: action.payload.token,
       };
     },
+
     userLoginFail: (state, action) => {
       return {
         ...state,
@@ -50,6 +58,14 @@ const authSlice = createSlice({
         isUserAuthenticated: false,
         user: {},
         errorMsg: action.payload,
+      };
+    },
+
+    setEVMWallet: (state, action) => {
+      localStorage.setItem("WalletEVM", JSON.stringify(action.payload));
+      return {
+        ...state,
+        WalletEVM: action.payload,
       };
     },
 
@@ -84,6 +100,7 @@ const authSlice = createSlice({
         errorMsg: "",
       };
     },
+
     registerFail: (state, action) => {
       return {
         ...state,
@@ -103,6 +120,7 @@ export const {
   registerStart,
   registerFail,
   setUserprofileData,
+  setEVMWallet,
   userLoginSaga,
   userLoginStart,
   userloginSuccess,
