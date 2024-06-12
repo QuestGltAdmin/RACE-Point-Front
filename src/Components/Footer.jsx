@@ -20,7 +20,7 @@ export const Footer = () => {
                </Col>
                <Col lg={8}>
                  <Row>
-                    <Col lg={3}>
+                    <Col lg={3} md={3} sm={6}>
                       <div className="quick-links">
                          <h5>GOVERNANCE</h5>
                          <a href="">vHouse</a>
@@ -28,14 +28,14 @@ export const Footer = () => {
                          <a href="">Executive Council</a>
                       </div>
                     </Col>
-                    <Col lg={3}>
+                    <Col lg={3} md={3} sm={6}>
                       <div className="quick-links">
                          <h5>ECONOMY</h5>
                          <a href="">Community</a>
                          <a href="">RACE Wallet</a>
                       </div>
                     </Col>
-                    <Col lg={3}>
+                    <Col lg={3} md={3} sm={6}>
                       <div className="quick-links">
                          <h5>DEVELOPERS</h5>
                          <a href="">Documentation</a>
@@ -45,7 +45,7 @@ export const Footer = () => {
                          <a href="">Github</a>
                       </div>
                     </Col>
-                    <Col lg={3}>
+                    <Col lg={3} md={3} sm={6}>
                       <div className="quick-links">
                          <h5>MORE</h5>
                          <a href="">Industry Adoption</a>

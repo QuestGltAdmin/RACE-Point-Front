@@ -498,3 +498,149 @@ margin-top: 10px;
         height: 2px;
     }
 }
+@media (max-width:992px){
+    .footer-logo-box {
+        max-width: 100%;
+    }
+    .home-header .navbar-toggler {
+        border-radius: 6px;
+        color: #000;
+        background:  linear-gradient(90deg, #B37A56 0%, #FBCBA7 32.29%, #C38A79 71.35%, #945B3B 95.31%);
+        padding: 3px 5px;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+    .home-header .navbar-toggler .navbar-toggler-icon {
+        height: 20px;
+        width: 20px;
+    }
+    .home-header .navbar-collapse {
+        background-color: #052A46;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .home-header.header-landing .nav-link {
+        margin: 0;
+    }
+    .community-content h4 {
+        font-size: 1.6rem;
+        line-height: 2.3rem;
+    }
+    .features-row .ms-auto.mt-5{
+        margin-top: 0 !important;
+    }
+}
+
+@media (max-width:768px){
+    .quick-links {
+        text-align: center;
+    }
+    p {
+        font-size: 0.8rem;
+        line-height: 1.2rem;
+    }
+    .footer-logo-box {
+        text-align: center;
+    }
+    .footer-logo-box h2 {
+        justify-content: center;
+    }
+    .newsletter-box-new {
+        border-radius: 15px;
+        padding: 15px;
+    }
+    .newsletter-box-new h6, .race-banner-sec .banner-content h6 {
+        font-size: 0.7rem;
+        line-height: 1.2rem;
+        padding: 5px 30px 5px 5px;
+    }
+    .newsletter-box-new .input-group .form-control,
+    .newsletter-box-new .input-group .common-btn,
+    .newsletter-box-new .input-group .input-group-text{
+        font-size: 0.8rem;
+        line-height: 1.2rem;
+    }
+    .community-img .text-end{
+        text-align: center !important;
+    }
+    .community-content h4 {
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        text-align: center;
+    }
+    .community-content ul li {
+        font-size: 0.7rem;
+        line-height: 1rem;
+        text-align: center;
+    }
+    .community-content ul li::after {
+        top: -10px;
+        height: 2px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+    .community-content ul { 
+        margin-bottom: 15px;
+        max-width: 100%;
+        margin-top: 30px;
+    }
+    .community-content h5 {
+        font-size: 1.1rem;
+        line-height: 1.6rem;
+        text-align: center;
+    }
+    .race-banner-sec {
+        padding: 90px 0 20px;
+    }
+    .features-row {
+        border-radius: 15px;
+        padding: 25px 15px;
+        margin-top: 20px;
+        text-align: center;
+    }
+    .welcom-line {
+        font-size: 1.2rem;
+        line-height: 1.8rem;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .features-row .text-first-row {
+        font-size: 0.8rem;
+        line-height: 1.2rem;
+        text-align: center;
+    }
+    .features-row {
+    border-radius: 15px;
+    padding: 25px 15px;
+    margin-top: 20px;
+    text-align: center;
+}
+.features-box-inner {
+    padding: 12px;
+    margin: 10px 0;
+    text-align: left;
+}
+.race-banner-sec .banner-content .common-heading {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    text-align: center;
+}
+.race-banner-sec .banner-content {
+    text-align: center;
+}
+.header-landing {
+    background-color: #05131B;
+}
+.race-banner-sec .banner-content h6::after {
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #fff;
+    height: 7px;
+    width: 7px;
+    top: 10px;
+    right: 15px;
+}
+.header-landing .navbar-brand img {
+    height: 30px;
+}
+}

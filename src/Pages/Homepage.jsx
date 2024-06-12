@@ -76,7 +76,7 @@ export const Homepage = () => {
     <section className="community-sec">
        <Container>
           <Row className="align-items-center">
-             <Col lg={7}>
+             <Col lg={7} md={8} sm={8}>
                 <div className="community-content">
                     <h5>Community Values</h5>
                     <ul>
@@ -89,7 +89,7 @@ export const Homepage = () => {
                    
                 </div>
              </Col>
-             <Col lg={4} className="ms-auto">
+             <Col lg={4} md={4} sm={4} className="ms-auto">
                 <div className="community-img">
                   <div className="text-end">
                      <button className="gradient-border-btn"><span><img src="assets/img/text_snippet.png" alt="" /> Read White Paper</span></button>
