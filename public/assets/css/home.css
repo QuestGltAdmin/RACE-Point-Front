@@ -644,3 +644,122 @@ margin-top: 10px;
     height: 30px;
 }
 }
+
+/* governance page css */
+.newsletter-box-new.executive-box {
+    background-size: 100% 40%;
+    padding: 50px;
+    margin-top: 70px;
+}
+.newsletter-box-new.executive-box .circles-img{
+max-width: 240px;
+margin-bottom: 30px;
+}
+.newsletter-box-new.executive-box .common-btn{
+   margin-top: 30px; 
+}
+.ahouse-sec {
+    padding: 80px 0 0;
+}
+.retro-active-box {
+    border-radius: 24px;
+    background: rgba(3, 39, 68, 0.60);
+    backdrop-filter: blur(12.5px);
+    padding: 40px 30px;
+    text-align: center;
+    margin: 40px auto;
+    max-width: 500px;
+    min-height: 600px;
+}
+.retro-active-box .main-img{
+height: 90px;
+margin-bottom: 30px;
+}
+.retro-active-box .sub-heading {
+    display: flex;
+    max-width: max-content;
+    margin: 0 auto 30px;
+    align-items: center;
+    justify-content: space-around;
+}
+.retro-active-box .sub-heading img {
+    height: 24px;
+    margin-left: 30px;
+}
+.retro-active-box .info-popup{
+    border-radius: var(--rounded-lg, 8px);
+    background:  #05131B;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.retro-active-box .info-popup img{
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
+}
+.retro-active-box .info-popup span{
+    color:  #FFF;
+text-align: center;
+font-size: 0.8rem;
+font-style: normal;
+font-weight: 500;
+line-height: 1.1rem; 
+letter-spacing: 0.1px;
+max-width: 350px;
+}
+.cone-img{
+    margin-top: 40px;
+}
+.race-banner-sec.governance-sec .banner-content{
+    max-width: 800px;
+}
+.read-more-box {
+    display: flex;
+    max-width: 280px;
+    flex-wrap: wrap;
+}
+.read-more-box > div {
+    margin-bottom: 30px;
+    margin-right: 25px;
+}
+.read-more-box p {
+    margin-bottom: 0 !important;
+    font-size: 1.2rem !important;
+}
+.read-more-box a{
+    color: #fff;
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.1rem;
+    background: var(--6-Hover, linear-gradient(90deg, #945B3B 0%, #C38A79 32.29%, #FBCBA7 71.35%, #B37A56 95.31%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+.read-more-box a img{
+height: 14px;
+}
+
+.race-banner-sec.governance-sec {
+    background-image: url(../img/circles-banner.png);
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.race-banner-sec.governance-sec::after{
+    content: "";
+    position: absolute;
+    border-radius: 603px;
+    background: linear-gradient(90deg, #945B3B 0%, #C38A79 32.29%, #FBCBA7 71.35%, #B37A56 95.31%);
+    filter: blur(100px);
+    width: 400px;
+    height: 300px;
+    bottom: -30%;
+    left: -10%;
+    opacity: 0.6;
+}

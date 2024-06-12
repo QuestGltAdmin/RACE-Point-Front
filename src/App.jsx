@@ -6,6 +6,7 @@ import { Depositstepfirst } from "./Pages/Depositstepfirst";
 import { Dashboard } from "./Pages/Dashboard";
 import { Leaderboard } from "./Pages/Leaderboard";
 import { Homepage } from "./Pages/Homepage";
+import { Governace } from "./Pages/Governace";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 
           {/* front pages */}
           <Route path="/home" element={<Homepage />} />
+          <Route path="/governance" element={<Governace />} />
 
         </Routes>
       </BrowserRouter>
