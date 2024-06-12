@@ -6,6 +6,7 @@ import { Depositstepfirst } from "./Pages/Depositstepfirst";
 import { Dashboard } from "./Pages/Dashboard";
 import { Leaderboard } from "./Pages/Leaderboard";
 import { Homepage } from "./Pages/Homepage";
+import Economy from "./Pages/Economy";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 
           {/* front pages */}
           <Route path="/home" element={<Homepage />} />
+          <Route path="/economy" element={<Economy />} />
 
         </Routes>
       </BrowserRouter>
