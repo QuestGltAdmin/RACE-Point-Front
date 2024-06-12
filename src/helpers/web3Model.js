@@ -9,7 +9,7 @@ import {
 // import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { switchChain } from "@wagmi/core";
-import { reconnect , disconnect} from '@wagmi/core'
+import { reconnect, disconnect } from "@wagmi/core";
 // 0. Setup queryClient
 // const queryClient = new QueryClient();
 
@@ -22,7 +22,9 @@ const metadata = {
   name: "SGODS",
   description: "SGODS Solana Token",
   url: "https://solanagods.com/",
-  icons: ["https://bafybeigesge5mcfs5ipekq7wvjrqnrl6o7nlgknrjqhp6t52x7j75sym2a.ipfs.nftstorage.link/"],
+  icons: [
+    "https://bafybeigesge5mcfs5ipekq7wvjrqnrl6o7nlgknrjqhp6t52x7j75sym2a.ipfs.nftstorage.link/",
+  ],
 };
 
 // Define chains
@@ -34,14 +36,12 @@ const wagmiConfig = createConfig({
     [bsc.id]: http(),
     [polygon.id]: http(),
   },
-  connectors: [
-    walletConnect({ projectId, metadata, showQrModal: false }),
-  ],
+  connectors: [walletConnect({ projectId, metadata, showQrModal: false })],
 });
 
 export const config = () => {
   return wagmiConfig;
-}
+};
 
 export const web3Modal = async () => {
   const web3modal = createWeb3Modal({ wagmiConfig, projectId });
@@ -54,16 +54,16 @@ export const OpenModal = async () => {
 };
 
 export const reConnect = async () => {
-    let details = await reconnect(wagmiConfig);
-    if (details.length > 0) {
-      return {
-        selectedAccount: details[0].accounts[0],
-        chainId: details[0].chainId,
-        type: "walletConnect",
-      };;
-    }
-    return false;
-};
+  let details = await reconnect(wagmiConfig);
+  if (details.length > 0) {
+    return {
+      selectedAccount: details[0].accounts[0],
+      chainId: details[0].chainId,
+      type: "walletConnect",
+    };
+  }
+  return false;
+}; 7
 
 export const getAccountDetail = async () => {
   let account = getAccount(wagmiConfig);

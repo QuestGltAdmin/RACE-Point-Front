@@ -1,5 +1,7 @@
 // import logo from './logo.svg';
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Landing } from "./Pages/Landing";
 import { Depositstepfirst } from "./Pages/Depositstepfirst";
@@ -12,6 +14,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/deposit-step-1" element={<Depositstepfirst />} />
@@ -21,7 +24,6 @@ function App() {
           {/* front pages */}
           <Route path="/home" element={<Homepage />} />
           <Route path="/economy" element={<Economy />} />
-
         </Routes>
       </BrowserRouter>
     </>
