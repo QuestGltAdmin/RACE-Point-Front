@@ -6,6 +6,10 @@
     padding-bottom: 0;
     padding-top: 200px;
 }
+.economy-banner.race-banner-sec{
+    background-image: url("../images/banner-circular.png") !important;
+    background-size: cover;
+}
 .economy-common-heading{
     font-size: 45px;
     font-weight: 400;
