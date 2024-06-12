@@ -10,7 +10,7 @@ const Economy = () => {
             <section className="race-banner-sec economy-banner">
                 <Container>
                     <Row className="align-items-center">
-                        <Col lg={4}>
+                        <Col xl={4} lg={6} md={6}>
                             <div className="banner-content">
                                 <h2 className="common-heading">Meet the RACE Smart Wallet</h2>
                                 <p>Your Gateway to blockchain-powered Investments. Coming soon.</p>
@@ -25,15 +25,17 @@ const Economy = () => {
                                 {/* <button className="gradient-border-btn"><span><img src="assets/img/linear_scale.png" alt="" /> Bridge to RACE</span></button> */}
                             </div>
                         </Col>
-                        <Col lg={5}>
-                            <div className="banner-img">
+                     
+                    </Row>
+                  
+                </Container>
+                <div className="banner-img text-end">
                                 <img src="assets/images/economy-mobile.png" alt="mobile" />
                             </div>
-                        </Col>
-                    </Row>
-                    <div className='detailed-content'>
+                <Container>
+                <div className='detailed-content'>
                         <Row>
-                            <Col lg="4">
+                            <Col lg="4" md="4">
                                 <div className='economy-box'>
                                     <div className='icon-white'>
                                         <img src="assets/images/home.png" className='img-fluid' alt="house" />
@@ -44,7 +46,7 @@ const Economy = () => {
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg="4">
+                            <Col lg="4" md="4">
                                 <div className='economy-box'>
                                     <div className='icon-white'>
                                         <img src="assets/images/abstraction.png" className='img-fluid' alt="house" />
@@ -55,7 +57,7 @@ const Economy = () => {
                                     </div>
                                 </div>
                             </Col>
-                            <Col lg="4">
+                            <Col lg="4" md="4">
                                 <div className='economy-box'>
                                     <div className='icon-white'>
                                         <img src="assets/images/swap-exchange.png" className='img-fluid' alt="house" />
@@ -83,70 +85,70 @@ const Economy = () => {
                             </Row>
                         </div>
                     </Row>
-                    <Row>
-                        <Col lg="4" className='margin-set'></Col>
-                        <Col lg="4" className='bordered margin-set'>
+                    <Row className='justify-content-center'>
+                        <Col lg="4" md="6" className='margin-set responsive-none'></Col>
+                        <Col lg="4" md="6" className='bordered margin-set'>
                             <div className='next-gen-box '>
                                 <img src='/assets/images/fingerprint.png' className="img-fluid" alt="fingerprint" />
                                 <div>
                                     <h4 className='economy-common-heading'>Familiar, Secure Login</h4>
-                                    <p>Easily sign up or log in using your existing web2 credentials. No complex procedures, just seamless access to your digital assets.</p>
+                                    <p className='economy-common-para'>Easily sign up or log in using your existing web2 credentials. No complex procedures, just seamless access to your digital assets.</p>
                                 </div>
                             </div>
                         </Col>
-                        <Col lg="4" className='margin-set'></Col>
-                        <Col lg="4" className='margin-set'>
+                        <Col lg="4" md="6" className='margin-set responsive-none'></Col>
+                        <Col lg="4" md="6" className='margin-set'>
                             <div className='next-gen-box '>
                                 <img src='/assets/images/seedless.png' className="img-fluid" alt="fingerprint" />
                                 <div>
                                     <h4 className='economy-common-heading'>Seedless Experience</h4>
-                                    <p>Enjoy top-notch cryptography that offers a seedless experience. No more worries about remembering complex seed phrases—recover access with multi-factor authentication effortlessly.</p>
+                                    <p className='economy-common-para'>Enjoy top-notch cryptography that offers a seedless experience. No more worries about remembering complex seed phrases—recover access with multi-factor authentication effortlessly.</p>
                                 </div>
                             </div>
                         </Col>
-                        <Col lg="4" className='bordered margin-set'>
+                        <Col lg="4" md="6" className='bordered margin-set'>
                             <div className='next-gen-box '>
                                 <img src='/assets/images/gas-abstract.png' className="img-fluid" alt="fingerprint" />
                                 <div>
                                     <h4 className='economy-common-heading'>Gas Abstraction</h4>
-                                    <p>Pay gas fees in any currency, Our Account kit eliminates the barrier to entry, making transactions smoother and more cost-effective.</p>
+                                    <p className='economy-common-para'>Pay gas fees in any currency, Our Account kit eliminates the barrier to entry, making transactions smoother and more cost-effective.</p>
                                 </div>
                             </div>
                         </Col>
-                        <Col lg="4" className='margin-set'>
+                        <Col lg="4" md="6" className='margin-set'>
                             <div className='next-gen-box '>
                                 <img src='/assets/images/batch.png' className="img-fluid" alt="fingerprint" />
                                 <div>
                                     <h4 className='economy-common-heading'>Batch Transactions</h4>
-                                    <p>Complex operations made simple. For Instance, on DEXes, combine approval and swap transactions seamlessly in one click</p>
+                                    <p className='economy-common-para'>Complex operations made simple. For Instance, on DEXes, combine approval and swap transactions seamlessly in one click</p>
                                 </div>
                             </div>
                         </Col>
-                        <Col lg="4" className='margin-set'>
+                        <Col lg="4" md="6" className='margin-set'>
                             <div className='next-gen-box '>
                                 <img src='/assets/images/marketplace.png' className="img-fluid" alt="fingerprint" />
                                 <div>
                                     <h4 className='economy-common-heading'>Explore the Marketplace</h4>
-                                    <p>Discover a comprehensive range of top-tier real-world assets across various blockchains, all conveniently accessible within our app.</p>
+                                    <p className='economy-common-para'>Discover a comprehensive range of top-tier real-world assets across various blockchains, all conveniently accessible within our app.</p>
                                 </div>
                             </div>
                         </Col>
 
-                        <Col lg="4" className='bordered margin-set'>
+                        <Col lg="4" md="6" className='bordered margin-set'>
                             <div className='next-gen-box '>
                                 <img src='/assets/images/on-ramp.png' className="img-fluid" alt="fingerprint" />
                                 <div>
                                     <h4 className='economy-common-heading'>On-Ramp & Off-Ramp</h4>
-                                    <p>Effortlessly move stablecoins between chains at the cheapest and fastest rates, ensuring smooth transitions.</p>
+                                    <p className='economy-common-para'>Effortlessly move stablecoins between chains at the cheapest and fastest rates, ensuring smooth transitions.</p>
                                 </div>
                             </div>
                         </Col>
-                        <Col lg="4" className='margin-set'>
+                        <Col lg="4" md="6" className='margin-set'>
                             <div className='next-gen-box '>
                                 <img src='/assets/images/decentralised.png' className="img-fluid" alt="fingerprint" />
                                 <div>
                                     <h4 className='economy-common-heading'>Decentralized Private Advisors</h4>
-                                    <p>Need help navigating the blockchain space? Access to our network of Decentralized Private Licensed Advisors Globally. Assisting you through your whole journey.</p>
+                                    <p className='economy-common-para'>Need help navigating the blockchain space? Access to our network of Decentralized Private Licensed Advisors Globally. Assisting you through your whole journey.</p>
                                 </div>
                             </div>
                         </Col>

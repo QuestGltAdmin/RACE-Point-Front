@@ -158,3 +158,128 @@
 .blockchain-section .content-block ul li p{
     margin-bottom: 0;
 }
+@media (max-width:1400px){
+    .economy-banner.race-banner-sec .banner-img img{
+        max-width: 75%;
+    }
+}
+@media (max-width:1200px){
+    .economy-banner.race-banner-sec .detailed-content .economy-box h4 {
+        font-size: 28px;
+        line-height: 36px;
+    }
+    .economy-banner.race-banner-sec .detailed-content .economy-box p {
+        font-size: 16px;
+        line-height: 22px;
+    }
+    .economy-banner.race-banner-sec .banner-img img{
+        max-width: 60%;
+        top: 30px;
+    }
+    .economy-banner.race-banner-sec .detailed-content {
+        margin-top: 70px;
+    }
+    .economy-banner.race-banner-sec {
+        padding-top: 160px;
+    }
+}
+@media (max-width:991px){
+    .responsive-none{
+        display: none;
+    }
+    .next-generation-sec .bordered{
+        border: none;
+    }
+    .economy-common-para {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .next-generation-sec .next-gen-box img {
+        max-height: 60px;
+    }
+    .economy-banner.race-banner-sec .detailed-content .economy-box{
+        padding: 16px;
+        margin-bottom: 24px;
+        height: 330px;
+    }
+    .economy-banner.race-banner-sec .detailed-content .economy-box .icon-white {
+        height: 60px;
+        width: 60px;
+        padding: 6px;
+        margin-bottom: 2rem;
+    }
+    .economy-banner.race-banner-sec .detailed-content .economy-box h4 {
+        font-size: 22px;
+        line-height: 30px;
+    }
+    .economy-banner.race-banner-sec .detailed-content .economy-box p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+    .economy-common-heading {
+        font-size: 26px;
+        line-height: 32px;
+    }
+    .economy-common-para {
+        font-size: 14px;
+        line-height: 22px;
+    }
+    .next-generation-sec .next-gen-box h4{
+        font-size: 20px;
+        line-height: 26px;
+    }
+    .blockchain-section .content-block .cellphone-image img{
+        max-height: 70px;
+    }
+    .economy-banner.race-banner-sec{
+        padding-top: 90px;
+    }
+    .economy-banner.race-banner-sec .banner-img img{
+        width: 60%;
+        top: 30px;
+    }
+    .economy-banner.race-banner-sec .detailed-content {
+        margin-top: 40px;
+    }
+}
+@media (max-width:768px){
+    .economy-banner.race-banner-sec .detailed-content .economy-box{
+        height: auto;
+    }
+    .economy-banner.race-banner-sec .banner-img img{
+        width: 100%;
+    }
+    .economy-banner.race-banner-sec .button-store{
+        justify-content: center;
+    }
+    .economy-banner.race-banner-sec{
+        padding-top: 90px;
+    }
+    .economy-banner.race-banner-sec .detailed-content{
+        margin-top: -100px;
+    }
+  
+    .next-generation-sec {
+        padding: 40px 0;
+    }
+   
+    .blockchain-section .button-store{
+        margin-bottom: 2rem;
+    }
+    .blockchain-section {
+        padding: 60px 0;
+    }
+    .blockchain-section .content-block .cellphone-image{
+        gap: 20px;
+    }
+    .economy-banner.race-banner-sec .banner-img img{
+        right: 0;
+        position: relative;
+        max-width: 100%;
+    }
+}
+@media (max-width:576px){
+    .economy-banner.race-banner-sec .detailed-content {
+        margin-top: -60px;
+    }
+}
