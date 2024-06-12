@@ -25,7 +25,7 @@ export default function ConnectWalletModal({
     let loadingToastId;
     try {
       props.modalProps.onHide();
-
+      console.log(type);
       if (type === "walletConnect") {
         // Display loading toast only for WalletConnect
         loadingToastId = toast("Connecting Wallet...", { autoClose: 3000 });
@@ -75,33 +75,33 @@ export default function ConnectWalletModal({
   //===================================End Of Code===================================//
 
   //=================Account change code===============//
-  const getWalletAddress = async () => {
-    const walletAcc = await ReConnect(WalletEVM.type);
-    if (WalletEVM.type === "walletConnect") {
-      document.addEventListener("ACCOUNT_CONNECTED", (e) => {
-        if (e.detail) {
-          dispatch(setEVMWallet(e.detail));
-        }
-      });
-      document.addEventListener("SELECT_WALLET", (e) => {
-        if (e.detail) {
-          dispatch(setEVMWallet(e.detail));
-        }
-      });
-      document.addEventListener("MODAL_CLOSE", (e) => {
-        if (e.detail) {
-          dispatch(setEVMWallet(e.detail));
-        }
-      });
-      document.addEventListener("CONNECT_SUCCESS", (e) => {
-        if (e.detail) {
-          dispatch(setEVMWallet(e.detail));
-        }
-      });
-    } else {
-      dispatch(setEVMWallet(walletAcc));
-    }
-  };
+  // const getWalletAddress = async () => {
+  //   const walletAcc = await ReConnect(WalletEVM.type);
+  //   if (WalletEVM.type === "walletConnect") {
+  //     document.addEventListener("ACCOUNT_CONNECTED", (e) => {
+  //       if (e.detail) {
+  //         dispatch(setEVMWallet(e.detail));
+  //       }
+  //     });
+  //     document.addEventListener("SELECT_WALLET", (e) => {
+  //       if (e.detail) {
+  //         dispatch(setEVMWallet(e.detail));
+  //       }
+  //     });
+  //     document.addEventListener("MODAL_CLOSE", (e) => {
+  //       if (e.detail) {
+  //         dispatch(setEVMWallet(e.detail));
+  //       }
+  //     });
+  //     document.addEventListener("CONNECT_SUCCESS", (e) => {
+  //       if (e.detail) {
+  //         dispatch(setEVMWallet(e.detail));
+  //       }
+  //     });
+  //   } else {
+  //     dispatch(setEVMWallet(walletAcc));
+  //   }
+  // };
 
   useEffect(() => {
     if (WalletEVM) {
@@ -113,11 +113,11 @@ export default function ConnectWalletModal({
     }
   }, [WalletEVM]);
 
-  useEffect(() => {
-    if (walletAddress) {
-      getWalletAddress();
-    }
-  }, [walletAddress]);
+  // useEffect(() => {
+  //   if (walletAddress) {
+  //     getWalletAddress();
+  //   }
+  // }, [walletAddress]);
 
   return (
     <Modal
