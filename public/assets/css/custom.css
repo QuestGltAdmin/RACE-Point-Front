@@ -8,7 +8,12 @@ body {
     left: 0;
     right: 0;
     top: 0;
+    background-color: transparent;
+    z-index: 1000;
+}
+.header-landing.darker-header {
     background-color: #05131B;
+    border-bottom: 1px solid #C38A79;
 }
 
 .header-landing .navbar-brand h1 {
