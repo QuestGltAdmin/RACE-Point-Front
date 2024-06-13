@@ -763,3 +763,83 @@ height: 14px;
     left: -10%;
     opacity: 0.6;
 }
+
+@media (max-width:1200px){
+    .read-more-box p {
+        font-size: 1rem !important;
+    }
+    .retro-active-box .main-img {
+        height: 65px;
+        margin-bottom: 25px;
+    }
+    .retro-active-box .info-popup span {
+        font-weight: 400;
+        max-width: 220px;
+    }
+    .retro-active-box {
+        padding: 30px 20px;
+        margin: 20px auto;
+        min-height: 700px;
+    }
+    .newsletter-box-new.executive-box .circles-img {
+        max-width: 160px;
+        margin-bottom: 15px;
+    }
+    .newsletter-box-new.executive-box {
+        padding: 30px;
+        margin-top: 40px;
+    }
+}
+
+@media (max-width:992px){
+    .race-banner-sec .banner-content .common-heading {
+        text-align: center;
+        margin: 20px 0;
+    }
+    .race-banner-sec.governance-sec .banner-content {
+        max-width: 100%;
+        text-align: center;
+    }
+    .read-more-box {
+        max-width: 100%;
+        justify-content: center;
+    }
+    .race-banner-sec .banner-img{
+        text-align: center;
+    }
+    .race-banner-sec .banner-img img {
+        width: 100%;
+        max-width: 220px;
+        margin: 0 auto;
+    }
+    .retro-active-box .info-popup span {
+        max-width: 85%;
+    }
+    .retro-active-box {
+        padding: 20px;
+        min-height: auto;
+        max-width: 100%;
+    }
+    .cone-img {
+        max-width: 60px;
+        margin: 0 auto;
+    }
+    .ahouse-sec {
+        padding: 40px 0 0;
+    }
+}
+
+@media (max-width:768px){
+    .retro-active-box .info-popup span {
+        max-width: 75%;
+        font-size: 0.6rem;
+        line-height: 0.9rem;
+    }
+    .newsletter-box-new.executive-box {
+        padding: 10px;
+        margin-top: 0;
+    }
+    .retro-active-box {
+        padding: 15px;
+    }
+}

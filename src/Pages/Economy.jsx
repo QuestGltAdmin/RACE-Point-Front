@@ -73,7 +73,7 @@ const Economy = () => {
                 </Container>
             </section>
 
-            <section className='next-generation-sec'>
+            <section className='next-generation-sec' id="community">
                 <Container>
                     <Row className='justify-content-center'>
                         <div className='text-center'>
@@ -161,7 +161,7 @@ const Economy = () => {
                 </Container>
             </section>
 
-            <section className='blockchain-section'>
+            <section className='blockchain-section' id="wallet">
                 <Container>
                     <Row>
                         <Col md="6">

@@ -42,7 +42,7 @@ export const Governace = () => {
        
        </Container>
     </section>
-    <section className="ahouse-sec">
+    <section className="ahouse-sec" id="vhouse">
        <Container>
           <h2 className="common-heading">aHouse</h2>
           <Row >
@@ -60,7 +60,9 @@ export const Governace = () => {
                 </div>
              </Col>
              <Col lg={2}>
-                <img src="assets/img/cone-img-2.png" className="img-fluid cone-img" alt="" />
+                <div className="text-center">
+                    <img src="assets/img/cone-img-2.png" className="img-fluid cone-img" alt="" />
+                </div>
              </Col>
              <Col lg={5}>
                 <div className="retro-active-box">
@@ -80,7 +82,7 @@ export const Governace = () => {
        </Container>
      </section>
 
-    <section className="ahouse-sec">
+    <section className="ahouse-sec" id="ahouse">
        <Container>
           <h2 className="common-heading">aHouse</h2>
           <Row >
@@ -98,7 +100,10 @@ export const Governace = () => {
                 </div>
              </Col>
              <Col lg={2}>
-                <img src="assets/img/cone-img.png" className="img-fluid cone-img" alt="" />
+                <div className="text-center">
+                  <img src="assets/img/cone-img.png" className="img-fluid cone-img" alt="" />
+                </div>
+                
              </Col>
              <Col lg={5}>
                 <div className="retro-active-box">
@@ -119,7 +124,7 @@ investment aligns with our principles of decentralization, yielding sustainable 
        </Container>
      </section>
 
-    <section className="">
+    <section className="" id="executive">
        <Container>
           <Row >
              <Col lg={12}>

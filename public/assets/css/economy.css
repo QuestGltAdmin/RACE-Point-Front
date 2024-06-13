@@ -1,6 +1,11 @@
 .home-header.header-landing .nav-item .dropdown-menu{
     border: none;
 }
+.home-header.header-landing .nav-item.right-dropdown.dropdown .dropdown-menu{
+    right: 0;
+    left: auto;
+}
+
 .home-header.header-landing .dropdown-menu .common-dropdown {
     background-color: #052a46;
     display: flex;
@@ -12,10 +17,10 @@
 .home-header.header-landing .dropdown-menu .common-dropdown .dropdown-item:last-child{
     border-right: none;
 }
-.home-header.header-landing .common-dropdown .inner-dropdown{
-    padding: 20px;
+.home-header.header-landing .common-dropdown .inner-dropdown {
+    padding: 15px 20px;
     text-align: center;
-    min-width: 192px;
+    min-width: 115px;
 }
 .home-header.header-landing .common-dropdown .inner-dropdown img{
     height: 20px;
