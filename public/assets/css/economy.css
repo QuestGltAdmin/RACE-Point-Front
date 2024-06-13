@@ -216,8 +216,24 @@
     .economy-banner.race-banner-sec {
         padding-top: 160px;
     }
+    .economy-common-para{
+        font-size: 16px;
+    }
+    .next-generation-sec .next-gen-box img{
+        max-height: 70px;
+    }
+    .next-generation-sec .next-gen-box h4 {
+        font-size: 22px;
+    }
+    .economy-common-heading {
+        font-size: 36px;
+        line-height: 45px;
+    }
 }
 @media (max-width:991px){
+    .next-generation-sec{
+        padding: 60px 0;
+    }
     .home-header.header-landing .common-dropdown .inner-dropdown{
         min-width: auto;
     }
@@ -258,7 +274,7 @@
         margin-bottom: 2rem;
     }
     .economy-banner.race-banner-sec .detailed-content .economy-box h4 {
-        font-size: 22px;
+        font-size: 20px;
         line-height: 30px;
     }
     .economy-banner.race-banner-sec .detailed-content .economy-box p {
