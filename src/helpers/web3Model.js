@@ -19,8 +19,8 @@ const projectId = "d08eb2217fb6617806808dc3fa08f8b4";
 
 // 2. Create wagmiConfig
 const metadata = {
-  name: "SGODS",
-  description: "SGODS Solana Token",
+  name: "Race_Point",
+  description: "Race Point",
   url: "https://solanagods.com/",
   icons: [
     "https://bafybeigesge5mcfs5ipekq7wvjrqnrl6o7nlgknrjqhp6t52x7j75sym2a.ipfs.nftstorage.link/",

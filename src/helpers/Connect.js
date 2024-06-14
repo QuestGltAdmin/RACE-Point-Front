@@ -15,7 +15,10 @@ export const Connect = async (type) => {
         dispatch("ACCOUNT_CONNECTED", account);
         return account;
       } else {
+        console.log("11111111111111")
         let _web3Modal = await web3Modal();
+        console.log("2222222222222")
+
         await OpenModal();
         _web3Modal.subscribeEvents(async (e) => {
           account = await getAccountDetail();

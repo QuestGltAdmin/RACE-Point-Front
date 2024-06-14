@@ -25,7 +25,6 @@ function App() {
           {/* front pages */}
           <Route path="/home" element={<Homepage />} />
           <Route path="/governance" element={<Governace />} />
-
           <Route path="/economy" element={<Economy />} />
         </Routes>
       </BrowserRouter>
