@@ -38,7 +38,7 @@ export const commonSwitch = async (requireNetwork, type) => {
         method: "wallet_switchEthereumChain",
         params: [{ chainId: chainId.chainIdHex }],
       });
-      
+
       toast.update(id, {
         render: `You have successfully switched to ${chainId.name} network`,
         type: "success",

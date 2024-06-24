@@ -4,10 +4,10 @@ let timezone = Intl.DateTimeFormat().resolvedOptions();
 
 const axiosMain = axios.create({
   baseURL: "",
-  
+
   headers: {
     "Content-Type": "application/json",
-    "Timezone" : timezone.timeZone
+    Timezone: timezone.timeZone,
   },
 });
 export default axiosMain;

@@ -1,73 +1,84 @@
-import React, { useState } from 'react'
-import { Header } from '../Components/Header'
-import { Col, Container, Dropdown, Form, InputGroup, Modal, ProgressBar, Row } from 'react-bootstrap'
+import React, { useState } from "react";
+import { Header } from "../Components/Header";
+import {
+  Col,
+  Container,
+  Dropdown,
+  Form,
+  InputGroup,
+  Modal,
+  ProgressBar,
+  Row,
+} from "react-bootstrap";
 
 export const Depositstepfirst = () => {
-    const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <>
-      <Header/>
+      <Header />
       <section className="deposit-step-sec">
         <Container>
-            <Row>
-                <Col>
-                   <h2 className="common-heading">Start Your Points Journey</h2>
-                </Col>
-            </Row>
-            <Row>
-                <Col lg={3} md={6} sm={6} xs={6}>
-                   <div className="coin-box">
-                        <img src="assets/img/coin1.png" alt="" />
-                        <h3>Optimism</h3>
-                        <h5>Deposit in</h5>
-                        <div className="btn-row">
-                             <button onClick={handleShow} className="coin-btn">USDC</button>
-                             <button className="coin-btn">Tether</button>
-                        </div>
-                   </div>
-                </Col>
-                <Col lg={3} md={6} sm={6} xs={6}>
-                   <div className="coin-box">
-                        <img src="assets/img/coin2.png" alt="" />
-                        <h3>Polygon</h3>
-                        <h5>Deposit in</h5>
-                        <div className="btn-row">
-                             <button className="coin-btn">USDC</button>
-                             <button className="coin-btn">Tether</button>
-                        </div>
-                   </div>
-                </Col>
-                <Col lg={3} md={6} sm={6} xs={6}>
-                   <div className="coin-box">
-                        <img src="assets/img/coin3.png" alt="" />
-                        <h3>Arbitrium</h3>
-                        <h5>Deposit in</h5>
-                        <div className="btn-row">
-                             <button className="coin-btn">USDC</button>
-                             <button className="coin-btn">Tether</button>
-                        </div>
-                   </div>
-                </Col>
-                <Col lg={3} md={6} sm={6} xs={6}>
-                   <div className="coin-box">
-                        <img src="assets/img/coin4.png" alt="" />
-                        <h3>Base</h3>
-                        <h5>Deposit in</h5>
-                        <div className="btn-row">
-                             <button className="coin-btn">USDC</button>
-                             <button className="coin-btn">Tether</button>
-                        </div>
-                   </div>
-                </Col>
-            </Row>
+          <Row>
+            <Col>
+              <h2 className="common-heading">Start Your Points Journey</h2>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={3} md={6} sm={6} xs={6}>
+              <div className="coin-box">
+                <img src="assets/img/coin1.png" alt="" />
+                <h3>Optimism</h3>
+                <h5>Deposit in</h5>
+                <div className="btn-row">
+                  <button onClick={handleShow} className="coin-btn">
+                    USDC
+                  </button>
+                  <button className="coin-btn">Tether</button>
+                </div>
+              </div>
+            </Col>
+            <Col lg={3} md={6} sm={6} xs={6}>
+              <div className="coin-box">
+                <img src="assets/img/coin2.png" alt="" />
+                <h3>Polygon</h3>
+                <h5>Deposit in</h5>
+                <div className="btn-row">
+                  <button className="coin-btn">USDC</button>
+                  <button className="coin-btn">Tether</button>
+                </div>
+              </div>
+            </Col>
+            <Col lg={3} md={6} sm={6} xs={6}>
+              <div className="coin-box">
+                <img src="assets/img/coin3.png" alt="" />
+                <h3>Arbitrium</h3>
+                <h5>Deposit in</h5>
+                <div className="btn-row">
+                  <button className="coin-btn">USDC</button>
+                  <button className="coin-btn">Tether</button>
+                </div>
+              </div>
+            </Col>
+            <Col lg={3} md={6} sm={6} xs={6}>
+              <div className="coin-box">
+                <img src="assets/img/coin4.png" alt="" />
+                <h3>Base</h3>
+                <h5>Deposit in</h5>
+                <div className="btn-row">
+                  <button className="coin-btn">USDC</button>
+                  <button className="coin-btn">Tether</button>
+                </div>
+              </div>
+            </Col>
+          </Row>
         </Container>
       </section>
 
       {/* deposite 1 popup  */}
-     {/* <Modal className="network-popup" size="lg" centered show={show} onHide={handleClose}>
+      {/* <Modal className="network-popup" size="lg" centered show={show} onHide={handleClose}>
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
             <div>
@@ -301,98 +312,100 @@ export const Depositstepfirst = () => {
         </Modal.Body>
       </Modal> */}
 
-
-
       {/* deposite popup withdraw */}
-      <Modal className="network-popup deposit-input-popup" size="md" centered show={show} onHide={handleClose}>
+      <Modal
+        className="network-popup deposit-input-popup"
+        size="md"
+        centered
+        show={show}
+        onHide={handleClose}
+      >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
+          <div>
+            <h4 className="sub-heading">Withdraw</h4>
+
+            <Form.Group className="mb-3 form-row">
+              <Form.Label>Sell</Form.Label>
+              <div className="input-flex-row">
+                <InputGroup className="">
+                  <Form.Control placeholder="0.00" />
+                  <InputGroup.Text>max</InputGroup.Text>
+                </InputGroup>
+                <Dropdown>
+                  <Dropdown.Toggle>
+                    <img src="assets/img/favicon.png" alt="" /> RACE
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">
+                      Another action
+                    </Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">
+                      Something else
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+              <p>
+                Balance: <span>22.389485</span>
+              </p>
+            </Form.Group>
+
             <div>
-                <h4 className="sub-heading">Withdraw</h4>
-
-                <Form.Group className="mb-3 form-row">
-                    <Form.Label>Sell</Form.Label>
-                    <div className="input-flex-row">
-                        <InputGroup className="">
-                            <Form.Control
-                            placeholder="0.00"
-                            />
-                            <InputGroup.Text>max</InputGroup.Text>
-                        </InputGroup>
-                        <Dropdown>
-                            <Dropdown.Toggle>
-                            <img src="assets/img/favicon.png" alt="" />  RACE
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </div>
-                    <p>Balance: <span>22.389485</span></p>
-                </Form.Group>
-
-               
-
-                <div>
-                    <ProgressBar className="progress-main-line" variant="success" now={4} />
-                </div>
-                <div className="date-rang-percentage ">
-                    <span className="active">0%</span>
-                    <span>25%</span>
-                    <span>50%</span>
-                    <span>75%</span>
-                    <span>100%</span>
-                </div>
-
-                <Form.Group className="mb-3 form-row">
-                    <Form.Label>Receive</Form.Label>
-                    <Dropdown className="recieve-dropdown-new">
-                            <Dropdown.Toggle>
-                            <img src="assets/img/daller.png" alt="" />  USDC
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1"><img src="assets/img/asset.png" alt="" /> All Assets</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2"><img src="assets/img/daller.png" alt="" /> USDC</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3"><img src="assets/img/coin5.png" alt="" /> WETH</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                </Form.Group>
-
-
-              
-
-
-                <div className="by-with-test with-img mt-4">
-                   <div>
-                    <img src="assets/img/daller.png" alt="" />
-                        USDC
-                   </div>
-                   <span>~ $0</span>
-                </div>
-                <div className="by-with-test race-value-box mt-3">
-                   <span><img src="assets/img/info.png" alt="" /> RACE = 200 USDC ($2.03)</span>
-                </div>
-
-               
-
-                <button className="common-btn bg-left ">Enter USDC Amount</button>
-                
-                
-
-                
-
-
+              <ProgressBar
+                className="progress-main-line"
+                variant="success"
+                now={4}
+              />
             </div>
+            <div className="date-rang-percentage ">
+              <span className="active">0%</span>
+              <span>25%</span>
+              <span>50%</span>
+              <span>75%</span>
+              <span>100%</span>
+            </div>
+
+            <Form.Group className="mb-3 form-row">
+              <Form.Label>Receive</Form.Label>
+              <Dropdown className="recieve-dropdown-new">
+                <Dropdown.Toggle>
+                  <img src="assets/img/daller.png" alt="" /> USDC
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#/action-1">
+                    <img src="assets/img/asset.png" alt="" /> All Assets
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">
+                    <img src="assets/img/daller.png" alt="" /> USDC
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">
+                    <img src="assets/img/coin5.png" alt="" /> WETH
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Form.Group>
+
+            <div className="by-with-test with-img mt-4">
+              <div>
+                <img src="assets/img/daller.png" alt="" />
+                USDC
+              </div>
+              <span>~ $0</span>
+            </div>
+            <div className="by-with-test race-value-box mt-3">
+              <span>
+                <img src="assets/img/info.png" alt="" /> RACE = 200 USDC ($2.03)
+              </span>
+            </div>
+
+            <button className="common-btn bg-left ">Enter USDC Amount</button>
+          </div>
         </Modal.Body>
       </Modal>
-
-
-
-
     </>
-  )
-}
+  );
+};

@@ -63,7 +63,7 @@ export const reConnect = async () => {
     };
   }
   return false;
-}; 
+};
 
 export const getAccountDetail = async () => {
   let account = getAccount(wagmiConfig);
