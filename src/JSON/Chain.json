@@ -69,6 +69,38 @@
         "rpc":"https://polygon-rpc.com",
         "explorer": "https://polygonscan.com/",
         "logo": "https://polygonscan.com/images/svg/brands/poly.png?v=1.3"
+      },
+      {
+        "name": "Optimism Mainnet",
+        "symbol": "ETH",
+        "chainId": 10,
+        "coinName": "Eth",
+        "rpc":"https://mainnet.optimism.io/",
+        "explorer": "https://optimistic.etherscan.io"
+      },
+      {
+        "name": "Base Mainnet",
+        "symbol": "ETH",
+        "chainId": 8453,
+        "coinName": "Eth",
+        "rpc":"https://mainnet.base.org/",
+        "explorer": "https://basescan.org"
+      },
+      {
+        "name": "Base Mainnet",
+        "symbol": "ETH",
+        "chainId": 8453,
+        "coinName": "Eth",
+        "rpc":"https://mainnet.base.org/",
+        "explorer": "https://basescan.org"
+      },
+      {
+        "name": "Arbitrum One",
+        "symbol": "ETH",
+        "chainId": 42161,
+        "coinName": "Eth",
+        "rpc":"https://arb1.arbitrum.io/rpc",
+        "explorer": "https://arbiscan.io"
       }
     ]
   }
