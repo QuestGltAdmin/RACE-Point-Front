@@ -292,16 +292,30 @@ body {
     height: 44px;
 }
 
-
-@media (max-width:1300px) {
+@media (max-width:1400px) {
     .landing-banner-sec .right-sid-content h2 {
-        font-size: 3.4rem;
-        line-height: 4.4rem;
+        font-size: 3.3rem;
+        line-height: 4.1rem;
     }
+    .landing-banner-sec .right-sid-content p {
+        font-size: 1.3rem;
+        line-height: 1.6rem;
+        margin: 1.5rem 0 1.5rem;
+    }
+    .banner-btn .common-btn {
+        min-height: 85px;
+    }
+    .landing-banner-sec .left-img {
+        max-width: 390px;
+    }
+}
+@media (max-width:1300px) {
+   
 
     .landing-banner-sec .left-img img {
         margin-top: 4rem;
     }
+    
 }
 
 @media (max-width:1200px) {
@@ -1822,6 +1836,9 @@ max-width: max-content;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.activity-main-sec{
+    padding: 120px 0 40px;
 }
 
 @media (max-width: 992px) {
