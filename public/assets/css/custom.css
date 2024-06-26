@@ -1729,3 +1729,182 @@ margin-bottom: 0;
     margin-right: 8px;
 }
 }
+
+/* activities page css */
+.deposit-outer-box {
+    border-radius: 24px;
+    background: rgba(4, 29, 49, 0.60);
+    backdrop-filter: blur(12.5px);
+    padding: 24px;
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.deposit-outer-box .deposit-inner-box{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.deposit-outer-box .deposit-inner-box img{
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+    margin-right: 15px;
+}
+.deposit-outer-box .deposit-inner-box h3{
+    color:  #FFF;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2.5rem;
+    letter-spacing: -0.25px;
+    margin-bottom: 0.5rem;
+}
+.deposit-outer-box .deposit-inner-box h5{
+border-radius: 14px;
+background: var(--Palette-Teal-600, #06487E);
+backdrop-filter: blur(12.5px);
+padding: 4px 12px;
+font-size: 14px;
+font-weight: 400;
+color: #C3DDFD;
+line-height: 20px;
+max-width: max-content;
+}
+.deposit-outer-box .common-btn.bg-left {
+    min-width: 34%;
+}
+.coming-soon-box {
+    max-width: 560px;
+    position: relative;
+    padding: 5px;
+    margin-left: 100px;
+}
+.coming-soon-box p {
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 1;
+    filter: blur(3px);
+    margin-bottom: 0;
+}
+.coming-soon-box h6 {
+    background: rgba(5, 19, 27, 0.07);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.coming-soon-box h6 span {
+    border-radius: 14px;
+    background: linear-gradient(90deg, #945B3B 0%, #C38A79 32.29%, #FBCBA7 71.35%, #B37A56 95.31%);
+    backdrop-filter: blur(12.5px);
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    padding: 5px 10px;
+}
+
+.common-heading.font-mid{
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+.deposit-outer-box .invite-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 992px) {
+    .common-heading {
+        font-size: 2rem;
+        line-height: 3rem;
+    }
+    .sub-heading {
+        font-size: 1rem;
+        line-height: 2rem;
+    }
+    .deposit-outer-box {
+        border-radius: 15px;
+        padding: 20px;
+    }
+    .deposit-outer-box .deposit-inner-box img {
+        height: 66px;
+        width: 66px;
+        margin-right: 12px;
+    }
+    .deposit-outer-box .deposit-inner-box h3 {
+         font-size: 1.3rem;
+        line-height: 2.2rem;
+    }
+   body p {
+        font-size: 0.8rem;
+        line-height: 1.2rem;
+    }
+    .deposit-outer-box .common-btn.bg-left {
+        min-width: 30%;
+    }
+    .common-btn {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+    .common-btn img {
+        height: 18px;
+        margin-right: 8px;
+    }
+    .coming-soon-box h6 span {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .coming-soon-box p {
+        font-size: 10px;
+    }
+    .coming-soon-box {
+        max-width: 350px;
+        margin-left: 80px;
+    }
+}
+@media (max-width: 768px){
+    .common-heading {
+        font-size: 1.6rem;
+        line-height: 2rem;
+    }
+    .sub-heading {
+        font-size: 0.8rem;
+        line-height: 1.7;
+    }
+    .deposit-outer-box {
+        border-radius: 10px;
+        padding: 10px;
+        display: block;
+    }
+    .deposit-outer-box .deposit-inner-box h3 {
+        font-size: 1.3rem;
+        line-height: 1.7rem;
+    }
+    .common-heading.font-mid {
+        font-size: 1.2rem;
+    }
+    .deposit-outer-box .common-btn.bg-left {
+        min-width: auto;
+        margin-left: 10px;
+    }
+    .deposit-outer-box .invite-flex {
+        display: block;
+    }
+    .coming-soon-box {
+        max-width: 100%;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+}
