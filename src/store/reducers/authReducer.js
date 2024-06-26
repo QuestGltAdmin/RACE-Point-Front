@@ -51,6 +51,16 @@ const authSlice = createSlice({
       };
     },
 
+    userWalletLogin: (state, action) => {
+      localStorage.setItem("userData", JSON.stringify(action.payload));
+      return {
+        ...state,
+        isUserAuthenticated: true,
+        user: action.payload,   
+      };
+    },
+
+
     userLoginFail: (state, action) => {
       return {
         ...state,
@@ -124,7 +134,7 @@ export const {
   userLoginSaga,
   userLoginStart,
   userloginSuccess,
-  userLoginFail,
+  userLoginFail,userWalletLogin,
 } = authSlice.actions;
 
 export default authSlice.reducer;

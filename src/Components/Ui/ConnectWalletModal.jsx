@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { Connect, ReConnect } from "../../helpers/Connect";
+import { ethers } from "ethers"; // Import ethers.js
+import { Connect } from "../../helpers/Connect"; // Assuming Connect function returns the wallet object directly
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import { setEVMWallet } from "../../store/reducers/authReducer";
 
-export default function ConnectWalletModal({
-  forMobileView,
-  chainData,
-  ...props
-}) {
-  //===================================Global Variable===================================//
+const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
   const dispatch = useDispatch();
   const { WalletEVM } = useAuth();
-  //===================================End Of Code===================================//
 
-  //===================================Local Variable===================================//
   const [walletAddress, setWalletAddress] = useState("");
-  //===================================End Of Code===================================//
-  console.log(walletAddress, "walletAddress");
-  //===================================Connect EVM Wallet==================================//
+  const [ENSName, setENSName] = useState(""); // State to hold the ENS name
+  const [errorMessage, setError] = useState("");
+
   const connect = async (type) => {
     let loadingToastId;
     try {
@@ -34,53 +28,51 @@ export default function ConnectWalletModal({
 
       const wallet = await Connect(type);
 
-      if (type === "walletConnect") {
-        document.addEventListener("ACCOUNT_CONNECTED", (e) => {
-          if (e.detail) {
-            toast.dismiss(loadingToastId);
-            dispatch(setEVMWallet(e.detail));
-            window.location.reload();
-          }
-        });
-        document.addEventListener("SELECT_WALLET", (e) => {
-          if (e.detail) {
-            dispatch(setEVMWallet(e.detail));
-          }
-        });
-        document.addEventListener("MODAL_CLOSE", (e) => {
-          if (e.detail) {
-            dispatch(setEVMWallet(e.detail));
-            window.location.reload();
-          }
-        });
-        document.addEventListener("CONNECT_SUCCESS", (e) => {
-          if (e.detail) {
-            dispatch(setEVMWallet(e.detail));
-            window.location.reload();
-          }
-        });
-      } else {
+      if (wallet) {
         dispatch(setEVMWallet(wallet));
-        window.location.reload();
+        setWalletAddress(wallet.selectedAccount);
+
+        if (type === "walletConnect") {
+          document.addEventListener("ACCOUNT_CONNECTED", async (e) => {
+            if (e.detail) {
+              toast.dismiss(loadingToastId);
+              dispatch(setEVMWallet(e.detail));
+              await resolveENSName(e.detail.selectedAccount); // Fetch ENS name
+              window.location.reload();
+            }
+          });
+        }
+      } else {
+        setError("Failed to connect wallet.");
       }
     } catch (err) {
-      console.log("Connect Wallet: ", err);
-      window.location.reload();
-
+      console.error("Connect Wallet Error:", err);
+      setError("Please install Metamask");
+    } finally {
       if (loadingToastId) {
         toast.dismiss(loadingToastId);
       }
     }
   };
 
-  //===================================End Of Code===================================//
+  const resolveENSName = async (address) => {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const ensName = await provider.lookupAddress(address);
+      setENSName(ensName || "ENS name not found");
+    } catch (error) {
+      console.error("Error resolving ENS name:", error);
+      setENSName("ENS name not found");
+    }
+  };
 
   useEffect(() => {
     if (WalletEVM) {
       let objData = localStorage.getItem("WalletEVM");
-      if (objData !== "undefined") {
+      if (objData && objData !== "undefined") {
         objData = JSON.parse(objData);
-        setWalletAddress(objData?.selectedAccount);
+        setWalletAddress(objData.selectedAccount);
+        resolveENSName(objData.selectedAccount); // Fetch ENS name on initial load if available
       }
     }
   }, [WalletEVM]);
@@ -92,63 +84,41 @@ export default function ConnectWalletModal({
       size="md"
       {...props.modalProps}
       backdrop="static"
-      z
     >
-      {/* <Modal.Header closeButton>
-        <Modal.Title className="common-btn">Connect Wallet</Modal.Title>
-      </Modal.Header> */}
       <Modal.Header closeButton></Modal.Header>
-
       <Modal.Body>
-        <>
-          {" "}
-          <div className="connect-tech-div">
-            <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
-            <p>
-              You’ll need an Ethereum wallet to sign in.{" "}
-              <a href="" className="links">
-                Learn more <img src="assets/img/open_in_new.png" alt="" />
-              </a>
-            </p>
-            <p>
-              Once connected, you will need to sign a message to agree to the{" "}
-              <a href="" className="links">
-                legal disclaimer
-              </a>{" "}
-              before using this website.
-            </p>
-
-            <p>
-              <b>Connect with:</b>
-            </p>
-            {/* <div className="banner-btn"> */}
-            {/* {forMobileView === false ? ( */}
-            <a className="browse-btn" onClick={() => connect("metamask")}>
-              {/* Metamask <img src="assets/Compress-img/metamask.svg" /> */}
-              <img src="assets/img/Icon.png" alt="" /> Browser Wallet
+        <div className="connect-tech-div">
+          <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
+          <p>
+            You’ll need an Ethereum wallet to sign in.{" "}
+            <a href="" className="links">
+              Learn more <img src="assets/img/open_in_new.png" alt="" />
             </a>
-            {/* ) : (
-              ""
-            )} */}
-
-            <a
-              className="wallet-connect"
-              onClick={() => connect("walletConnect")}
-            >
-              {/* WalletConnect{" "}
-              <img src="assets/Compress-img/walletconnect.svg" /> */}
-              <img src="assets/img/connect.png" alt="" /> Wallet Connect
-            </a>
-          </div>
-          {/* </div> */}
-          {/* <p className="links">
-            New to Ethereum?{" "}
-            <a href="https://ethereum.org/en/wallets/" target={"_blank"}>
-              Learn more about wallets →
-            </a>
-          </p> */}
-        </>
+          </p>
+          <p>
+            Once connected, you will need to sign a message to agree to the{" "}
+            <a href="" className="links">
+              legal disclaimer
+            </a>{" "}
+            before using this website.
+          </p>
+          <p>
+            <b>Connect with:</b>
+          </p>
+          <a className="browse-btn" onClick={() => connect("metamask")}>
+            <img src="assets/img/Icon.png" alt="" /> Browser Wallet
+          </a>
+          <a
+            className="wallet-connect"
+            onClick={() => connect("walletConnect")}
+          >
+            <img src="assets/img/connect.png" alt="" /> Wallet Connect
+          </a>{" "}
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+        </div>
       </Modal.Body>
     </Modal>
   );
-}
+};
+
+export default ConnectWalletModal;
