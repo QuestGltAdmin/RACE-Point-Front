@@ -3,7 +3,7 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Landing } from "./Pages/Landing";
+import Landing from "./Pages/Landing";
 import { Depositstepfirst } from "./Pages/Depositstepfirst";
 import { Dashboard } from "./Pages/Dashboard";
 import { Leaderboard } from "./Pages/Leaderboard";
