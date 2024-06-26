@@ -16,6 +16,19 @@ import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
 import { Header } from "../Components/Header";
 import { useDispatch } from "react-redux";
 import { userWalletLogin } from "../store/reducers/authReducer";
+import axios from "axios";
+
+//================================================== All the juridictions restricted countries ===================================
+{
+  /*const restrictedCountries = [
+  'US', 'KP', 'IR', 'SY', 'SD', 'UA', 'CU',  // Existing restricted countries
+  'SY', 'JM', 'ML', 'SS', 'BF', 'CD', 'HT', 'MZ', 'NG', 'PH', 
+  'SN', 'ZA', 'TZ', 'TR', 'BB', 'GI', 'IR', 'CU', 'KP', 'KY', 'HR', 'JO'
+]; */
+}
+
+//=======================================Restricted Countries===========================================
+const restrictedCountries = ["US"]; // add "IN" for testing
 
 const Landing = () => {
   const { WalletEVM } = useAuth();
@@ -35,6 +48,7 @@ const Landing = () => {
   const [walletAddress, setWalletAddress] = useState(""); // State to hold the wallet address
 
   const [loading, setLoading] = useState(false); // Loading state for async operations
+  const [isRestricted, setIsRestricted] = useState(false);
 
   const handleCloseModals = () => {
     setShowConnectWalletModal(false);
@@ -43,6 +57,7 @@ const Landing = () => {
     setShowReferralCodesModal(false);
   };
 
+  //========================================= Display Modal at first =======================================
   const handleShowConnectWalletModal = () => {
     let objData = localStorage.getItem("WalletEVM");
 
@@ -56,11 +71,13 @@ const Landing = () => {
     }
   };
 
+  //========================================= Referral code change =======================================
   const handleReferralCodeChange = (event) => {
     setReferralCode(event.target.value);
     setErrorMessage(""); // Clear any previous error message
   };
 
+  //========================================= Referral code verify =======================================
   const handleVerifyReferralCode = async () => {
     try {
       if (!referralCode) {
@@ -97,11 +114,10 @@ const Landing = () => {
   };
 
   const handleShowReferral1 = () => {
-    // Implement your referral handling logic here
     console.log("Handling referral 1");
-    // For example, you could update state or perform other actions here
   };
 
+  //========================================== Add user to the backend ============================================
   const addUserWithReferralCode = async () => {
     try {
       setLoading(true); // Start loading state
@@ -159,7 +175,7 @@ const Landing = () => {
     }
   };
 
-  // Effect to fetch wallet info and redirect if user is already logged in
+  //=========================================== Fetch wallet info and redirect to dashboard ====================================
   useEffect(() => {
     if (WalletEVM?.selectedAccount) {
       checkForAlreadyLogin(WalletEVM?.selectedAccount);
@@ -183,7 +199,7 @@ const Landing = () => {
     }
   };
 
-  // Define ConnectWalletModalProps using useMemo
+  //======================================== Define ConnectWalletModalProps ===========================================
   const ConnectWalletModalProps = useMemo(
     () => ({
       modalProps: {
@@ -196,6 +212,35 @@ const Landing = () => {
   );
 
   const handleShowReferralCodesModal = () => setShowReferralCodesModal(true);
+
+  //=========================================== Check for location restriction =============================================
+  useEffect(() => {
+    const checkLocation = async () => {
+      try {
+        const response = await axios.get("https://ipapi.co/json/");
+        const { country } = response.data;
+        if (restrictedCountries.includes(country)) {
+          setIsRestricted(true);
+          //alert("Access restricted in your country.");
+          // Optionally redirect to an error page or show a specific message
+          document.querySelector(".restrict").innerHTML = `
+              <div style="display: flex; justify-content: center; align-items: center; height: 7vh; ">
+              <div style="display: flex; justify-content: center; align-items: center; height: 7vh; width: 50vh; background-color: red; color: white; text-align: center;">
+                <span>
+                <small>This site is not available for people or entities</small><br>
+                <small>in US and other restricted jurisdictions.</small>
+                </span>
+              </div>
+              </div>
+            `;
+        }
+      } catch (error) {
+        console.error("Error fetching location:", error);
+      }
+    };
+
+    checkLocation();
+  }, []);
 
   return (
     <>
@@ -227,41 +272,28 @@ const Landing = () => {
                           variant="primary"
                           className="common-btn"
                           onClick={handleShowConnectWalletModal}
-                          disabled={loading} // Disable button when loading
+                          disabled={isRestricted}
                         >
-                          {loading ? (
-                            <>
-                              <Spinner
-                                as="span"
-                                animation="border"
-                                size="sm"
-                                role="status"
-                                aria-hidden="true"
-                                className="mr-2"
-                              />
-                              Loading...
-                            </>
-                          ) : (
-                            <>
-                              <img src="assets/img/dash.png" alt="" />
-                              <div>
-                                Connect Wallet{" "}
-                                <span>Track your points here</span>
-                              </div>
-                            </>
-                          )}
+                          <img src="assets/img/dash.png" alt="" />
+                          <div>
+                            Connect Wallet <span>Track your points here</span>
+                          </div>
                         </Button>
                         <Button
                           variant="primary"
                           className="common-btn"
+                          disabled={isRestricted}
                           href="#"
                         >
                           <img src="assets/img/star.png" alt="" />
                           Activities
                         </Button>
-                      </div>{" "}
+                      </div>
                     </div>
                   </Col>
+                </Row>{" "}
+                <Row class="align-items-center">
+                  <p class="restrict "></p>
                 </Row>
               </div>
             </Col>
