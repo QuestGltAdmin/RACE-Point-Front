@@ -218,6 +218,7 @@ const Landing = () => {
     const checkLocation = async () => {
       try {
         const response = await axios.get("https://ipapi.co/json/");
+        console.log(response);
         const { country } = response.data;
         console.log(response,"response")
         if (restrictedCountries.includes(country)) {
@@ -293,8 +294,8 @@ const Landing = () => {
                     </div>
                   </Col>
                 </Row>{" "}
-                <Row class="align-items-center">
-                  <p class="restrict "></p>
+                <Row className="align-items-center">
+                  <p className="restrict "></p>
                 </Row>
               </div>
             </Col>
@@ -417,9 +418,7 @@ const Landing = () => {
         show={showReferralCodesModal}
         onHide={handleCloseModals}
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Referral Codes</Modal.Title>
-        </Modal.Header>
+        <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
             <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
