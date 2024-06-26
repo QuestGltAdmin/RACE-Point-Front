@@ -219,6 +219,7 @@ const Landing = () => {
       try {
         const response = await axios.get("https://ipapi.co/json/");
         const { country } = response.data;
+        console.log(response,"response")
         if (restrictedCountries.includes(country)) {
           setIsRestricted(true);
           //alert("Access restricted in your country.");
@@ -270,7 +271,7 @@ const Landing = () => {
                       <div className="banner-btn">
                         <Button
                           variant="primary"
-                          className="common-btn"
+                          className={isRestricted ? "common-btn disable-btn" : "common-btn"}
                           onClick={handleShowConnectWalletModal}
                           disabled={isRestricted}
                         >
@@ -281,7 +282,7 @@ const Landing = () => {
                         </Button>
                         <Button
                           variant="primary"
-                          className="common-btn"
+                          className={isRestricted ? "common-btn disable-btn" : "common-btn"}
                           disabled={isRestricted}
                           href="#"
                         >

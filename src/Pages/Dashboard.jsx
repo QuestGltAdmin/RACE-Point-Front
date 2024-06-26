@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "../Components/Header";
 import {
   Col,
@@ -23,6 +23,10 @@ import {
   Title,
 } from "chart.js";
 import { Doughnut, Pie, Line } from "react-chartjs-2";
+import axiosMain from "../http/axios/axios_main";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
 ChartJS.register(
   ArcElement,
   Tooltip,
@@ -35,12 +39,29 @@ ChartJS.register(
 );
 
 export const Dashboard = () => {
+  //========================= Global variable =========================//
+  const { WalletEVM } = useAuth();
+  const navigate = useNavigate();
+  //========================= end of code =========================//
+
+  //========================= local variable =========================//
+  const [dashboarddata, setDashboardData] = useState([]);
+  //========================= end of code =========================//
+
+  console.log(WalletEVM?.selectedAccount, "usertoken");
+
   const data = {
-    labels: ["Optimism", "Polygon", "Arbitrum", "Base"],
+    labels: ["Arbitrum", "Base", "Optimism", "Polygon"],
     datasets: [
       {
         label: "# of Votes",
-        data: [40, 30, 20, 10],
+        // data: [
+        //   dashboarddata?.location?.arbitrium,
+        //   dashboarddata?.location?.base,
+        //   dashboarddata?.location?.optimism,
+        //   dashboarddata?.location?.polygon,
+        // ],
+        data:[30,40,10,20],
         backgroundColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
         borderColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
         borderWidth: 1,
@@ -55,27 +76,58 @@ export const Dashboard = () => {
       },
     },
   };
+console.log(dashboarddata?.location?.arbitrium,";;;")
+  // const data1 = {
+  //   labels: ["USDC", "USDT", "ETH"],
+  //   datasets: [
+  //     {
+  //       label: "# of Votes",
+  //       data: [60, 25, 15],
+  //       backgroundColor: ["#7BB9ED", "#053863", "#1771BD", "#06487E"],
+  //       borderColor: ["#7BB9ED", "#053863", "#1771BD", "#06487E"],
+  //       borderWidth: 1,
+  //     },
+  //   ],
+  // };
+  // const options1 = {
+  //   responsive: true,
+  //   plugins: {
+  //     legend: {
+  //       position: "bottom",
+  //     },
+  //   },
+  // };
+  //===============get dahboard data api====================//
 
-  const data1 = {
-    labels: ["USDC", "USDT", "ETH"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [60, 25, 15],
-        backgroundColor: ["#7BB9ED", "#053863", "#1771BD", "#06487E"],
-        borderColor: ["#7BB9ED", "#053863", "#1771BD", "#06487E"],
-        borderWidth: 1,
-      },
-    ],
+  useEffect(() => {
+    getdata();
+  }, []);
+
+  const getdata = async () => {
+    const wallet = await encryptData(WalletEVM?.selectedAccount);
+    const payload = {
+      walletAddress: wallet,
+    };
+    try {
+      const getdata = await axiosMain.post(
+        "/auth/get-dashboard-deatils",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // authorization: `bearer ${usertoken}`,
+          },
+        }
+      );
+      console.log(getdata, "getdata");
+      if (getdata?.data?.status) {
+        console.log(getdata?.data, "ll");
+        setDashboardData(getdata?.data);
+        console.log(getdata, "lll");
+      }
+    } catch (err) {}
   };
-  const options1 = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "bottom",
-      },
-    },
-  };
+  //===============End of code====================//
 
   return (
     <>
@@ -90,28 +142,28 @@ export const Dashboard = () => {
                     <img src="assets/img/dash-icon-1.png" alt="" />
                     <h3>Amount in vaults</h3>
                     <div className="counter-otp">
+                      <p>{dashboarddata?.amountInVaults}</p>
+                      {/* <p>0</p>
                       <p>0</p>
                       <p>0</p>
                       <p>0</p>
-                      <p>0</p>
-                      <p>0</p>
-                      <p>0</p>
+                      <p>0</p> */}
                     </div>
                   </div>
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
-                    <h3>Amount in vaults</h3>
+                    <h3>Points</h3>
                     <div className="counter-otp">
+                      <p>{dashboarddata?.points}</p>
+                      {/* <p>0</p>
                       <p>0</p>
                       <p>0</p>
-                      <p>0</p>
-                      <p>0</p>
-                      <p>0</p>
-                      <p>0</p>
+                      <p>0</p> */}
+                      {/* <p>0</p> */}
                     </div>
                   </div>
                   <div>
-                    <button className="common-btn bg-left w-100">
+                    <button className="common-btn bg-left w-100" onClick={() =>navigate("/activities")}>
                       <img src="assets/img/star.png" alt="" /> More Activities
                     </button>
                   </div>
@@ -123,12 +175,12 @@ export const Dashboard = () => {
                       <Pie data={data} options={options} />
                     </div>
                   </div>
-                  <div className="dash-count-box">
+                  {/* <div className="dash-count-box">
                     <h3 className="text-center">$</h3>
                     <div className="pie-chart-outer">
                       <Pie data={data1} options={options1} />
                     </div>
-                  </div>
+                  </div> */}
                   <div>
                     <button className="common-btn bg-left w-100">
                       <img src="assets/img/graph.png" alt="" /> Boost Your
