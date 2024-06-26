@@ -9,7 +9,7 @@ export const Activities = () => {
     <section className="leaderboard-main-sec">
         <Container>
             <Row>
-                <Col>
+                <Col md={11} className="m-auto">
                     <h2 className="common-heading text-start mb-2">Activities</h2>
                     <p className="sub-heading text-start">Complete the activities below and earn points</p>
 
