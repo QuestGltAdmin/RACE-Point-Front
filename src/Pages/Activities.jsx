@@ -24,6 +24,10 @@ export const Activities = () => {
   const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
   //================================End of code==============================//
 
+  //============================ Copy button state ==============================
+  const [copiedCodeIndex, setCopiedCodeIndex] = useState(null);
+  //===============================End of code=================================
+
   const handleCloseModals = () => {
     setShowReferralCodesModal(false);
   };
@@ -76,6 +80,20 @@ export const Activities = () => {
       console.error("Error fetching leaderboard data:", error);
     }
   };
+
+  //=============================== Funtion to copy referral code to clipboard =================================
+  const handleCopy = (code, index) => {
+    navigator.clipboard
+      .writeText(code)
+      .then(() => {
+        setCopiedCodeIndex(index);
+        setTimeout(() => setCopiedCodeIndex(null), 2000);
+      })
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      });
+  };
+  //============================================= End of code ==================================================
 
   return (
     <>
@@ -350,13 +368,11 @@ export const Activities = () => {
               <div className="referal-copy-row" key={index}>
                 {items?.is_used ? (
                   <>
-                    <div
-                      style={{ cursor: "not-allowed", userSelect: "none" }}
-                      readonly
-                    >
+                    <div style={{ cursor: "not-allowed", userSelect: "none" }}>
                       <span>{index + 1}</span>
                       {items.code}
                     </div>
+
                     <a href="#">
                       <img
                         src="assets/img/Green-Tick-Vector-PNG-Images.png"
@@ -370,9 +386,13 @@ export const Activities = () => {
                       <span>{index + 1}</span>
                       {items.code}
                     </div>
-                    <a href="#">
-                      <img src="assets/img/copy.png" alt="Copy" />
-                    </a>
+                    {copiedCodeIndex === index ? (
+                      <span className="text-white m-2">Copied!</span>
+                    ) : (
+                      <a href="#" onClick={() => handleCopy(items.code, index)}>
+                        <img src="assets/img/copy.png" alt="Copy" />
+                      </a>
+                    )}
                   </>
                 )}
               </div>

@@ -50,6 +50,10 @@ const Landing = () => {
   const [loading, setLoading] = useState(false); // Loading state for async operations
   const [isRestricted, setIsRestricted] = useState(false);
 
+  //============================ Copy button state ==============================
+  const [copiedCodeIndex, setCopiedCodeIndex] = useState(null);
+  //===============================End of code=================================
+
   const handleCloseModals = () => {
     setShowConnectWalletModal(false);
     setShowReferralModal(false);
@@ -239,6 +243,21 @@ const Landing = () => {
 
     checkLocation();
   }, []);
+  //=========================================== End of code =============================================
+
+  //=============================== Funtion to copy referral code to clipboard =================================
+  const handleCopy = (code, index) => {
+    navigator.clipboard
+      .writeText(code)
+      .then(() => {
+        setCopiedCodeIndex(index);
+        setTimeout(() => setCopiedCodeIndex(null), 2000);
+      })
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      });
+  };
+  //============================================= End of code ==================================================
 
   return (
     <>
@@ -433,9 +452,16 @@ const Landing = () => {
                   <span>{index + 1}</span>
                   {code.code}
                 </div>
-                <a href="#">
-                  <img src="assets/img/copy.png" alt="Copy" />
-                </a>
+                {copiedCodeIndex === index ? (
+                  <span className="text-white m-2">Copied!</span>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={(event) => handleCopy(code.code, index, event)}
+                  >
+                    <img src="assets/img/copy.png" alt="Copy" />
+                  </a>
+                )}
               </div>
             ))}
           </div>
