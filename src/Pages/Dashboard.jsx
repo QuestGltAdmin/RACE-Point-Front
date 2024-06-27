@@ -61,7 +61,7 @@ export const Dashboard = () => {
         //   dashboarddata?.location?.optimism,
         //   dashboarddata?.location?.polygon,
         // ],
-        data:[30,40,10,20],
+        data: [30, 40, 10, 20],
         backgroundColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
         borderColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
         borderWidth: 1,
@@ -76,7 +76,7 @@ export const Dashboard = () => {
       },
     },
   };
-console.log(dashboarddata?.location?.arbitrium,";;;")
+  console.log(dashboarddata?.location?.arbitrium, ";;;");
   // const data1 = {
   //   labels: ["USDC", "USDT", "ETH"],
   //   datasets: [
@@ -163,7 +163,10 @@ console.log(dashboarddata?.location?.arbitrium,";;;")
                     </div>
                   </div>
                   <div>
-                    <button className="common-btn bg-left w-100" onClick={() =>navigate("/activities")}>
+                    <button
+                      className="common-btn bg-left w-100"
+                      onClick={() => navigate("/activities")}
+                    >
                       <img src="assets/img/star.png" alt="" /> More Activities
                     </button>
                   </div>
