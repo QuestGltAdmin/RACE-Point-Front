@@ -12,11 +12,8 @@ export const Connect = async (type) => {
   if (type === "walletConnect") {
     setTimeout(async () => {
       let account = await reConnect();
-      console.log(account,"3333")
       if (account) {
         dispatch("ACCOUNT_CONNECTED", account);
-        console.log(account,"44444")
-
         return account;
       } else {
         let _web3Modal = await web3Modal();
