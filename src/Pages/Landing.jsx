@@ -122,11 +122,6 @@ const Landing = () => {
     try {
       setLoading(true); // Start loading state
 
-      // Log original data before encryption
-      console.log("Original Referral Code:", referralCode);
-      console.log("Original Wallet Address:", walletAddress);
-      console.log("Original ENS Name:", ENSName);
-
       // Ensure none of the fields are empty
       if (!referralCode || !walletAddress) {
         setErrorMessage("Missing required fields.");
@@ -137,11 +132,6 @@ const Landing = () => {
       const encryptedReferralCode = await encryptData(referralCode);
       const encryptedWalletAddress = await encryptData(walletAddress); // Use the state walletAddress
       const encryptedENSName = await encryptData(ENSName); // Use fetched ENS name
-
-      // Log payload data
-      console.log("Encrypted Referral Code:", encryptedReferralCode);
-      console.log("Encrypted Wallet Address:", encryptedWalletAddress);
-      console.log("Encrypted ENS Name:", encryptedENSName);
 
       const payload = {
         referralCode: encryptedReferralCode,
@@ -220,6 +210,7 @@ const Landing = () => {
         const response = await axios.get("https://ipapi.co/json/");
         console.log(response);
         const { country } = response.data;
+        console.log(response, "response");
         if (restrictedCountries.includes(country)) {
           setIsRestricted(true);
           //alert("Access restricted in your country.");
