@@ -14,14 +14,14 @@ import { reconnect, disconnect } from "@wagmi/core";
 // const queryClient = new QueryClient();
 
 // 1. Get projectId at https://cloud.walletconnect.com
-const projectId = "d08eb2217fb6617806808dc3fa08f8b4";
+const projectId = "95da9d9d55eccab86c8b2c8a88d384aa";
 // if (!projectId) throw new Error("Project ID is undefined");
 
 // 2. Create wagmiConfig
 const metadata = {
   name: "Race_Point",
   description: "Race Point",
-  url: "https://solanagods.com/",
+  url: "https://race-point.netlify.app/",
   icons: [
     "https://bafybeigesge5mcfs5ipekq7wvjrqnrl6o7nlgknrjqhp6t52x7j75sym2a.ipfs.nftstorage.link/",
   ],
@@ -44,7 +44,10 @@ export const config = () => {
 };
 
 export const web3Modal = async () => {
+  console.log(wagmiConfig,"11")
+  console.log(projectId,"@2")
   const web3modal = createWeb3Modal({ wagmiConfig, projectId });
+  console.log("3")
   return web3modal;
 };
 
