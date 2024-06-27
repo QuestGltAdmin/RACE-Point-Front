@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "../Components/Header";
 import {
   Col,
@@ -10,12 +10,53 @@ import {
   ProgressBar,
   Row,
 } from "react-bootstrap";
+import { getUsdtAndUsdcBalance } from "../helpers/getUSDTBalance";
+import useAuth from "../hooks/useAuth";
 
 export const Depositstepfirst = () => {
-  const [show, setShow] = useState(false);
 
+    //========================= Global variable =========================//
+    const { WalletEVM, walletbalance } = useAuth();
+  //========================= end of code =========================//
+
+  //========================= local variable =========================//
+  
+  const [show, setShow] = useState(false);
+  const [flag, setFlag] = useState(false);
+  const [balance, setBalance] = useState(80);
+  const [wallet, setWallet] = useState("");
+  const [chainname, setChainName] = useState("");
+  const [chainid, setChainId] = useState("");
+  const [inputValue, setInputValue] = useState({
+    amount: "",
+  });
+  //========================= end of code =========================//
+
+  console.log(inputValue?.amount, "amount");
+
+  const totalpercentage = (inputValue?.amount / balance) * 100;
+  console.log(totalpercentage, "totalpercentage");
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  const HandleData = (e) => {
+    setInputValue({ ...inputValue, [e.target.name]: e.target.value });
+  };
+  
+  const handleShow = async (data) => {
+    setShow(true);
+    setChainId(data?.data?.chain);
+    setChainName(data?.data?.chainname);
+    setWallet(WalletEVM?.selectedAccount);
+
+    const MainBalance = await getUsdtAndUsdcBalance(
+      data?.data?.chain,
+      data?.data?.chainname,
+      WalletEVM?.selectedAccount
+    );
+    console.log(MainBalance, "lllll");
+  };
+  
+
   return (
     <>
       <Header />
@@ -33,10 +74,24 @@ export const Depositstepfirst = () => {
                 <h3>Optimism</h3>
                 <h5>Deposit in</h5>
                 <div className="btn-row">
-                  <button className="coin-btn" onClick={handleShow}>
+                  <button
+                    className="coin-btn"
+                    onClick={() =>
+                      handleShow({
+                        data: { chainname: "USDC_optimism", chain: "10" },
+                      })
+                    }
+                  >
                     USDC
                   </button>
-                  <button className="coin-btn" onClick={handleShow}>
+                  <button
+                    className="coin-btn"
+                    onClick={() =>
+                      handleShow({
+                        data: { chainname: "USDT_optimism", chain: "10" },
+                      })
+                    }
+                  >
                     USDT
                   </button>
                 </div>
@@ -48,10 +103,24 @@ export const Depositstepfirst = () => {
                 <h3>Polygon</h3>
                 <h5>Deposit in</h5>
                 <div className="btn-row">
-                  <button className="coin-btn" onClick={handleShow}>
+                  <button
+                    className="coin-btn"
+                    onClick={() =>
+                      handleShow({
+                        data: { chainname: "USDT_Matic", chain: "137" },
+                      })
+                    }
+                  >
                     USDC
                   </button>
-                  <button className="coin-btn" onClick={handleShow}>
+                  <button
+                    className="coin-btn"
+                    onClick={() =>
+                      handleShow({
+                        data: { chainname: "USDC_Matic", chain: "137" },
+                      })
+                    }
+                  >
                     USDT
                   </button>
                 </div>
@@ -63,10 +132,24 @@ export const Depositstepfirst = () => {
                 <h3>Arbitrium</h3>
                 <h5>Deposit in</h5>
                 <div className="btn-row">
-                  <button className="coin-btn" onClick={handleShow}>
+                  <button
+                    className="coin-btn"
+                    onClick={() =>
+                      handleShow({
+                        data: { chainname: "USDT_Arbitrum", chain: "42161" },
+                      })
+                    }
+                  >
                     USDC
                   </button>
-                  <button className="coin-btn" onClick={handleShow}>
+                  <button
+                    className="coin-btn"
+                    onClick={() =>
+                      handleShow({
+                        data: { chainname: "USDT_Arbitrum", chain: "42161" },
+                      })
+                    }
+                  >
                     USDT
                   </button>
                 </div>
@@ -78,10 +161,24 @@ export const Depositstepfirst = () => {
                 <h3>Base</h3>
                 <h5>Deposit in</h5>
                 <div className="btn-row">
-                  <button className="coin-btn" onClick={handleShow}>
+                  <button
+                    className="coin-btn"
+                    onClick={() =>
+                      handleShow({
+                        data: { chainname: "USDC_Base", chain: "8453" },
+                      })
+                    }
+                  >
                     USDC
                   </button>
-                  <button className="coin-btn" onClick={handleShow}>
+                  <button
+                    className="coin-btn"
+                    onClick={() =>
+                      handleShow({
+                        data: { chainname: "USDT_Base", chain: "8453" },
+                      })
+                    }
+                  >
                     USDT
                   </button>
                 </div>
@@ -114,8 +211,23 @@ export const Depositstepfirst = () => {
               <Form.Label>Buy with</Form.Label>
               <div className="input-flex-row">
                 <InputGroup className="">
-                  <Form.Control placeholder="0.00" />
-                  <InputGroup.Text>max</InputGroup.Text>
+                  <Form.Control
+                    type="number"
+                    placeholder="0.00"
+                    name="amount"
+                    onChange={HandleData}
+                    value={inputValue?.amount}
+                    // max={ balance }
+                  />
+                  <InputGroup.Text
+                    onClick={() =>
+                      setInputValue({
+                        amount: balance,
+                      })
+                    }
+                  >
+                    max
+                  </InputGroup.Text>
                 </InputGroup>
                 <Dropdown>
                   <Dropdown.Toggle>
@@ -125,20 +237,18 @@ export const Depositstepfirst = () => {
                   <Dropdown.Menu>
                     <Dropdown.Item href="#/action-1">USDT</Dropdown.Item>
                     <Dropdown.Item href="#/action-2">USDC</Dropdown.Item>
-                    {/* <Dropdown.Item href="#/action-3">
-                      Something else
-                    </Dropdown.Item> */}
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
-              <p>Balance: 0</p>
+              <p>Balance: {balance}</p>
             </Form.Group>
 
             <div>
               <ProgressBar
                 className="progress-main-line"
                 variant="success"
-                now={49}
+                now={totalpercentage}
+                // label={`${totalpercentage}%`}
               />
             </div>
             <div className="date-rang-percentage ">
@@ -161,7 +271,7 @@ export const Depositstepfirst = () => {
                     <img src="assets/img/coin5.png" alt="" /> RACE
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
+                  {/* <Dropdown.Menu>
                     <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
                     <Dropdown.Item href="#/action-2">
                       Another action
@@ -169,7 +279,7 @@ export const Depositstepfirst = () => {
                     <Dropdown.Item href="#/action-3">
                       Something else
                     </Dropdown.Item>
-                  </Dropdown.Menu>
+                  </Dropdown.Menu> */}
                 </Dropdown>
               </div>
               <p>Balance: 0</p>
