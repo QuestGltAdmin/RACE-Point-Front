@@ -226,14 +226,29 @@ const Landing = () => {
           //alert("Access restricted in your country.");
           // Optionally redirect to an error page or show a specific message
           document.querySelector(".restrict").innerHTML = `
-              <div style="display: flex; justify-content: center; align-items: center; height: 7vh; ">
-              <div style="display: flex; justify-content: center; align-items: center; height: 7vh; width: 50vh; background-color: red; color: white; text-align: center;">
-                <span>
-                <small>This site is not available for people or entities</small><br>
-                <small>in US and other restricted jurisdictions.</small>
-                </span>
-              </div>
-              </div>
+            
+              <div className="error-note" style="border-radius: 8px;
+              background: #B91C1C;
+              color: #FFF;
+              font-size: 0.7;
+              font-style: normal;
+              font-weight: 500;
+              line-height: 1.4rem;
+              letter-spacing: 0.1px;
+              padding: 12px 10px;
+              text-align: left;
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+                  max-width: 400px;
+                 margin: 24px auto;">
+              <img style="height: 24px;
+              width: 24px;
+              object-fit: contain;
+              margin-right: 10px;" src="assets/img/warning.png" alt="" />
+              Trading is not available for people or entities in US and other
+              restricted jurisdictions
+            </div>
             `;
         }
       } catch (error) {
@@ -367,15 +382,17 @@ const Landing = () => {
             >
               {loading ? (
                 <>
+                  <div className="spinner-flex-box">
                   <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                    className="mr-2 center"
-                  />
-                  Loading...
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className=""
+                      />
+                      Loading...
+                  </div>
                 </>
               ) : (
                 <>
