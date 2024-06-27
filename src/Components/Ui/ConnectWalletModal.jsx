@@ -26,9 +26,10 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
         // Display loading toast only for WalletConnect
         loadingToastId = toast("Connecting Wallet...", { autoClose: 3000 });
       }
+      // console.log(wallet,"1111")
 
       const wallet = await Connect(type);
-
+        console.log(wallet,"222")
       if (wallet) {
         dispatch(setEVMWallet(wallet));
         setWalletAddress(wallet.selectedAccount);
