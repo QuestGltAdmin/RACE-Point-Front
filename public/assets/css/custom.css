@@ -1532,7 +1532,14 @@ align-items: center;
     line-height: 1.3rem;
     letter-spacing: 0.1px;
     margin-bottom: 5px;
+    
 }
+.deposit-list-main .left-user h4 {
+    word-break: break-all;
+    padding-right: 15px;
+}
+
+
 .deposit-list-main p{
 color: rgba(255, 255, 255, 0.70);
 font-size: 0.7rem;
