@@ -827,6 +827,13 @@ height: 14px;
     .ahouse-sec {
         padding: 40px 0 0;
     }
+    .landing-banner-sec .left-img {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    .banner-btn .common-btn {
+        width: max-content;
+    }
 }
 
 @media (max-width:768px){
@@ -841,5 +848,8 @@ height: 14px;
     }
     .retro-active-box {
         padding: 15px;
+    }
+    .banner-btn .common-btn {
+        width: 100%;
     }
 }
