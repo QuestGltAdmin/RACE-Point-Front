@@ -17,6 +17,13 @@ export const Activities = () => {
   const [referralCodes, setReferralCodes] = useState([]);
   //===============End of code====================//
 
+  //========================= Leaderboard States ============================
+  const [topDeposits, setTopDeposits] = useState([]);
+  const [topReferrals, setTopReferrals] = useState([]);
+  const [monthlyTopUser, setMonthlyTopUser] = useState([]);
+  const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
+  //================================End of code==============================//
+
   const handleCloseModals = () => {
     setShowReferralCodesModal(false);
   };
@@ -26,6 +33,7 @@ export const Activities = () => {
 
   useEffect(() => {
     getdata();
+    getleaderboardData();
   }, []);
 
   const getdata = async () => {
@@ -54,6 +62,20 @@ export const Activities = () => {
     } catch (err) {}
   };
   //===============End of code====================//
+
+  //================================= Get the leaderboeard data API ==============================================
+  const getleaderboardData = async () => {
+    try {
+      const response = await axiosMain.get("/auth/get-leaderboard-deatils");
+      console.log(response);
+      setTopDeposits(response.data.topDeposits); // Set the topDeposits state
+      setTopReferrals(response.data.topReferrals);
+      setMonthlyTopUser(response.data.monthlyTopUser);
+      setQuarterlyTopUser(response.data.quarterlyTopUser);
+    } catch (err) {
+      console.error("Error fetching leaderboard data:", error);
+    }
+  };
 
   return (
     <>
@@ -132,6 +154,8 @@ export const Activities = () => {
           </Row>
         </Container>
       </section>
+
+      {/* ============================================Leaderboard section ======================================================== */}
       <section className="leaderboard-main-sec pt-0">
         <Container>
           <Row>
@@ -140,591 +164,169 @@ export const Activities = () => {
             </Col>
           </Row>
           <Row>
+            {/* =============================Top deposits ====================================== */}
             <Col lg={5}>
               <div className="top-deposit-box for-min-height">
                 <h4 className="sub-heading text-start">Top Deposits</h4>
                 <Row>
-                  <Col lg={6} md={6} sm={6} xs={6}>
-                    <div className="inner-user-box">
-                      <div className="user-img">
-                        <img src="assets/img/user.png" alt="" />
+                  {topDeposits.map((deposit, index) => (
+                    <Col lg={6} md={6} sm={6} xs={6}>
+                      <div className="inner-user-box">
+                        <div className="user-img">
+                          <img src={deposit.profile} alt="" />
+                        </div>
+                        <h4>{`${deposit.wallet_address.slice(
+                          0,
+                          5
+                        )}...${deposit.wallet_address.slice(-5)}`}</h4>
+                        <p>{deposit.ENS_name}</p>
+                        <h3>
+                          <b>
+                            {deposit.currency}
+                            {deposit.deposit}
+                          </b>{" "}
+                          Deposited
+                        </h3>
                       </div>
-                      <h4>Suraj Khandwal</h4>
-                      <p>Jaipur, Rajsthan</p>
-                      <h3>
-                        <b>$10,000</b> Deposited
-                      </h3>
-                    </div>
-                  </Col>
-                  <Col lg={6} md={6} sm={6} xs={6}>
-                    <div className="inner-user-box">
-                      <div className="user-img">
-                        <img src="assets/img/user.png" alt="" />
-                      </div>
-                      <h4>Suraj Khandwal</h4>
-                      <p>Jaipur, Rajsthan</p>
-                      <h3>
-                        <b>$10,000</b> Deposited
-                      </h3>
-                    </div>
-                  </Col>
+                    </Col>
+                  ))}
                 </Row>
               </div>
             </Col>
+            {/* ===============================================End of code ======================================= */}
+
+            {/* ================================================Top Referrals ==================================== */}
             <Col lg={7}>
               <div className="top-deposit-box for-min-height">
                 <h4 className="sub-heading text-start">Top Referrals</h4>
                 <Row>
-                  <Col lg={4} md={4} sm={6} xs={6}>
-                    <div className="inner-user-box top-referrals">
-                      <div className="user-img">
-                        <img src="assets/img/user.png" alt="" />
+                  {topReferrals.map((refer, index) => (
+                    <Col lg={4} md={4} sm={6} xs={6}>
+                      <div className="inner-user-box top-referrals">
+                        <div className="user-img">
+                          <img src={refer.profile} alt="" />
+                        </div>
+                        <h4>{`${refer.wallet_address.slice(
+                          0,
+                          5
+                        )}...${refer.wallet_address.slice(-5)}`}</h4>
+                        <p>{refer.ENS_name}</p>
+                        <div className="referral-point">
+                          <h3>
+                            <img src="assets/img/referal.png" alt="" />{" "}
+                            <b>{refer.referral_count}</b> <span>Referrals</span>
+                          </h3>
+                          <h3>
+                            <img src="assets/img/trophy.png" alt="" />{" "}
+                            <b>{refer.earn_points}</b> <span>Points</span>
+                          </h3>
+                        </div>
                       </div>
-                      <h4>Suraj Khandwal</h4>
-                      <p>Jaipur, Rajsthan</p>
-                      <div className="referral-point">
-                        <h3>
-                          <img src="assets/img/referal.png" alt="" /> <b>345</b>{" "}
-                          <span>Referals</span>
-                        </h3>
-                        <h3>
-                          <img src="assets/img/trophy.png" alt="" /> <b>200</b>{" "}
-                          <span>Points</span>
-                        </h3>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col lg={4} md={4} sm={6} xs={6}>
-                    <div className="inner-user-box top-referrals">
-                      <div className="user-img">
-                        <img src="assets/img/user.png" alt="" />
-                      </div>
-                      <h4>Suraj Khandwal</h4>
-                      <p>Jaipur, Rajsthan</p>
-                      <div className="referral-point">
-                        <h3>
-                          <img src="assets/img/referal.png" alt="" /> <b>345</b>{" "}
-                          <span>Referals</span>
-                        </h3>
-                        <h3>
-                          <img src="assets/img/trophy.png" alt="" /> <b>200</b>{" "}
-                          <span>Points</span>
-                        </h3>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col lg={4} md={4} sm={6} xs={6}>
-                    <div className="inner-user-box top-referrals">
-                      <div className="user-img">
-                        <img src="assets/img/user.png" alt="" />
-                      </div>
-                      <h4>Suraj Khandwal</h4>
-                      <p>Jaipur, Rajsthan</p>
-                      <div className="referral-point">
-                        <h3>
-                          <img src="assets/img/referal.png" alt="" /> <b>345</b>{" "}
-                          <span>Referals</span>
-                        </h3>
-                        <h3>
-                          <img src="assets/img/trophy.png" alt="" /> <b>200</b>{" "}
-                          <span>Points</span>
-                        </h3>
-                      </div>
-                    </div>
-                  </Col>
+                    </Col>
+                  ))}
                 </Row>
               </div>
             </Col>
+            {/* ========================================End of code ================================================ */}
           </Row>
 
           <Row>
             <Col lg={10} className="m-auto">
               <div className="top-deposit-table">
                 <Tabs defaultActiveKey="top-depsit1" className="mb-3 ">
+                  {/*================================================Monthly============================================== */}
                   <Tab eventKey="top-depsit1" title="Monthly">
                     <ul className="deposit-list-outer">
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>1</span>
+                      {monthlyTopUser.slice(0, 7).map((monthly, index) => (
+                        <li>
+                          <div className="deposit-list-main">
+                            <div className="left-user">
+                              <div className="count-deposit">
+                                <span>{index + 1}</span>
+                                <img
+                                  className="crown-img"
+                                  src={
+                                    index + 1 === 1
+                                      ? "assets/img/king.png"
+                                      : "assets/img/crown.png"
+                                  }
+                                  alt=""
+                                />
+                              </div>
                               <img
-                                className="crown-img"
-                                src="assets/img/king.png"
+                                className="user-img"
+                                src={monthly.profile}
                                 alt=""
                               />
+                              <div>
+                                <h4>{monthly.wallet_address}</h4>
+                                <p>J{monthly.ENS_name}</p>
+                              </div>
                             </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>2</span>
+                            <div className="right-trophy">
                               <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
+                                className="trophy-img"
+                                src="assets/img/trophy.png"
                                 alt=""
                               />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
+                              <div>
+                                <h4>{monthly.monthly_earn_points}</h4>
+                                <p>Points</p>
+                              </div>
                             </div>
                           </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>3</span>
-                              <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
-                                alt=""
-                              />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>4</span>
-                              <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
-                                alt=""
-                              />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>5</span>
-                              <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
-                                alt=""
-                              />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>6</span>
-                              <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
-                                alt=""
-                              />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>7</span>
-                              <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
-                                alt=""
-                              />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
+                        </li>
+                      ))}
                     </ul>
                   </Tab>
+                  {/*================================================End of code =================================== */}
+
+                  {/*================================================Quarterly =================================== */}
                   <Tab eventKey="top-depsit2" title="Quarterly">
                     <ul className="deposit-list-outer">
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>1</span>
+                      {quarterlyTopUser.slice(0, 7).map((quarterly, index) => (
+                        <li>
+                          <div className="deposit-list-main">
+                            <div className="left-user">
+                              <div className="count-deposit">
+                                <span>{index + 1}</span>
+                                <img
+                                  className="crown-img"
+                                  src={
+                                    index + 1 === 1
+                                      ? "assets/img/king.png"
+                                      : "assets/img/crown.png"
+                                  }
+                                  alt=""
+                                />
+                              </div>
                               <img
-                                className="crown-img"
-                                src="assets/img/king.png"
+                                className="user-img"
+                                src={quarterly.profile}
                                 alt=""
                               />
+                              <div>
+                                <h4>{quarterly.wallet_address}</h4>
+                                <p>{quarterly.ENS_name}</p>
+                              </div>
                             </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>2</span>
+                            <div className="right-trophy">
                               <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
+                                className="trophy-img"
+                                src="assets/img/trophy.png"
                                 alt=""
                               />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
+                              <div>
+                                <h4>{quarterly.quarterly_earn_points}</h4>
+                                <p>Points</p>
+                              </div>
                             </div>
                           </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>3</span>
-                              <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
-                                alt=""
-                              />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>4</span>
-                              <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
-                                alt=""
-                              />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>5</span>
-                              <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
-                                alt=""
-                              />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>6</span>
-                              <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
-                                alt=""
-                              />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="deposit-list-main">
-                          <div className="left-user">
-                            <div className="count-deposit">
-                              <span>7</span>
-                              <img
-                                className="crown-img"
-                                src="assets/img/crown.png"
-                                alt=""
-                              />
-                            </div>
-                            <img
-                              className="user-img"
-                              src="assets/img/user.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>Suraj Khandwal</h4>
-                              <p>Jaipur, Rajsthan</p>
-                            </div>
-                          </div>
-                          <div className="right-trophy">
-                            <img
-                              className="trophy-img"
-                              src="assets/img/trophy.png"
-                              alt=""
-                            />
-                            <div>
-                              <h4>9300</h4>
-                              <p>Points</p>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
+                        </li>
+                      ))}
                     </ul>
                   </Tab>
+                  {/*================================================End of code =================================== */}
                 </Tabs>
               </div>
             </Col>

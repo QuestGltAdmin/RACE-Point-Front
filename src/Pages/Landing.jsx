@@ -131,12 +131,18 @@ const Landing = () => {
       // Prepare payload with encrypted data
       const encryptedReferralCode = await encryptData(referralCode);
       const encryptedWalletAddress = await encryptData(walletAddress); // Use the state walletAddress
-      const encryptedENSName = await encryptData(ENSName); // Use fetched ENS name
+      const encryptedENSName = ENSName ? await encryptData(ENSName) : null; // Encrypt ENS name if available
+
+      console.log("Encrypted ENS Name:", encryptedENSName);
 
       const payload = {
         referralCode: encryptedReferralCode,
         walletAddress: encryptedWalletAddress,
       };
+      if (encryptedENSName) {
+        payload.ensName = encryptedENSName;
+      }
+
       console.log("Final payload being sent:", payload);
 
       // Make API call to add user with address and referral code

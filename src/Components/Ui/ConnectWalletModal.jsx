@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import { setEVMWallet } from "../../store/reducers/authReducer";
+import Web3 from "web3";
 
 const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
   const dispatch = useDispatch();
@@ -57,9 +58,14 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
 
   const resolveENSName = async (address) => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.providers.Web3Provider(
+        new Web3.providers.HttpProvider(
+          "https://mainnet.infura.io/v3/41e0714609d84b088e97155fe8849958"
+        )
+      );
       const ensName = await provider.lookupAddress(address);
       setENSName(ensName || "ENS name not found");
+      console.log(ensName);
     } catch (error) {
       console.error("Error resolving ENS name:", error);
       setENSName("ENS name not found");
