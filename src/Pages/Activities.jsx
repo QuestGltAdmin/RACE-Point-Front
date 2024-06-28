@@ -255,7 +255,7 @@ export const Activities = () => {
                   {/*================================================Monthly============================================== */}
                   <Tab eventKey="top-depsit1" title="Monthly">
                     <ul className="deposit-list-outer">
-                      {monthlyTopUser.slice(0, 7).map((monthly, index) => (
+                      {monthlyTopUser.slice(0, 10).map((monthly, index) => (
                         <li>
                           <div className="deposit-list-main">
                             <div className="left-user">
@@ -302,7 +302,7 @@ export const Activities = () => {
                   {/*================================================Quarterly =================================== */}
                   <Tab eventKey="top-depsit2" title="Quarterly">
                     <ul className="deposit-list-outer">
-                      {quarterlyTopUser.slice(0, 7).map((quarterly, index) => (
+                      {quarterlyTopUser.slice(0, 10).map((quarterly, index) => (
                         <li>
                           <div className="deposit-list-main">
                             <div className="left-user">

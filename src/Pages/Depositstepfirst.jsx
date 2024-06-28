@@ -14,48 +14,73 @@ import { getUsdtAndUsdcBalance } from "../helpers/getUSDTBalance";
 import useAuth from "../hooks/useAuth";
 
 export const Depositstepfirst = () => {
-
-    //========================= Global variable =========================//
-    const { WalletEVM, walletbalance } = useAuth();
+  //========================= Global variable =========================//
+  const { WalletEVM, walletbalance } = useAuth();
   //========================= end of code =========================//
 
   //========================= local variable =========================//
-  
+
   const [show, setShow] = useState(false);
   const [flag, setFlag] = useState(false);
-  const [balance, setBalance] = useState(80);
-  const [wallet, setWallet] = useState("");
-  const [chainname, setChainName] = useState("");
-  const [chainid, setChainId] = useState("");
+  const [balance, setBalance] = useState(80); //dummy balance
+  const [cointype, setCoinType] = useState("USDT");
+  const [chainid, setChainId] = useState();
+  const [walletaddress, setWalletAddress] = useState(
+    WalletEVM?.selectedAccount
+  );
+  const [currency, setCurrency] = useState();
   const [inputValue, setInputValue] = useState({
     amount: "",
   });
   //========================= end of code =========================//
-
-  console.log(inputValue?.amount, "amount");
-
   const totalpercentage = (inputValue?.amount / balance) * 100;
-  console.log(totalpercentage, "totalpercentage");
-  const handleClose = () => setShow(false);
+
+  const BasePoints = inputValue?.amount; // dummy points
 
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
-  
+  const handleClose = () => {
+    setShow(false);
+    setFlag(false);
+  };
+  const HandleCoinType = (e) => {
+    setCoinType(e);
+  };
+
   const handleShow = async (data) => {
     setShow(true);
-    setChainId(data?.data?.chain);
-    setChainName(data?.data?.chainname);
-    setWallet(WalletEVM?.selectedAccount);
-
-    const MainBalance = await getUsdtAndUsdcBalance(
-      data?.data?.chain,
-      data?.data?.chainname,
-      WalletEVM?.selectedAccount
-    );
-    console.log(MainBalance, "lllll");
+    setFlag(true);
+    setChainId(data?.chainId);
+    setCurrency(data?.currency);
+    setWalletAddress(WalletEVM?.selectedAccount);
+    setCoinType(cointype);
+    // const MainBalance = await getUsdtAndUsdcBalance(
+    //   data?.chainId,
+    //   data?.currency,
+    //   WalletEVM?.selectedAccount,
+    //   cointype
+    // );
   };
-  
+  useEffect(() => {
+    const balancefuntion = async () => {
+      try {
+        const mainBalanceData = await getUsdtAndUsdcBalance(
+          chainid,
+          currency,
+          walletaddress,
+          cointype
+        );
+        // setMainBalance(mainBalanceData);
+      } catch (error) {
+        console.error("Error fetching balance:", error);
+      }
+    };
+
+    if (cointype) {
+      balancefuntion();
+    }
+  }, [flag, cointype, WalletEVM]);
 
   return (
     <>
@@ -69,118 +94,78 @@ export const Depositstepfirst = () => {
           </Row>
           <Row>
             <Col lg={3} md={6} sm={6} xs={6}>
-              <div className="coin-box">
+              <div
+                className="coin-box"
+                onClick={(data) =>
+                  handleShow({
+                    chainId: "10",
+                    currency: "optimism",
+                  })
+                }
+              >
                 <img src="assets/img/coin1.png" alt="" />
                 <h3>Optimism</h3>
                 <h5>Deposit in</h5>
                 <div className="btn-row">
-                  <button
-                    className="coin-btn"
-                    onClick={() =>
-                      handleShow({
-                        data: { chainname: "USDC_optimism", chain: "10" },
-                      })
-                    }
-                  >
-                    USDC
-                  </button>
-                  <button
-                    className="coin-btn"
-                    onClick={() =>
-                      handleShow({
-                        data: { chainname: "USDT_optimism", chain: "10" },
-                      })
-                    }
-                  >
-                    USDT
-                  </button>
+                  <button className="coin-btn">USDC</button>
+                  <button className="coin-btn">USDT</button>
                 </div>
               </div>
             </Col>
             <Col lg={3} md={6} sm={6} xs={6}>
-              <div className="coin-box">
+              <div
+                className="coin-box"
+                onClick={(data) =>
+                  handleShow({
+                    chainId: "137",
+                    currency: "Matic",
+                  })
+                }
+              >
                 <img src="assets/img/coin2.png" alt="" />
                 <h3>Polygon</h3>
                 <h5>Deposit in</h5>
                 <div className="btn-row">
-                  <button
-                    className="coin-btn"
-                    onClick={() =>
-                      handleShow({
-                        data: { chainname: "USDT_Matic", chain: "137" },
-                      })
-                    }
-                  >
-                    USDC
-                  </button>
-                  <button
-                    className="coin-btn"
-                    onClick={() =>
-                      handleShow({
-                        data: { chainname: "USDC_Matic", chain: "137" },
-                      })
-                    }
-                  >
-                    USDT
-                  </button>
+                  <button className="coin-btn">USDC</button>
+                  <button className="coin-btn">USDT</button>
                 </div>
               </div>
             </Col>
             <Col lg={3} md={6} sm={6} xs={6}>
-              <div className="coin-box">
+              <div
+                className="coin-box"
+                onClick={(data) =>
+                  handleShow({
+                    chainId: "42161",
+                    currency: "Arbitrum",
+                  })
+                }
+              >
                 <img src="assets/img/coin3.png" alt="" />
                 <h3>Arbitrium</h3>
                 <h5>Deposit in</h5>
                 <div className="btn-row">
-                  <button
-                    className="coin-btn"
-                    onClick={() =>
-                      handleShow({
-                        data: { chainname: "USDT_Arbitrum", chain: "42161" },
-                      })
-                    }
-                  >
-                    USDC
-                  </button>
-                  <button
-                    className="coin-btn"
-                    onClick={() =>
-                      handleShow({
-                        data: { chainname: "USDT_Arbitrum", chain: "42161" },
-                      })
-                    }
-                  >
-                    USDT
-                  </button>
+                  <button className="coin-btn">USDC</button>
+                  <button className="coin-btn">USDT</button>
                 </div>
               </div>
             </Col>
             <Col lg={3} md={6} sm={6} xs={6}>
-              <div className="coin-box">
+              <div
+                className="coin-box"
+                onClick={(data) =>
+                  handleShow({
+                    chainId: "8453",
+                    currency: "Base",
+                  })
+                }
+              >
                 <img src="assets/img/coin4.png" alt="" />
                 <h3>Base</h3>
                 <h5>Deposit in</h5>
                 <div className="btn-row">
-                  <button
-                    className="coin-btn"
-                    onClick={() =>
-                      handleShow({
-                        data: { chainname: "USDC_Base", chain: "8453" },
-                      })
-                    }
-                  >
-                    USDC
-                  </button>
-                  <button
-                    className="coin-btn"
-                    onClick={() =>
-                      handleShow({
-                        data: { chainname: "USDT_Base", chain: "8453" },
-                      })
-                    }
-                  >
-                    USDT
-                  </button>
+                  <button className="coin-btn">USDC</button>
+                  <button className="coin-btn">USDT</button>
                 </div>
               </div>
             </Col>
@@ -229,14 +214,14 @@ export const Depositstepfirst = () => {
                     max
                   </InputGroup.Text>
                 </InputGroup>
-                <Dropdown>
+                <Dropdown onSelect={(e) => HandleCoinType(e)}>
                   <Dropdown.Toggle>
-                    <img src="assets/img/coin5.png" alt="" /> USDT
+                    <img src="assets/img/coin5.png" alt="" /> {cointype}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">USDT</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">USDC</Dropdown.Item>
+                    <Dropdown.Item eventKey="USDT">USDT</Dropdown.Item>
+                    <Dropdown.Item eventKey="USDC">USDC</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
@@ -248,7 +233,7 @@ export const Depositstepfirst = () => {
                 className="progress-main-line"
                 variant="success"
                 now={totalpercentage}
-                // label={`${totalpercentage}%`}
+                label={`${totalpercentage}%`}
               />
             </div>
             <div className="date-rang-percentage ">
@@ -263,8 +248,12 @@ export const Depositstepfirst = () => {
               <Form.Label>Base Points</Form.Label>
               <div className="input-flex-row">
                 <InputGroup className="">
-                  <Form.Control placeholder="0.00" />
-                  <InputGroup.Text>max</InputGroup.Text>
+                  <Form.Control
+                    placeholder="0.00"
+                    value={BasePoints}
+                    readOnly
+                  />
+                  {/* <InputGroup.Text>max</InputGroup.Text> */}
                 </InputGroup>
                 <Dropdown>
                   <Dropdown.Toggle>
@@ -287,12 +276,12 @@ export const Depositstepfirst = () => {
 
             <div className="by-with-test mt-4">
               Buy with:
-              <span>~ $0</span>
+              <span>{inputValue?.amount}</span>
             </div>
 
             <div className="by-with-test">
               Received:
-              <span>~ $0</span>
+              <span>{BasePoints}</span>
             </div>
 
             <button className="common-btn bg-left ">Enter USDC Amount</button>
