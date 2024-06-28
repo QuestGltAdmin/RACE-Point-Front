@@ -29,7 +29,7 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
       // console.log(wallet,"1111")
 
       const wallet = await Connect(type);
-        console.log(wallet,"222")
+      console.log(wallet, "222");
       if (wallet) {
         dispatch(setEVMWallet(wallet));
         setWalletAddress(wallet.selectedAccount);
@@ -43,13 +43,16 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
               window.location.reload();
             }
           });
+        } else if (type === "metamask") {
+          // Reload the page after successful MetaMask connection
+          window.location.reload();
         }
       } else {
         setError("Failed to connect wallet.");
       }
     } catch (err) {
       console.error("Connect Wallet Error:", err);
-      setError("Please install Metamask");
+      //setError("Please install Metamask");
     } finally {
       if (loadingToastId) {
         toast.dismiss(loadingToastId);
@@ -83,6 +86,16 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
       }
     }
   }, [WalletEVM]);
+
+  useEffect(() => {
+    // Detect MetaMask installation
+    if (typeof window.ethereum === "undefined") {
+      setError(
+        "MetaMask is not installed. Please install it to connect your wallet."
+      );
+      //localStorage.clear(); //If Metamask is uninstalled then localstorage is clear so that user cannot access the dashboard
+    }
+  }, [dispatch]);
 
   return (
     <Modal

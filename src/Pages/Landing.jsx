@@ -54,11 +54,16 @@ const Landing = () => {
   const [copiedCodeIndex, setCopiedCodeIndex] = useState(null);
   //===============================End of code=================================
 
+  const handleCloseReferralCodesModal = () => {
+    setShowReferralCodesModal(false);
+    navigate("/dashboard"); // Redirect to dashboard when closing the referral codes modal
+  };
+
   const handleCloseModals = () => {
     setShowConnectWalletModal(false);
     setShowReferralModal(false);
     setShowNewShareModal(false);
-    setShowReferralCodesModal(false);
+    //setShowReferralCodesModal(false);
   };
 
   //========================================= Display Modal at first =======================================
@@ -78,6 +83,7 @@ const Landing = () => {
   //========================================= Referral code change =======================================
   const handleReferralCodeChange = (event) => {
     setReferralCode(event.target.value);
+    setWalletAddress(WalletEVM?.selectedAccount);
     setErrorMessage(""); // Clear any previous error message
   };
 
@@ -125,7 +131,8 @@ const Landing = () => {
   const addUserWithReferralCode = async () => {
     try {
       setLoading(true); // Start loading state
-
+      console.log(referralCode);
+      console.log(walletAddress);
       // Ensure none of the fields are empty
       if (!referralCode || !walletAddress) {
         setErrorMessage("Missing required fields.");
@@ -174,7 +181,6 @@ const Landing = () => {
       setLoading(false); // Stop loading state
     }
   };
-
   //=========================================== Fetch wallet info and redirect to dashboard ====================================
   useEffect(() => {
     if (WalletEVM?.selectedAccount) {
@@ -273,6 +279,14 @@ const Landing = () => {
       });
   };
   //============================================= End of code ==================================================
+
+  //=============================== Display referral modal on load if walletEVM in localStorage =================================
+  useEffect(() => {
+    const walletEVM = localStorage.getItem("WalletEVM");
+    if (walletEVM) {
+      setShowReferralModal(true);
+    }
+  }, []);
 
   return (
     <>
@@ -456,7 +470,7 @@ const Landing = () => {
         className="new-user-modal"
         centered
         show={showReferralCodesModal}
-        onHide={handleCloseModals}
+        onHide={handleCloseReferralCodesModal}
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
