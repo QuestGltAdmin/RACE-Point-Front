@@ -197,7 +197,8 @@ export const Activities = () => {
                           0,
                           5
                         )}...${deposit.wallet_address.slice(-5)}`}</h4>
-                        <p>{deposit.ENS_name}</p>
+                        <p>{deposit.ENS_name ? deposit.ENS_name : "\u200B"}</p>{" "}
+                        {/* "\u200B -> it takes up space without displaying anything*/}
                         <h3>
                           <b>
                             {deposit.currency}
@@ -228,7 +229,8 @@ export const Activities = () => {
                           0,
                           5
                         )}...${refer.wallet_address.slice(-5)}`}</h4>
-                        <p>{refer.ENS_name}</p>
+                        <p>{refer.ENS_name ? refer.ENS_name : "\u200B"}</p>{" "}
+                        {/* "\u200B -> it takes up space without displaying anything*/}
                         <div className="referral-point">
                           <h3>
                             <img src="assets/img/referal.png" alt="" />{" "}
@@ -236,7 +238,8 @@ export const Activities = () => {
                           </h3>
                           <h3>
                             <img src="assets/img/trophy.png" alt="" />{" "}
-                            <b>{refer.earn_points}</b> <span>Points</span>
+                            <b>{refer.earn_points.toFixed(2)}</b>{" "}
+                            <span>Points</span>
                           </h3>
                         </div>
                       </div>
@@ -288,7 +291,9 @@ export const Activities = () => {
                                 alt=""
                               />
                               <div>
-                                <h4>{monthly.monthly_earn_points}</h4>
+                                <h4>
+                                  {monthly.monthly_earn_points.toFixed(2)}
+                                </h4>
                                 <p>Points</p>
                               </div>
                             </div>
@@ -335,7 +340,9 @@ export const Activities = () => {
                                 alt=""
                               />
                               <div>
-                                <h4>{quarterly.quarterly_earn_points}</h4>
+                                <h4>
+                                  {quarterly.quarterly_earn_points.toFixed(2)}
+                                </h4>
                                 <p>Points</p>
                               </div>
                             </div>
