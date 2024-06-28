@@ -24,6 +24,11 @@ export const getUsdtAndUsdcBalance = async (
   tokenAddress = web3connect.utils.toChecksumAddress(tokenAddress);
   const usdtContract = new web3connect.eth.Contract(abi, tokenAddress);
   let balance = await usdtContract.methods.balanceOf(wallet).call();
+  
+  let decimals = await usdtContract.methods.decimals().call();
+  
+  balance = (balance / (10**decimals));
+
   console.log(balance, "balanaaa");
   // localStorage.setItem('walletbalance', walletbalance);
 

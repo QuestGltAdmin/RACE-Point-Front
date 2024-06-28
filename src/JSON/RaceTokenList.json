@@ -1,0 +1,14 @@
+{
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png",
+    "tokens": [
+      {
+        "name": "Race Token",
+        "symbol": "Race",
+        "address": "0xE7415da7F204CaB3F550bF0598B7F3461d5A3655",
+        "chainId": 10,
+        "decimals": 18,
+        "logos": "assets/Compress-img/usdt.webp"
+      }
+    ]
+  }
+  

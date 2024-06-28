@@ -246,7 +246,7 @@ const Landing = () => {
               width: 24px;
               object-fit: contain;
               margin-right: 10px;" src="assets/img/warning.png" alt="" />
-              Trading is not available for people or entities in US and other
+              This site is not available for people or entities in US and other
               restricted jurisdictions
             </div>
             `;
@@ -383,15 +383,15 @@ const Landing = () => {
               {loading ? (
                 <>
                   <div className="spinner-flex-box">
-                  <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        className=""
-                      />
-                      Loading...
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      className=""
+                    />
+                    Loading...
                   </div>
                 </>
               ) : (
