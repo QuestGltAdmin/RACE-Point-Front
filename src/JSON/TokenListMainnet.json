@@ -1,63 +1,69 @@
 {
-    "logoURI": "https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png",
-    "tokens": [
-      {
-        "name": "USDT_Matic",
-        "symbol": "USDT",
-        "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
-        "chainId": 137,
-        "decimals": 6,
-        "logos": "assets/Compress-img/usdt.webp"
-      },
-     
-      {
-        "name": "USDC_Matic",
-        "address": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
-        "symbol": "USDC",
-        "decimals": 6,
-        "chainId": 137,
-        "logos": "assets/Compress-img/usdt.webp"
-      },
-      {
-        "name": "USDT_Arbitrum",
-        "symbol": "USDT",
-        "address": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
-        "chainId": 42161,
-        "decimals": 6,
-        "logos": "assets/Compress-img/usdt.webp"
-      },
-      {
-        "name": "USDC_Arbitrum",
-        "address": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
-        "symbol": "USDC",
-        "decimals": 6,
-        "chainId": 42161,
-        "logos": "assets/Compress-img/usdt.webp"
-      },
-      {
-        "name": "USDT_optimism",
-        "address": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
-        "symbol": "USDT",
-        "decimals": 6,
-        "chainId": 10,
-        "logos": "assets/Compress-img/usdt.webp"
-      },
-      {
-        "name": "USDC_optimism",
-        "address": "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
-        "symbol": "USDC",
-        "decimals": 6,
-        "chainId": 10,
-        "logos": "assets/Compress-img/usdt.webp"
-      },
-      {
-        "name": "USDC_Base",
-        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-        "symbol": "USDC",
-        "decimals": 6,
-        "chainId": 8453,
-        "logos": "assets/Compress-img/usdt.webp"
-      }
-    ]
-  }
-  
+  "logoURI": "https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png",
+  "tokens": [
+    {
+      "name": "USDT_Matic",
+      "currency": "Matic",
+      "symbol": "USDT",
+      "chainId": 137,
+      "decimals": 6,
+      "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+      "logos": "assets/Compress-img/usdt.webp"
+    },
+
+    {
+      "name": "USDC_Matic",
+      "currency": "Matic",
+      "symbol": "USDC",
+      "chainId": 137,
+      "decimals": 6,
+      "address": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+      "logos": "assets/Compress-img/usdt.webp"
+    },
+    {
+      "name": "USDT_Arbitrum",
+      "currency": "Arbitrum",
+      "symbol": "USDT",
+      "chainId": 42161,
+      "decimals": 6,
+      "address": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
+      "logos": "assets/Compress-img/usdt.webp"
+    },
+    {
+      "name": "USDC_Arbitrum",
+      "currency": "Arbitrum",
+      "symbol": "USDC",
+      "chainId": 42161,
+      "decimals": 6,
+      "address": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+      "logos": "assets/Compress-img/usdt.webp"
+    },
+    {
+      "name": "USDT_optimism",
+      "currency": "optimism",
+      "symbol": "USDT",
+      "chainId": 10,
+      "decimals": 6,
+      "address": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
+      "logos": "assets/Compress-img/usdt.webp"
+    },
+    {
+      "name": "USDC_optimism",
+      "currency": "optimism",
+      "symbol": "USDC",
+      "chainId": 10,
+      "decimals": 6,
+      "address": "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
+      "logos": "assets/Compress-img/usdt.webp"
+    },
+    {
+      "name": "USDC_Base",
+      "currency": "Base",
+      "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chainId": 8453,
+      "logos": "assets/Compress-img/usdt.webp"
+    }
+  ]
+}
