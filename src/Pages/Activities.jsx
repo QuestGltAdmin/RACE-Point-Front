@@ -238,8 +238,10 @@ export const Activities = () => {
                           </h3>
                           <h3>
                             <img src="assets/img/trophy.png" alt="" />{" "}
+                            <div>
                             <b>{refer.earn_points.toFixed(2)}</b>{" "}
                             <span>Points</span>
+                            </div>
                           </h3>
                         </div>
                       </div>

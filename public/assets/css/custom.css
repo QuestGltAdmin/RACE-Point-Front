@@ -863,6 +863,19 @@ margin: 0 10px;
     position: absolute;
     top: 23px;
 }
+.input-flex-row .dropdown .dropdown-toggle.content-none::after{
+    content: none !important;
+}
+
+.input-flex-row .input-group .form-control::-webkit-outer-spin-button,
+.input-flex-row .input-group .form-control::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input-flex-row .input-group .form-control[type=number] {
+    -moz-appearance: textfield;
+  }
+
 .input-flex-row  .dropdown .dropdown-toggle img {
     height: 20px;
     width: 20px;
@@ -1351,7 +1364,7 @@ line-height: 1.4rem;
     border-radius: 12px;
     background: #305069;
     backdrop-filter: blur(17px);
-    padding: 17px;
+    padding: 12px;
 }
 .inner-user-box .user-img {
     height: 64px;
@@ -1441,21 +1454,26 @@ margin-top: 15px;
     align-items: center;
 }
 .top-referrals.inner-user-box .referral-point h3 img {
-    height: 40px;
-    width: 40px;
+    height: 34px;
+    width: 34px;
     object-fit: contain;
-    margin-right: 8px;
+    margin-right: 5px;
 }
 .top-referrals.inner-user-box .referral-point h3 b {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     color: #fff;
+    word-break: break-all;
 }
 .top-referrals.inner-user-box .referral-point h3 span {
     font-size: 13px;
     opacity: 0.7;
     font-weight: 300;
     margin-left: 8px;
+}
+.top-referrals.inner-user-box .referral-point h3 > div > span {
+    font-size: 12px;
+    margin-left: 3px;
 }
 
 .top-deposit-table{
@@ -1557,8 +1575,11 @@ line-height: 1rem;
 letter-spacing: 0.25px;
 margin-bottom: 0;
 }
-.deposit-list-main .right-trophy{
-    text-align: right;
+.deposit-list-main .right-trophy {
+    text-align: left;
+}
+.deposit-list-main .right-trophy > div{
+    min-width: 150px;
 }
 .count-deposit {
     position: relative;

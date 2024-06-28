@@ -375,7 +375,7 @@ export const Depositstepfirst = () => {
                   {/* <InputGroup.Text>max</InputGroup.Text> */}
                 </InputGroup>
                 <Dropdown>
-                  <Dropdown.Toggle>
+                  <Dropdown.Toggle className="content-none">
                     <img src="assets/img/coin5.png" alt="" /> RACE
                   </Dropdown.Toggle>
 
