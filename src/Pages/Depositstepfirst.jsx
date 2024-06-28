@@ -12,6 +12,9 @@ import {
 } from "react-bootstrap";
 import { getUsdtAndUsdcBalance } from "../helpers/getUSDTBalance";
 import useAuth from "../hooks/useAuth";
+import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
+import axiosMain from "../http/axios/axios_main";
+import { getRaceBalance } from "../helpers/raceTokenBalance";
 
 export const Depositstepfirst = () => {
   //========================= Global variable =========================//
@@ -21,10 +24,13 @@ export const Depositstepfirst = () => {
   //========================= local variable =========================//
 
   const [show, setShow] = useState(false);
+  const [showwithdraw, setShowWithdraw] = useState(false);
   const [flag, setFlag] = useState(false);
   const [balance, setBalance] = useState(80); //dummy balance
+  const [racebalance, setRaceBalance] = useState(60); //dummy balance
   const [cointype, setCoinType] = useState("USDT");
   const [chainid, setChainId] = useState();
+  const [formError, setFormError] = useState("");
   const [walletaddress, setWalletAddress] = useState(
     WalletEVM?.selectedAccount
   );
@@ -40,10 +46,7 @@ export const Depositstepfirst = () => {
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
-  const handleClose = () => {
-    setShow(false);
-    setFlag(false);
-  };
+
   const HandleCoinType = (e) => {
     setCoinType(e);
   };
@@ -53,15 +56,18 @@ export const Depositstepfirst = () => {
     setFlag(true);
     setChainId(data?.chainId);
     setCurrency(data?.currency);
-    setWalletAddress(WalletEVM?.selectedAccount);
     setCoinType(cointype);
-    // const MainBalance = await getUsdtAndUsdcBalance(
-    //   data?.chainId,
-    //   data?.currency,
-    //   WalletEVM?.selectedAccount,
-    //   cointype
-    // );
   };
+
+  const handleClose = () => {
+    setShow(false);
+    setFlag(false);
+    setInputValue({
+      amount: "",
+    });
+  };
+  //=========================fetching main balance=========================//
+
   useEffect(() => {
     const balancefuntion = async () => {
       try {
@@ -71,7 +77,7 @@ export const Depositstepfirst = () => {
           walletaddress,
           cointype
         );
-        // setMainBalance(mainBalanceData);
+        // setBalance(mainBalanceData);
       } catch (error) {
         console.error("Error fetching balance:", error);
       }
@@ -81,6 +87,119 @@ export const Depositstepfirst = () => {
       balancefuntion();
     }
   }, [flag, cointype, WalletEVM]);
+  //========================= end of code =========================//
+
+  //=========================fetching race tokan balance=========================//
+
+  useEffect(() => {
+    const racetokenbalance = async () => {
+      try {
+        const racebalance = await getRaceBalance(chainid, walletaddress);
+        console.log(racebalance, "racebalance");
+        // setRaceBalance(mainBalanceData);
+      } catch (error) {
+        console.error("Error fetching balance:", error);
+      }
+    };
+
+    if (cointype) {
+      racetokenbalance();
+    }
+  }, [flag, cointype, WalletEVM]);
+  //========================= end of code =========================//
+
+  //========================= reason withdraw popup code  =========================//
+
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const [inputValuereason, setInputValueReason] = useState({
+    reason: "",
+  });
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleopenWithdraw = () => {
+    setShowWithdraw(true);
+  };
+  const handleCloseWithdraw = () => {
+    setShowWithdraw(false);
+    setSelectedOption("");
+    setInputValueReason({
+      reason: "",
+    });
+  };
+
+  const HandleReasonData = (e) => {
+    setInputValueReason({
+      ...inputValuereason,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  //===============reason api integration====================//
+
+  const HandleReason = async () => {
+    if (!walletaddress) {
+      setFormError("Walletaddress is not selected");
+    } else if (!selectedOption && !inputValuereason?.reason) {
+      setFormError("Please select feedback reason");
+    } else {
+      const wallet = await encryptData(walletaddress);
+      const reason = await encryptData(
+        inputValuereason?.reason ? inputValuereason?.reason : selectedOption
+      );
+
+      const payload = {
+        walletAddress: wallet,
+        reason: reason,
+      };
+      try {
+        const getdata = await axiosMain.post(
+          "/auth/add-withdraw-deatils",
+          payload,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (getdata?.data?.status) {
+          handleopenWithdrawMain();
+          setShow(false);
+          handleCloseWithdraw();
+        }
+      } catch (err) {}
+    }
+  };
+  //========================= end of code =========================//
+
+  //========================= Sell popup code=========================//
+  const [showwithdrawMain, setShowWithdrawMain] = useState(false);
+  const [coinselltype, setCoinSellType] = useState("USDT");
+
+  const [inputValuesell, setInputValueSell] = useState({
+    sellamount: "",
+  });
+
+  const totalracepercentage = (inputValuesell?.sellamount / racebalance) * 100;
+
+  const HandleSellData = (e) => {
+    setInputValueSell({ ...inputValuesell, [e.target.name]: e.target.value });
+  };
+
+  const handleCloseWithdrawMain = () => {
+    setShowWithdrawMain(false);
+  };
+
+  const handleopenWithdrawMain = async () => {
+    setShowWithdrawMain(true);
+    const racebalance = await getRaceBalance(chainid, walletaddress);
+    console.log(racebalance, "racebalance");
+  };
+
+  //========================= end of code =========================//
 
   return (
     <>
@@ -233,7 +352,7 @@ export const Depositstepfirst = () => {
                 className="progress-main-line"
                 variant="success"
                 now={totalpercentage}
-                label={`${totalpercentage}%`}
+                label={`${totalpercentage?.toFixed(2)}%`}
               />
             </div>
             <div className="date-rang-percentage ">
@@ -284,53 +403,147 @@ export const Depositstepfirst = () => {
               <span>{BasePoints}</span>
             </div>
 
-            <button className="common-btn bg-left ">Enter USDC Amount</button>
+            <button className="common-btn bg-left ">
+              Enter {cointype} Amount
+            </button>
             {/* <button className="common-btn bg-left disable-btn">
               Not available for US
             </button> */}
 
-            <button className="withdraw-btn">
+            <button
+              className="withdraw-btn"
+              onClick={() => handleopenWithdraw()}
+            >
               Withdraw <img src="assets/img/withdraw.png" alt="" />
             </button>
           </div>
         </Modal.Body>
       </Modal>
 
-      {/* deposite popup 3 */}
-      {/* <Modal className="new-user-modal network-popup deposit-input-popup" size="md" centered show={show} onHide={handleClose}>
+      {/* Withdraw popup 1 */}
+      <Modal
+        className="new-user-modal network-popup deposit-input-popup"
+        size="md"
+        centered
+        show={showwithdraw}
+        onHide={handleCloseWithdraw}
+      >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-            <div>
-                <h4 className="sub-heading">Withdraw</h4>
-                <Form.Group className="mb-3 form-row feedback-check">
-                    <Form.Label> We’d love to hear your feedback</Form.Label>
-                    <Form.Check type="radio" label="The points system is too complex for me." />
-                    <Form.Check type="radio" label="I don't see enough value in the points I accumulate." />
-                    <Form.Check type="radio" label="I find it difficult to use or track my point" />
-                    <Form.Check type="radio" label="I have found better incentives with other platforms." />
-                    <Form.Check type="radio" label="I'm not engaged enough with the platform to benefit from points." />
-                    <Form.Check type="radio" label="There aren't enough options or desirable rewards available." />
-                    <Form.Check type="radio" label="Earning points takes too long for any tangible benefit." />
-                    <Form.Check type="radio" label="Other reasons not listed (please specify in a few words)." />
-                </Form.Group>
+          <div>
+            <h4 className="sub-heading">Withdraw</h4>
+            <Form.Group className="mb-3 form-row feedback-check">
+              <Form.Label> We’d love to hear your feedback</Form.Label>
+              <Form.Check
+                type="radio"
+                label="The points system is too complex for me."
+                value="The points system is too complex for me."
+                checked={
+                  selectedOption === "The points system is too complex for me."
+                }
+                onChange={handleOptionChange}
+              />
+              <Form.Check
+                type="radio"
+                label="I don't see enough value in the points I accumulate."
+                value="I don't see enough value in the points I accumulate."
+                checked={
+                  selectedOption ===
+                  "I don't see enough value in the points I accumulate."
+                }
+                onChange={handleOptionChange}
+              />
+              <Form.Check
+                type="radio"
+                label="I find it difficult to use or track my point"
+                value="I find it difficult to use or track my point"
+                checked={
+                  selectedOption ===
+                  "I find it difficult to use or track my point"
+                }
+                onChange={handleOptionChange}
+              />
+              <Form.Check
+                type="radio"
+                label="I have found better incentives with other platforms."
+                value="I have found better incentives with other platforms."
+                checked={
+                  selectedOption ===
+                  "I have found better incentives with other platforms."
+                }
+                onChange={handleOptionChange}
+              />
+              <Form.Check
+                type="radio"
+                label="I'm not engaged enough with the platform to benefit from points."
+                value="I'm not engaged enough with the platform to benefit from points."
+                checked={
+                  selectedOption ===
+                  "I'm not engaged enough with the platform to benefit from points."
+                }
+                onChange={handleOptionChange}
+              />
+              <Form.Check
+                type="radio"
+                label="There aren't enough options or desirable rewards available."
+                value="There aren't enough options or desirable rewards available."
+                checked={
+                  selectedOption ===
+                  "There aren't enough options or desirable rewards available."
+                }
+                onChange={handleOptionChange}
+              />
+              <Form.Check
+                type="radio"
+                label="Earning points takes too long for any tangible benefit."
+                value="Earning points takes too long for any tangible benefit."
+                checked={
+                  selectedOption ===
+                  "Earning points takes too long for any tangible benefit."
+                }
+                onChange={handleOptionChange}
+              />
+              <Form.Check
+                type="radio"
+                label="Other reasons not listed (please specify in a few words)."
+                value="Other reasons not listed (please specify in a few words)."
+                checked={
+                  selectedOption ===
+                  "Other reasons not listed (please specify in a few words)."
+                }
+                onChange={handleOptionChange}
+              />
+            </Form.Group>
 
-                <Form.Group className="mb-3 outer-input other-reason-box">
-                    <Form.Label>Other Reason</Form.Label>
-                    <Form.Control type="text" checked placeholder="What other feedback do you have?" />
-                </Form.Group>
+            <Form.Group className="mb-3 outer-input other-reason-box">
+              <Form.Label>Other Reason</Form.Label>
+              <Form.Control
+                type="text"
+                name="reason"
+                onChange={HandleReasonData}
+                placeholder="What other feedback do you have?"
+                value={inputValuereason.reason}
+              />
+            </Form.Group>
+            <p>{formError}</p>
 
-                <button className="common-btn bg-left ">Continue to withdraw</button>
-            </div>
+            <button
+              className="common-btn bg-left "
+              onClick={() => HandleReason()}
+            >
+              Continue to withdraw
+            </button>
+          </div>
         </Modal.Body>
-      </Modal> */}
+      </Modal>
 
-      {/* deposite popup withdraw */}
-      {/* <Modal
+      {/* Withdraw popup 2  */}
+      <Modal
         className="network-popup deposit-input-popup"
         size="md"
         centered
-        show={show}
-        onHide={handleClose}
+        show={showwithdrawMain}
+        onHide={handleCloseWithdrawMain}
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
@@ -341,15 +554,29 @@ export const Depositstepfirst = () => {
               <Form.Label>Sell</Form.Label>
               <div className="input-flex-row">
                 <InputGroup className="">
-                  <Form.Control placeholder="0.00" />
-                  <InputGroup.Text>max</InputGroup.Text>
+                  <Form.Control
+                    type="number"
+                    placeholder="0.00"
+                    name="sellamount"
+                    onChange={HandleSellData}
+                    value={inputValuesell?.sellamount}
+                  />
+                  <InputGroup.Text
+                    onClick={() =>
+                      setInputValueSell({
+                        sellamount: racebalance,
+                      })
+                    }
+                  >
+                    max
+                  </InputGroup.Text>
                 </InputGroup>
                 <Dropdown>
                   <Dropdown.Toggle>
                     <img src="assets/img/favicon.png" alt="" /> RACE
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
+                  {/* <Dropdown.Menu>
                     <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
                     <Dropdown.Item href="#/action-2">
                       Another action
@@ -357,11 +584,11 @@ export const Depositstepfirst = () => {
                     <Dropdown.Item href="#/action-3">
                       Something else
                     </Dropdown.Item>
-                  </Dropdown.Menu>
+                  </Dropdown.Menu> */}
                 </Dropdown>
               </div>
               <p>
-                Balance: <span>22.389485</span>
+                Balance: <span>{racebalance}</span>
               </p>
             </Form.Group>
 
@@ -369,7 +596,8 @@ export const Depositstepfirst = () => {
               <ProgressBar
                 className="progress-main-line"
                 variant="success"
-                now={4}
+                now={totalracepercentage}
+                label={`${totalracepercentage.toFixed(2)}%`}
               />
             </div>
             <div className="date-rang-percentage ">
@@ -382,20 +610,25 @@ export const Depositstepfirst = () => {
 
             <Form.Group className="mb-3 form-row">
               <Form.Label>Receive</Form.Label>
-              <Dropdown className="recieve-dropdown-new">
+              <Dropdown
+                className="recieve-dropdown-new"
+                onSelect={(e) => setCoinSellType(e)}
+              >
                 <Dropdown.Toggle>
-                  <img src="assets/img/daller.png" alt="" /> USDC
+                  {coinselltype == "USDC" ? (
+                    <img src="assets/img/daller.png" alt="" />
+                  ) : (
+                    <img src="assets/img/coin5.png" alt="" />
+                  )}{" "}
+                  {coinselltype}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">
-                    <img src="assets/img/asset.png" alt="" /> All Assets
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">
+                  <Dropdown.Item eventKey="USDC">
                     <img src="assets/img/daller.png" alt="" /> USDC
                   </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">
-                    <img src="assets/img/coin5.png" alt="" /> WETH
+                  <Dropdown.Item eventKey="USDT">
+                    <img src="assets/img/coin5.png" alt="" /> USDT
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -403,8 +636,12 @@ export const Depositstepfirst = () => {
 
             <div className="by-with-test with-img mt-4">
               <div>
-                <img src="assets/img/daller.png" alt="" />
-                USDC
+                {coinselltype == "USDC" ? (
+                  <img src="assets/img/daller.png" alt="" />
+                ) : (
+                  <img src="assets/img/coin5.png" alt="" />
+                )}{" "}
+                {coinselltype}
               </div>
               <span>~ $0</span>
             </div>
@@ -414,10 +651,12 @@ export const Depositstepfirst = () => {
               </span>
             </div>
 
-            <button className="common-btn bg-left ">Enter USDC Amount</button>
+            <button className="common-btn bg-left ">
+              Enter {coinselltype} Amount
+            </button>
           </div>
         </Modal.Body>
-      </Modal> */}
+      </Modal>
 
       {/* deposite 1 popup  */}
       {/* <Modal
