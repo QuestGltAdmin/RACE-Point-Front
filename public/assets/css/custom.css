@@ -999,10 +999,11 @@ margin-top: 20px;
     height: 18px;
     width: 18px;
 }
-.restrict  .error-note {
+/* .restrict  .error-note { */
+ .error-note { 
     border-radius: 8px;
     background: #B91C1C;
-    color: #FFF;
+    color: #e1d5d5;
     font-size: 0.9rem;
     font-style: normal;
     font-weight: 500;

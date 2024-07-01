@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
 import { Header } from "../Components/Header";
 import { useDispatch } from "react-redux";
-import { userWalletLogin } from "../store/reducers/authReducer";
+import { isLogin, userWalletLogin } from "../store/reducers/authReducer";
 import axios from "axios";
 
 //================================================== All the juridictions restricted countries ===================================
@@ -31,7 +31,7 @@ import axios from "axios";
 const restrictedCountries = ["US"]; // add "IN" for testing
 
 const Landing = () => {
-  const { WalletEVM } = useAuth();
+  const { WalletEVM ,isUserAuthenticated} = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -194,10 +194,11 @@ const Landing = () => {
       const response = await axiosMain.post("/auth/get-user-profile", {
         walletAddress: RowWalletAddress,
       });
-      if (response?.data?.status) {
+            if (response?.data?.status) {
         if (response?.data?.isLogin) {
           dispatch(userWalletLogin(response.data.data));
-          navigate("/dashboard");
+          dispatch(isLogin(response.data.isLogin));
+          // navigate("/dashboard");
         }
       }
     } catch (error) {

@@ -56,11 +56,18 @@ const authSlice = createSlice({
       return {
         ...state,
         isUserAuthenticated: true,
-        user: action.payload,   
+        user: action.payload,
       };
     },
-
-
+    isLogin: (state, action) => {
+      localStorage.setItem("isUserAuthenticated", JSON.stringify(action.payload));
+      console.log(action,"action")
+      return {
+        ...state,
+        isUserAuthenticated: true,
+        user: action.payload,
+      };
+    },
     userLoginFail: (state, action) => {
       return {
         ...state,
@@ -134,7 +141,9 @@ export const {
   userLoginSaga,
   userLoginStart,
   userloginSuccess,
-  userLoginFail,userWalletLogin,
+  userLoginFail,
+  userWalletLogin,
+  isLogin,
 } = authSlice.actions;
 
 export default authSlice.reducer;

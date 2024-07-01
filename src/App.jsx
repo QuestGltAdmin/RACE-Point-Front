@@ -10,6 +10,7 @@ import { Homepage } from "./Pages/Homepage";
 import { Governace } from "./Pages/Governace";
 import Economy from "./Pages/Economy";
 import { Activities } from "./Pages/Activities";
+import UserPrivateRoutes from "./PrivateRoutes/userRoutes";
 
 function App() {
   return (
@@ -18,9 +19,30 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/deposit-step-1" element={<Depositstepfirst />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/activities" element={<Activities />} />
+          <Route
+            path="/deposit-step-1"
+            element={
+              <UserPrivateRoutes>
+                <Depositstepfirst />
+              </UserPrivateRoutes>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <UserPrivateRoutes>
+                <Dashboard />
+              </UserPrivateRoutes>
+            }
+          />
+          <Route
+            path="/activities"
+            element={
+              <UserPrivateRoutes>
+                <Activities />
+              </UserPrivateRoutes>
+            }
+          />
 
           {/* front pages */}
           <Route path="/home" element={<Homepage />} />

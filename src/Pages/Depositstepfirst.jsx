@@ -31,6 +31,7 @@ export const Depositstepfirst = () => {
   const [cointype, setCoinType] = useState("USDT");
   const [chainid, setChainId] = useState();
   const [formError, setFormError] = useState("");
+  const [activeflag, setActiveFlag] = useState(0);
   const [walletaddress, setWalletAddress] = useState(
     WalletEVM?.selectedAccount
   );
@@ -111,7 +112,6 @@ export const Depositstepfirst = () => {
   //========================= reason withdraw popup code  =========================//
 
   const [selectedOption, setSelectedOption] = useState("");
-
   const [inputValuereason, setInputValueReason] = useState({
     reason: "",
   });
@@ -175,6 +175,16 @@ export const Depositstepfirst = () => {
   };
   //========================= end of code =========================//
 
+  //=============Function to handle deduction on percentage click buy=========================//
+  const handlePercentageClick = (percentage) => {
+    setActiveFlag(percentage);
+    const amountToDeduct = balance * (percentage / 100);
+    setInputValue({
+      amount: amountToDeduct,
+    });
+  };
+  //========================= end of code =========================//
+
   //========================= Sell popup code=========================//
   const [showwithdrawMain, setShowWithdrawMain] = useState(false);
   const [coinselltype, setCoinSellType] = useState("USDT");
@@ -199,8 +209,17 @@ export const Depositstepfirst = () => {
     console.log(racebalance, "racebalance");
   };
 
+  const handlePercentageClickSell = (percentage) => {
+    setActiveFlag(percentage);
+    const amountToDeduct = racebalance * (percentage / 100);
+    setInputValueSell({
+      sellamount: amountToDeduct,
+    });
+  };
   //========================= end of code =========================//
 
+
+  console.log(inputValue?.amount, ";;;;");
   return (
     <>
       <Header />
@@ -292,7 +311,7 @@ export const Depositstepfirst = () => {
         </Container>
       </section>
 
-      {/* deposite popup 2 */}
+      {/* deposite popup 1 */}
       <Modal
         className="network-popup deposit-input-popup"
         size="md"
@@ -352,15 +371,40 @@ export const Depositstepfirst = () => {
                 className="progress-main-line"
                 variant="success"
                 now={totalpercentage}
-                label={`${totalpercentage?.toFixed(2)}%`}
+                // label={`${totalpercentage?.toFixed(2)}%`}
               />
             </div>
             <div className="date-rang-percentage ">
-              <span className="active">0%</span>
-              <span>25%</span>
-              <span>50%</span>
-              <span>75%</span>
-              <span>100%</span>
+              <span
+                className={activeflag == 0 ? "active" : ""}
+                onClick={() => handlePercentageClick(0)}
+              >
+                0%
+              </span>
+              <span
+                className={activeflag == 25 ? "active" : ""}
+                onClick={() => handlePercentageClick(25)}
+              >
+                25%
+              </span>
+              <span
+                className={activeflag == 50 ? "active" : ""}
+                onClick={() => handlePercentageClick(50)}
+              >
+                50%
+              </span>
+              <span
+                className={activeflag == 75 ? "active" : ""}
+                onClick={() => handlePercentageClick(75)}
+              >
+                75%
+              </span>
+              <span
+                className={activeflag == 100 ? "active" : ""}
+                onClick={() => handlePercentageClick(100)}
+              >
+                100%
+              </span>
             </div>
 
             <Form.Group className="mb-3 form-row">
@@ -376,7 +420,8 @@ export const Depositstepfirst = () => {
                 </InputGroup>
                 <Dropdown>
                   <Dropdown.Toggle className="content-none">
-                    <img src="assets/img/coin5.png" alt="" /> RACE
+                    {/* <img src="assets/img/coin5.png" alt="" />  */}
+                    RACE
                   </Dropdown.Toggle>
 
                   {/* <Dropdown.Menu>
@@ -572,10 +617,10 @@ export const Depositstepfirst = () => {
                   </InputGroup.Text>
                 </InputGroup>
                 <Dropdown>
-                  <Dropdown.Toggle>
-                    <img src="assets/img/favicon.png" alt="" /> RACE
+                <Dropdown.Toggle className="content-none">
+                    {/* <img src="assets/img/coin5.png" alt="" />  */}
+                    RACE
                   </Dropdown.Toggle>
-
                   {/* <Dropdown.Menu>
                     <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
                     <Dropdown.Item href="#/action-2">
@@ -597,15 +642,40 @@ export const Depositstepfirst = () => {
                 className="progress-main-line"
                 variant="success"
                 now={totalracepercentage}
-                label={`${totalracepercentage.toFixed(2)}%`}
+                // label={`${totalracepercentage.toFixed(2)}%`}
               />
             </div>
             <div className="date-rang-percentage ">
-              <span className="active">0%</span>
-              <span>25%</span>
-              <span>50%</span>
-              <span>75%</span>
-              <span>100%</span>
+              <span
+                className={activeflag == 0 ? "active" : ""}
+                onClick={() => handlePercentageClickSell(0)}
+              >
+                0%
+              </span>
+              <span
+                className={activeflag == 25 ? "active" : ""}
+                onClick={() => handlePercentageClickSell(25)}
+              >
+                25%
+              </span>
+              <span
+                className={activeflag == 50 ? "active" : ""}
+                onClick={() => handlePercentageClickSell(50)}
+              >
+                50%
+              </span>
+              <span
+                className={activeflag == 75 ? "active" : ""}
+                onClick={() => handlePercentageClickSell(75)}
+              >
+                75%
+              </span>
+              <span
+                className={activeflag == 100 ? "active" : ""}
+                onClick={() => handlePercentageClickSell(100)}
+              >
+                100%
+              </span>
             </div>
 
             <Form.Group className="mb-3 form-row">

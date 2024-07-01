@@ -148,7 +148,7 @@ export const Dashboard = () => {
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
                     <h3>Amount in vaults</h3>
-                    <div className="digits-container">
+                    <div className="digits-container" style={{display:"flex"}}>
                       {/* Displaying each digit in its own box */}
                       {console.log(digits1)}
                       {digits1.map((digit, index) => (
@@ -163,11 +163,11 @@ export const Dashboard = () => {
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
                     <h3>Points</h3>
-                    <div className="digits-container">
+                    <div className="digits-container" style={{display:"flex"}}>
                       {/* Displaying each digit in its own box */}
                       {console.log(digits2)}
                       {digits2.map((digit, index) => (
-                        <div key={index} className="counter-otp">
+                        <div key={index} className="counter-otp" >
                           <p>{digit}</p>
                         </div>
                       ))}
