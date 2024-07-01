@@ -12,7 +12,7 @@ export const getUsdtAndUsdcPrice = async (
     chainid,
     currency,
     cointype,
-    amount
+    _amount
 ) => {
     let chainData = chainList.filter((contract) => contract.chainId == chainid);
     chainData = chainData[0];
@@ -22,6 +22,9 @@ export const getUsdtAndUsdcPrice = async (
     console.log(address, "address");
     address = address[0];
     let tokenAddress = address.address;
+
+    let decimal = address.decimals;
+    let amount = _amount * (10**decimal);
 
     let contractAddress = ManagerContractsList.filter(
         (token) => token.chainId == chainid);
