@@ -15,6 +15,10 @@ import useAuth from "../hooks/useAuth";
 import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
 import axiosMain from "../http/axios/axios_main";
 import { getRaceBalance } from "../helpers/raceTokenBalance";
+import { getUsdtAndUsdcPrice } from "../helpers/getUSDTPrice";
+import { getRaceTokenPrice } from "../helpers/getRaceTokenPrice";
+import { ToastContainer, toast } from "react-toastify";
+import { deposit } from "../helpers/deposit";
 
 export const Depositstepfirst = () => {
   //========================= Global variable =========================//
@@ -22,12 +26,14 @@ export const Depositstepfirst = () => {
   //========================= end of code =========================//
 
   //========================= local variable =========================//
-
   const [show, setShow] = useState(false);
   const [showwithdraw, setShowWithdraw] = useState(false);
   const [flag, setFlag] = useState(false);
-  const [balance, setBalance] = useState(80); //dummy balance
-  const [racebalance, setRaceBalance] = useState(60); //dummy balance
+  const [balance, setBalance] = useState(90); //dummy balance
+  const [racebalance, setRaceBalance] = useState(0); //dummy balance
+  const [liveprice, setLivePrice] = useState(0);
+  const [allowance, setAllowance] = useState(0);
+  const [RaceLivePrice, setRaceLivePrice] = useState(0);
   const [cointype, setCoinType] = useState("USDT");
   const [chainid, setChainId] = useState();
   const [formError, setFormError] = useState("");
@@ -41,8 +47,6 @@ export const Depositstepfirst = () => {
   });
   //========================= end of code =========================//
   const totalpercentage = (inputValue?.amount / balance) * 100;
-
-  const BasePoints = inputValue?.amount; // dummy points
 
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
@@ -68,6 +72,8 @@ export const Depositstepfirst = () => {
     });
   };
   //=========================fetching main balance=========================//
+  console.log(WalletEVM?.chainId, "walletid");
+  console.log(chainid, "chainId");
 
   useEffect(() => {
     const balancefuntion = async () => {
@@ -78,7 +84,16 @@ export const Depositstepfirst = () => {
           walletaddress,
           cointype
         );
-        // setBalance(mainBalanceData);
+        const LivePrice = await getUsdtAndUsdcPrice(
+          chainid,
+          currency,
+          cointype,
+          inputValue?.amount
+        );
+        setLivePrice(LivePrice);
+        // console.log(mainBalanceData, "mainBalanceData");
+        // setBalance(mainBalanceData?.balance);
+        setAllowance(mainBalanceData?.allowance);
       } catch (error) {
         console.error("Error fetching balance:", error);
       }
@@ -87,7 +102,7 @@ export const Depositstepfirst = () => {
     if (cointype) {
       balancefuntion();
     }
-  }, [flag, cointype, WalletEVM]);
+  }, [flag, cointype, WalletEVM, inputValue?.amount]);
   //========================= end of code =========================//
 
   //=========================fetching race tokan balance=========================//
@@ -96,13 +111,13 @@ export const Depositstepfirst = () => {
     const racetokenbalance = async () => {
       try {
         const racebalance = await getRaceBalance(chainid, walletaddress);
-        console.log(racebalance, "racebalance");
-        // setRaceBalance(mainBalanceData);
+        const raceliveprice = await getRaceTokenPrice(chainid);
+        setRaceLivePrice(raceliveprice);
+        setRaceBalance(racebalance);
       } catch (error) {
         console.error("Error fetching balance:", error);
       }
     };
-
     if (cointype) {
       racetokenbalance();
     }
@@ -123,6 +138,7 @@ export const Depositstepfirst = () => {
   const handleopenWithdraw = () => {
     setShowWithdraw(true);
   };
+
   const handleCloseWithdraw = () => {
     setShowWithdraw(false);
     setSelectedOption("");
@@ -206,7 +222,6 @@ export const Depositstepfirst = () => {
   const handleopenWithdrawMain = async () => {
     setShowWithdrawMain(true);
     const racebalance = await getRaceBalance(chainid, walletaddress);
-    console.log(racebalance, "racebalance");
   };
 
   const handlePercentageClickSell = (percentage) => {
@@ -217,14 +232,85 @@ export const Depositstepfirst = () => {
     });
   };
   //========================= end of code =========================//
+  // console.log(liveprice, "liveprice");
+  // console.log(RaceLivePrice, "RaceLivePrice");
+  // console.log(liveprice / RaceLivePrice, "mainvalue");
 
+  //===============deposite code====================//
 
-  console.log(inputValue?.amount, ";;;;");
+  const HandleDeposit = async () => {
+    if (!walletaddress) {
+      // console.log("1111");
+      setFormError("Walletaddress is not selected");
+    } else if (!inputValue?.amount) {
+      setFormError("Please enter amount");
+    } else if (inputValue?.amount >= balance) {
+      setFormError("Balance is insufficient");
+      // console.log("222222");
+    } else {
+      // if(chainid != WalletEVM?.chainId){
+      //   setFormError("wrong chain id")
+      // }else
+
+      try {
+        let data = {
+          chainId: chainid,
+          currency: currency,
+          cointype: cointype,
+          wallettype: wallettype,
+          amount: inputValue?.amount,
+          walletaddress: walletaddress,
+        };
+        let deposite = await deposit(data);
+        if (deposite) {
+          toast.success("Deposited Successfully");
+        }
+      } catch (err) {}
+    }
+  };
+  //========================= end of code =========================//
+  // console.log(chainid,"[[[[[")
+  const approveToken = async () => {
+    if (!inputValue?.amount) {
+      setFormError("Please enter amount");
+    } else if (!walletaddress) {
+      setFormError("Walletaddress is not selected");
+    }
+    // else  if(chainid != WalletEVM?.chainId){
+    //   setFormError("wrong chain id")
+    // }
+    else if (inputValue?.amount >= balance) {
+      setFormError("Balance is insufficient");
+    }
+    let data = {
+      chainId: chainid,
+      currency: currency,
+      cointype: cointype,
+      wallettype: wallettype,
+      amount: inputValue?.amount,
+    };
+    let approve = await approveERC20(data);
+    if (approve) {
+      console.log("appproved");
+      const mainBalanceData = await getUsdtAndUsdcBalance(
+        chainid,
+        currency,
+        walletaddress,
+        cointype
+      );
+      setAllowance(mainBalanceData?.allowance);
+    }
+  };
+
+  // console.log(inputValue?.amount, "inputValue?.amount");
+  // console.log(allowance, "allowance");
   return (
     <>
       <Header />
       <section className="deposit-step-sec">
         <Container>
+          <ToastContainer />
+
           <Row>
             <Col>
               <h2 className="common-heading">Start Your Points Journey</h2>
@@ -413,7 +499,7 @@ export const Depositstepfirst = () => {
                 <InputGroup className="">
                   <Form.Control
                     placeholder="0.00"
-                    value={BasePoints}
+                    value={liveprice / RaceLivePrice}
                     readOnly
                   />
                   {/* <InputGroup.Text>max</InputGroup.Text> */}
@@ -423,34 +509,42 @@ export const Depositstepfirst = () => {
                     {/* <img src="assets/img/coin5.png" alt="" />  */}
                     RACE
                   </Dropdown.Toggle>
-
-                  {/* <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
-                      Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                      Something else
-                    </Dropdown.Item>
-                  </Dropdown.Menu> */}
                 </Dropdown>
               </div>
-              <p>Balance: 0</p>
+              <p>Balance: {racebalance}</p>
             </Form.Group>
 
             <div className="by-with-test mt-4">
               Buy with:
-              <span>{inputValue?.amount}</span>
+              <span>{liveprice} $</span>
             </div>
 
             <div className="by-with-test">
               Received:
-              <span>{BasePoints}</span>
+              <span>{liveprice} $</span>
             </div>
-
-            <button className="common-btn bg-left ">
+            {inputValue?.amount >= balance ? (
+              <button className="common-btn bg-left" disabled>
+                Insufficient balance
+              </button>
+            ) : inputValue?.amount > allowance ? (
+              <button
+                className="common-btn bg-left"
+                onClick={() => approveToken()}
+              >
+                Approve
+              </button>
+            ) : (
+              <button
+                className="common-btn bg-left"
+                onClick={() => handleDeposit()}
+              >
+                Deposit
+              </button>
+            )}
+            {/* <button className="common-btn bg-left ">
               Enter {cointype} Amount
-            </button>
+            </button> */}
             {/* <button className="common-btn bg-left disable-btn">
               Not available for US
             </button> */}
@@ -617,7 +711,7 @@ export const Depositstepfirst = () => {
                   </InputGroup.Text>
                 </InputGroup>
                 <Dropdown>
-                <Dropdown.Toggle className="content-none">
+                  <Dropdown.Toggle className="content-none">
                     {/* <img src="assets/img/coin5.png" alt="" />  */}
                     RACE
                   </Dropdown.Toggle>
@@ -689,7 +783,7 @@ export const Depositstepfirst = () => {
                     <img src="assets/img/daller.png" alt="" />
                   ) : (
                     <img src="assets/img/coin5.png" alt="" />
-                  )}{" "}
+                  )}
                   {coinselltype}
                 </Dropdown.Toggle>
 
@@ -710,7 +804,7 @@ export const Depositstepfirst = () => {
                   <img src="assets/img/daller.png" alt="" />
                 ) : (
                   <img src="assets/img/coin5.png" alt="" />
-                )}{" "}
+                )}
                 {coinselltype}
               </div>
               <span>~ $0</span>
