@@ -13,11 +13,11 @@ const RaceTokensList = RaceTokens.tokens;
 export const approveERC20 = async (data) => {
 
   let token = TokensList.filter(
-    (token) => token.currency == currency && token.symbol == cointype
+    (token) => token.currency == data?.currency && token.symbol == data?.cointype
   );
   token = token[0];
 
-  let vaultAddress = RaceTokensList.filter((token) => token.chainId === data.chainid);
+  let vaultAddress = RaceTokensList.filter((token) => token.chainId == data.chainId);
   vaultAddress = address[0];
   let address = vaultAddress.address;
   const abi = TokenABI;

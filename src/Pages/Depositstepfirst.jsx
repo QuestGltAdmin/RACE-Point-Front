@@ -17,6 +17,8 @@ import axiosMain from "../http/axios/axios_main";
 import { getRaceBalance } from "../helpers/raceTokenBalance";
 import { getUsdtAndUsdcPrice } from "../helpers/getUSDTPrice";
 import { getRaceTokenPrice } from "../helpers/getRaceTokenPrice";
+import { ToastContainer, toast } from "react-toastify";
+import { deposit } from "../helpers/deposit";
 
 export const Depositstepfirst = () => {
   //========================= Global variable =========================//
@@ -27,10 +29,11 @@ export const Depositstepfirst = () => {
   const [show, setShow] = useState(false);
   const [showwithdraw, setShowWithdraw] = useState(false);
   const [flag, setFlag] = useState(false);
-  const [balance, setBalance] = useState(0); //dummy balance
+  const [balance, setBalance] = useState(90); //dummy balance
   const [racebalance, setRaceBalance] = useState(0); //dummy balance
-  const [liveprice, setLivePrice] = useState(0); 
-  const [RaceLivePrice, setRaceLivePrice] = useState(0); 
+  const [liveprice, setLivePrice] = useState(0);
+  const [allowance, setAllowance] = useState(0);
+  const [RaceLivePrice, setRaceLivePrice] = useState(0);
   const [cointype, setCoinType] = useState("USDT");
   const [chainid, setChainId] = useState();
   const [formError, setFormError] = useState("");
@@ -69,6 +72,8 @@ export const Depositstepfirst = () => {
     });
   };
   //=========================fetching main balance=========================//
+  console.log(WalletEVM?.chainId, "walletid");
+  console.log(chainid, "chainId");
 
   useEffect(() => {
     const balancefuntion = async () => {
@@ -86,7 +91,9 @@ export const Depositstepfirst = () => {
           inputValue?.amount
         );
         setLivePrice(LivePrice);
-        setBalance(mainBalanceData);
+        // console.log(mainBalanceData, "mainBalanceData");
+        // setBalance(mainBalanceData?.balance);
+        setAllowance(mainBalanceData?.allowance);
       } catch (error) {
         console.error("Error fetching balance:", error);
       }
@@ -95,7 +102,7 @@ export const Depositstepfirst = () => {
     if (cointype) {
       balancefuntion();
     }
-  }, [flag, cointype, WalletEVM,inputValue?.amount]);
+  }, [flag, cointype, WalletEVM, inputValue?.amount]);
   //========================= end of code =========================//
 
   //=========================fetching race tokan balance=========================//
@@ -131,7 +138,7 @@ export const Depositstepfirst = () => {
   const handleopenWithdraw = () => {
     setShowWithdraw(true);
   };
-  
+
   const handleCloseWithdraw = () => {
     setShowWithdraw(false);
     setSelectedOption("");
@@ -225,14 +232,85 @@ export const Depositstepfirst = () => {
     });
   };
   //========================= end of code =========================//
-  console.log(liveprice,"liveprice")
-  console.log(RaceLivePrice,"RaceLivePrice")
-console.log(liveprice/ RaceLivePrice,"mainvalue")
+  // console.log(liveprice, "liveprice");
+  // console.log(RaceLivePrice, "RaceLivePrice");
+  // console.log(liveprice / RaceLivePrice, "mainvalue");
+
+  //===============deposite code====================//
+
+  const HandleDeposit = async () => {
+    if (!walletaddress) {
+      // console.log("1111");
+      setFormError("Walletaddress is not selected");
+    } else if (!inputValue?.amount) {
+      setFormError("Please enter amount");
+    } else if (inputValue?.amount >= balance) {
+      setFormError("Balance is insufficient");
+      // console.log("222222");
+    } else {
+      // if(chainid != WalletEVM?.chainId){
+      //   setFormError("wrong chain id")
+      // }else
+
+      try {
+        let data = {
+          chainId: chainid,
+          currency: currency,
+          cointype: cointype,
+          wallettype: wallettype,
+          amount: inputValue?.amount,
+          walletaddress: walletaddress,
+        };
+        let deposite = await deposit(data);
+        if (deposite) {
+          toast.success("Deposited Successfully");
+        }
+      } catch (err) {}
+    }
+  };
+  //========================= end of code =========================//
+  // console.log(chainid,"[[[[[")
+  const approveToken = async () => {
+    if (!inputValue?.amount) {
+      setFormError("Please enter amount");
+    } else if (!walletaddress) {
+      setFormError("Walletaddress is not selected");
+    }
+    // else  if(chainid != WalletEVM?.chainId){
+    //   setFormError("wrong chain id")
+    // }
+    else if (inputValue?.amount >= balance) {
+      setFormError("Balance is insufficient");
+    }
+    let data = {
+      chainId: chainid,
+      currency: currency,
+      cointype: cointype,
+      wallettype: wallettype,
+      amount: inputValue?.amount,
+    };
+    let approve = await approveERC20(data);
+    if (approve) {
+      console.log("appproved");
+      const mainBalanceData = await getUsdtAndUsdcBalance(
+        chainid,
+        currency,
+        walletaddress,
+        cointype
+      );
+      setAllowance(mainBalanceData?.allowance);
+    }
+  };
+
+  // console.log(inputValue?.amount, "inputValue?.amount");
+  // console.log(allowance, "allowance");
   return (
     <>
       <Header />
       <section className="deposit-step-sec">
         <Container>
+          <ToastContainer />
+
           <Row>
             <Col>
               <h2 className="common-heading">Start Your Points Journey</h2>
@@ -421,7 +499,7 @@ console.log(liveprice/ RaceLivePrice,"mainvalue")
                 <InputGroup className="">
                   <Form.Control
                     placeholder="0.00"
-                    value={liveprice/ RaceLivePrice }
+                    value={liveprice / RaceLivePrice}
                     readOnly
                   />
                   {/* <InputGroup.Text>max</InputGroup.Text> */}
@@ -431,8 +509,6 @@ console.log(liveprice/ RaceLivePrice,"mainvalue")
                     {/* <img src="assets/img/coin5.png" alt="" />  */}
                     RACE
                   </Dropdown.Toggle>
-
-                 
                 </Dropdown>
               </div>
               <p>Balance: {racebalance}</p>
@@ -447,10 +523,28 @@ console.log(liveprice/ RaceLivePrice,"mainvalue")
               Received:
               <span>{liveprice} $</span>
             </div>
-
-            <button className="common-btn bg-left ">
+            {inputValue?.amount >= balance ? (
+              <button className="common-btn bg-left" disabled>
+                Insufficient balance
+              </button>
+            ) : inputValue?.amount > allowance ? (
+              <button
+                className="common-btn bg-left"
+                onClick={() => approveToken()}
+              >
+                Approve
+              </button>
+            ) : (
+              <button
+                className="common-btn bg-left"
+                onClick={() => handleDeposit()}
+              >
+                Deposit
+              </button>
+            )}
+            {/* <button className="common-btn bg-left ">
               Enter {cointype} Amount
-            </button>
+            </button> */}
             {/* <button className="common-btn bg-left disable-btn">
               Not available for US
             </button> */}

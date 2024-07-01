@@ -13,7 +13,7 @@ const RaceTokensList = RaceTokens.tokens;
 export const deposit = async (data) => {
     const abi = vaultABI;
 
-    let address = RaceTokensList.filter((token) => token.chainId === data.chainid);
+    let address = RaceTokensList.filter((token) => token.chainId == data.chainId);
     address = address[0];
     let vaultAddress = address.address;
 
