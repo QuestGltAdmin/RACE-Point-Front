@@ -45,7 +45,7 @@ export const Dashboard = () => {
   //========================= end of code =========================//
 
   //========================= local variable =========================//
-  const [dashboarddata, setDashboardData] = useState([]);
+  const [dashboarddata, setDashboardData] = useState({});
   //========================= end of code =========================//
 
   console.log(WalletEVM?.selectedAccount, "usertoken");
@@ -129,6 +129,12 @@ export const Dashboard = () => {
   };
   //===============End of code====================//
 
+  const number1 = dashboarddata?.amountInVaults || 0;
+  const digits1 = number1.toString().split("");
+
+  const number2 = dashboarddata?.points || 0;
+  const digits2 = number2.toString().split("");
+
   return (
     <>
       <Header />
@@ -138,28 +144,33 @@ export const Dashboard = () => {
             <Col lg={10} className="m-auto">
               <Row>
                 <Col lg={6}>
+                  {/* ======================================== Amount In Vaults ======================================== */}
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
                     <h3>Amount in vaults</h3>
-                    <div className="counter-otp">
-                      <p>{dashboarddata?.amountInVaults}</p>
-                      {/* <p>0</p>
-                      <p>0</p>
-                      <p>0</p>
-                      <p>0</p>
-                      <p>0</p> */}
+                    <div className="digits-container">
+                      {/* Displaying each digit in its own box */}
+                      {console.log(digits1)}
+                      {digits1.map((digit, index) => (
+                        <div key={index} className="counter-otp">
+                          <p>{digit}</p>
+                        </div>
+                      ))}
                     </div>
                   </div>
+
+                  {/* ======================================== Amount In Vaults ======================================== */}
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
                     <h3>Points</h3>
-                    <div className="counter-otp">
-                      <p>{dashboarddata?.points}</p>
-                      {/* <p>0</p>
-                      <p>0</p>
-                      <p>0</p>
-                      <p>0</p> */}
-                      {/* <p>0</p> */}
+                    <div className="digits-container">
+                      {/* Displaying each digit in its own box */}
+                      {console.log(digits2)}
+                      {digits2.map((digit, index) => (
+                        <div key={index} className="counter-otp">
+                          <p>{digit}</p>
+                        </div>
+                      ))}
                     </div>
                   </div>
                   <div>
@@ -185,7 +196,10 @@ export const Dashboard = () => {
                     </div>
                   </div> */}
                   <div>
-                    <button className="common-btn bg-left w-100" onClick={() => navigate("/deposit-step-1")}>
+                    <button
+                      className="common-btn bg-left w-100"
+                      onClick={() => navigate("/deposit-step-1")}
+                    >
                       <img src="assets/img/graph.png" alt="" /> Boost Your
                       Account
                     </button>

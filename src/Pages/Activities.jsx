@@ -197,8 +197,7 @@ export const Activities = () => {
                           0,
                           5
                         )}...${deposit.wallet_address.slice(-5)}`}</h4>
-                        <p>{deposit.ENS_name ? deposit.ENS_name : "\u200B"}</p>{" "}
-                        {/* "\u200B -> it takes up space without displaying anything*/}
+                        <p>{deposit.ENS_name ? deposit.ENS_name : "-"}</p>{" "}
                         <h3>
                           <b>
                             {deposit.currency}
@@ -229,8 +228,7 @@ export const Activities = () => {
                           0,
                           5
                         )}...${refer.wallet_address.slice(-5)}`}</h4>
-                        <p>{refer.ENS_name ? refer.ENS_name : "\u200B"}</p>{" "}
-                        {/* "\u200B -> it takes up space without displaying anything*/}
+                        <p>{refer.ENS_name ? refer.ENS_name : "-"}</p>{" "}
                         <div className="referral-point">
                           <h3>
                             <img src="assets/img/referal.png" alt="" />{" "}
@@ -239,8 +237,8 @@ export const Activities = () => {
                           <h3>
                             <img src="assets/img/trophy.png" alt="" />{" "}
                             <div>
-                            <b>{refer.earn_points.toFixed(2)}</b>{" "}
-                            <span>Points</span>
+                              <b>{refer.earn_points.toFixed(2)}</b>{" "}
+                              <span>Points</span>
                             </div>
                           </h3>
                         </div>
@@ -283,7 +281,9 @@ export const Activities = () => {
                               />
                               <div>
                                 <h4>{monthly.wallet_address}</h4>
-                                <p>J{monthly.ENS_name}</p>
+                                <p>
+                                  {monthly.ENS_name ? monthly.ENS_name : "-"}
+                                </p>
                               </div>
                             </div>
                             <div className="right-trophy">
@@ -332,7 +332,11 @@ export const Activities = () => {
                               />
                               <div>
                                 <h4>{quarterly.wallet_address}</h4>
-                                <p>{quarterly.ENS_name}</p>
+                                <p>
+                                  {quarterly.ENS_name
+                                    ? quarterly.ENS_name
+                                    : "-"}
+                                </p>{" "}
                               </div>
                             </div>
                             <div className="right-trophy">
