@@ -15,6 +15,8 @@ import useAuth from "../hooks/useAuth";
 import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
 import axiosMain from "../http/axios/axios_main";
 import { getRaceBalance } from "../helpers/raceTokenBalance";
+import { getUsdtAndUsdcPrice } from "../helpers/getUSDTPrice";
+import { getRaceTokenPrice } from "../helpers/getRaceTokenPrice";
 
 export const Depositstepfirst = () => {
   //========================= Global variable =========================//
@@ -22,12 +24,13 @@ export const Depositstepfirst = () => {
   //========================= end of code =========================//
 
   //========================= local variable =========================//
-
   const [show, setShow] = useState(false);
   const [showwithdraw, setShowWithdraw] = useState(false);
   const [flag, setFlag] = useState(false);
-  const [balance, setBalance] = useState(80); //dummy balance
-  const [racebalance, setRaceBalance] = useState(60); //dummy balance
+  const [balance, setBalance] = useState(0); //dummy balance
+  const [racebalance, setRaceBalance] = useState(0); //dummy balance
+  const [liveprice, setLivePrice] = useState(0); 
+  const [RaceLivePrice, setRaceLivePrice] = useState(0); 
   const [cointype, setCoinType] = useState("USDT");
   const [chainid, setChainId] = useState();
   const [formError, setFormError] = useState("");
@@ -41,8 +44,6 @@ export const Depositstepfirst = () => {
   });
   //========================= end of code =========================//
   const totalpercentage = (inputValue?.amount / balance) * 100;
-
-  const BasePoints = inputValue?.amount; // dummy points
 
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
@@ -78,7 +79,14 @@ export const Depositstepfirst = () => {
           walletaddress,
           cointype
         );
-        // setBalance(mainBalanceData);
+        const LivePrice = await getUsdtAndUsdcPrice(
+          chainid,
+          currency,
+          cointype,
+          inputValue?.amount
+        );
+        setLivePrice(LivePrice);
+        setBalance(mainBalanceData);
       } catch (error) {
         console.error("Error fetching balance:", error);
       }
@@ -87,7 +95,7 @@ export const Depositstepfirst = () => {
     if (cointype) {
       balancefuntion();
     }
-  }, [flag, cointype, WalletEVM]);
+  }, [flag, cointype, WalletEVM,inputValue?.amount]);
   //========================= end of code =========================//
 
   //=========================fetching race tokan balance=========================//
@@ -96,13 +104,13 @@ export const Depositstepfirst = () => {
     const racetokenbalance = async () => {
       try {
         const racebalance = await getRaceBalance(chainid, walletaddress);
-        console.log(racebalance, "racebalance");
-        // setRaceBalance(mainBalanceData);
+        const raceliveprice = await getRaceTokenPrice(chainid);
+        setRaceLivePrice(raceliveprice);
+        setRaceBalance(racebalance);
       } catch (error) {
         console.error("Error fetching balance:", error);
       }
     };
-
     if (cointype) {
       racetokenbalance();
     }
@@ -123,6 +131,7 @@ export const Depositstepfirst = () => {
   const handleopenWithdraw = () => {
     setShowWithdraw(true);
   };
+  
   const handleCloseWithdraw = () => {
     setShowWithdraw(false);
     setSelectedOption("");
@@ -206,7 +215,6 @@ export const Depositstepfirst = () => {
   const handleopenWithdrawMain = async () => {
     setShowWithdrawMain(true);
     const racebalance = await getRaceBalance(chainid, walletaddress);
-    console.log(racebalance, "racebalance");
   };
 
   const handlePercentageClickSell = (percentage) => {
@@ -217,9 +225,9 @@ export const Depositstepfirst = () => {
     });
   };
   //========================= end of code =========================//
-
-
-  console.log(inputValue?.amount, ";;;;");
+  console.log(liveprice,"liveprice")
+  console.log(RaceLivePrice,"RaceLivePrice")
+console.log(liveprice/ RaceLivePrice,"mainvalue")
   return (
     <>
       <Header />
@@ -413,7 +421,7 @@ export const Depositstepfirst = () => {
                 <InputGroup className="">
                   <Form.Control
                     placeholder="0.00"
-                    value={BasePoints}
+                    value={liveprice/ RaceLivePrice }
                     readOnly
                   />
                   {/* <InputGroup.Text>max</InputGroup.Text> */}
@@ -424,28 +432,20 @@ export const Depositstepfirst = () => {
                     RACE
                   </Dropdown.Toggle>
 
-                  {/* <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
-                      Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                      Something else
-                    </Dropdown.Item>
-                  </Dropdown.Menu> */}
+                 
                 </Dropdown>
               </div>
-              <p>Balance: 0</p>
+              <p>Balance: {racebalance}</p>
             </Form.Group>
 
             <div className="by-with-test mt-4">
               Buy with:
-              <span>{inputValue?.amount}</span>
+              <span>{liveprice} $</span>
             </div>
 
             <div className="by-with-test">
               Received:
-              <span>{BasePoints}</span>
+              <span>{liveprice} $</span>
             </div>
 
             <button className="common-btn bg-left ">
@@ -617,7 +617,7 @@ export const Depositstepfirst = () => {
                   </InputGroup.Text>
                 </InputGroup>
                 <Dropdown>
-                <Dropdown.Toggle className="content-none">
+                  <Dropdown.Toggle className="content-none">
                     {/* <img src="assets/img/coin5.png" alt="" />  */}
                     RACE
                   </Dropdown.Toggle>
@@ -689,7 +689,7 @@ export const Depositstepfirst = () => {
                     <img src="assets/img/daller.png" alt="" />
                   ) : (
                     <img src="assets/img/coin5.png" alt="" />
-                  )}{" "}
+                  )}
                   {coinselltype}
                 </Dropdown.Toggle>
 
@@ -710,7 +710,7 @@ export const Depositstepfirst = () => {
                   <img src="assets/img/daller.png" alt="" />
                 ) : (
                   <img src="assets/img/coin5.png" alt="" />
-                )}{" "}
+                )}
                 {coinselltype}
               </div>
               <span>~ $0</span>

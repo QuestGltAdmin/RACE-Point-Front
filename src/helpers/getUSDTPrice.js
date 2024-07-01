@@ -9,36 +9,43 @@ const TokensList = Tokens.tokens;
 const ManagerContractsList = ManagerContracts.contracts;
 
 export const getUsdtAndUsdcPrice = async (
-    chainid,
-    currency,
-    cointype,
-    _amount
+  chainid,
+  currency,
+  cointype,
+  _amount
 ) => {
-    let chainData = chainList.filter((contract) => contract.chainId == chainid);
-    chainData = chainData[0];
-    let address = TokensList.filter(
-        (token) => token.currency == currency && token.symbol == cointype
-    );
-    console.log(address, "address");
-    address = address[0];
-    let tokenAddress = address.address;
+  let chainData = chainList.filter((contract) => contract.chainId == chainid);
+  chainData = chainData[0];
+  let address = TokensList.filter(
+    (token) => token.currency == currency && token.symbol == cointype
+  );
+  address = address[0];
+  let tokenAddress = address.address;
 
-    let decimal = address.decimals;
-    let amount = _amount * (10**decimal);
+  let decimal = address.decimals;
+  let amount = _amount * 10 ** decimal;
 
-    let contractAddress = ManagerContractsList.filter(
-        (token) => token.chainId == chainid);
-    
-    contractAddress = contractAddress[0];
-    let managerContractAddress = contractAddress.address;
+  let contractAddress = ManagerContractsList.filter(
+    (token) => token.chainId == chainid
+  );
 
-    let web3connect = new Web3(new Web3.providers.HttpProvider(chainData.rpc));
-    managerContractAddress = web3connect.utils.toChecksumAddress(managerContractAddress);
+  contractAddress = contractAddress[0];
+  let managerContractAddress = contractAddress.address;
 
-    const managerContract = new web3connect.eth.Contract(abi, managerContractAddress);
-    let priceInDollar = await managerContract.methods.assetValue(tokenAddress,amount).call();
+  let web3connect = new Web3(new Web3.providers.HttpProvider(chainData.rpc));
+  managerContractAddress = web3connect.utils.toChecksumAddress(
+    managerContractAddress
+  );
 
-    priceInDollar = (priceInDollar / (10 ** 18));
+  const managerContract = new web3connect.eth.Contract(
+    abi,
+    managerContractAddress
+  );
+  let priceInDollar = await managerContract.methods
+    .assetValue(tokenAddress, amount)
+    .call();
 
-    return priceInDollar;
+  priceInDollar = priceInDollar / 10 ** 18;
+
+  return priceInDollar;
 };
