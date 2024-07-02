@@ -54,19 +54,23 @@ export const Dashboard = () => {
     datasets: [
       {
         label: "# of Votes",
-        // data: [
-        //   dashboarddata?.location?.arbitrium,
-        //   dashboarddata?.location?.base,
-        //   dashboarddata?.location?.optimism,
-        //   dashboarddata?.location?.polygon,
-        // ],
-        data: [30, 40, 10, 20],
+        data: [
+          dashboarddata?.location?.arbitrium,
+          dashboarddata?.location?.base,
+          dashboarddata?.location?.optimism,
+          dashboarddata?.location?.polygon,
+        ],
+        // data: [30, 40, 10, 20],
         backgroundColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
         borderColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
         borderWidth: 1,
       },
     ],
   };
+  console.log(dashboarddata?.location?.arbitrium,"dashboarddata?.location?.arbitrium")
+  console.log(dashboarddata?.location?.base,"dashboarddata?.location?.base")
+  console.log(dashboarddata?.location?.optimism,"dashboarddata?.location?.optimism")
+  console.log(dashboarddata?.location?.polygon,"dashboarddata?.location?.polygon")
   const options = {
     responsive: true,
     plugins: {
