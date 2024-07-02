@@ -84,6 +84,7 @@
         "symbol": "ETH",
         "chainId": 8453,
         "coinName": "Eth",
+        "chainIdHex": "0x2105",
         "rpc":"https://mainnet.base.org/",
         "explorer": "https://basescan.org"
       },
