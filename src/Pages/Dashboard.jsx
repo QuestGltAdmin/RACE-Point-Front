@@ -129,10 +129,16 @@ export const Dashboard = () => {
   };
   //===============End of code====================//
 
-  const number1 = dashboarddata?.amountInVaults || 0;
+  const number1 =
+    dashboarddata?.amountInVaults > 0
+      ? dashboarddata?.amountInVaults.toFixed(4)
+      : dashboarddata?.amountInVaults || 0;
   const digits1 = number1.toString().split("");
 
-  const number2 = dashboarddata?.points || 0;
+  const number2 =
+    dashboarddata?.points > 0
+      ? dashboarddata?.points.toFixed(4)
+      : dashboarddata?.points || 0;
   const digits2 = number2.toString().split("");
 
   return (
@@ -148,7 +154,10 @@ export const Dashboard = () => {
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
                     <h3>Amount in vaults</h3>
-                    <div className="digits-container" style={{display:"flex"}}>
+                    <div
+                      className="digits-container"
+                      style={{ display: "flex" }}
+                    >
                       {/* Displaying each digit in its own box */}
                       {console.log(digits1)}
                       {digits1.map((digit, index) => (
@@ -163,11 +172,14 @@ export const Dashboard = () => {
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
                     <h3>Points</h3>
-                    <div className="digits-container" style={{display:"flex"}}>
+                    <div
+                      className="digits-container"
+                      style={{ display: "flex" }}
+                    >
                       {/* Displaying each digit in its own box */}
                       {console.log(digits2)}
                       {digits2.map((digit, index) => (
-                        <div key={index} className="counter-otp" >
+                        <div key={index} className="counter-otp">
                           <p>{digit}</p>
                         </div>
                       ))}

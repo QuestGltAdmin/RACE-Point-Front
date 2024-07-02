@@ -201,7 +201,7 @@ export const Activities = () => {
                         <h3>
                           <b>
                             {deposit.currency}
-                            {deposit.deposit}
+                            {deposit.deposit.toFixed(4)}
                           </b>{" "}
                           Deposited
                         </h3>
