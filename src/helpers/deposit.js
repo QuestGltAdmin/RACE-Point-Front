@@ -16,7 +16,6 @@ export const deposit = async (data) => {
     let address = RaceTokensList.filter((token) => token.chainId == data.chainId);
     address = address[0];
     let vaultAddress = address.address;
-    console.log("vaultAddress-----",vaultAddress);
 
     let token = TokensList.filter(
         (token) => token.currency == data.currency && token.symbol == data.cointype

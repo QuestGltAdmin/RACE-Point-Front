@@ -97,10 +97,8 @@ export const web3 = async (type) => {
 // };
 
 export const Provider = async (type) => {
-  console.log(type,"type")
   let provider;
   if (type === "metamask") {
-    console.log("inmeta")
     if (typeof window.ethereum === 'undefined') {
       console.error("Please install Metamask");
     } else {

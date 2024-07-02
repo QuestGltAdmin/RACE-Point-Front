@@ -27,7 +27,6 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
       }
 
       const wallet = await Connect(type);
-      console.log(wallet, "222");
       // if (wallet) {
       //   dispatch(setEVMWallet(wallet));
       //   setWalletAddress(wallet.selectedAccount);

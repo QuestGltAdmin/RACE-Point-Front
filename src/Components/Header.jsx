@@ -5,9 +5,14 @@ import { Connect } from "../helpers/Connect";
 import { setEVMWallet } from "../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { ethers } from "ethers";
+import useAuth from "../hooks/useAuth";
 
 export const Header = () => {
+  //========================= Global variable =========================//
+  const { WalletEVM, walletbalance } = useAuth();
   const dispatch = useDispatch();
+  //========================= end of code =========================//
+
   const controlNavbar = () => {
     if (window.scrollY) {
       document.getElementById("headerId").classList.add("darker-header");
@@ -27,14 +32,11 @@ export const Header = () => {
   useEffect(() => {
     // if (wallet) {
     const handleChain = async () => {
-      let provider = await Provider("metamask");
+      let provider = await Provider(WalletEVM?.type);
       //=================Account change code===============//
       provider.on("accountsChanged", async (accounts) => {
-        console.log(accounts, "accounts");
-        const walletAcc = await Connect("metamask");
-        // if (wallet.type === "walletConnect") {
-        // } else {
-        // localStorage.setItem("wallet", JSON.stringify(walletAcc));
+        const walletAcc = await Connect(WalletEVM?.type);
+
         dispatch(setEVMWallet(walletAcc));
         window.location.reload();
         // }
@@ -42,13 +44,9 @@ export const Header = () => {
 
       //=================Chain change code===============//
       provider.on("chainChanged", async (chainId) => {
-        console.log(chainId, "chainId");
-        const walletChain = await Connect("metamask");
-        // if (wallet.type === "walletConnect") {
-        // } else {
-        // localStorage.setItem("wallet", JSON.stringify(walletChain));
-        dispatch(setEVMWallet(walletChain));
+        const walletChain = await Connect(WalletEVM?.type);
 
+        dispatch(setEVMWallet(walletChain));
         window.location.reload();
         // }
       });

@@ -8,7 +8,6 @@ import {
 } from "./web3Model";
 
 export const Connect = async (type) => {
-  console.log(type,"type")
   if (type === "walletConnect") {
     setTimeout(async () => {
       let account = await reConnect();
@@ -36,7 +35,6 @@ export const Connect = async (type) => {
     let selectedAccount = accounts[0];
 
     const chainId = await web3connect.eth.getChainId();
-    console.log(chainId,"chainIdchainIdchainId")
     return {
       selectedAccount: selectedAccount,
       chainId: chainId,

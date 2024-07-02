@@ -44,10 +44,8 @@ export const config = () => {
 };
 
 export const web3Modal = async () => {
-  console.log(wagmiConfig,"11")
-  console.log(projectId,"@2")
   const web3modal = createWeb3Modal({ wagmiConfig, projectId });
-  console.log("3")
+
   return web3modal;
 };
 

@@ -19,7 +19,6 @@ export const getUsdtAndUsdcBalance = async (
   let address = TokensList.filter(
     (token) => token.currency == currency && token.symbol == cointype
   );
-  console.log(address, "address");
   address = address[0];
   let tokenAddress = address.address;
 

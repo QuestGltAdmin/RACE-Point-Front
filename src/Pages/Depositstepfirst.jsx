@@ -20,10 +20,11 @@ import { getRaceTokenPrice } from "../helpers/getRaceTokenPrice";
 import { ToastContainer, toast } from "react-toastify";
 import { deposit } from "../helpers/deposit";
 import { approveERC20 } from "../helpers/ApproveToken";
+import { commonSwitch } from "../helpers/ChainSwitch";
 
 export const Depositstepfirst = () => {
   //========================= Global variable =========================//
-  const { WalletEVM, walletbalance } = useAuth();
+  const { WalletEVM, walletbalance, user } = useAuth();
   //========================= end of code =========================//
 
   //========================= local variable =========================//
@@ -32,7 +33,7 @@ export const Depositstepfirst = () => {
   const [flag, setFlag] = useState(false);
   const [balance, setBalance] = useState(0); //dummy balance
   const [racebalance, setRaceBalance] = useState(0); //dummy balance
-  const [liveprice, setLivePrice] = useState(0);
+  const [liveprice, setLivePrice] = useState(60);
   const [allowance, setAllowance] = useState(0);
   const [RaceLivePrice, setRaceLivePrice] = useState(0);
   const [cointype, setCoinType] = useState("USDT");
@@ -43,16 +44,21 @@ export const Depositstepfirst = () => {
     WalletEVM?.selectedAccount
   );
   const [currency, setCurrency] = useState();
+  const [approvedisable, setApproveDisable] = useState(false);
+  const [depositeDisable, setDepositeDisable] = useState(false);
   const [inputValue, setInputValue] = useState({
     amount: "",
   });
   //========================= end of code =========================//
   const totalpercentage = (inputValue?.amount / balance) * 100;
 
+  const BasePoints = liveprice / RaceLivePrice;
+
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
-
+  console.log(user?.wallet_address, "user");
+  console.log(walletaddress, "walletaddress");
   const HandleCoinType = (e) => {
     setCoinType(e);
   };
@@ -73,8 +79,6 @@ export const Depositstepfirst = () => {
     });
   };
   //=========================fetching main balance=========================//
-  console.log(WalletEVM?.chainId, "walletid");
-  console.log(chainid, "chainId");
 
   useEffect(() => {
     const balancefuntion = async () => {
@@ -92,11 +96,10 @@ export const Depositstepfirst = () => {
           inputValue?.amount
         );
         setLivePrice(LivePrice);
-        // console.log(mainBalanceData, "mainBalanceData");
         setBalance(mainBalanceData?.balance);
         setAllowance(mainBalanceData?.allowance);
       } catch (error) {
-        console.error("Error fetching balance:", error);
+        // console.error("Error fetching balance:", error);
       }
     };
 
@@ -116,7 +119,7 @@ export const Depositstepfirst = () => {
         setRaceLivePrice(raceliveprice);
         setRaceBalance(racebalance);
       } catch (error) {
-        console.error("Error fetching balance:", error);
+        // console.error("Error fetching balance:", error);
       }
     };
     if (cointype) {
@@ -125,8 +128,19 @@ export const Depositstepfirst = () => {
   }, [flag, cointype, WalletEVM]);
   //========================= end of code =========================//
 
-  //========================= reason withdraw popup code  =========================//
+  //=========================handle chain change=========================//
+  const handleChain = async () => {
+    try {
+      const chain = await commonSwitch(chainid, WalletEVM?.type);
+      // setRaceLivePrice(raceliveprice);
+    } catch (error) {
+      console.error("Error to change:", error);
+    }
+  };
 
+  //========================= end of code =========================//
+
+  //========================= reason withdraw popup code  =========================//
   const [selectedOption, setSelectedOption] = useState("");
   const [inputValuereason, setInputValueReason] = useState({
     reason: "",
@@ -233,25 +247,20 @@ export const Depositstepfirst = () => {
     });
   };
   //========================= end of code =========================//
-  // console.log(liveprice, "liveprice");
-  // console.log(RaceLivePrice, "RaceLivePrice");
-  // console.log(liveprice / RaceLivePrice, "mainvalue");
 
   //===============deposite code====================//
 
   const HandleDeposit = async () => {
     if (!walletaddress) {
-      // console.log("1111");
       setFormError("Walletaddress is not selected");
+    } else if (walletaddress !== user?.wallet_address) {
+      setFormError("Please select registered wallet address");
     } else if (!inputValue?.amount) {
       setFormError("Please enter amount");
     } else if (inputValue?.amount >= balance) {
       setFormError("Balance is insufficient");
-      // console.log("222222");
     } else {
-      // if(chainid != WalletEVM?.chainId){
-      //   setFormError("wrong chain id")
-      // }else
+      setDepositeDisable(true);
 
       try {
         let data = {
@@ -262,52 +271,48 @@ export const Depositstepfirst = () => {
           amount: inputValue?.amount,
           userAddress: walletaddress,
         };
-        console.log(data);
         let deposite = await deposit(data);
         if (deposite) {
+          setDepositeDisable(false);
           toast.success("Deposited Successfully");
         }
       } catch (err) {}
     }
   };
   //========================= end of code =========================//
-  console.log(chainid,"[[chainnnid[[")
-  const approveToken = async () => {
-    if (!inputValue?.amount) {
-      setFormError("Please enter amount");
-    } else if (!walletaddress) {
-      setFormError("Walletaddress is not selected");
-    }
-    // else  if(chainid != WalletEVM?.chainId){
-    //   setFormError("wrong chain id")
-    // }
-    else if (inputValue?.amount >= balance) {
-      setFormError("Balance is insufficient");
-    }
-    let data = {
-      chainId: chainid,
-      currency: currency,
-      cointype: cointype,
-      wallettype: WalletEVM?.type,
-      amount: inputValue?.amount,
-    };
-    console.log(data);
 
-    let approve = await approveERC20(data);
-    if (approve) {
-      console.log("appproved");
-      const mainBalanceData = await getUsdtAndUsdcBalance(
-        chainid,
-        currency,
-        walletaddress,
-        cointype
-      );
-      setAllowance(mainBalanceData?.allowance);
+  const approveToken = async () => {
+    if (walletaddress) {
+      setFormError("Walletaddress is not selected");
+    } else if (walletaddress !== user?.wallet_address) {
+      setFormError("Please select registered wallet address");
+    } else if (!inputValue?.amount) {
+      setFormError("Please enter amount");
+    } else if (inputValue?.amount >= balance) {
+      setFormError("Balance is insufficient");
+    } else {
+      setApproveDisable(true);
+      let data = {
+        chainId: chainid,
+        currency: currency,
+        cointype: cointype,
+        wallettype: WalletEVM?.type,
+        amount: inputValue?.amount,
+      };
+      let approve = await approveERC20(data);
+      if (approve) {
+        setApproveDisable(false);
+        const mainBalanceData = await getUsdtAndUsdcBalance(
+          chainid,
+          currency,
+          walletaddress,
+          cointype
+        );
+        setAllowance(mainBalanceData?.allowance);
+      }
     }
   };
 
-  // console.log(inputValue?.amount, "inputValue?.amount");
-  // console.log(allowance, "allowance");
   return (
     <>
       <Header />
@@ -503,7 +508,7 @@ export const Depositstepfirst = () => {
                 <InputGroup className="">
                   <Form.Control
                     placeholder="0.00"
-                    value={liveprice / RaceLivePrice}
+                    value={BasePoints ? BasePoints : 0.0}
                     readOnly
                   />
                   {/* <InputGroup.Text>max</InputGroup.Text> */}
@@ -527,23 +532,35 @@ export const Depositstepfirst = () => {
               Received:
               <span>{liveprice} $</span>
             </div>
-            {inputValue?.amount >= balance ? (
-              <button className="common-btn bg-left" disabled>
+            <p>{formError}</p>
+
+            {chainid != WalletEVM?.chainId ? (
+              <button
+                className="common-btn bg-left"
+                onClick={() => handleChain()}
+              >
+                Please select correct Chain
+              </button>
+            ) : inputValue?.amount >= balance ? (
+              <button className="common-btn bg-left disable-btn" disabled>
                 Insufficient balance
               </button>
             ) : inputValue?.amount > allowance ? (
               <button
                 className="common-btn bg-left"
+                disabled={approvedisable}
                 onClick={() => approveToken()}
               >
-                Approve
+                {" "}
+                {approvedisable ? "Processing" : "Approve"}
               </button>
             ) : (
               <button
                 className="common-btn bg-left"
+                disabled={depositeDisable}
                 onClick={() => HandleDeposit()}
               >
-                Deposit
+                {depositeDisable ? "Processing" : "Deposit"}
               </button>
             )}
             {/* <button className="common-btn bg-left ">

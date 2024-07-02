@@ -6,13 +6,14 @@ import { _switchNetwork } from "./web3Model";
 const ChainList = Chain.Chains;
 
 export const commonSwitch = async (requireNetwork, type) => {
-  let chainId = ChainList.filter((chain) => chain.chainId === requireNetwork);
+  let chainId = ChainList.filter((chain) => chain.chainId == requireNetwork);
   chainId = chainId[0];
+
   if (type === "walletConnect") {
-    // setTimeout(async () => {
     const id = toast.loading("Please Check Your Wallet");
     try {
       await _switchNetwork(chainId.chainId);
+
       toast.update(id, {
         render: `You have successfully switched to ${chainId.name} network`,
         type: "success",
@@ -45,6 +46,7 @@ export const commonSwitch = async (requireNetwork, type) => {
         isLoading: false,
         autoClose: 2000,
       });
+
       return true;
     } catch (switchError) {
       // This error code indicates that the chain has not been added to MetaMask.
