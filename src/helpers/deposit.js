@@ -16,6 +16,7 @@ export const deposit = async (data) => {
     let address = RaceTokensList.filter((token) => token.chainId == data.chainId);
     address = address[0];
     let vaultAddress = address.address;
+    console.log("vaultAddress-----",vaultAddress);
 
     let token = TokensList.filter(
         (token) => token.currency == data.currency && token.symbol == data.cointype
@@ -139,6 +140,7 @@ export const deposit = async (data) => {
 
             const caddress = web3connect.utils.toChecksumAddress(vaultAddress);
             let vaultContract = new web3connect.eth.Contract(abi, caddress);
+            console.log("here");
 
             let depositAmount = web3connect.utils.toWei(data.amount.toString(), "mwei");
             
@@ -158,9 +160,10 @@ export const deposit = async (data) => {
                 // _switch();
                 return false;
             }
-
+            
             const from_account = web3connect.utils.toChecksumAddress(selectedAccount);
             const coinBalance = web3connect.eth.getBalance(from_account);
+            
             if (from_account.toLowerCase() !== data.userAddress.toLowerCase()) {
                 toast.warn("Wrong account address");
                 // _switch();
@@ -172,7 +175,7 @@ export const deposit = async (data) => {
                 to: caddress,
                 data: Data,
             });
-
+            
             let gasLimit = web3connect.utils.toHex(estimates_gas * 2);
             let gasPrice_bal = await web3connect.eth.getGasPrice();
             let gasPrice = web3connect.utils.toHex(gasPrice_bal);

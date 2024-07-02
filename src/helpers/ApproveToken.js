@@ -16,9 +16,10 @@ export const approveERC20 = async (data) => {
     (token) => token.currency == data?.currency && token.symbol == data?.cointype
   );
   token = token[0];
+  console.log(token);
 
   let vaultAddress = RaceTokensList.filter((token) => token.chainId == data.chainId);
-  vaultAddress = address[0];
+  vaultAddress = vaultAddress[0];
   let address = vaultAddress.address;
   const abi = TokenABI;
   
@@ -119,10 +120,11 @@ export const approveERC20 = async (data) => {
     const accounts = await web3connect.eth.getAccounts();
 
     let selectedAccount = accounts[0];
-    let amt = data.amount + data.amount * 0.001;
+    let amt = parseFloat(data.amount) + parseFloat(data.amount) * 0.001;
 
     let amountIn =
       "0x" + parseInt(amt * 10 ** token.decimals).toString(16);
+      console.log("amountIn",amountIn);
 
     const caddress = web3connect.utils.toChecksumAddress(address);
     const tokenAddress = web3connect.utils.toChecksumAddress(token.address); 

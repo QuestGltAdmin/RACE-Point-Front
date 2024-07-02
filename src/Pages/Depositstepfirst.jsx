@@ -19,6 +19,7 @@ import { getUsdtAndUsdcPrice } from "../helpers/getUSDTPrice";
 import { getRaceTokenPrice } from "../helpers/getRaceTokenPrice";
 import { ToastContainer, toast } from "react-toastify";
 import { deposit } from "../helpers/deposit";
+import { approveERC20 } from "../helpers/ApproveToken";
 
 export const Depositstepfirst = () => {
   //========================= Global variable =========================//
@@ -29,7 +30,7 @@ export const Depositstepfirst = () => {
   const [show, setShow] = useState(false);
   const [showwithdraw, setShowWithdraw] = useState(false);
   const [flag, setFlag] = useState(false);
-  const [balance, setBalance] = useState(90); //dummy balance
+  const [balance, setBalance] = useState(0); //dummy balance
   const [racebalance, setRaceBalance] = useState(0); //dummy balance
   const [liveprice, setLivePrice] = useState(0);
   const [allowance, setAllowance] = useState(0);
@@ -92,7 +93,7 @@ export const Depositstepfirst = () => {
         );
         setLivePrice(LivePrice);
         // console.log(mainBalanceData, "mainBalanceData");
-        // setBalance(mainBalanceData?.balance);
+        setBalance(mainBalanceData?.balance);
         setAllowance(mainBalanceData?.allowance);
       } catch (error) {
         console.error("Error fetching balance:", error);
@@ -257,10 +258,11 @@ export const Depositstepfirst = () => {
           chainId: chainid,
           currency: currency,
           cointype: cointype,
-          wallettype: wallettype,
+          wallettype: WalletEVM?.type,
           amount: inputValue?.amount,
-          walletaddress: walletaddress,
+          userAddress: walletaddress,
         };
+        console.log(data);
         let deposite = await deposit(data);
         if (deposite) {
           toast.success("Deposited Successfully");
@@ -286,9 +288,11 @@ export const Depositstepfirst = () => {
       chainId: chainid,
       currency: currency,
       cointype: cointype,
-      wallettype: wallettype,
+      wallettype: WalletEVM?.type,
       amount: inputValue?.amount,
     };
+    console.log(data);
+
     let approve = await approveERC20(data);
     if (approve) {
       console.log("appproved");
@@ -322,7 +326,7 @@ export const Depositstepfirst = () => {
                 className="coin-box"
                 onClick={(data) =>
                   handleShow({
-                    chainId: "10",
+                    chainId: 10,
                     currency: "optimism",
                   })
                 }
@@ -537,7 +541,7 @@ export const Depositstepfirst = () => {
             ) : (
               <button
                 className="common-btn bg-left"
-                onClick={() => handleDeposit()}
+                onClick={() => HandleDeposit()}
               >
                 Deposit
               </button>
