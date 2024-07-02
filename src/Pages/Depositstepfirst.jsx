@@ -345,7 +345,7 @@ export const Depositstepfirst = () => {
                 className="coin-box"
                 onClick={(data) =>
                   handleShow({
-                    chainId: "137",
+                    chainId: 137,
                     currency: "Matic",
                   })
                 }
@@ -364,7 +364,7 @@ export const Depositstepfirst = () => {
                 className="coin-box"
                 onClick={(data) =>
                   handleShow({
-                    chainId: "42161",
+                    chainId: 42161,
                     currency: "Arbitrum",
                   })
                 }
@@ -383,7 +383,7 @@ export const Depositstepfirst = () => {
                 className="coin-box"
                 onClick={(data) =>
                   handleShow({
-                    chainId: "8453",
+                    chainId: 8453,
                     currency: "Base",
                   })
                 }
