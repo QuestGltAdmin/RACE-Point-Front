@@ -567,7 +567,7 @@ body {
 
 .network-popup .modal-content .modal-body {
     text-align: center;
-    padding: 20px 30px;
+    padding: 10px 30px 20px;
 }
 .sub-heading {
     color: #FFF;
@@ -779,7 +779,7 @@ margin: 0 10px;
 /* deposite form new */
 
 .network-popup .modal-dialog.modal-md {
-    max-width: 700px;
+    max-width: 560px;
 }
 
 .network-popup .modal-dialog.modal-md .sub-heading {
@@ -804,10 +804,10 @@ margin: 0 10px;
     margin-bottom: 0.4rem;
 }
 .input-flex-row .input-group {
-    margin-right: 20px;
+    margin-right: 10px;
     border-radius: 8px;
     background-color: #0F172A;
-    padding: 12px 15px;
+    padding: 8px 10px;
 }
 .input-flex-row .input-group .form-control {
     background-color: transparent;
@@ -847,21 +847,24 @@ margin: 0 10px;
     background: #07487F;
     border: none;
     color: #FFF;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
     letter-spacing: 0.1px;
-    padding: 15px;
-    padding-right: 40px;
+    padding: 10px 10px;
+    padding-right: 31px;
     box-shadow: none !important;
     outline: none !important;
     border: none !important;
 }
 .input-flex-row  .dropdown .dropdown-toggle::after {
-    right: 15px;
+    right: 12px;
     position: absolute;
-    top: 23px;
+    top: 19px;
+}
+.input-flex-row .dropdown .dropdown-toggle.content-none{
+    padding: 10px 20px;
 }
 .input-flex-row .dropdown .dropdown-toggle.content-none::after{
     content: none !important;
@@ -959,7 +962,7 @@ color: #000;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 20px 0 10px;
+    margin: 10px 0 10px;
 }
 .by-with-test span{
 color:  #94A3B8;
@@ -969,17 +972,17 @@ font-weight: 400;
 line-height: 1rem;
 letter-spacing: 0.4px;
 }
-.network-popup .common-btn{
-display: block;
-width: 100%;
-margin: 30px 0 0;
-padding: 15px;
-font-size: 1rem;
+.network-popup .common-btn {
+    display: block;
+    width: 100%;
+    margin: 20px 0 0;
+    padding: 10px;
+    font-size: 1rem;
 }
 .withdraw-btn{
 border-radius: 30px;
 background-color:  #F1F5F9;
-padding: 12px 20px;
+padding: 8px 15px;
 display: flex;
 justify-content: center;
 align-items: center;
