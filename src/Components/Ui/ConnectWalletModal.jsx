@@ -97,7 +97,7 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
       );
       const ensName = await provider.lookupAddress(address);
       setENSName(ensName || "ENS name not found");
-      console.log(ensName);
+      // console.log(ensName);
     } catch (error) {
       console.error("Error resolving ENS name:", error);
       setENSName("ENS name not found");

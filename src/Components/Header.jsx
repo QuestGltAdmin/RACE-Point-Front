@@ -1,7 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { Provider } from "../helpers/Web3Helper";
+import { Connect } from "../helpers/Connect";
+import { setEVMWallet } from "../store/reducers/authReducer";
+import { useDispatch } from "react-redux";
+import { ethers } from "ethers";
 
 export const Header = () => {
+  const dispatch = useDispatch();
   const controlNavbar = () => {
     if (window.scrollY) {
       document.getElementById("headerId").classList.add("darker-header");
@@ -16,6 +22,39 @@ export const Header = () => {
     return () => {
       window.removeEventListener("scroll", controlNavbar);
     };
+  }, []);
+
+  useEffect(() => {
+    // if (wallet) {
+    const handleChain = async () => {
+      let provider = await Provider("metamask");
+      //=================Account change code===============//
+      provider.on("accountsChanged", async (accounts) => {
+        console.log(accounts, "accounts");
+        const walletAcc = await Connect("metamask");
+        // if (wallet.type === "walletConnect") {
+        // } else {
+        // localStorage.setItem("wallet", JSON.stringify(walletAcc));
+        dispatch(setEVMWallet(walletAcc));
+        window.location.reload();
+        // }
+      });
+
+      //=================Chain change code===============//
+      provider.on("chainChanged", async (chainId) => {
+        console.log(chainId, "chainId");
+        const walletChain = await Connect("metamask");
+        // if (wallet.type === "walletConnect") {
+        // } else {
+        // localStorage.setItem("wallet", JSON.stringify(walletChain));
+        dispatch(setEVMWallet(walletChain));
+
+        window.location.reload();
+        // }
+      });
+    };
+    handleChain();
+    // }
   }, []);
 
   return (

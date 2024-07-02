@@ -36,6 +36,7 @@ export const Connect = async (type) => {
     let selectedAccount = accounts[0];
 
     const chainId = await web3connect.eth.getChainId();
+    console.log(chainId,"chainIdchainIdchainId")
     return {
       selectedAccount: selectedAccount,
       chainId: chainId,

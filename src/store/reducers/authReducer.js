@@ -61,7 +61,7 @@ const authSlice = createSlice({
     },
     isLogin: (state, action) => {
       localStorage.setItem("isUserAuthenticated", JSON.stringify(action.payload));
-      console.log(action,"action")
+      // console.log(action,"action")
       return {
         ...state,
         isUserAuthenticated: true,
@@ -80,6 +80,7 @@ const authSlice = createSlice({
 
     setEVMWallet: (state, action) => {
       localStorage.setItem("WalletEVM", JSON.stringify(action.payload));
+      console.log(action.payload,"ppp")
       return {
         ...state,
         WalletEVM: action.payload,
