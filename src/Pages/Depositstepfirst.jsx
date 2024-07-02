@@ -32,8 +32,8 @@ export const Depositstepfirst = () => {
   const [showwithdraw, setShowWithdraw] = useState(false);
   const [showtransaction, setShowTransaction] = useState(false);
   const [flag, setFlag] = useState(false);
-  const [balance, setBalance] = useState(40); //dummy balance
-  const [racebalance, setRaceBalance] = useState(50); //dummy balance
+  const [balance, setBalance] = useState(0); //dummy balance
+  const [racebalance, setRaceBalance] = useState(0); //dummy balance
   const [liveprice, setLivePrice] = useState(60);
   const [allowance, setAllowance] = useState(0);
   const [RaceLivePrice, setRaceLivePrice] = useState(0);
@@ -58,8 +58,8 @@ export const Depositstepfirst = () => {
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
-  // console.log(user?.wallet_address, "user");
-  // console.log(walletaddress, "walletaddress");
+  console.log(user?.wallet_address, "user");
+  console.log(walletaddress, "walletaddress");
   const HandleCoinType = (e) => {
     setCoinType(e);
   };
@@ -97,7 +97,7 @@ export const Depositstepfirst = () => {
           inputValue?.amount
         );
         setLivePrice(LivePrice);
-        // setBalance(mainBalanceData?.balance);
+        setBalance(mainBalanceData?.balance);
         setAllowance(mainBalanceData?.allowance);
       } catch (error) {
         // console.error("Error fetching balance:", error);
@@ -118,7 +118,7 @@ export const Depositstepfirst = () => {
         const racebalance = await getRaceBalance(chainid, walletaddress);
         const raceliveprice = await getRaceTokenPrice(chainid);
         setRaceLivePrice(raceliveprice);
-        // setRaceBalance(racebalance);
+        setRaceBalance(racebalance);
       } catch (error) {
         // console.error("Error fetching balance:", error);
       }
@@ -279,7 +279,12 @@ export const Depositstepfirst = () => {
           userAddress: walletaddress,
         };
         let deposite = await deposit(data);
+        console.log(deposite?.transactionHash);
         if (deposite) {
+          //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
+          //https://polygonscan.com/tx/{deposite?.transactionHash};
+          // https://basescan.org/tx/{deposite?.transactionHash};
+          // https://arbiscan.io/tx/{deposite?.transactionHash};
           setDepositeDisable(false);
           toast.success("Deposited Successfully");
           handleopentransaction();
@@ -290,7 +295,7 @@ export const Depositstepfirst = () => {
   //========================= end of code =========================//
 
   const approveToken = async () => {
-    if (walletaddress) {
+    if (!walletaddress) {
       setFormError("Walletaddress is not selected");
     } else if (walletaddress !== user?.wallet_address) {
       setFormError("Please select registered wallet address");
