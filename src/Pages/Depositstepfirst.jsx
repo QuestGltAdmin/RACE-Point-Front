@@ -41,6 +41,7 @@ export const Depositstepfirst = () => {
   const [chainid, setChainId] = useState();
   const [formError, setFormError] = useState("");
   const [activeflag, setActiveFlag] = useState(0);
+  const [transactionhash, setTransactionHash] = useState(0);
   const [walletaddress, setWalletAddress] = useState(
     WalletEVM?.selectedAccount
   );
@@ -280,16 +281,18 @@ export const Depositstepfirst = () => {
         };
         let deposite = await deposit(data);
         console.log(deposite?.transactionHash);
+
         if (deposite) {
-          //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
-          //https://polygonscan.com/tx/{deposite?.transactionHash};
-          // https://basescan.org/tx/{deposite?.transactionHash};
-          // https://arbiscan.io/tx/{deposite?.transactionHash};
+          setTransactionHash(deposite?.transactionHash);
           setDepositeDisable(false);
           toast.success("Deposited Successfully");
           handleopentransaction();
+        } else {
+          setDepositeDisable(false);
         }
-      } catch (err) {}
+      } catch (err) {
+        setDepositeDisable(false);
+      }
     }
   };
   //========================= end of code =========================//
@@ -322,6 +325,8 @@ export const Depositstepfirst = () => {
           cointype
         );
         setAllowance(mainBalanceData?.allowance);
+      } else {
+        setApproveDisable(false);
       }
     }
   };
@@ -875,7 +880,45 @@ export const Depositstepfirst = () => {
             <h4 className="sub-heading">Transaction </h4>
 
             <div>
-              <h4 style={{ color: "#FFF" }}> Transaction URL</h4>
+              {/* //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
+              10 //https://polygonscan.com/tx/{deposite?.transactionHash};137 //
+              https://basescan.org/tx/{deposite?.transactionHash}; 8453 //
+              https://arbiscan.io/tx/{deposite?.transactionHash}; 42161 */}
+              {chainid == 10 ? (
+                <a
+                  href={`https://optimistic.etherscan.io/tx?${transactionhash}`}
+                  style={{ color: "#FFF" }}
+                >
+                  {" "}
+                 view on explorer
+                </a>
+              ) : chainid == 130 ? (
+                <a
+                  href={`https://polygonscan.com/tx/?${transactionhash}`}
+                  style={{ color: "#FFF" }}
+                >
+                  {" "}
+                 view on explorer
+                </a>
+              ) : chainid == 8453 ? (
+                <a
+                  href={`https://basescan.org/tx/?${transactionhash}`}
+                  style={{ color: "#FFF" }}
+                >
+                  {" "}
+                 view on explorer
+                </a>
+              ) : chainid == 42161 ? (
+                <a
+                  href={`https://arbiscan.io/tx/?${transactionhash}`}
+                  style={{ color: "#FFF" }}
+                >
+                  {" "}
+                 view on explorer
+                </a>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </Modal.Body>
