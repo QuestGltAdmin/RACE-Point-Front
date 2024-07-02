@@ -75,16 +75,9 @@
         "symbol": "ETH",
         "chainId": 10,
         "coinName": "Eth",
+        "chainIdHex": "0xA",
         "rpc":"https://mainnet.optimism.io/",
         "explorer": "https://optimistic.etherscan.io"
-      },
-      {
-        "name": "Base Mainnet",
-        "symbol": "ETH",
-        "chainId": 8453,
-        "coinName": "Eth",
-        "rpc":"https://mainnet.base.org/",
-        "explorer": "https://basescan.org"
       },
       {
         "name": "Base Mainnet",
@@ -99,6 +92,7 @@
         "symbol": "ETH",
         "chainId": 42161,
         "coinName": "Eth",
+        "chainIdHex": "0xA4B1",
         "rpc":"https://arb1.arbitrum.io/rpc",
         "explorer": "https://arbiscan.io"
       }
