@@ -30,6 +30,7 @@ export const Depositstepfirst = () => {
   //========================= local variable =========================//
   const [show, setShow] = useState(false);
   const [showwithdraw, setShowWithdraw] = useState(false);
+  const [showtransaction, setShowTransaction] = useState(false);
   const [flag, setFlag] = useState(false);
   const [balance, setBalance] = useState(0); //dummy balance
   const [racebalance, setRaceBalance] = useState(0); //dummy balance
@@ -57,8 +58,8 @@ export const Depositstepfirst = () => {
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
-  console.log(user?.wallet_address, "user");
-  console.log(walletaddress, "walletaddress");
+  // console.log(user?.wallet_address, "user");
+  // console.log(walletaddress, "walletaddress");
   const HandleCoinType = (e) => {
     setCoinType(e);
   };
@@ -161,7 +162,13 @@ export const Depositstepfirst = () => {
       reason: "",
     });
   };
+  const handleopentransaction = () => {
+    setShowTransaction(true);
+  };
 
+  const handleClosetransaction = () => {
+    setShowTransaction(false);
+  };
   const HandleReasonData = (e) => {
     setInputValueReason({
       ...inputValuereason,
@@ -275,6 +282,7 @@ export const Depositstepfirst = () => {
         if (deposite) {
           setDepositeDisable(false);
           toast.success("Deposited Successfully");
+          handleopentransaction();
         }
       } catch (err) {}
     }
@@ -839,6 +847,27 @@ export const Depositstepfirst = () => {
             <button className="common-btn bg-left ">
               Enter {coinselltype} Amount
             </button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      {/* transaction popup  */}
+
+      <Modal
+        className="network-popup deposit-input-popup"
+        size="md"
+        centered
+        show={showtransaction}
+        onHide={handleClosetransaction}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4 className="sub-heading">Transaction </h4>
+
+            <div>
+              <h4 style={{ color: "#FFF" }}> Transaction URL</h4>
+            </div>
           </div>
         </Modal.Body>
       </Modal>
