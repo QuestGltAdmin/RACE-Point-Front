@@ -561,7 +561,7 @@ export const Depositstepfirst = () => {
                 className="common-btn bg-left"
                 onClick={() => handleChain()}
               >
-                Please select correct Chain
+                Switch Network
               </button>
             ) : inputValue?.amount >= balance ? (
               <button className="common-btn bg-left disable-btn" disabled>
@@ -886,15 +886,15 @@ export const Depositstepfirst = () => {
               https://arbiscan.io/tx/{deposite?.transactionHash}; 42161 */}
               {chainid == 10 ? (
                 <a
-                  href={`https://optimistic.etherscan.io/tx?${transactionhash}`}
+                  href={`https://optimistic.etherscan.io/tx${transactionhash}`}
                   style={{ color: "#FFF" }}
                 >
                   {" "}
                  view on explorer
                 </a>
-              ) : chainid == 130 ? (
+              ) : chainid == 137 ? (
                 <a
-                  href={`https://polygonscan.com/tx/?${transactionhash}`}
+                  href={`https://polygonscan.com/tx?${transactionhash}`}
                   style={{ color: "#FFF" }}
                 >
                   {" "}
@@ -902,7 +902,7 @@ export const Depositstepfirst = () => {
                 </a>
               ) : chainid == 8453 ? (
                 <a
-                  href={`https://basescan.org/tx/?${transactionhash}`}
+                  href={`https://basescan.org/tx?${transactionhash}`}
                   style={{ color: "#FFF" }}
                 >
                   {" "}
@@ -910,7 +910,7 @@ export const Depositstepfirst = () => {
                 </a>
               ) : chainid == 42161 ? (
                 <a
-                  href={`https://arbiscan.io/tx/?${transactionhash}`}
+                  href={`https://arbiscan.io/tx?${transactionhash}`}
                   style={{ color: "#FFF" }}
                 >
                   {" "}
