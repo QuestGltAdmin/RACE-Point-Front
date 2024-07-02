@@ -271,7 +271,7 @@ export const Depositstepfirst = () => {
     }
   };
   //========================= end of code =========================//
-  // console.log(chainid,"[[[[[")
+  console.log(chainid,"[[chainnnid[[")
   const approveToken = async () => {
     if (!inputValue?.amount) {
       setFormError("Please enter amount");

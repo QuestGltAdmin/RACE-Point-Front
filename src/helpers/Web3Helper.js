@@ -69,24 +69,58 @@ export const web3 = async (type) => {
   return web3;
 };
 
+// export const Provider = async (type) => {
+//   let provider;
+//   if (type === "metamask") {
+//     if (typeof window.ethereum === "undefined") {
+//       console.error("Please install Metamask");
+//     } else {
+//       await window.ethereum
+//         .enable()
+//         .then(function (accounts) {
+//           provider = new ethers.providers.Web3Provider(window.ethereum);
+//           provider = provider.provider;
+//         })
+//         .catch(function (error) {
+//           console.error(
+//             "Error accessing Ethereum accounts with Metamask",
+//             error
+//           );
+//         });
+//     }
+//   } else if (type === "walletConnect") {
+//     provider = await web3Modal.connect();
+//   } else {
+//     provider = await web3Modal.connect();
+//   }
+//   return provider;
+// };
+
 export const Provider = async (type) => {
+  console.log(type,"type")
   let provider;
   if (type === "metamask") {
-    if (typeof window.ethereum === "undefined") {
+    console.log("inmeta")
+    if (typeof window.ethereum === 'undefined') {
       console.error("Please install Metamask");
     } else {
-      await window.ethereum
-        .enable()
-        .then(function (accounts) {
-          provider = new ethers.providers.Web3Provider(window.ethereum);
-          provider = provider.provider;
-        })
-        .catch(function (error) {
-          console.error(
-            "Error accessing Ethereum accounts with Metamask",
-            error
-          );
-        });
+      await window.ethereum.enable().then(function (accounts) {
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        provider = provider.provider;
+      }).catch(function (error) {
+        console.error("Error accessing Ethereum accounts with Metamask", error);
+      });
+    }
+  } else if (type === "Coinbase") {
+    if (typeof window.ethereum === 'undefined') {
+      console.error("Please install Coinbase");
+    } else {
+      await window.ethereum.enable().then(function (accounts) {
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        provider = provider.provider;
+      }).catch(function (error) {
+        console.error("Error accessing Ethereum accounts with Coinbase", error);
+      });
     }
   } else if (type === "walletConnect") {
     provider = await web3Modal.connect();
@@ -94,8 +128,7 @@ export const Provider = async (type) => {
     provider = await web3Modal.connect();
   }
   return provider;
-};
-
+}
 export const Disconnect = async () => {
   const disconnect = await web3Modal.clearCachedProvider();
   return disconnect;
