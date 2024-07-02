@@ -1,6 +1,6 @@
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { http, createConfig, WagmiProvider } from "wagmi";
-import { mainnet, bsc, polygon } from "viem/chains";
+import { mainnet, bsc, polygon, optimism, base, arbitrum } from "viem/chains";
 import { walletConnect } from "wagmi/connectors";
 import {
   getAccount,
@@ -28,13 +28,16 @@ const metadata = {
 };
 
 // Define chains
-const chains = [mainnet, bsc, polygon];
+const chains = [mainnet, bsc, polygon,optimism,base,arbitrum];
 const wagmiConfig = createConfig({
   chains, // Use the defined chains here
   transports: {
-    [mainnet.id]: http(),
-    [bsc.id]: http(),
+    // [mainnet.id]: http(),
+    // [bsc.id]: http(),
     [polygon.id]: http(),
+    [base.id]: http(),
+    [optimism.id]: http(),
+    [arbitrum.id]: http(),
   },
   connectors: [walletConnect({ projectId, metadata, showQrModal: false })],
 });
@@ -45,7 +48,6 @@ export const config = () => {
 
 export const web3Modal = async () => {
   const web3modal = createWeb3Modal({ wagmiConfig, projectId });
-
   return web3modal;
 };
 
