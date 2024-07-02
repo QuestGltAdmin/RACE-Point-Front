@@ -31,7 +31,7 @@ import axios from "axios";
 const restrictedCountries = ["US"]; // add "IN" for testing
 
 const Landing = () => {
-  const { WalletEVM ,isUserAuthenticated} = useAuth();
+  const { WalletEVM, isUserAuthenticated } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -56,7 +56,9 @@ const Landing = () => {
 
   const handleCloseReferralCodesModal = () => {
     setShowReferralCodesModal(false);
+    console.log("enter");
     navigate("/dashboard"); // Redirect to dashboard when closing the referral codes modal
+    console.log("exit");
   };
 
   const handleCloseModals = () => {
@@ -73,6 +75,8 @@ const Landing = () => {
     if (!objData) {
       // If WalletEVM key is not present in localStorage
       setShowConnectWalletModal(true);
+    } else if (isUserAuthenticated) {
+      navigate("/dashboard");
     } else {
       // If WalletEVM key is present in localStorage
       setShowReferralModal(true);
@@ -194,7 +198,7 @@ const Landing = () => {
       const response = await axiosMain.post("/auth/get-user-profile", {
         walletAddress: RowWalletAddress,
       });
-            if (response?.data?.status) {
+      if (response?.data?.status) {
         if (response?.data?.isLogin) {
           dispatch(userWalletLogin(response.data.data));
           dispatch(isLogin(response.data.isLogin));
@@ -282,12 +286,20 @@ const Landing = () => {
   //============================================= End of code ==================================================
 
   //=============================== Display referral modal on load if walletEVM in localStorage =================================
-  useEffect(() => {
-    const walletEVM = localStorage.getItem("WalletEVM");
-    if (walletEVM) {
+  /* useEffect(() => {
+    const timer = setTimeout(() => {
+      showReferral();
+    }, 2000);
+
+    return () => clearTimeout(timer); // Cleanup the timer on unmount or dependency change
+  }, []);
+
+  const showReferral = () => {
+    console.log(isUserAuthenticated);
+    if (WalletEVM?.selectedAccount && !isUserAuthenticated) {
       setShowReferralModal(true);
     }
-  }, []);
+  };*/
 
   return (
     <>
