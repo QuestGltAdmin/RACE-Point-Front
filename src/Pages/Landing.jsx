@@ -324,9 +324,13 @@ const Landing = () => {
                           disabled={isRestricted}
                         >
                           <img src="assets/img/dash.png" alt="" />
-                          <div>
-                            Connect Wallet <span>Track your points here</span>
-                          </div>
+                          {isUserAuthenticated ? (
+                            <div>Dashboard</div>
+                          ) : (
+                            <div>
+                              Connect Wallet <span>Track your points here</span>
+                            </div>
+                          )}
                         </Button>
                         <Button
                           variant="primary"
@@ -336,7 +340,7 @@ const Landing = () => {
                               : "common-btn"
                           }
                           disabled={isRestricted}
-                          href="#"
+                          href={isUserAuthenticated ? "/activities" : "/#"}
                         >
                           <img src="assets/img/star.png" alt="" />
                           Activities

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Header } from "../Components/Header";
 import {
+  Button,
   Col,
   Container,
   Dropdown,
@@ -47,7 +48,6 @@ export const Dashboard = () => {
   //========================= local variable =========================//
   const [dashboarddata, setDashboardData] = useState({});
   //========================= end of code =========================//
-
 
   const data = {
     labels: ["Arbitrum", "Base", "Optimism", "Polygon"],
@@ -179,12 +179,12 @@ export const Dashboard = () => {
                     </div>
                   </div>
                   <div>
-                    <button
+                    <Button
                       className="common-btn bg-left w-100"
-                      onClick={() => navigate("/activities")}
+                      href="/activities"
                     >
                       <img src="assets/img/star.png" alt="" /> More Activities
-                    </button>
+                    </Button>
                   </div>
                 </Col>
                 <Col lg={6}>
