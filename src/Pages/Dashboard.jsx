@@ -48,7 +48,6 @@ export const Dashboard = () => {
   const [dashboarddata, setDashboardData] = useState({});
   //========================= end of code =========================//
 
-  console.log(WalletEVM?.selectedAccount, "usertoken");
 
   const data = {
     labels: ["Arbitrum", "Base", "Optimism", "Polygon"],
@@ -76,7 +75,6 @@ export const Dashboard = () => {
       },
     },
   };
-  console.log(dashboarddata?.location?.arbitrium, ";;;");
   // const data1 = {
   //   labels: ["USDC", "USDT", "ETH"],
   //   datasets: [
@@ -119,11 +117,8 @@ export const Dashboard = () => {
           },
         }
       );
-      console.log(getdata, "getdata");
       if (getdata?.data?.status) {
-        console.log(getdata?.data, "ll");
         setDashboardData(getdata?.data);
-        console.log(getdata, "lll");
       }
     } catch (err) {}
   };
@@ -131,13 +126,13 @@ export const Dashboard = () => {
 
   const number1 =
     dashboarddata?.amountInVaults > 0
-      ? dashboarddata?.amountInVaults.toFixed(4)
+      ? dashboarddata?.amountInVaults.toFixed(2)
       : dashboarddata?.amountInVaults || 0;
   const digits1 = number1.toString().split("");
 
   const number2 =
     dashboarddata?.points > 0
-      ? dashboarddata?.points.toFixed(4)
+      ? dashboarddata?.points.toFixed(2)
       : dashboarddata?.points || 0;
   const digits2 = number2.toString().split("");
 
@@ -159,7 +154,6 @@ export const Dashboard = () => {
                       style={{ display: "flex" }}
                     >
                       {/* Displaying each digit in its own box */}
-                      {console.log(digits1)}
                       {digits1.map((digit, index) => (
                         <div key={index} className="counter-otp">
                           <p>{digit}</p>
@@ -177,7 +171,6 @@ export const Dashboard = () => {
                       style={{ display: "flex" }}
                     >
                       {/* Displaying each digit in its own box */}
-                      {console.log(digits2)}
                       {digits2.map((digit, index) => (
                         <div key={index} className="counter-otp">
                           <p>{digit}</p>

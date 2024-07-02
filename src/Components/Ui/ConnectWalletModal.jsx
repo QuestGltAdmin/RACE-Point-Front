@@ -20,35 +20,63 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
     let loadingToastId;
     try {
       props.modalProps.onHide();
-      console.log(type);
 
       if (type === "walletConnect") {
         // Display loading toast only for WalletConnect
         loadingToastId = toast("Connecting Wallet...", { autoClose: 3000 });
       }
-      // console.log(wallet,"1111")
 
       const wallet = await Connect(type);
       console.log(wallet, "222");
-      if (wallet) {
-        dispatch(setEVMWallet(wallet));
-        setWalletAddress(wallet.selectedAccount);
+      // if (wallet) {
+      //   dispatch(setEVMWallet(wallet));
+      //   setWalletAddress(wallet.selectedAccount);
 
-        if (type === "walletConnect") {
-          document.addEventListener("ACCOUNT_CONNECTED", async (e) => {
-            if (e.detail) {
-              toast.dismiss(loadingToastId);
-              dispatch(setEVMWallet(e.detail));
-              await resolveENSName(e.detail.selectedAccount); // Fetch ENS name
-              window.location.reload();
-            }
-          });
-        } else if (type === "metamask") {
-          // Reload the page after successful MetaMask connection
-          window.location.reload();
-        }
+      //   if (type === "walletConnect") {
+      //     document.addEventListener("ACCOUNT_CONNECTED", async (e) => {
+      //       if (e.detail) {
+      //         toast.dismiss(loadingToastId);
+      //         dispatch(setEVMWallet(e.detail));
+      //         await resolveENSName(e.detail.selectedAccount); // Fetch ENS name
+      //         window.location.reload();
+      //       }
+      //     });
+      //   } else if (type === "metamask") {
+      //     // Reload the page after successful MetaMask connection
+      //     window.location.reload();
+      //   }
+      // } else {
+      //   setError("Failed to connect wallet.");
+      // }
+      if (type === "walletConnect") {
+        document.addEventListener("ACCOUNT_CONNECTED", async (e) => {
+          if (e.detail) {
+            toast.dismiss(loadingToastId);
+            dispatch(setEVMWallet(e.detail));
+            await resolveENSName(e.detail.selectedAccount); // Fetch ENS name
+            window.location.reload();
+          }
+        });
+        document.addEventListener("SELECT_WALLET", (e) => {
+          if (e.detail) {
+            dispatch(setEVMWallet(e.detail));
+          }
+        });
+        document.addEventListener("MODAL_CLOSE", (e) => {
+          if (e.detail) {
+            dispatch(setEVMWallet(e.detail));
+            window.location.reload();
+          }
+        });
+        document.addEventListener("CONNECT_SUCCESS", (e) => {
+          if (e.detail) {
+            dispatch(setEVMWallet(e.detail));
+            window.location.reload();
+          }
+        });
       } else {
-        setError("Failed to connect wallet.");
+        dispatch(setEVMWallet(wallet));
+        window.location.reload();
       }
     } catch (err) {
       console.error("Connect Wallet Error:", err);

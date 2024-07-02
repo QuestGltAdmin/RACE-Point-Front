@@ -56,9 +56,7 @@ const Landing = () => {
 
   const handleCloseReferralCodesModal = () => {
     setShowReferralCodesModal(false);
-    console.log("enter");
     navigate("/dashboard"); // Redirect to dashboard when closing the referral codes modal
-    console.log("exit");
   };
 
   const handleCloseModals = () => {
@@ -106,9 +104,6 @@ const Landing = () => {
         referralCode: encryptedReferralCode,
       });
 
-      console.log("Request payload:", { referralCode: encryptedReferralCode });
-      console.log("Response data:", response.data);
-
       if (response.data.status) {
         // If referral code is verified successfully
         await addUserWithReferralCode(); // Call API to add user with referral code
@@ -135,8 +130,7 @@ const Landing = () => {
   const addUserWithReferralCode = async () => {
     try {
       setLoading(true); // Start loading state
-      console.log(referralCode);
-      console.log(walletAddress);
+
       // Ensure none of the fields are empty
       if (!referralCode || !walletAddress) {
         setErrorMessage("Missing required fields.");
@@ -148,8 +142,6 @@ const Landing = () => {
       const encryptedWalletAddress = await encryptData(walletAddress); // Use the state walletAddress
       const encryptedENSName = ENSName ? await encryptData(ENSName) : null; // Encrypt ENS name if available
 
-      console.log("Encrypted ENS Name:", encryptedENSName);
-
       const payload = {
         referralCode: encryptedReferralCode,
         walletAddress: encryptedWalletAddress,
@@ -158,15 +150,11 @@ const Landing = () => {
         payload.ensName = encryptedENSName;
       }
 
-      console.log("Final payload being sent:", payload);
-
       // Make API call to add user with address and referral code
       const response = await axiosMain.post(
         "/auth/add-user-with-address-and-referralcode",
         payload
       );
-
-      console.log("Add user response:", response.data); // Log response data
 
       if (!response.data.status) {
         setErrorMessage(response.data.message || "Failed to add user.");
@@ -229,9 +217,7 @@ const Landing = () => {
     const checkLocation = async () => {
       try {
         const response = await axios.get("https://ipapi.co/json/");
-        console.log(response);
         const { country } = response.data;
-        console.log(response, "response");
         if (restrictedCountries.includes(country)) {
           setIsRestricted(true);
           //alert("Access restricted in your country.");
