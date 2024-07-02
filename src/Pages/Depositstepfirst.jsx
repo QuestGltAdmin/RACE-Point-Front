@@ -32,8 +32,8 @@ export const Depositstepfirst = () => {
   const [showwithdraw, setShowWithdraw] = useState(false);
   const [showtransaction, setShowTransaction] = useState(false);
   const [flag, setFlag] = useState(false);
-  const [balance, setBalance] = useState(0); //dummy balance
-  const [racebalance, setRaceBalance] = useState(0); //dummy balance
+  const [balance, setBalance] = useState(40); //dummy balance
+  const [racebalance, setRaceBalance] = useState(50); //dummy balance
   const [liveprice, setLivePrice] = useState(60);
   const [allowance, setAllowance] = useState(0);
   const [RaceLivePrice, setRaceLivePrice] = useState(0);
@@ -97,7 +97,7 @@ export const Depositstepfirst = () => {
           inputValue?.amount
         );
         setLivePrice(LivePrice);
-        setBalance(mainBalanceData?.balance);
+        // setBalance(mainBalanceData?.balance);
         setAllowance(mainBalanceData?.allowance);
       } catch (error) {
         // console.error("Error fetching balance:", error);
@@ -118,7 +118,7 @@ export const Depositstepfirst = () => {
         const racebalance = await getRaceBalance(chainid, walletaddress);
         const raceliveprice = await getRaceTokenPrice(chainid);
         setRaceLivePrice(raceliveprice);
-        setRaceBalance(racebalance);
+        // setRaceBalance(racebalance);
       } catch (error) {
         // console.error("Error fetching balance:", error);
       }
@@ -542,7 +542,11 @@ export const Depositstepfirst = () => {
             </div>
             <p>{formError}</p>
 
-            {chainid != WalletEVM?.chainId ? (
+            {walletaddress !== user?.wallet_address ? (
+              <button className="common-btn bg-left disable-btn" disabled>
+                Please select registered wallet address{" "}
+              </button>
+            ) : chainid != WalletEVM?.chainId ? (
               <button
                 className="common-btn bg-left"
                 onClick={() => handleChain()}
