@@ -1268,19 +1268,20 @@ font-weight: 400;
 line-height: 2.1rem;
 margin: 10px 0 20px;
 }
-.dash-count-box  .counter-otp{
-display: flex;
-align-items: center;
-gap: 10px;
-margin-bottom: 30px;
+.dash-count-box  .counter-otp {
+    display: flex;
+    align-items: center;
+    gap:5px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 .dash-count-box  .counter-otp p{
 border-radius: 16px;
 border: 1px solid  #12033A;
 background:  #053863;
 padding: 10px;
-height: 42px;
-width: 42px;
+height: 46px;
+width: 46px;
 border-radius: 8px;
 display: flex;
 align-items: center;
