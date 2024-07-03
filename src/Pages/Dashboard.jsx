@@ -67,10 +67,7 @@ export const Dashboard = () => {
       },
     ],
   };
-  console.log(dashboarddata?.location?.arbitrium,"dashboarddata?.location?.arbitrium")
-  console.log(dashboarddata?.location?.base,"dashboarddata?.location?.base")
-  console.log(dashboarddata?.location?.optimism,"dashboarddata?.location?.optimism")
-  console.log(dashboarddata?.location?.polygon,"dashboarddata?.location?.polygon")
+
   const options = {
     responsive: true,
     plugins: {
