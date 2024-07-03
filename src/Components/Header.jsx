@@ -65,7 +65,7 @@ export const Header = () => {
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-            <Nav.Link href="/">
+            <Nav.Link href="/dashboard">
               <img src="assets/img/arrow.png" alt="" /> Return to Foundation
             </Nav.Link>
           </Container>

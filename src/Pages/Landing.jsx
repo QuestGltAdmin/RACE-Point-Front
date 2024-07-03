@@ -13,10 +13,10 @@ import useAuth from "../hooks/useAuth";
 import axiosMain from "../http/axios/axios_main";
 import { useNavigate } from "react-router-dom";
 import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
-import { Header } from "../Components/Header";
 import { useDispatch } from "react-redux";
 import { isLogin, userWalletLogin } from "../store/reducers/authReducer";
 import axios from "axios";
+import { LandingPageHeader } from "../Components/LandingPageHeader";
 
 //================================================== All the juridictions restricted countries ===================================
 {
@@ -289,7 +289,7 @@ const Landing = () => {
 
   return (
     <>
-      <Header />
+      <LandingPageHeader />
       <section className="landing-banner-sec">
         <Container>
           <Row>

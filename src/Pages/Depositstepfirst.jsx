@@ -784,32 +784,37 @@ export const Depositstepfirst = () => {
             </div>
             <div className="date-rang-percentage ">
               <span
-                className={activeflag == 0 ? "active" : ""}
+                className={activeflag == 0 ? "active" : "cursorPointerClass"}
                 onClick={() => handlePercentageClickSell(0)}
+                // style={{ cursor: "pointer" }}
               >
                 0%
               </span>
               <span
-                className={activeflag == 25 ? "active" : ""}
+                className={activeflag == 25 ? "active" : "cursorPointerClass"}
                 onClick={() => handlePercentageClickSell(25)}
+                // style={{ cursor: "pointer" }}
               >
                 25%
               </span>
               <span
-                className={activeflag == 50 ? "active" : ""}
+                className={activeflag == 50 ? "active" : "cursorPointerClass"}
                 onClick={() => handlePercentageClickSell(50)}
+                // style={{ cursor: "pointer" }}
               >
                 50%
               </span>
               <span
-                className={activeflag == 75 ? "active" : ""}
+                className={activeflag == 75 ? "active" : "cursorPointerClass"}
                 onClick={() => handlePercentageClickSell(75)}
+                // style={{ cursor: "pointer" }}
               >
                 75%
               </span>
               <span
-                className={activeflag == 100 ? "active" : ""}
+                className={activeflag == 100 ? "active" : "cursorPointerClass"}
                 onClick={() => handlePercentageClickSell(100)}
+                // style={{ cursor: "pointer" }}
               >
                 100%
               </span>
@@ -890,7 +895,7 @@ export const Depositstepfirst = () => {
                   style={{ color: "#FFF" }}
                 >
                   {" "}
-                 view on explorer
+                  view on explorer
                 </a>
               ) : chainid == 137 ? (
                 <a
@@ -898,7 +903,7 @@ export const Depositstepfirst = () => {
                   style={{ color: "#FFF" }}
                 >
                   {" "}
-                 view on explorer
+                  view on explorer
                 </a>
               ) : chainid == 8453 ? (
                 <a
@@ -906,7 +911,7 @@ export const Depositstepfirst = () => {
                   style={{ color: "#FFF" }}
                 >
                   {" "}
-                 view on explorer
+                  view on explorer
                 </a>
               ) : chainid == 42161 ? (
                 <a
@@ -914,7 +919,7 @@ export const Depositstepfirst = () => {
                   style={{ color: "#FFF" }}
                 >
                   {" "}
-                 view on explorer
+                  view on explorer
                 </a>
               ) : (
                 ""
