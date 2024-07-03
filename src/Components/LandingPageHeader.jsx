@@ -55,10 +55,10 @@ export const LandingPageHeader = () => {
     // }
   }, []);
 
-  const handleLogout=()=>{
-    localStorage.clear()
-    window.location.reload()
-  }
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
   return (
     <>
       <header className="header-landing" id="headerId">
@@ -69,9 +69,7 @@ export const LandingPageHeader = () => {
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-            <Nav.Link onClick={() => handleLogout()}>
-               Logout
-            </Nav.Link>
+            <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
           </Container>
         </Navbar>
       </header>
