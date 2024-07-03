@@ -61,8 +61,8 @@ export const Depositstepfirst = () => {
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
-  console.log(user?.wallet_address, "user");
-  console.log(walletaddress, "walletaddress");
+  // console.log(user?.wallet_address, "user");
+  // console.log(walletaddress, "walletaddress");
   const HandleCoinType = (e) => {
     setCoinType(e);
   };
@@ -282,7 +282,7 @@ export const Depositstepfirst = () => {
           userAddress: walletaddress,
         };
         let deposite = await deposit(data);
-        console.log(deposite?.transactionHash);
+        // console.log(deposite?.transactionHash);
 
         if (deposite) {
           setTransactionHash(deposite?.transactionHash);

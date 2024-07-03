@@ -71,7 +71,7 @@ export const Activities = () => {
   const getleaderboardData = async () => {
     try {
       const response = await axiosMain.get("/auth/get-leaderboard-deatils");
-      console.log(response);
+      // console.log(response);
       setTopDeposits(response.data.topDeposits); // Set the topDeposits state
       setTopReferrals(response.data.topReferrals);
       setMonthlyTopUser(response.data.monthlyTopUser);
