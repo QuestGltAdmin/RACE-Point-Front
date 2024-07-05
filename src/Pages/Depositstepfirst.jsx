@@ -882,7 +882,7 @@ export const Depositstepfirst = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
-            <h4 className="sub-heading">Transaction </h4>
+            <h4 className="sub-heading">Deposited Successfully </h4>
 
             <div>
               {/* //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
@@ -891,35 +891,39 @@ export const Depositstepfirst = () => {
               https://arbiscan.io/tx/{deposite?.transactionHash}; 42161 */}
               {chainid == 10 ? (
                 <a
-                  href={`https://optimistic.etherscan.io/tx${transactionhash}`}
+                  href={`https://optimistic.etherscan.io/tx/${transactionhash}`}
                   style={{ color: "#FFF" }}
+                  target="_blank"
                 >
                   {" "}
-                  view on explorer
+                  View on Explorer
                 </a>
               ) : chainid == 137 ? (
                 <a
-                  href={`https://polygonscan.com/tx?${transactionhash}`}
+                  href={`https://polygonscan.com/tx/${transactionhash}`}
                   style={{ color: "#FFF" }}
+                  target="_blank"
                 >
                   {" "}
-                  view on explorer
+                  View on Explorer
                 </a>
               ) : chainid == 8453 ? (
                 <a
-                  href={`https://basescan.org/tx?${transactionhash}`}
+                  href={`https://basescan.org/tx/${transactionhash}`}
                   style={{ color: "#FFF" }}
+                  target="_blank"
                 >
                   {" "}
-                  view on explorer
+                  View on Explorer
                 </a>
               ) : chainid == 42161 ? (
                 <a
-                  href={`https://arbiscan.io/tx?${transactionhash}`}
+                  href={`https://arbiscan.io/tx/${transactionhash}`}
                   style={{ color: "#FFF" }}
+                  target="_blank"
                 >
                   {" "}
-                  view on explorer
+                  View on Explorer
                 </a>
               ) : (
                 ""
