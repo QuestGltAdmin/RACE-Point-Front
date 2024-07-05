@@ -24,7 +24,7 @@ export const getRaceBalance = async (chainid, wallet) => {
 
   balance = balance / 10 ** decimals;
 
-  console.log(balance, "raccceeeebal");
+  // console.log(balance, "raccceeeebal");
   // localStorage.setItem('walletbalance', walletbalance);
 
   return balance;

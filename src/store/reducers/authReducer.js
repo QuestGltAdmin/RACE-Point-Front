@@ -80,7 +80,7 @@ const authSlice = createSlice({
 
     setEVMWallet: (state, action) => {
       localStorage.setItem("WalletEVM", JSON.stringify(action.payload));
-      console.log(action.payload,"ppp")
+      // console.log(action.payload,"ppp")
       return {
         ...state,
         WalletEVM: action.payload,

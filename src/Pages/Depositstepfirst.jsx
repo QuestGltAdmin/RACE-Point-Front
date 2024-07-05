@@ -41,6 +41,7 @@ export const Depositstepfirst = () => {
   const [chainid, setChainId] = useState();
   const [formError, setFormError] = useState("");
   const [activeflag, setActiveFlag] = useState(0);
+  const [activesellflag, setActiveSellFlag] = useState(0);
   const [transactionhash, setTransactionHash] = useState(0);
   const [walletaddress, setWalletAddress] = useState(
     WalletEVM?.selectedAccount
@@ -48,6 +49,7 @@ export const Depositstepfirst = () => {
   const [currency, setCurrency] = useState();
   const [approvedisable, setApproveDisable] = useState(false);
   const [depositeDisable, setDepositeDisable] = useState(false);
+  const [withdrawDisable, setWithdrawDisable] = useState(false);
   const [inputValue, setInputValue] = useState({
     amount: "",
   });
@@ -59,8 +61,8 @@ export const Depositstepfirst = () => {
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
-  console.log(user?.wallet_address, "user");
-  console.log(walletaddress, "walletaddress");
+  // console.log(user?.wallet_address, "user");
+  // console.log(walletaddress, "walletaddress");
   const HandleCoinType = (e) => {
     setCoinType(e);
   };
@@ -226,7 +228,7 @@ export const Depositstepfirst = () => {
 
   //========================= Sell popup code=========================//
   const [showwithdrawMain, setShowWithdrawMain] = useState(false);
-  const [coinselltype, setCoinSellType] = useState("USDT");
+  const [coinselltype, setCoinSellType] = useState("All Assets");
 
   const [inputValuesell, setInputValueSell] = useState({
     sellamount: "",
@@ -248,7 +250,7 @@ export const Depositstepfirst = () => {
   };
 
   const handlePercentageClickSell = (percentage) => {
-    setActiveFlag(percentage);
+    setActiveSellFlag(percentage);
     const amountToDeduct = racebalance * (percentage / 100);
     setInputValueSell({
       sellamount: amountToDeduct,
@@ -280,7 +282,7 @@ export const Depositstepfirst = () => {
           userAddress: walletaddress,
         };
         let deposite = await deposit(data);
-        console.log(deposite?.transactionHash);
+        // console.log(deposite?.transactionHash);
 
         if (deposite) {
           setTransactionHash(deposite?.transactionHash);
@@ -370,7 +372,7 @@ export const Depositstepfirst = () => {
                   handleShow({
                     chainId: 137,
                     currency: "Matic",
-                  })
+                  })  
                 }
               >
                 <img src="assets/img/coin2.png" alt="" />
@@ -533,7 +535,7 @@ export const Depositstepfirst = () => {
                 </InputGroup>
                 <Dropdown>
                   <Dropdown.Toggle className="content-none">
-                    {/* <img src="assets/img/coin5.png" alt="" />  */}
+                    <img src="assets/img/Logo.png" alt="" /> 
                     RACE
                   </Dropdown.Toggle>
                 </Dropdown>
@@ -754,19 +756,10 @@ export const Depositstepfirst = () => {
                   </InputGroup.Text>
                 </InputGroup>
                 <Dropdown>
-                  <Dropdown.Toggle className="content-none">
-                    {/* <img src="assets/img/coin5.png" alt="" />  */}
+                <Dropdown.Toggle className="content-none">
+                    <img src="assets/img/Logo.png" alt="" /> 
                     RACE
                   </Dropdown.Toggle>
-                  {/* <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
-                      Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                      Something else
-                    </Dropdown.Item>
-                  </Dropdown.Menu> */}
                 </Dropdown>
               </div>
               <p>
@@ -779,42 +772,36 @@ export const Depositstepfirst = () => {
                 className="progress-main-line"
                 variant="success"
                 now={totalracepercentage}
-                // label={`${totalracepercentage.toFixed(2)}%`}
               />
             </div>
             <div className="date-rang-percentage ">
               <span
-                className={activeflag == 0 ? "active" : "cursorPointerClass"}
+                className={activesellflag == 0 ? "active" : ""}
                 onClick={() => handlePercentageClickSell(0)}
-                // style={{ cursor: "pointer" }}
               >
                 0%
               </span>
               <span
-                className={activeflag == 25 ? "active" : "cursorPointerClass"}
+                className={activesellflag == 25 ? "active" : ""}
                 onClick={() => handlePercentageClickSell(25)}
-                // style={{ cursor: "pointer" }}
               >
                 25%
               </span>
               <span
-                className={activeflag == 50 ? "active" : "cursorPointerClass"}
+                className={activesellflag == 50 ? "active" : ""}
                 onClick={() => handlePercentageClickSell(50)}
-                // style={{ cursor: "pointer" }}
               >
                 50%
               </span>
               <span
-                className={activeflag == 75 ? "active" : "cursorPointerClass"}
+                className={activesellflag == 75 ? "active" : ""}
                 onClick={() => handlePercentageClickSell(75)}
-                // style={{ cursor: "pointer" }}
               >
                 75%
               </span>
               <span
-                className={activeflag == 100 ? "active" : "cursorPointerClass"}
+                className={activesellflag == 100 ? "active" : ""}
                 onClick={() => handlePercentageClickSell(100)}
-                // style={{ cursor: "pointer" }}
               >
                 100%
               </span>
@@ -827,8 +814,8 @@ export const Depositstepfirst = () => {
                 onSelect={(e) => setCoinSellType(e)}
               >
                 <Dropdown.Toggle>
-                  {coinselltype == "USDC" ? (
-                    <img src="assets/img/daller.png" alt="" />
+                  {coinselltype == "All Assets" ? (
+                    <img src="assets/img/allassets.png" alt="" />
                   ) : (
                     <img src="assets/img/coin5.png" alt="" />
                   )}
@@ -836,11 +823,14 @@ export const Depositstepfirst = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item eventKey="USDC">
-                    <img src="assets/img/daller.png" alt="" /> USDC
+                  <Dropdown.Item eventKey="All Assets">
+                  <img src="assets/img/allassets.png" alt="" /> All Assets
                   </Dropdown.Item>
-                  <Dropdown.Item eventKey="USDT">
-                    <img src="assets/img/coin5.png" alt="" /> USDT
+                  <Dropdown.Item eventKey="USDC">
+                  <img src="assets/img/daller.png" alt="" /> USDC
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="WETH">
+                    <img src="assets/img/coin5.png" alt="" /> WETH
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -863,9 +853,44 @@ export const Depositstepfirst = () => {
               </span>
             </div>
 
-            <button className="common-btn bg-left ">
+            {/* <button className="common-btn bg-left ">
               Enter {coinselltype} Amount
-            </button>
+            </button> */}
+             {walletaddress !== user?.wallet_address ? (
+              <button className="common-btn bg-left disable-btn" disabled>
+                Please select registered wallet address{" "}
+              </button>
+            ) : chainid != WalletEVM?.chainId ? (
+              <button
+                className="common-btn bg-left"
+                onClick={() => handleChain()}
+              >
+                Switch Network
+              </button>
+            ) 
+            : inputValuesell?.sellamount >= racebalance ? (
+              <button className="common-btn bg-left disable-btn" disabled>
+                Insufficient balance
+              </button>
+            ) 
+            : inputValuesell?.sellamount > allowance ? (
+              <button
+                className="common-btn bg-left"
+                disabled={approvedisable}
+                onClick={() => approveToken()}
+              >
+                {" "}
+                {approvedisable ? "Processing" : "Approve"}
+              </button>
+            ) : (
+              <button
+                className="common-btn bg-left"
+                disabled={withdrawDisable}
+                // onClick={() => HandleDeposit()}
+              >
+                {withdrawDisable ? "Processing" : "Withdraw"}
+              </button>
+            )}
           </div>
         </Modal.Body>
       </Modal>

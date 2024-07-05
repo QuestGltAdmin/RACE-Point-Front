@@ -94,6 +94,7 @@ export const getNetworkDetail = async () => {
 
 export const _switchNetwork = async (ChainId) => {
   try {
+    // console.log(ChainId,"ChainId")
     await switchChain(wagmiConfig, { chainId: ChainId });
     return true;
   } catch (error) {

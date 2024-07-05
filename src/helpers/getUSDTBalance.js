@@ -38,7 +38,7 @@ export const getUsdtAndUsdcBalance = async (
 
   balance = (balance / (10 ** decimals));
 
-  console.log(balance, "balanaaa");
+  // console.log(balance, "balanaaa");
   // localStorage.setItem('walletbalance', walletbalance);
 
   let allowance = await usdtContract.methods.allowance(wallet, _vaultAddress).call();
