@@ -53,7 +53,7 @@ export const Dashboard = () => {
     labels: ["Arbitrum", "Base", "Optimism", "Polygon"],
     datasets: [
       {
-        label: "# of Votes",
+        label: "Deposit",
         data: [
           dashboarddata?.location?.arbitrium,
           dashboarddata?.location?.base,
