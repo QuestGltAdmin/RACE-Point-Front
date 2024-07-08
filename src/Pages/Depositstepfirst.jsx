@@ -35,7 +35,7 @@ export const Depositstepfirst = () => {
   const [showtransaction, setShowTransaction] = useState(false);
   const [flag, setFlag] = useState(false);
   const [balance, setBalance] = useState(0); //dummy balance
-  const [racebalance, setRaceBalance] = useState(0); //dummy balance
+  const [racebalance, setRaceBalance] = useState(60); //dummy balance
   const [raceAllowance, setRaceAllowance] = useState(0); //dummy balance
   const [liveprice, setLivePrice] = useState(60);
   const [allowance, setAllowance] = useState(0);
@@ -57,7 +57,12 @@ export const Depositstepfirst = () => {
     amount: "",
   });
 
-  const [inputWithdraw , setInputWithdraw] = useState("")
+  const [inputWithdraw, setInputWithdraw] = useState("");
+  const [showAfterWithdraw, setShowAfterWithdraw] = useState(false);
+
+  const HandleAfterWithdraw = () => {
+    setShowAfterWithdraw(false)
+  }
   //========================= end of code =========================//
   const totalpercentage = (inputValue?.amount / balance) * 100;
 
@@ -120,18 +125,19 @@ export const Depositstepfirst = () => {
 
   //=========================fetching race tokan balance=========================//
 
+  const racetokenbalance = async () => {
+    try {
+      const racebalance = await getRaceBalance(chainid, walletaddress);
+      const raceliveprice = await getRaceTokenPrice(chainid);
+      setRaceLivePrice(raceliveprice);
+      // setRaceBalance(racebalance?.balance);
+      setRaceBalance(60);
+      setRaceAllowance(racebalance?.allowance);
+    } catch (error) {
+      // console.error("Error fetching balance:", error);
+    }
+  };
   useEffect(() => {
-    const racetokenbalance = async () => {
-      try {
-        const racebalance = await getRaceBalance(chainid, walletaddress);
-        const raceliveprice = await getRaceTokenPrice(chainid);
-        setRaceLivePrice(raceliveprice);
-        setRaceBalance(racebalance?.balance);
-        setRaceAllowance(racebalance?.allowance)
-      } catch (error) {
-        // console.error("Error fetching balance:", error);
-      }
-    };
     if (cointype) {
       racetokenbalance();
     }
@@ -234,7 +240,7 @@ export const Depositstepfirst = () => {
 
   //========================= Sell popup code=========================//
   const [showwithdrawMain, setShowWithdrawMain] = useState(false);
-  const [coinselltype, setCoinSellType] = useState("All Assets");
+  const [coinselltype, setCoinSellType] = useState("USDT");
 
   const [inputValuesell, setInputValueSell] = useState({
     sellamount: "",
@@ -342,7 +348,9 @@ export const Depositstepfirst = () => {
   const approveTokenWithdraw = async () => {
     if (!walletaddress) {
       setFormError("Walletaddress is not selected");
-    } else if (walletaddress.toLowerCase() !== user?.wallet_address.toLowerCase()) {
+    } else if (
+      walletaddress.toLowerCase() !== user?.wallet_address.toLowerCase()
+    ) {
       setFormError("Please select registered wallet address");
     } else if (!inputValuesell?.sellamount) {
       setFormError("Please enter amount");
@@ -353,28 +361,24 @@ export const Depositstepfirst = () => {
       let data = {
         chainId: chainid,
         type: WalletEVM?.type,
-        amount: inputValue?.amount,
+        amount: inputValuesell?.sellamount,
       };
       let approve = await approveRace(data);
       if (approve) {
         setApproveDisable(false);
-        const mainBalanceData = await getUsdtAndUsdcBalance(
-          chainid,
-          currency,
-          walletaddress,
-          cointype
-        );
-        setAllowance(mainBalanceData?.allowance);
+        racetokenbalance()
       } else {
         setApproveDisable(false);
       }
     }
-  }
+  };
 
   const HandleWithdraw = async () => {
     if (!walletaddress) {
       setFormError("Walletaddress is not selected");
-    } else if (walletaddress.toLowerCase() !== user?.wallet_address.toLowerCase()) {
+    } else if (
+      walletaddress.toLowerCase() !== user?.wallet_address.toLowerCase()
+    ) {
       setFormError("Please select registered wallet address");
     } else if (!inputValuesell?.sellamount) {
       setFormError("Please enter amount");
@@ -392,14 +396,14 @@ export const Depositstepfirst = () => {
           amount: inputValue?.amount,
           userAddress: walletaddress,
         };
-        let deposite = await withdrawVault(data);
+        let withdrawAmt = await withdrawVault(data);
         // console.log(deposite?.transactionHash);
 
-        if (deposite) {
-          setTransactionHash(deposite?.transactionHash);
+        if (withdrawAmt) {
+          setTransactionHash(withdrawAmt?.transactionHash);
           setDepositeDisable(false);
-          toast.success("Deposited Successfully");
-          handleopentransaction();
+          toast.success("Withdraw Successfully");
+          setShowAfterWithdraw(true)
         } else {
           setDepositeDisable(false);
         }
@@ -407,7 +411,7 @@ export const Depositstepfirst = () => {
         setDepositeDisable(false);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -448,7 +452,7 @@ export const Depositstepfirst = () => {
                   handleShow({
                     chainId: 137,
                     currency: "Matic",
-                  })  
+                  })
                 }
               >
                 <img src="assets/img/coin2.png" alt="" />
@@ -611,7 +615,7 @@ export const Depositstepfirst = () => {
                 </InputGroup>
                 <Dropdown>
                   <Dropdown.Toggle className="content-none">
-                    <img src="assets/img/Logo.png" alt="" /> 
+                    <img src="assets/img/Logo.png" alt="" />
                     RACE
                   </Dropdown.Toggle>
                 </Dropdown>
@@ -832,8 +836,8 @@ export const Depositstepfirst = () => {
                   </InputGroup.Text>
                 </InputGroup>
                 <Dropdown>
-                <Dropdown.Toggle className="content-none">
-                    <img src="assets/img/Logo.png" alt="" /> 
+                  <Dropdown.Toggle className="content-none">
+                    <img src="assets/img/Logo.png" alt="" />
                     RACE
                   </Dropdown.Toggle>
                 </Dropdown>
@@ -890,8 +894,10 @@ export const Depositstepfirst = () => {
                 onSelect={(e) => setCoinSellType(e)}
               >
                 <Dropdown.Toggle>
-                  {coinselltype == "All Assets" ? (
-                    <img src="assets/img/allassets.png" alt="" />
+                  {coinselltype == "USDT" ? (
+                    <img src="assets/img/Tokens.png" alt="" />
+                  ) : coinselltype == "USDC" ? (
+                    <img src="assets/img/daller.png" alt="" />
                   ) : (
                     <img src="assets/img/coin5.png" alt="" />
                   )}
@@ -899,11 +905,11 @@ export const Depositstepfirst = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item eventKey="All Assets">
-                  <img src="assets/img/allassets.png" alt="" /> All Assets
+                  <Dropdown.Item eventKey="USDT">
+                    <img src="assets/img/Tokens.png" alt="" /> USDT
                   </Dropdown.Item>
                   <Dropdown.Item eventKey="USDC">
-                  <img src="assets/img/daller.png" alt="" /> USDC
+                    <img src="assets/img/daller.png" alt="" /> USDC
                   </Dropdown.Item>
                   <Dropdown.Item eventKey="WETH">
                     <img src="assets/img/coin5.png" alt="" /> WETH
@@ -916,6 +922,8 @@ export const Depositstepfirst = () => {
               <div>
                 {coinselltype == "USDC" ? (
                   <img src="assets/img/daller.png" alt="" />
+                ) : coinselltype == "USDT" ? (
+                  <img src="assets/img/Tokens.png" alt="" />
                 ) : (
                   <img src="assets/img/coin5.png" alt="" />
                 )}
@@ -925,14 +933,15 @@ export const Depositstepfirst = () => {
             </div>
             <div className="by-with-test race-value-box mt-3">
               <span>
-                <img src="assets/img/info.png" alt="" /> RACE = 200 USDC ($2.03)
+                <img src="assets/img/info.png" alt="" /> 1 RACE = 200 {coinselltype} ($2.03)
               </span>
             </div>
 
             {/* <button className="common-btn bg-left ">
               Enter {coinselltype} Amount
             </button> */}
-             {walletaddress.toLowerCase() !== user?.wallet_address.toLowerCase() ? (
+            {walletaddress.toLowerCase() !==
+            user?.wallet_address.toLowerCase() ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Please select registered wallet address{" "}
               </button>
@@ -943,13 +952,11 @@ export const Depositstepfirst = () => {
               >
                 Switch Network
               </button>
-            ) 
-            : inputValuesell?.sellamount >= racebalance ? (
+            ) : inputValuesell?.sellamount >= racebalance ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Insufficient balance
               </button>
-            ) 
-            : inputValuesell?.sellamount > raceAllowance ? (
+            ) : inputValuesell?.sellamount > raceAllowance ? (
               <button
                 className="common-btn bg-left"
                 disabled={approvedisable}
@@ -984,6 +991,67 @@ export const Depositstepfirst = () => {
         <Modal.Body>
           <div>
             <h4 className="sub-heading">Deposited Successfully </h4>
+
+            <div>
+              {/* //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
+              10 //https://polygonscan.com/tx/{deposite?.transactionHash};137 //
+              https://basescan.org/tx/{deposite?.transactionHash}; 8453 //
+              https://arbiscan.io/tx/{deposite?.transactionHash}; 42161 */}
+              {chainid == 10 ? (
+                <a
+                  href={`https://optimistic.etherscan.io/tx/${transactionhash}`}
+                  style={{ color: "#FFF" }}
+                  target="_blank"
+                >
+                  {" "}
+                  View on Explorer
+                </a>
+              ) : chainid == 137 ? (
+                <a
+                  href={`https://polygonscan.com/tx/${transactionhash}`}
+                  style={{ color: "#FFF" }}
+                  target="_blank"
+                >
+                  {" "}
+                  View on Explorer
+                </a>
+              ) : chainid == 8453 ? (
+                <a
+                  href={`https://basescan.org/tx/${transactionhash}`}
+                  style={{ color: "#FFF" }}
+                  target="_blank"
+                >
+                  {" "}
+                  View on Explorer
+                </a>
+              ) : chainid == 42161 ? (
+                <a
+                  href={`https://arbiscan.io/tx/${transactionhash}`}
+                  style={{ color: "#FFF" }}
+                  target="_blank"
+                >
+                  {" "}
+                  View on Explorer
+                </a>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        className="network-popup deposit-input-popup"
+        size="md"
+        centered
+        show={showAfterWithdraw}
+        onHide={HandleAfterWithdraw}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4 className="sub-heading">Withdraw Successfully </h4>
 
             <div>
               {/* //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
