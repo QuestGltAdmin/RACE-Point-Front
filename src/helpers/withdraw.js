@@ -15,23 +15,23 @@ const RaceSwapperList = RaceSwapper.contracts;
 export const withdrawVault = async (data) => {
     console.log(data);
 
-    // let address = RaceTokensList.filter((token) => token.chainId == data.chainId);
-    // address = address[0];
-    // let vaultAddress = address.address;
-    let vaultAddress = "0xE7415da7F204CaB3F550bF0598B7F3461d5A3655";
+    let address = RaceTokensList.filter((token) => token.chainId == data.chainId);
+    address = address[0];
+    let vaultAddress = address.address;
+    // let vaultAddress = "0xE7415da7F204CaB3F550bF0598B7F3461d5A3655";
     
-    // let swapperAddress = RaceSwapperList.filter((token) => token.chainId == data.chainId);
-    // swapperAddress = swapperAddress[0];
-    // let swapperContractAddress = swapperAddress.address;
-    let swapperContractAddress = "0x3988513793bCE39f0167064A9F7fC3617FaF35AB";
+    let swapperAddress = RaceSwapperList.filter((token) => token.chainId == data.chainId);
+    swapperAddress = swapperAddress[0];
+    let swapperContractAddress = swapperAddress.address;
+    // let swapperContractAddress = "0x3988513793bCE39f0167064A9F7fC3617FaF35AB";
     
 
-    // let token = TokensList.filter(
-    //     (token) => token.currency == data.currency && token.symbol == data.cointype
-    //   );
-    // token = token[0];
-    // let AssetAddress = token.address;
-    let AssetAddress = "0x4200000000000000000000000000000000000006";
+    let token = TokensList.filter(
+        (token) => token.currency == data.currency && token.symbol == data.cointype
+      );
+    token = token[0];
+    let AssetAddress = token.address;
+    // let AssetAddress = "0x4200000000000000000000000000000000000006";
 
     const abi = swapperABI;
 
