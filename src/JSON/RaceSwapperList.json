@@ -1,0 +1,11 @@
+{
+    "logoURI": "https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png",
+    "contracts": [
+      {
+        "name": "swapper Optimism",
+        "address": "0x3988513793bCE39f0167064A9F7fC3617FaF35AB",
+        "chainId": 10
+      }
+    ]
+  }
+  
