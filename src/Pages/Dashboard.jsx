@@ -182,7 +182,7 @@ export const Dashboard = () => {
                   <div>
                     <Button
                       className="common-btn bg-left w-100"
-                      href="/activities"
+                      onClick={() => navigate("/activities")}
                     >
                       <img src="assets/img/star.png" alt="" /> More Activities
                     </Button>

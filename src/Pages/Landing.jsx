@@ -340,7 +340,13 @@ const Landing = () => {
                               : "common-btn"
                           }
                           disabled={isRestricted}
-                          href={isUserAuthenticated ? "/activities" : "/#"}
+                          onClick={() => {
+                            if (isUserAuthenticated) {
+                              navigate("/activities");
+                            } else {
+                              navigate("/");
+                            }
+                          }}
                         >
                           <img src="assets/img/star.png" alt="" />
                           Activities

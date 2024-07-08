@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Provider } from "../helpers/Web3Helper";
-import { Connect } from "../helpers/Connect";
-import { setEVMWallet } from "../store/reducers/authReducer";
+import { Connect, onDisconnect } from "../helpers/Connect";
+import { logout, setEVMWallet } from "../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { ethers } from "ethers";
 import useAuth from "../hooks/useAuth";
@@ -55,9 +55,9 @@ export const LandingPageHeader = () => {
     // }
   }, []);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location.reload();
+  const handleLogout = async () => {
+    const disconect = await onDisconnect(WalletEVM?.type);
+    dispatch(logout({}));
   };
   return (
     <>
@@ -69,7 +69,7 @@ export const LandingPageHeader = () => {
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-            <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
+          {WalletEVM?.selectedAccount &&  <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>}
           </Container>
         </Navbar>
       </header>

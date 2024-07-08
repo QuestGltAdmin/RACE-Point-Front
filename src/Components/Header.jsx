@@ -6,11 +6,13 @@ import { setEVMWallet } from "../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { ethers } from "ethers";
 import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   //========================= Global variable =========================//
   const { WalletEVM, walletbalance } = useAuth();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   //========================= end of code =========================//
 
   const controlNavbar = () => {
@@ -60,12 +62,12 @@ export const Header = () => {
       <header className="header-landing" id="headerId">
         <Navbar expand="lg" className="">
           <Container>
-            <Navbar.Brand href="/">
+            <Navbar.Brand onClick={()=>{navigate("/")}}>
               <h1>
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-            <Nav.Link href="/dashboard">
+            <Nav.Link  onClick={()=>{navigate("/dashboard")}}>
               <img src="assets/img/arrow.png" alt="" /> Return to Foundation
             </Nav.Link>
           </Container>

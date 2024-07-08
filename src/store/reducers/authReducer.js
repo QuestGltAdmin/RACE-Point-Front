@@ -93,9 +93,9 @@ const authSlice = createSlice({
         ...state,
         isLoading: false,
         isUserAuthenticated: false,
-        isAuthenticated: false,
         user: {},
-        errorMsg: "",
+        WalletEVM : {},
+        usertoken : {}
       };
     },
 
