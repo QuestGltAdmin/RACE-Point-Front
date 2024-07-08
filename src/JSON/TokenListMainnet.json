@@ -57,6 +57,15 @@
       "logos": "assets/Compress-img/usdt.webp"
     },
     {
+      "name": "WETH_optimism",
+      "currency": "optimism",
+      "symbol": "WETH",
+      "chainId": 10,
+      "decimals": 18,
+      "address": "0x4200000000000000000000000000000000000006",
+      "logos": "assets/Compress-img/usdt.webp"
+    },
+    {
       "name": "USDC_Base",
       "currency": "Base",
       "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",

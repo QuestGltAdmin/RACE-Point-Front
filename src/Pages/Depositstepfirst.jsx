@@ -35,9 +35,9 @@ export const Depositstepfirst = () => {
   const [showtransaction, setShowTransaction] = useState(false);
   const [flag, setFlag] = useState(false);
   const [balance, setBalance] = useState(0); //dummy balance
-  const [racebalance, setRaceBalance] = useState(60); //dummy balance
+  const [racebalance, setRaceBalance] = useState(0); //dummy balance
   const [raceAllowance, setRaceAllowance] = useState(0); //dummy balance
-  const [liveprice, setLivePrice] = useState(60);
+  const [liveprice, setLivePrice] = useState(0);
   const [allowance, setAllowance] = useState(0);
   const [RaceLivePrice, setRaceLivePrice] = useState(0);
   const [cointype, setCoinType] = useState("USDT");
@@ -130,8 +130,8 @@ export const Depositstepfirst = () => {
       const racebalance = await getRaceBalance(chainid, walletaddress);
       const raceliveprice = await getRaceTokenPrice(chainid);
       setRaceLivePrice(raceliveprice);
-      // setRaceBalance(racebalance?.balance);
-      setRaceBalance(60);
+      setRaceBalance(racebalance?.balance);
+      // setRaceBalance(60);
       setRaceAllowance(racebalance?.allowance);
     } catch (error) {
       // console.error("Error fetching balance:", error);
@@ -382,7 +382,7 @@ export const Depositstepfirst = () => {
       setFormError("Please select registered wallet address");
     } else if (!inputValuesell?.sellamount) {
       setFormError("Please enter amount");
-    } else if (inputValue?.sellamount >= racebalance) {
+    } else if (inputValuesell?.sellamount >= racebalance) {
       setFormError("Balance is insufficient");
     } else {
       setDepositeDisable(true);
@@ -391,9 +391,9 @@ export const Depositstepfirst = () => {
         let data = {
           chainId: chainid,
           currency: currency,
-          cointype: cointype,
+          cointype: coinselltype,
           type: WalletEVM?.type,
-          amount: inputValue?.amount,
+          amount: inputValuesell?.sellamount,
           userAddress: walletaddress,
         };
         let withdrawAmt = await withdrawVault(data);

@@ -13,7 +13,7 @@ const RaceTokensList = RaceTokens.tokens;
 const RaceSwapperList = RaceSwapper.contracts;
 
 export const withdrawVault = async (data) => {
-    console.log(data);
+    console.log(data,"data");
 
     let address = RaceTokensList.filter((token) => token.chainId == data.chainId);
     address = address[0];
@@ -35,7 +35,7 @@ export const withdrawVault = async (data) => {
 
     const abi = swapperABI;
 
-    let expextedAmount = parseInt(3270000000000);
+    let expextedAmount = 0;
 
     if (data.type === "walletConnect") {
         let network = await getNetworkDetail();
