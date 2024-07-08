@@ -324,7 +324,7 @@ const Landing = () => {
                           disabled={isRestricted}
                         >
                           <img src="assets/img/dash.png" alt="" />
-                          {isUserAuthenticated ? (
+                          {WalletEVM?.selectedAccount ? (
                             <div>Dashboard</div>
                           ) : (
                             <div>

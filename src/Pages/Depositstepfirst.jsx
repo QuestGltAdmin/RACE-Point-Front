@@ -21,6 +21,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { deposit } from "../helpers/deposit";
 import { approveERC20 } from "../helpers/ApproveToken";
 import { commonSwitch } from "../helpers/ChainSwitch";
+import { withdrawVault } from "../helpers/withdraw";
+import { approveRace } from "../helpers/ApproveRaceToken";
 
 export const Depositstepfirst = () => {
   //========================= Global variable =========================//
@@ -34,6 +36,7 @@ export const Depositstepfirst = () => {
   const [flag, setFlag] = useState(false);
   const [balance, setBalance] = useState(0); //dummy balance
   const [racebalance, setRaceBalance] = useState(0); //dummy balance
+  const [raceAllowance, setRaceAllowance] = useState(0); //dummy balance
   const [liveprice, setLivePrice] = useState(60);
   const [allowance, setAllowance] = useState(0);
   const [RaceLivePrice, setRaceLivePrice] = useState(0);
@@ -53,6 +56,8 @@ export const Depositstepfirst = () => {
   const [inputValue, setInputValue] = useState({
     amount: "",
   });
+
+  const [inputWithdraw , setInputWithdraw] = useState("")
   //========================= end of code =========================//
   const totalpercentage = (inputValue?.amount / balance) * 100;
 
@@ -121,7 +126,8 @@ export const Depositstepfirst = () => {
         const racebalance = await getRaceBalance(chainid, walletaddress);
         const raceliveprice = await getRaceTokenPrice(chainid);
         setRaceLivePrice(raceliveprice);
-        setRaceBalance(racebalance);
+        setRaceBalance(racebalance?.balance);
+        setRaceAllowance(racebalance?.allowance)
       } catch (error) {
         // console.error("Error fetching balance:", error);
       }
@@ -277,7 +283,7 @@ export const Depositstepfirst = () => {
           chainId: chainid,
           currency: currency,
           cointype: cointype,
-          wallettype: WalletEVM?.type,
+          type: WalletEVM?.type,
           amount: inputValue?.amount,
           userAddress: walletaddress,
         };
@@ -314,7 +320,7 @@ export const Depositstepfirst = () => {
         chainId: chainid,
         currency: currency,
         cointype: cointype,
-        wallettype: WalletEVM?.type,
+        type: WalletEVM?.type,
         amount: inputValue?.amount,
       };
       let approve = await approveERC20(data);
@@ -332,6 +338,76 @@ export const Depositstepfirst = () => {
       }
     }
   };
+
+  const approveTokenWithdraw = async () => {
+    if (!walletaddress) {
+      setFormError("Walletaddress is not selected");
+    } else if (walletaddress.toLowerCase() !== user?.wallet_address.toLowerCase()) {
+      setFormError("Please select registered wallet address");
+    } else if (!inputValuesell?.sellamount) {
+      setFormError("Please enter amount");
+    } else if (inputValuesell?.sellamount >= racebalance) {
+      setFormError("Balance is insufficient");
+    } else {
+      setApproveDisable(true);
+      let data = {
+        chainId: chainid,
+        type: WalletEVM?.type,
+        amount: inputValue?.amount,
+      };
+      let approve = await approveRace(data);
+      if (approve) {
+        setApproveDisable(false);
+        const mainBalanceData = await getUsdtAndUsdcBalance(
+          chainid,
+          currency,
+          walletaddress,
+          cointype
+        );
+        setAllowance(mainBalanceData?.allowance);
+      } else {
+        setApproveDisable(false);
+      }
+    }
+  }
+
+  const HandleWithdraw = async () => {
+    if (!walletaddress) {
+      setFormError("Walletaddress is not selected");
+    } else if (walletaddress.toLowerCase() !== user?.wallet_address.toLowerCase()) {
+      setFormError("Please select registered wallet address");
+    } else if (!inputValuesell?.sellamount) {
+      setFormError("Please enter amount");
+    } else if (inputValue?.sellamount >= racebalance) {
+      setFormError("Balance is insufficient");
+    } else {
+      setDepositeDisable(true);
+
+      try {
+        let data = {
+          chainId: chainid,
+          currency: currency,
+          cointype: cointype,
+          type: WalletEVM?.type,
+          amount: inputValue?.amount,
+          userAddress: walletaddress,
+        };
+        let deposite = await withdrawVault(data);
+        // console.log(deposite?.transactionHash);
+
+        if (deposite) {
+          setTransactionHash(deposite?.transactionHash);
+          setDepositeDisable(false);
+          toast.success("Deposited Successfully");
+          handleopentransaction();
+        } else {
+          setDepositeDisable(false);
+        }
+      } catch (err) {
+        setDepositeDisable(false);
+      }
+    }
+  }
 
   return (
     <>
@@ -856,7 +932,7 @@ export const Depositstepfirst = () => {
             {/* <button className="common-btn bg-left ">
               Enter {coinselltype} Amount
             </button> */}
-             {walletaddress !== user?.wallet_address ? (
+             {walletaddress.toLowerCase() !== user?.wallet_address.toLowerCase() ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Please select registered wallet address{" "}
               </button>
@@ -873,11 +949,11 @@ export const Depositstepfirst = () => {
                 Insufficient balance
               </button>
             ) 
-            : inputValuesell?.sellamount > allowance ? (
+            : inputValuesell?.sellamount > raceAllowance ? (
               <button
                 className="common-btn bg-left"
                 disabled={approvedisable}
-                onClick={() => approveToken()}
+                onClick={() => approveTokenWithdraw()}
               >
                 {" "}
                 {approvedisable ? "Processing" : "Approve"}
@@ -886,7 +962,7 @@ export const Depositstepfirst = () => {
               <button
                 className="common-btn bg-left"
                 disabled={withdrawDisable}
-                // onClick={() => HandleDeposit()}
+                onClick={() => HandleWithdraw()}
               >
                 {withdrawDisable ? "Processing" : "Withdraw"}
               </button>

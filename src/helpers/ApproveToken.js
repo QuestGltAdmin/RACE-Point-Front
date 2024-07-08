@@ -11,6 +11,7 @@ const TokensList = Tokens.tokens;
 const RaceTokensList = RaceTokens.tokens;
 
 export const approveERC20 = async (data) => {
+  console.log("data" , data);
   let token = TokensList.filter(
     (token) =>
       token.currency == data?.currency && token.symbol == data?.cointype

@@ -12,7 +12,7 @@ import { sendTransaction } from "@wagmi/core";
 const RaceTokensList = RaceTokens.tokens;
 const RaceSwapperList = RaceSwapper.contracts;
 
-export const approveERC20 = async (data) => {
+export const approveRace = async (data) => {
   let swapper = RaceSwapperList.filter(
     (token) =>
       token.chainId == data?.chainId
