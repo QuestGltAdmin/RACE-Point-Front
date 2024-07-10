@@ -349,7 +349,7 @@ export const Depositstepfirst = () => {
     if (!walletaddress) {
       setFormError("Walletaddress is not selected");
     } else if (
-      walletaddress.toLowerCase() !== user?.wallet_address.toLowerCase()
+      walletaddress?.toLowerCase() !== user?.wallet_address?.toLowerCase()
     ) {
       setFormError("Please select registered wallet address");
     } else if (!inputValuesell?.sellamount) {
@@ -377,7 +377,7 @@ export const Depositstepfirst = () => {
     if (!walletaddress) {
       setFormError("Walletaddress is not selected");
     } else if (
-      walletaddress.toLowerCase() !== user?.wallet_address.toLowerCase()
+      walletaddress?.toLowerCase() !== user?.wallet_address?.toLowerCase()
     ) {
       setFormError("Please select registered wallet address");
     } else if (!inputValuesell?.sellamount) {
@@ -940,8 +940,8 @@ export const Depositstepfirst = () => {
             {/* <button className="common-btn bg-left ">
               Enter {coinselltype} Amount
             </button> */}
-            {walletaddress.toLowerCase() !==
-            user?.wallet_address.toLowerCase() ? (
+            {walletaddress?.toLowerCase() !==
+            user?.wallet_address?.toLowerCase() ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Please select registered wallet address{" "}
               </button>

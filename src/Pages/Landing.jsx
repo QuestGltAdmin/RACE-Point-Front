@@ -31,10 +31,13 @@ import { LandingPageHeader } from "../Components/LandingPageHeader";
 const restrictedCountries = ["US"]; // add "IN" for testing
 
 const Landing = () => {
+  //=================================Global Variable=================================//
   const { WalletEVM, isUserAuthenticated } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  //=================================End Of Code=================================//
+  
+  //=================================Local Variable=================================//
   const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
   const [showReferralModal, setShowReferralModal] = useState(false);
   const [showNewShareModal, setShowNewShareModal] = useState(false);
@@ -49,11 +52,11 @@ const Landing = () => {
 
   const [loading, setLoading] = useState(false); // Loading state for async operations
   const [isRestricted, setIsRestricted] = useState(false);
-
-  //============================ Copy button state ==============================
+  const [checkApiRes, setCheckApiRes] = useState(0);
   const [copiedCodeIndex, setCopiedCodeIndex] = useState(null);
-  //===============================End of code=================================
+  //=================================End Of Code=================================//
 
+  
   const handleCloseReferralCodesModal = () => {
     setShowReferralCodesModal(false);
     navigate("/dashboard"); // Redirect to dashboard when closing the referral codes modal
@@ -66,21 +69,44 @@ const Landing = () => {
     //setShowReferralCodesModal(false);
   };
 
-  //========================================= Display Modal at first =======================================
-  const handleShowConnectWalletModal = () => {
-    let objData = localStorage.getItem("WalletEVM");
+  //=========================================== Fetch wallet info and redirect to dashboard ====================================
+  useEffect(() => {
+    if (WalletEVM?.selectedAccount) {
+      checkForAlreadyLogin(WalletEVM?.selectedAccount);
+    }
+  }, [WalletEVM?.selectedAccount]);
 
-    if (!objData) {
-      // If WalletEVM key is not present in localStorage
-      setShowConnectWalletModal(true);
-    } else if (isUserAuthenticated) {
-      navigate("/dashboard");
-    } else {
-      // If WalletEVM key is present in localStorage
-      setShowReferralModal(true);
-      setWalletAddress(WalletEVM.selectedAccount);
+  const checkForAlreadyLogin = async (walletData) => {
+    setCheckApiRes(0);
+    const RowWalletAddress = await encryptData(walletData);
+    try {
+      const response = await axiosMain.post("/auth/get-user-profile", {
+        walletAddress: RowWalletAddress,
+      });
+      console.log("response", response);
+      if (response?.data?.status) {
+        if (response?.data?.isLogin) {
+          dispatch(userWalletLogin(response.data.data));
+          setCheckApiRes(1);
+        } else {
+          setCheckApiRes(2);
+        }
+      }
+    } catch (error) {
+      setCheckApiRes(0);
+      console.log(error);
     }
   };
+
+  //=====================================End Of Code=======================================//
+
+  //========================================= Display Modal at first =======================================
+  const handleShowConnectWalletModal = () => {
+    // If WalletEVM key is present in localStorage
+    setShowReferralModal(true);
+    setWalletAddress(WalletEVM.selectedAccount);
+  };
+  //=====================================End Of Code=======================================//
 
   //========================================= Referral code change =======================================
   const handleReferralCodeChange = (event) => {
@@ -171,30 +197,6 @@ const Landing = () => {
       );
     } finally {
       setLoading(false); // Stop loading state
-    }
-  };
-  //=========================================== Fetch wallet info and redirect to dashboard ====================================
-  useEffect(() => {
-    if (WalletEVM?.selectedAccount) {
-      checkForAlreadyLogin(WalletEVM?.selectedAccount);
-    }
-  }, [WalletEVM?.selectedAccount]);
-
-  const checkForAlreadyLogin = async (walletData) => {
-    const RowWalletAddress = await encryptData(walletData);
-    try {
-      const response = await axiosMain.post("/auth/get-user-profile", {
-        walletAddress: RowWalletAddress,
-      });
-      if (response?.data?.status) {
-        if (response?.data?.isLogin) {
-          dispatch(userWalletLogin(response.data.data));
-          dispatch(isLogin(response.data.isLogin));
-          // navigate("/dashboard");
-        }
-      }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -313,25 +315,49 @@ const Landing = () => {
                       </h2>
                       <p>Watch out for the multipliers!</p>
                       <div className="banner-btn">
-                        <Button
-                          variant="primary"
-                          className={
-                            isRestricted
-                              ? "common-btn disable-btn"
-                              : "common-btn"
-                          }
-                          onClick={handleShowConnectWalletModal}
-                          disabled={isRestricted}
-                        >
-                          <img src="assets/img/dash.png" alt="" />
-                          {WalletEVM?.selectedAccount ? (
+                        {WalletEVM?.selectedAccount ? (
+                          <Button
+                            variant="primary"
+                            className={
+                              isRestricted
+                                ? "common-btn disable-btn"
+                                : "common-btn"
+                            }
+                            onClick={() => {
+                              if (checkApiRes == 0) {
+                              } else if (checkApiRes == 1) {
+                                navigate("/dashboard");
+                              } else {
+                                handleShowConnectWalletModal();
+                              }
+                            }}
+                            disabled={isRestricted}
+                          >
+                            <img src="assets/img/dash.png" alt="" />
+
                             <div>Dashboard</div>
-                          ) : (
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="primary"
+                            className={
+                              isRestricted
+                                ? "common-btn disable-btn"
+                                : "common-btn"
+                            }
+                            onClick={() => {
+                              setShowConnectWalletModal(true);
+                            }}
+                            disabled={isRestricted}
+                          >
+                            <img src="assets/img/dash.png" alt="" />
+
                             <div>
                               Connect Wallet <span>Track your points here</span>
                             </div>
-                          )}
-                        </Button>
+                          </Button>
+                        )}
+
                         <Button
                           variant="primary"
                           className={
