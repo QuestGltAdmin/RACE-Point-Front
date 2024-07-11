@@ -59,6 +59,11 @@ export const Depositstepfirst = () => {
 
   const [inputWithdraw, setInputWithdraw] = useState("");
   const [showAfterWithdraw, setShowAfterWithdraw] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
+
+  const HandleComingSoon = () => {
+    setShowComingSoon(false)
+  }
 
   const HandleAfterWithdraw = () => {
     setShowAfterWithdraw(false)
@@ -449,10 +454,12 @@ export const Depositstepfirst = () => {
               <div
                 className="coin-box"
                 onClick={(data) =>
-                  handleShow({
-                    chainId: 137,
-                    currency: "Matic",
-                  })
+                  setShowComingSoon(true)
+      
+                  // handleShow({
+                  //   chainId: 137,
+                  //   currency: "Matic",
+                  // })
                 }
               >
                 <img src="assets/img/coin2.png" alt="" />
@@ -468,10 +475,12 @@ export const Depositstepfirst = () => {
               <div
                 className="coin-box"
                 onClick={(data) =>
-                  handleShow({
-                    chainId: 42161,
-                    currency: "Arbitrum",
-                  })
+                  setShowComingSoon(true)
+ 
+                  // handleShow({
+                  //   chainId: 42161,
+                  //   currency: "Arbitrum",
+                  // })
                 }
               >
                 <img src="assets/img/coin3.png" alt="" />
@@ -487,10 +496,12 @@ export const Depositstepfirst = () => {
               <div
                 className="coin-box"
                 onClick={(data) =>
-                  handleShow({
-                    chainId: 8453,
-                    currency: "Base",
-                  })
+                  setShowComingSoon(true)
+     
+                  // handleShow({
+                  //   chainId: 8453,
+                  //   currency: "Base",
+                  // })
                 }
               >
                 <img src="assets/img/coin4.png" alt="" />
@@ -1098,6 +1109,23 @@ export const Depositstepfirst = () => {
                 ""
               )}
             </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        className="network-popup deposit-input-popup"
+        size="md"
+        centered
+        show={showComingSoon}
+        onHide={HandleComingSoon}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <img src="assets/img/Logo.png" alt="" />
+            <h4 className="text-white">Coming Soon...!</h4>
+
           </div>
         </Modal.Body>
       </Modal>

@@ -35,7 +35,7 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    // if (wallet) {
+    if (WalletEVM?.selectedAccount) {
     const handleChain = async () => {
       let provider = await Provider(WalletEVM?.type);
       //=================Account change code===============//
@@ -57,7 +57,7 @@ export const Header = () => {
       });
     };
     handleChain();
-    // }
+    }
   }, []);
 
   return (
