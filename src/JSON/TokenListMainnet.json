@@ -90,6 +90,15 @@
       "decimals": 6,
       "chainId": 8453,
       "logos": "assets/Compress-img/usdt.webp"
+    },
+    {
+      "name": "WETH_Base",
+      "currency": "Base",
+      "address": "0x4200000000000000000000000000000000000006",
+      "symbol": "WETH",
+      "decimals": 18,
+      "chainId": 8453,
+      "logos": "assets/Compress-img/usdt.webp"
     }
   ]
 }

@@ -2,10 +2,34 @@
     "logoURI": "https://raw.githubusercontent.com/sushiswap/art/master/sushi/logo-256x256.png",
     "tokens": [
       {
-        "name": "Race Token",
+        "name": "Race Token optimism",
         "symbol": "Race",
         "address": "0xE7415da7F204CaB3F550bF0598B7F3461d5A3655",
         "chainId": 10,
+        "decimals": 18,
+        "logos": "assets/Compress-img/usdt.webp"
+      },
+      {
+        "name": "Race Token arbitrium",
+        "symbol": "Race",
+        "address": "0x0b91ed57e189890c4b834bb189eaea5cd80b4439",
+        "chainId": 42161,
+        "decimals": 18,
+        "logos": "assets/Compress-img/usdt.webp"
+      },
+      {
+        "name": "Race Token Matic",
+        "symbol": "Race",
+        "address": "0xe99c2d40b34d5568cdcb383939257f561587084e",
+        "chainId": 137,
+        "decimals": 18,
+        "logos": "assets/Compress-img/usdt.webp"
+      },
+      {
+        "name": "Race Token Base",
+        "symbol": "Race",
+        "address": "0x934fe12cbf333b31d0eeeee82f50cbf8ec48b666",
+        "chainId": 8453,
         "decimals": 18,
         "logos": "assets/Compress-img/usdt.webp"
       }

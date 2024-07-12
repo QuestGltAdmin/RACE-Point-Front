@@ -5,6 +5,21 @@
         "name": "Manager Optimism",
         "address": "0x47F9373029a18f7FE2a3c49CF9bEc8E169Ec3eed",
         "chainId": 10
+      },
+      {
+        "name": "Manager Matic",
+        "address": "0x45c71B09D2933dEc82038e5D583d57E5F46A3004",
+        "chainId": 137
+      },
+      {
+        "name": "Manager Base",
+        "address": "0xefACC67dc4b000E6D49FC1F2B57920803C1265bb",
+        "chainId": 8453
+      },
+      {
+        "name": "Manager Arbitrium",
+        "address": "0x205c4099ec5dA00FfE89f03a90da435F28Ea3A42",
+        "chainId": 42161
       }
     ]
   }
