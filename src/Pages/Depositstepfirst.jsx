@@ -250,6 +250,10 @@ export const Depositstepfirst = () => {
   const [showwithdrawMain, setShowWithdrawMain] = useState(false);
   const [coinselltype, setCoinSellType] = useState("USDT");
 
+  useEffect(()=>{
+setCoinSellType(currency === "Base" ? "USDC" : "USDT")
+  },[currency])
+
   const [inputValuesell, setInputValueSell] = useState({
     sellamount: "",
   });
@@ -715,11 +719,11 @@ export const Depositstepfirst = () => {
             <button
               className="withdraw-btn"
               onClick={() => {
-                if (balance <= 0) {
-                  toast.warn("You don't have sufficient amount to withdraw")
-                } else {
+                // if (balance <= 0) {
+                //   toast.warn("You don't have sufficient amount to withdraw")
+                // } else {
                   handleopenWithdraw();
-                }
+                // }
               }}
             >
               Withdraw <img src="assets/img/withdraw.png" alt="" />
@@ -949,9 +953,9 @@ export const Depositstepfirst = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item eventKey="USDT">
+           {currency !== "Base" &&  <Dropdown.Item eventKey="USDT">
                     <img src="assets/img/Tokens.png" alt="" /> USDT
-                  </Dropdown.Item>
+                  </Dropdown.Item>}
                   <Dropdown.Item eventKey="USDC">
                     <img src="assets/img/daller.png" alt="" /> USDC
                   </Dropdown.Item>
