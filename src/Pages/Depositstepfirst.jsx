@@ -1003,8 +1003,8 @@ export const Depositstepfirst = () => {
                 onClick={() => handleChain()}
               >
                 Switch Network
-              </button>
-            ) : inputValuesell?.sellamount >= racebalance ? (
+              </button> 
+            ) : inputValuesell?.sellamount > racebalance ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Insufficient balance
               </button>
