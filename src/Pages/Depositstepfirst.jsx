@@ -23,6 +23,7 @@ import { approveERC20 } from "../helpers/ApproveToken";
 import { commonSwitch } from "../helpers/ChainSwitch";
 import { withdrawVault } from "../helpers/withdraw";
 import { approveRace } from "../helpers/ApproveRaceToken";
+import { getWithdrawPricedetails } from "../helpers/withdrawAssetCalc";
 
 export const Depositstepfirst = () => {
   //========================= Global variable =========================//
@@ -60,14 +61,16 @@ export const Depositstepfirst = () => {
   const [inputWithdraw, setInputWithdraw] = useState("");
   const [showAfterWithdraw, setShowAfterWithdraw] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
+  const [assetInOnePoint, setAssetInOnePoint] = useState(0);
+  const [raceTokenPrice, setRaceTokenPrice] = useState(0);
 
   const HandleComingSoon = () => {
-    setShowComingSoon(false)
-  }
+    setShowComingSoon(false);
+  };
 
   const HandleAfterWithdraw = () => {
-    setShowAfterWithdraw(false)
-  }
+    setShowAfterWithdraw(false);
+  };
   //========================= end of code =========================//
   const totalpercentage = (inputValue?.amount / balance) * 100;
 
@@ -275,6 +278,25 @@ export const Depositstepfirst = () => {
   };
   //========================= end of code =========================//
 
+  useEffect(() => {
+    getWithdrawPrice();
+  }, [currency, chainid, coinselltype]);
+
+  const getWithdrawPrice = async () => {
+    try {
+      const payload = {
+        chainId: chainid,
+        currency: currency,
+        cointype: coinselltype,
+      };
+      const getPrice = await getWithdrawPricedetails(payload);
+      if (getPrice) {
+        setRaceTokenPrice(getPrice?.raceTokenPrice);
+        setAssetInOnePoint(getPrice?.AssetInOnePoint);
+      }
+    } catch (err) {}
+  };
+
   //===============deposite code====================//
 
   const HandleDeposit = async () => {
@@ -371,7 +393,7 @@ export const Depositstepfirst = () => {
       let approve = await approveRace(data);
       if (approve) {
         setApproveDisable(false);
-        racetokenbalance()
+        racetokenbalance();
       } else {
         setApproveDisable(false);
       }
@@ -408,7 +430,7 @@ export const Depositstepfirst = () => {
           setTransactionHash(withdrawAmt?.transactionHash);
           setDepositeDisable(false);
           toast.success("Withdraw Successfully");
-          setShowAfterWithdraw(true)
+          setShowAfterWithdraw(true);
         } else {
           setDepositeDisable(false);
         }
@@ -453,9 +475,9 @@ export const Depositstepfirst = () => {
             <Col lg={3} md={6} sm={6} xs={6}>
               <div
                 className="coin-box"
-                onClick={(data) =>
-                  setShowComingSoon(true)
-      
+                onClick={
+                  (data) => setShowComingSoon(true)
+
                   // handleShow({
                   //   chainId: 137,
                   //   currency: "Matic",
@@ -474,9 +496,9 @@ export const Depositstepfirst = () => {
             <Col lg={3} md={6} sm={6} xs={6}>
               <div
                 className="coin-box"
-                onClick={(data) =>
-                  setShowComingSoon(true)
- 
+                onClick={
+                  (data) => setShowComingSoon(true)
+
                   // handleShow({
                   //   chainId: 42161,
                   //   currency: "Arbitrum",
@@ -495,9 +517,9 @@ export const Depositstepfirst = () => {
             <Col lg={3} md={6} sm={6} xs={6}>
               <div
                 className="coin-box"
-                onClick={(data) =>
-                  setShowComingSoon(true)
-     
+                onClick={
+                  (data) => setShowComingSoon(true)
+
                   // handleShow({
                   //   chainId: 8453,
                   //   currency: "Base",
@@ -560,7 +582,12 @@ export const Depositstepfirst = () => {
                 </InputGroup>
                 <Dropdown onSelect={(e) => HandleCoinType(e)}>
                   <Dropdown.Toggle>
-                    <img src="assets/img/coin5.png" alt="" /> {cointype}
+                    {cointype === "USDT" ? (
+                      <img src="assets/img/Tokens.png" alt="" />
+                    ) : (
+                      <img src="assets/img/daller.png" alt="" />
+                    )}{" "}
+                    {cointype}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -687,7 +714,13 @@ export const Depositstepfirst = () => {
 
             <button
               className="withdraw-btn"
-              onClick={() => handleopenWithdraw()}
+              onClick={() => {
+                if (balance <= 0) {
+                  toast.warn("You don't have sufficient amount to withdraw")
+                } else {
+                  handleopenWithdraw();
+                }
+              }}
             >
               Withdraw <img src="assets/img/withdraw.png" alt="" />
             </button>
@@ -931,6 +964,10 @@ export const Depositstepfirst = () => {
 
             <div className="by-with-test with-img mt-4">
               <div>
+                {" "}
+                <span className="text-white">
+                  {(assetInOnePoint * inputValuesell?.sellamount).toFixed(6)}
+                </span>
                 {coinselltype == "USDC" ? (
                   <img src="assets/img/daller.png" alt="" />
                 ) : coinselltype == "USDT" ? (
@@ -940,11 +977,15 @@ export const Depositstepfirst = () => {
                 )}
                 {coinselltype}
               </div>
-              <span>~ $0</span>
+              <span>
+                ~ ${(raceTokenPrice * inputValuesell?.sellamount).toFixed(4)}
+              </span>
             </div>
             <div className="by-with-test race-value-box mt-3">
               <span>
-                <img src="assets/img/info.png" alt="" /> 1 RACE = 200 {coinselltype} ($2.03)
+                <img src="assets/img/info.png" alt="" /> 1 RACE ={" "}
+                {assetInOnePoint?.toFixed(6)} {coinselltype} ($
+                {raceTokenPrice?.toFixed(4)})
               </span>
             </div>
 
@@ -1125,7 +1166,6 @@ export const Depositstepfirst = () => {
           <div>
             <img src="assets/img/Logo.png" alt="" />
             <h4 className="text-white">Coming Soon...!</h4>
-
           </div>
         </Modal.Body>
       </Modal>
