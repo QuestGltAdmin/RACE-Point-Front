@@ -53,21 +53,25 @@ const authSlice = createSlice({
 
     userWalletLogin: (state, action) => {
       localStorage.setItem("userData", JSON.stringify(action.payload));
+      localStorage.setItem(
+        "isUserAuthenticated",
+        JSON.stringify(action.payload)
+      );
       return {
         ...state,
         isUserAuthenticated: true,
         user: action.payload,
       };
     },
-    isLogin: (state, action) => {
-      localStorage.setItem("isUserAuthenticated", JSON.stringify(action.payload));
-      // console.log(action,"action")
-      return {
-        ...state,
-        isUserAuthenticated: true,
-        user: action.payload,
-      };
-    },
+    // isLogin: (state, action) => {
+
+    //   // console.log(action,"action")
+    //   return {
+    //     ...state,
+    //     isUserAuthenticated: true,
+    //     user: action.payload,
+    //   };
+    // },
     userLoginFail: (state, action) => {
       return {
         ...state,
@@ -94,8 +98,8 @@ const authSlice = createSlice({
         isLoading: false,
         isUserAuthenticated: false,
         user: {},
-        WalletEVM : {},
-        usertoken : {}
+        WalletEVM: {},
+        usertoken: {},
       };
     },
 

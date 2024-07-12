@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
 import axiosMain from "../http/axios/axios_main";
+import { ShareSocial } from "react-share-social";
+import { set } from "lodash";
 
 export const Activities = () => {
   //=================Global Variables==================//
@@ -22,11 +24,47 @@ export const Activities = () => {
   const [topReferrals, setTopReferrals] = useState([]);
   const [monthlyTopUser, setMonthlyTopUser] = useState([]);
   const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
+  const [showShareSocial, setShowShareSocial] = useState(false);
+  const [codeShare, setCodeShare] = useState("");
+  //================================End of code==============================//
+
+  //================================Style for social share==============================//
+  const style = {
+    root: {
+      padding: "0",
+      background: "transparent",
+    },
+    copyContainer: {
+      background: "transparent",
+    },
+    iconContainer: {
+      display: "flex",
+    },
+    title: {
+      color: "aquamarine",
+      fontStyle: "italic",
+    },
+    copyUrl: {
+      color: "#fff",
+      fontWeight: "600",
+    },
+    copyIcon: {
+      background: "#945b3b",
+      color: "#fff",
+      height: "35px",
+      margin: "3px",
+      padding: "4px",
+    },
+  };
   //================================End of code==============================//
 
   //============================ Copy button state ==============================
   const [copiedCodeIndex, setCopiedCodeIndex] = useState(null);
   //===============================End of code=================================
+
+  const handleShareSocial = () => {
+    setShowShareSocial(false);
+  };
 
   const handleCloseModals = () => {
     setShowReferralCodesModal(false);
@@ -77,7 +115,7 @@ export const Activities = () => {
       setMonthlyTopUser(response.data.monthlyTopUser);
       setQuarterlyTopUser(response.data.quarterlyTopUser);
     } catch (err) {
-      console.error("Error fetching leaderboard data:", error);
+      console.error("Error fetching leaderboard data:", err);
     }
   };
 
@@ -94,6 +132,14 @@ export const Activities = () => {
       });
   };
   //============================================= End of code ==================================================
+
+  //==================================Share social model==================================//
+  const HandleReferral = (code) => {
+    handleCloseModals();
+    setCodeShare(code);
+    setShowShareSocial(true);
+  };
+  //==================================End Of Code==================================//
 
   return (
     <>
@@ -147,7 +193,11 @@ export const Activities = () => {
                   </div>
                   <button
                     className="common-btn bg-left"
-                    onClick={handleShowReferralCodesModal}
+                    onClick={() => {
+                      if (referralCodes?.length > 0) {
+                        handleShowReferralCodesModal();
+                      }
+                    }}
                   >
                     <img src="assets/images/share.png" alt="" />
                     Invite now
@@ -402,14 +452,53 @@ export const Activities = () => {
                     {copiedCodeIndex === index ? (
                       <span className="text-white m-2">Copied!</span>
                     ) : (
-                      <a href="#" onClick={() => handleCopy(items.code, index)}>
-                        <img src="assets/img/copy.png" alt="Copy" />
-                      </a>
+                      <>
+                        <a
+                          href="#"
+                          onClick={() => handleCopy(items.code, index)}
+                        >
+                          <img src="assets/img/copy.png" alt="Copy" />
+                        </a>
+                        <a
+                          className="text-white"
+                          onClick={() => {
+                            HandleReferral(items.code);
+                          }}
+                        >
+                          <i class="fa fa-share" aria-hidden="true"></i>
+                        </a>
+                      </>
                     )}
                   </>
                 )}
               </div>
             ))}
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        className="new-user-modal"
+        centered
+        show={showShareSocial}
+        onHide={handleShareSocial}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
+            <p>Here are your referral code</p>
+            <ShareSocial
+              style={style}
+              url={codeShare}
+              socialTypes={[
+                "facebook",
+                "twitter",
+                "reddit",
+                "linkedin",
+                "whatsapp",
+              ]}
+            />
           </div>
         </Modal.Body>
       </Modal>

@@ -6,13 +6,16 @@ import { setEVMWallet } from "../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { ethers } from "ethers";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Header = () => {
   //========================= Global variable =========================//
   const { WalletEVM, walletbalance } = useAuth();
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
+  let path = location.pathname;
+  path = path.split("/")[1];
   //========================= end of code =========================//
 
   const controlNavbar = () => {
@@ -32,7 +35,7 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    // if (wallet) {
+    if (WalletEVM?.selectedAccount) {
     const handleChain = async () => {
       let provider = await Provider(WalletEVM?.type);
       //=================Account change code===============//
@@ -54,7 +57,7 @@ export const Header = () => {
       });
     };
     handleChain();
-    // }
+    }
   }, []);
 
   return (
@@ -62,12 +65,24 @@ export const Header = () => {
       <header className="header-landing" id="headerId">
         <Navbar expand="lg" className="">
           <Container>
-            <Navbar.Brand onClick={()=>{navigate("/")}}>
+            <Navbar.Brand
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               <h1>
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-            <Nav.Link  onClick={()=>{navigate("/dashboard")}}>
+            <Nav.Link
+              onClick={() => {
+                if (path == "dashboard") {
+                  navigate("/");
+                } else {
+                  navigate("/dashboard");
+                }
+              }}
+            >
               <img src="assets/img/arrow.png" alt="" /> Return to Foundation
             </Nav.Link>
           </Container>
