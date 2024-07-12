@@ -5,6 +5,21 @@
         "name": "swapper Optimism",
         "address": "0x3988513793bCE39f0167064A9F7fC3617FaF35AB",
         "chainId": 10
+      },
+      {
+        "name": "swapper Matic",
+        "address": "0xB4d466dFf6A21b546c9bc0e7aAF416D2365A47Fa",
+        "chainId": 137
+      },
+      {
+        "name": "swapper Arbitrum",
+        "address": "0x80b9411977C4fF8D618f2aC3f29F1e2D623C4d34",
+        "chainId": 42161
+      },
+      {
+        "name": "swapper Base",
+        "address": "0xE10Ed1E5354eEd0F7C9D2e16250ba8996C12db7A",
+        "chainId": 8453
       }
     ]
   }
