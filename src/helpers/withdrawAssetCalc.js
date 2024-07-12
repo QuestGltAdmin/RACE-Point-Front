@@ -13,8 +13,7 @@ const TokensList = Tokens.tokens;
 
 
 
-export const getwithdrawassetdetails = async (data) => {
-    // let chainid = 10;
+export const getWithdrawPricedetails = async (data) => {
     let chainData = chainList.filter((contract) => contract.chainId == data.chainId);
     chainData = chainData[0];
 
