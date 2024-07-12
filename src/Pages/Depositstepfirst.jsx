@@ -90,7 +90,7 @@ export const Depositstepfirst = () => {
     setFlag(true);
     setChainId(data?.chainId);
     setCurrency(data?.currency);
-    setCoinType(cointype);
+    setCoinType(data?.currency === "Base" ? "USDC" : cointype);
   };
 
   const handleClose = () => {
@@ -137,7 +137,7 @@ export const Depositstepfirst = () => {
     try {
       const racebalance = await getRaceBalance(chainid, walletaddress);
       const raceliveprice = await getRaceTokenPrice(chainid);
-      setRaceLivePrice(raceliveprice);
+      setRaceLivePrice(raceliveprice == 0 ? 1 : raceliveprice);
       setRaceBalance(racebalance?.balance);
       // setRaceBalance(60);
       setRaceAllowance(racebalance?.allowance);
@@ -149,7 +149,7 @@ export const Depositstepfirst = () => {
     if (cointype) {
       racetokenbalance();
     }
-  }, [flag, cointype, WalletEVM]);
+  }, [flag, cointype, WalletEVM , currency]);
   //========================= end of code =========================//
 
   //=========================handle chain change=========================//
@@ -476,12 +476,12 @@ export const Depositstepfirst = () => {
               <div
                 className="coin-box"
                 onClick={
-                  (data) => setShowComingSoon(true)
+                  (data) =>
 
-                  // handleShow({
-                  //   chainId: 137,
-                  //   currency: "Matic",
-                  // })
+                  handleShow({
+                    chainId: 137,
+                    currency: "Matic",
+                  })
                 }
               >
                 <img src="assets/img/coin2.png" alt="" />
@@ -497,12 +497,12 @@ export const Depositstepfirst = () => {
               <div
                 className="coin-box"
                 onClick={
-                  (data) => setShowComingSoon(true)
+                  (data) => 
 
-                  // handleShow({
-                  //   chainId: 42161,
-                  //   currency: "Arbitrum",
-                  // })
+                  handleShow({
+                    chainId: 42161,
+                    currency: "Arbitrum",
+                  })
                 }
               >
                 <img src="assets/img/coin3.png" alt="" />
@@ -518,12 +518,12 @@ export const Depositstepfirst = () => {
               <div
                 className="coin-box"
                 onClick={
-                  (data) => setShowComingSoon(true)
+                  (data) => 
 
-                  // handleShow({
-                  //   chainId: 8453,
-                  //   currency: "Base",
-                  // })
+                  handleShow({
+                    chainId: 8453,
+                    currency: "Base",
+                  })
                 }
               >
                 <img src="assets/img/coin4.png" alt="" />
@@ -591,7 +591,7 @@ export const Depositstepfirst = () => {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item eventKey="USDT">USDT</Dropdown.Item>
+                  {currency !== "Base" &&  <Dropdown.Item eventKey="USDT">USDT</Dropdown.Item>}
                     <Dropdown.Item eventKey="USDC">USDC</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
