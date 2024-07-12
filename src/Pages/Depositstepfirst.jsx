@@ -863,7 +863,7 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
             <h4 className="sub-heading">Withdraw</h4>
 
             <Form.Group className="mb-3 form-row">
-              <Form.Label>Sell</Form.Label>
+              <Form.Label>Amount</Form.Label>
               <div className="input-flex-row">
                 <InputGroup className="">
                   <Form.Control
