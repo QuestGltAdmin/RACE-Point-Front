@@ -94,6 +94,7 @@ export const Depositstepfirst = () => {
   };
 
   const handleClose = () => {
+    setBalance(0);
     setShow(false);
     setFlag(false);
     setInputValue({
@@ -168,7 +169,7 @@ export const Depositstepfirst = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [inputValuereason, setInputValueReason] = useState({
     reason: "",
-  });
+  }); 
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -265,6 +266,7 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
   };
 
   const handleCloseWithdrawMain = () => {
+    setInputValueSell({sellamount:0});
     setShowWithdrawMain(false);
   };
 
@@ -331,6 +333,7 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
           setTransactionHash(deposite?.transactionHash);
           setDepositeDisable(false);
           toast.success("Deposited Successfully");
+          handleClose();
           handleopentransaction();
         } else {
           setDepositeDisable(false);
@@ -385,7 +388,7 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
       setFormError("Please select registered wallet address");
     } else if (!inputValuesell?.sellamount) {
       setFormError("Please enter amount");
-    } else if (inputValuesell?.sellamount >= racebalance) {
+    } else if (inputValuesell?.sellamount > racebalance) {
       setFormError("Balance is insufficient");
     } else {
       setApproveDisable(true);
@@ -996,6 +999,7 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
             {/* <button className="common-btn bg-left ">
               Enter {coinselltype} Amount
             </button> */}
+            <p>{formError}</p>
             {walletaddress?.toLowerCase() !==
             user?.wallet_address?.toLowerCase() ? (
               <button className="common-btn bg-left disable-btn" disabled>
