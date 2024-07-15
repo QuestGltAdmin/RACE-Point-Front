@@ -218,6 +218,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .wallet-connect .browse-btn img {
@@ -237,6 +238,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .wallet-connect .wallet-connect img {
