@@ -53,7 +53,7 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
             toast.dismiss(loadingToastId);
             dispatch(setEVMWallet(e.detail));
             await resolveENSName(e.detail.selectedAccount); // Fetch ENS name
-            window.location.reload();
+            // window.location.reload();
           }
         });
         document.addEventListener("SELECT_WALLET", (e) => {
@@ -64,18 +64,18 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
         document.addEventListener("MODAL_CLOSE", (e) => {
           if (e.detail) {
             dispatch(setEVMWallet(e.detail));
-            window.location.reload();
+            // window.location.reload();
           }
         });
         document.addEventListener("CONNECT_SUCCESS", (e) => {
           if (e.detail) {
             dispatch(setEVMWallet(e.detail));
-            window.location.reload();
+            // window.location.reload();
           }
         });
       } else {
         dispatch(setEVMWallet(wallet));
-        window.location.reload();
+        // window.location.reload();
       }
     } catch (err) {
       console.error("Connect Wallet Error:", err);

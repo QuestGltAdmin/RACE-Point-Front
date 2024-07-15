@@ -6,6 +6,7 @@ import { logout, setEVMWallet } from "../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { ethers } from "ethers";
 import useAuth from "../hooks/useAuth";
+import { reConnect } from "../helpers/web3Model";
 
 export const LandingPageHeader = () => {
   //========================= Global variable =========================//
@@ -33,23 +34,31 @@ export const LandingPageHeader = () => {
     // if (wallet) {
     const handleChain = async () => {
       let provider = await Provider(WalletEVM?.type);
-      //=================Account change code===============//
-      provider.on("accountsChanged", async (accounts) => {
-        const walletAcc = await Connect(WalletEVM?.type);
+      if (WalletEVM?.type === "walletConnect") {
+        let reconnect = await reConnect();
+        if (reconnect) {
+          dispatch(setEVMWallet(reconnect));
+        }
+      }
+      else {
+        //=================Account change code===============//
+        provider.on("accountsChanged", async (accounts) => {
+          const walletAcc = await Connect(WalletEVM?.type);
 
-        dispatch(setEVMWallet(walletAcc));
-        window.location.reload();
-        // }
-      });
+          dispatch(setEVMWallet(walletAcc));
+          window.location.reload();
+          // }
+        });
 
-      //=================Chain change code===============//
-      provider.on("chainChanged", async (chainId) => {
-        const walletChain = await Connect(WalletEVM?.type);
+        //=================Chain change code===============//
+        provider.on("chainChanged", async (chainId) => {
+          const walletChain = await Connect(WalletEVM?.type);
 
-        dispatch(setEVMWallet(walletChain));
-        window.location.reload();
-        // }
-      });
+          dispatch(setEVMWallet(walletChain));
+          window.location.reload();
+          // }
+        });
+      }
     };
     handleChain();
     // }
@@ -69,7 +78,7 @@ export const LandingPageHeader = () => {
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-          {WalletEVM?.selectedAccount &&  <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>}
+            {WalletEVM?.selectedAccount && <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>}
           </Container>
         </Navbar>
       </header>

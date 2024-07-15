@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { ethers } from "ethers";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
+import { reConnect } from "../helpers/web3Model";
 
 export const Header = () => {
   //========================= Global variable =========================//
@@ -36,27 +37,36 @@ export const Header = () => {
 
   useEffect(() => {
     if (WalletEVM?.selectedAccount) {
-    const handleChain = async () => {
-      let provider = await Provider(WalletEVM?.type);
-      //=================Account change code===============//
-      provider.on("accountsChanged", async (accounts) => {
-        const walletAcc = await Connect(WalletEVM?.type);
+      const handleChain = async () => {
+        let provider = await Provider(WalletEVM?.type);
+        if (WalletEVM?.type === "walletConnect") {
+          let reconnect = await reConnect();
+          if (reconnect) {
+            dispatch(setEVMWallet(reconnect));
+          }
+        }
+        else {
+          //=================Account change code===============//
+          provider.on("accountsChanged", async (accounts) => {
+            const walletAcc = await Connect(WalletEVM?.type);
 
-        dispatch(setEVMWallet(walletAcc));
-        window.location.reload();
-        // }
-      });
+            dispatch(setEVMWallet(walletAcc));
+            window.location.reload();
+            // }
+          });
 
-      //=================Chain change code===============//
-      provider.on("chainChanged", async (chainId) => {
-        const walletChain = await Connect(WalletEVM?.type);
+          //=================Chain change code===============//
+          provider.on("chainChanged", async (chainId) => {
+            const walletChain = await Connect(WalletEVM?.type);
 
-        dispatch(setEVMWallet(walletChain));
-        window.location.reload();
-        // }
-      });
-    };
-    handleChain();
+            dispatch(setEVMWallet(walletChain));
+            window.location.reload();
+            // }
+          });
+        }
+
+      };
+      handleChain();
     }
   }, []);
 

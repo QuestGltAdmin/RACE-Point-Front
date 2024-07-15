@@ -25,10 +25,15 @@ import { withdrawVault } from "../helpers/withdraw";
 import { approveRace } from "../helpers/ApproveRaceToken";
 import { getWithdrawPricedetails } from "../helpers/withdrawAssetCalc";
 import { getRemainingTime } from "../helpers/withdrawTimer";
+import { Connect } from "../helpers/Connect";
+import { useDispatch } from "react-redux";
+import { setEVMWallet } from "../store/reducers/authReducer";
 
 export const Depositstepfirst = () => {
   //========================= Global variable =========================//
   const { WalletEVM, walletbalance, user } = useAuth();
+  const dispatch = useDispatch();
+
   //========================= end of code =========================//
 
   //========================= local variable =========================//
@@ -135,7 +140,6 @@ export const Depositstepfirst = () => {
           minutes: minutes,
           second: remainingSeconds,
         });
-        console.log(days, hours, minutes, remainingSeconds);
       } else {
         setRemaningTime({
           day: 0,
@@ -153,7 +157,6 @@ export const Depositstepfirst = () => {
       });
     }
   };
-console.log("remaningTime" , remaningTime);
   useEffect(() => {
     const balancefuntion = async () => {
       try {
@@ -208,6 +211,10 @@ console.log("remaningTime" , remaningTime);
   const handleChain = async () => {
     try {
       const chain = await commonSwitch(chainid, WalletEVM?.type);
+      if(chain){
+        const connect = await Connect(WalletEVM?.type)
+        dispatch(setEVMWallet(connect));
+      }
       // setRaceLivePrice(raceliveprice);
     } catch (error) {
       console.error("Error to change:", error);
