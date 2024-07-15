@@ -36,7 +36,7 @@ export const approveERC20 = async (data) => {
     let selectedAccount = accounts.selectedAccount;
     const chainId = accounts.chainId;
 
-    let amt = data.amount + data.amount * 0.0001;
+    let amt = parseFloat(data.amount) + parseFloat(data.amount) * 0.001;
 
     let amountIn = "0x" + parseInt(amt * 10 ** token.decimals).toString(16);
 
