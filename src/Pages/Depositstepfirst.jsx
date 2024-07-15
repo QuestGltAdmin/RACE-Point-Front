@@ -24,6 +24,7 @@ import { commonSwitch } from "../helpers/ChainSwitch";
 import { withdrawVault } from "../helpers/withdraw";
 import { approveRace } from "../helpers/ApproveRaceToken";
 import { getWithdrawPricedetails } from "../helpers/withdrawAssetCalc";
+import { getRemainingTime } from "../helpers/withdrawTimer";
 
 export const Depositstepfirst = () => {
   //========================= Global variable =========================//
@@ -63,6 +64,12 @@ export const Depositstepfirst = () => {
   const [showComingSoon, setShowComingSoon] = useState(false);
   const [assetInOnePoint, setAssetInOnePoint] = useState(0);
   const [raceTokenPrice, setRaceTokenPrice] = useState(0);
+  const [remaningTime, setRemaningTime] = useState({
+    day: 0,
+    hours: 0,
+    minutes: 0,
+    second: 0,
+  });
 
   const HandleComingSoon = () => {
     setShowComingSoon(false);
@@ -103,6 +110,50 @@ export const Depositstepfirst = () => {
   };
   //=========================fetching main balance=========================//
 
+  useEffect(() => {
+    getTimerForWithdraw();
+  }, [chainid, WalletEVM?.selectedAccount, show]);
+
+  const getTimerForWithdraw = async () => {
+    try {
+      const getTimeData = await getRemainingTime(
+        chainid,
+        "0x5e1455F8cA86375a72E0D9cc7583F8d3f460dF7F"
+      );
+      if (getTimeData > 0) {
+        const days = Math.floor(getTimeData / 86400);
+        const remainingSecondsAfterDays = getTimeData % 86400;
+        const hours = Math.floor(remainingSecondsAfterDays / 3600);
+        const remainingSecondsAfterHours = remainingSecondsAfterDays % 3600;
+        const minutes = Math.floor(remainingSecondsAfterHours / 60);
+        const remainingSeconds = remainingSecondsAfterHours % 60;
+
+        setRemaningTime({
+          ...remaningTime,
+          day: days,
+          hours: hours,
+          minutes: minutes,
+          second: remainingSeconds,
+        });
+        console.log(days, hours, minutes, remainingSeconds);
+      } else {
+        setRemaningTime({
+          day: 0,
+          hours: 0,
+          minutes: 0,
+          second: 0,
+        });
+      }
+    } catch (err) {
+      setRemaningTime({
+        day: 0,
+        hours: 0,
+        minutes: 0,
+        second: 0,
+      });
+    }
+  };
+console.log("remaningTime" , remaningTime);
   useEffect(() => {
     const balancefuntion = async () => {
       try {
@@ -150,7 +201,7 @@ export const Depositstepfirst = () => {
     if (cointype) {
       racetokenbalance();
     }
-  }, [flag, cointype, WalletEVM , currency]);
+  }, [flag, cointype, WalletEVM, currency]);
   //========================= end of code =========================//
 
   //=========================handle chain change=========================//
@@ -169,7 +220,7 @@ export const Depositstepfirst = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [inputValuereason, setInputValueReason] = useState({
     reason: "",
-  }); 
+  });
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -251,9 +302,9 @@ export const Depositstepfirst = () => {
   const [showwithdrawMain, setShowWithdrawMain] = useState(false);
   const [coinselltype, setCoinSellType] = useState("USDT");
 
-  useEffect(()=>{
-setCoinSellType(currency === "Base" ? "USDC" : "USDT")
-  },[currency])
+  useEffect(() => {
+    setCoinSellType(currency === "Base" ? "USDC" : "USDT");
+  }, [currency]);
 
   const [inputValuesell, setInputValueSell] = useState({
     sellamount: "",
@@ -266,7 +317,7 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
   };
 
   const handleCloseWithdrawMain = () => {
-    setInputValueSell({sellamount:0});
+    setInputValueSell({ sellamount: 0 });
     setShowWithdrawMain(false);
   };
 
@@ -482,9 +533,7 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
             <Col lg={3} md={6} sm={6} xs={6}>
               <div
                 className="coin-box"
-                onClick={
-                  (data) =>
-
+                onClick={(data) =>
                   handleShow({
                     chainId: 137,
                     currency: "Matic",
@@ -503,9 +552,7 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
             <Col lg={3} md={6} sm={6} xs={6}>
               <div
                 className="coin-box"
-                onClick={
-                  (data) => 
-
+                onClick={(data) =>
                   handleShow({
                     chainId: 42161,
                     currency: "Arbitrum",
@@ -524,9 +571,7 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
             <Col lg={3} md={6} sm={6} xs={6}>
               <div
                 className="coin-box"
-                onClick={
-                  (data) => 
-
+                onClick={(data) =>
                   handleShow({
                     chainId: 8453,
                     currency: "Base",
@@ -598,7 +643,9 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                  {currency !== "Base" &&  <Dropdown.Item eventKey="USDT">USDT</Dropdown.Item>}
+                    {currency !== "Base" && (
+                      <Dropdown.Item eventKey="USDT">USDT</Dropdown.Item>
+                    )}
                     <Dropdown.Item eventKey="USDC">USDC</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -722,12 +769,21 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
             <button
               className="withdraw-btn"
               onClick={() => {
-                // if (balance <= 0) {
-                //   toast.warn("You don't have sufficient amount to withdraw")
-                // } else {
+                if (balance <= 0) {
+                  toast.warn("You don't have sufficient amount to withdraw");
+                } else if (
+                  remaningTime?.hours !== 0 ||
+                  remaningTime?.minutes !== 0 ||
+                  remaningTime?.second !== 0
+                ) {
+                  toast?.warn(
+                    `Your deposit lockup expires in ${remaningTime?.hours} hours ${remaningTime?.minutes} minutes ${remaningTime?.second} seconds`
+                  );
+                } else {
                   handleopenWithdraw();
-                // }
+                }
               }}
+             
             >
               Withdraw <img src="assets/img/withdraw.png" alt="" />
             </button>
@@ -956,9 +1012,11 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-           {currency !== "Base" &&  <Dropdown.Item eventKey="USDT">
-                    <img src="assets/img/Tokens.png" alt="" /> USDT
-                  </Dropdown.Item>}
+                  {currency !== "Base" && (
+                    <Dropdown.Item eventKey="USDT">
+                      <img src="assets/img/Tokens.png" alt="" /> USDT
+                    </Dropdown.Item>
+                  )}
                   <Dropdown.Item eventKey="USDC">
                     <img src="assets/img/daller.png" alt="" /> USDC
                   </Dropdown.Item>
@@ -1011,7 +1069,7 @@ setCoinSellType(currency === "Base" ? "USDC" : "USDT")
                 onClick={() => handleChain()}
               >
                 Switch Network
-              </button> 
+              </button>
             ) : inputValuesell?.sellamount > racebalance ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Insufficient balance
