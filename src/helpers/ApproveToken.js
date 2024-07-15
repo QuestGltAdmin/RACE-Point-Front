@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import TokenABI from "../ABI/ERC20ABI.json";
 import Tokens from "../JSON/TokenListMainnet.json";
 import RaceTokens from "../JSON/RaceTokenList.json";
-import { getAccountDetail, getNetworkDetail } from "./web3Model";
+import { config, getAccountDetail, getNetworkDetail } from "./web3Model";
 import Web3 from "web3";
 import { sendTransaction } from "@wagmi/core";
 
@@ -11,7 +11,7 @@ const TokensList = Tokens.tokens;
 const RaceTokensList = RaceTokens.tokens;
 
 export const approveERC20 = async (data) => {
-  console.log("data" , data);
+  console.log("data", data);
   let token = TokensList.filter(
     (token) =>
       token.currency == data?.currency && token.symbol == data?.cointype
@@ -79,9 +79,10 @@ export const approveERC20 = async (data) => {
       data: Data,
     };
 
-    let hash = await sendTransaction(tx);
+    let _config = config();
+    let hash = await sendTransaction(_config, tx);
     const ids = toast.loading(
-      "Please Check your Metamask for any Pending Transaction"
+      "Please Check your Wallet for any Pending Transaction"
     );
     // toast.success('Wait For transaction to Success')
     // show modal
@@ -93,7 +94,7 @@ export const approveERC20 = async (data) => {
     while (transactionReceipt == null) {
       // Waiting expectedBlockTime until the transaction is mined
       transactionReceipt = await web3connect.eth.getTransactionReceipt(
-        hash.hash
+        hash
       );
       await sleep(expectedBlockTime);
     }
@@ -105,7 +106,7 @@ export const approveERC20 = async (data) => {
         isLoading: false,
         autoClose: 2000,
       });
-      return true;
+      return transactionReceipt;
     } else {
       toast.update(ids, {
         render: "Transaction Reverted",
@@ -113,7 +114,7 @@ export const approveERC20 = async (data) => {
         isLoading: false,
         autoClose: 2000,
       });
-      window.location.reload();
+      // window.location.reload();
     }
   } else {
     const web3connect = await web3(data.type);
