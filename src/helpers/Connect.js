@@ -10,23 +10,17 @@ import {
 export const Connect = async (type) => {
   if (type === "walletConnect") {
     setTimeout(async () => {
-      let account = await reConnect();
-      if (account) {
-        dispatch("ACCOUNT_CONNECTED", account);
-        return account;
-      } else {
-        let _web3Modal = await web3Modal();
-        await OpenModal();
-        _web3Modal.subscribeEvents(async (e) => {
-          account = await getAccountDetail();
-          if (account) {
-            dispatch(e.data.event, account);
-          }
-          if (e.data.event == "MODAL_CLOSE") {
-            window.location.reload();
-          }
-        });
-      }
+      let _web3Modal = await web3Modal();
+      await OpenModal();
+      _web3Modal.subscribeEvents(async (e) => {
+        let account = await getAccountDetail();
+        if (account) {
+          dispatch(e.data.event, account);
+        }
+        if (e.data.event == "MODAL_CLOSE") {
+          window.location.reload();
+        }
+      });
     }, 2000);
   } else {
     const web3connect = await web3(type);
@@ -72,6 +66,7 @@ export function dispatch(eventName, detail) {
 
 export const onDisconnect = async (type) => {
   if (type === "walletConnect") {
+    console.log("disconnect");
     DisconnectWalletConnect();
   } else {
     const web3connect = await web3(type);
