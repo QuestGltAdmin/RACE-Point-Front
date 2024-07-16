@@ -128,6 +128,9 @@ export const Provider = async (type) => {
   return provider;
 }
 export const Disconnect = async () => {
-  const disconnect = await web3Modal.clearCachedProvider();
-  return disconnect;
+
+  const disconnected = await web3Modal.clearCachedProvider();
+  let web3D = await web3("metamask");
+  let disconnect = await web3D.currentProvider.disconnect;
+  return disconnected;
 };

@@ -66,7 +66,6 @@ export function dispatch(eventName, detail) {
 
 export const onDisconnect = async (type) => {
   if (type === "walletConnect") {
-    console.log("disconnect");
     DisconnectWalletConnect();
   } else {
     const web3connect = await web3(type);
@@ -81,6 +80,7 @@ export const onDisconnect = async (type) => {
 
     // TODO: Which providers have close method?
     if (provider) {
+      console.log("provider",provider)
       // await provider.close();
 
       // If the cached provider is not cleared,
