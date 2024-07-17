@@ -26,6 +26,8 @@ export const approveERC20 = async (data) => {
   const abi = TokenABI;
 
   if (data.type === "walletConnect") {
+    try{
+
     let network = await getNetworkDetail();
     let web3connect = new Web3(
       new Web3.providers.HttpProvider(network.chain.rpcUrls.default.http[0])
@@ -114,8 +116,12 @@ export const approveERC20 = async (data) => {
         isLoading: false,
         autoClose: 2000,
       });
-      // window.location.reload();
+      window.location.reload();
     }
+  }catch(err){
+    console.log(err);
+    window.location.reload();
+  }
   } else {
     const web3connect = await web3(data.type);
 

@@ -28,6 +28,8 @@ export const approveRace = async (data) => {
   const abi = TokenABI;
 
   if (data.type === "walletConnect") {
+    try{
+      
     let network = await getNetworkDetail();
     let web3connect = new Web3(
       new Web3.providers.HttpProvider(network.chain.rpcUrls.default.http[0])
@@ -119,6 +121,10 @@ export const approveRace = async (data) => {
       });
       // window.location.reload();
     }
+  }catch(err){
+    console.log(err);
+    window.location.reload();
+  }  
   } else {
     const web3connect = await web3(data.type);
 
