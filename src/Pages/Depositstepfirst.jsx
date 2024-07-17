@@ -744,7 +744,7 @@ export const Depositstepfirst = () => {
               >
                 Switch Network
               </button>
-            ) : inputValue?.amount >= balance ? (
+            ) : inputValue?.amount > balance ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Insufficient balance
               </button>

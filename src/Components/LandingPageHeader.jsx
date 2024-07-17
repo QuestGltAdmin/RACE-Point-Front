@@ -31,7 +31,7 @@ export const LandingPageHeader = () => {
   }, []);
 
   useEffect(() => {
-    // if (wallet) {
+    if (WalletEVM?.selectedAccount) {
     const handleChain = async () => {
       let provider = await Provider(WalletEVM?.type);
       if (WalletEVM?.type === "walletConnect") {
@@ -61,7 +61,7 @@ export const LandingPageHeader = () => {
       }
     };
     handleChain();
-    // }
+    }
   }, []);
 
   const handleLogout = async () => {
