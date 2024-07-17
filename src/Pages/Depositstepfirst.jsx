@@ -109,6 +109,7 @@ export const Depositstepfirst = () => {
     setBalance(0);
     setShow(false);
     setFlag(false);
+    setFormError("");
     setInputValue({
       amount: "",
     });
@@ -377,6 +378,9 @@ export const Depositstepfirst = () => {
       setFormError("Please select registered wallet address");
     } else if (!inputValue?.amount) {
       setFormError("Please enter amount");
+    } else if (inputValue?.amount < 0.000001) {
+      setFormError("Please enter valid amount");
+      console.log("here3++++++++++++++=");  
     } else if (inputValue?.amount >= balance) {
       setFormError("Balance is insufficient");
     } else {
