@@ -50,9 +50,9 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
       if (type === "walletConnect") {
         document.addEventListener("ACCOUNT_CONNECTED", async (e) => {
           if (e.detail) {
-            toast.dismiss(loadingToastId);
             dispatch(setEVMWallet(e.detail));
             await resolveENSName(e.detail.selectedAccount); // Fetch ENS name
+            toast.dismiss(loadingToastId);
             // window.location.reload();
           }
         });
@@ -82,7 +82,7 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
       //setError("Please install Metamask");
     } finally {
       if (loadingToastId) {
-        toast.dismiss(loadingToastId);
+        // toast.dismiss(loadingToastId);
       }
     }
   };
