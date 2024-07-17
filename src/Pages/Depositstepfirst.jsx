@@ -485,7 +485,7 @@ export const Depositstepfirst = () => {
       setFormError("Balance is insufficient");
     } else {
       setDepositeDisable(true);
-
+      setWithdrawDisable(true)
       try {
         let data = {
           chainId: chainid,
@@ -1099,10 +1099,10 @@ export const Depositstepfirst = () => {
             ) : (
               <button
                 className="common-btn bg-left"
-                disabled={withdrawDisable}
+                disabled={depositeDisable}
                 onClick={() => HandleWithdraw()}
               >
-                {withdrawDisable ? "Processing" : "Withdraw"}
+                {depositeDisable ? "Processing" : "Withdraw"}
               </button>
             )}
           </div>
