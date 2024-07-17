@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Provider } from "../helpers/Web3Helper";
 import { Connect } from "../helpers/Connect";
-import { setEVMWallet } from "../store/reducers/authReducer";
+import { logout, setEVMWallet } from "../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { ethers } from "ethers";
 import useAuth from "../hooks/useAuth";
@@ -48,10 +48,12 @@ export const Header = () => {
         else {
           //=================Account change code===============//
           provider.on("accountsChanged", async (accounts) => {
-            const walletAcc = await Connect(WalletEVM?.type);
+            // const walletAcc = await Connect(WalletEVM?.type);
 
-            dispatch(setEVMWallet(walletAcc));
-            window.location.reload();
+            // dispatch(setEVMWallet(walletAcc));
+            dispatch(logout())
+            navigate("/")
+            // window.location.reload();
             // }
           });
 
