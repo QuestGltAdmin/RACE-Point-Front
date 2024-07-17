@@ -211,11 +211,16 @@ export const Depositstepfirst = () => {
   const handleChain = async () => {
     try {
       const chain = await commonSwitch(chainid, WalletEVM?.type);
-      console.log("chain" , chain);
-      if(chain){
-        const connect = await Connect(WalletEVM?.type)
-        console.log("connect" , connect);
-        dispatch(setEVMWallet(connect));
+      console.log("chain", chain);
+      if (chain) {
+        // const connect = await Connect(WalletEVM?.type)
+        // console.log("connect" , connect);
+        const payload = {
+          chainId: chainid,
+          selectedAccount: WalletEVM?.selectedAccount,
+          type: WalletEVM?.type,
+        };
+        dispatch(setEVMWallet(payload));
       }
       // setRaceLivePrice(raceliveprice);
     } catch (error) {
@@ -792,7 +797,6 @@ export const Depositstepfirst = () => {
                   handleopenWithdraw();
                 }
               }}
-             
             >
               Withdraw <img src="assets/img/withdraw.png" alt="" />
             </button>
