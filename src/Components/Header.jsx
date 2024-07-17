@@ -62,7 +62,7 @@ export const Header = () => {
             const walletChain = await Connect(WalletEVM?.type);
 
             dispatch(setEVMWallet(walletChain));
-            window.location.reload();
+            // window.location.reload();
             // }
           });
         }

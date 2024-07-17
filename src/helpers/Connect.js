@@ -18,7 +18,7 @@ export const Connect = async (type) => {
           dispatch(e.data.event, account);
         }
         if (e.data.event == "MODAL_CLOSE") {
-          window.location.reload();
+          // window.location.reload();
         }
       });
     }, 2000);
