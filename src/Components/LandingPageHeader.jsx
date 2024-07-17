@@ -46,7 +46,7 @@ export const LandingPageHeader = () => {
           const walletAcc = await Connect(WalletEVM?.type);
 
           dispatch(setEVMWallet(walletAcc));
-          window.location.reload();
+          // window.location.reload();
           // }
         });
 
@@ -55,7 +55,7 @@ export const LandingPageHeader = () => {
           const walletChain = await Connect(WalletEVM?.type);
 
           dispatch(setEVMWallet(walletChain));
-          window.location.reload();
+          // window.location.reload();
           // }
         });
       }
