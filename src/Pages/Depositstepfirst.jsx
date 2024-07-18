@@ -212,8 +212,8 @@ export const Depositstepfirst = () => {
   const handleChain = async () => {
     try {
       const chain = await commonSwitch(chainid, WalletEVM?.type);
-      console.log("chain", chain);
       if (chain) {
+        // console.log("chain", chain);
         // const connect = await Connect(WalletEVM?.type)
         // console.log("connect" , connect);
         const payload = {

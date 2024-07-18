@@ -12,15 +12,26 @@ export const commonSwitch = async (requireNetwork, type) => {
   if (type === "walletConnect") {
     const id = toast.loading("Please Check Your Wallet");
     try {
-      await _switchNetwork(chainId.chainId);
+   const switchData =  await _switchNetwork(chainId.chainId);
+   if(switchData){
 
-      toast.update(id, {
-        render: `You have successfully switched to ${chainId.name} network`,
-        type: "success",
-        isLoading: false,
-        autoClose: 2000,
+     
+     toast.update(id, {
+       render: `You have successfully switched to ${chainId.name} network`,
+       type: "success",
+       isLoading: false,
+       autoClose: 2000,
       });
       return true;
+    }else{
+      toast.update(id, {
+        render: `Failed to switch to the network`,
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+       });
+      return false;
+    }
     } catch (error) {
       toast.update(id, {
         render: "Failed to switch to the network",
