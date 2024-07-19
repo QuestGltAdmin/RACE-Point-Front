@@ -46,7 +46,14 @@ export const Dashboard = () => {
   //========================= end of code =========================//
 
   //========================= local variable =========================//
-  const [dashboarddata, setDashboardData] = useState({});
+  const [dashboarddata, setDashboardData] = useState({
+    arbitrium: 0,
+    base: 0,
+    optimism: 0,
+    polygon: 0,
+  });
+  const [amountInVaults, setAmountInVaults] = useState(0);
+  const [points, setPoints] = useState(0);
   //========================= end of code =========================//
 
   const data = {
@@ -119,30 +126,26 @@ export const Dashboard = () => {
         }
       );
       if (getdata?.data?.status) {
-        setDashboardData(getdata?.data);
+        setDashboardData(getdata?.data?.location);
+        setPoints(getdata?.data?.points);
+        setAmountInVaults(getdata?.data?.amountInVaults);
       }
     } catch (err) {}
   };
   //===============End of code====================//
-
+  // console.log(dashboarddata);
   const number1 =
-    dashboarddata?.amountInVaults > 0
-      ? dashboarddata?.amountInVaults.toFixed(2)
-      : dashboarddata?.amountInVaults || 0;
+    amountInVaults > 0 ? amountInVaults.toFixed(2) : amountInVaults || 0;
   const digits1 = number1.toString().split("");
 
-  const number2 =
-    dashboarddata?.points > 0
-      ? dashboarddata?.points.toFixed(2)
-      : dashboarddata?.points || 0;
+  const number2 = points > 0 ? points.toFixed(2) : points || 0;
   const digits2 = number2.toString().split("");
-
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+
   return (
     <>
       <Header />
@@ -167,9 +170,9 @@ export const Dashboard = () => {
                         </div>
                       ))} */}
                       <div className="counter-otp">
-                          <p>$</p>
-                          <p className="full-num">{digits1}</p>
-                        </div>
+                        <p>$</p>
+                        <p className="full-num">{digits1}</p>
+                      </div>
                     </div>
                   </div>
 
@@ -188,9 +191,8 @@ export const Dashboard = () => {
                         </div>
                       ))} */}
                       <div className="counter-otp">
-                          
-                          <p className="full-num">{digits2}</p>
-                        </div>
+                        <p className="full-num">{digits2}</p>
+                      </div>
                     </div>
                   </div>
                   <div>
@@ -205,14 +207,20 @@ export const Dashboard = () => {
                 <Col lg={6}>
                   <div className="dash-count-box">
                     <h3 className="text-center">Location</h3>
-                    
+
                     <div className="outer-box-no-deposite">
-                       <div>
-                       {/* <div className="pie-chart-outer">
-                        <Pie data={data} options={options} />
-                      </div> */}
-                       <h3>You currently have no deposits</h3>
-                       </div>
+                      <div>
+                        {dashboarddata?.arbitrium !== 0 ||
+                        dashboarddata?.base !== 0 ||
+                        dashboarddata?.optimism !== 0 ||
+                        dashboarddata?.polygon !== 0 ? (
+                          <div className="pie-chart-outer">
+                            <Pie data={data} options={options} />
+                          </div>
+                        ) : (
+                          <h3>You currently have no deposits</h3>
+                        )}
+                      </div>
                     </div>
                   </div>
                   {/* <div className="dash-count-box">
@@ -240,46 +248,6 @@ export const Dashboard = () => {
       {/* <Button variant="primary" onClick={handleShow}>
         Launch demo modal
       </Button> */}
-
-      {/* <Modal
-        className="network-popup logout-popup"
-        size="md"
-        centered
-        show={show} onHide={handleClose}
-      >
-        <Modal.Body>
-          <div>
-            <h4 className="sub-heading">Log Out </h4>
-            <p>Are you sure you want to log out?</p>
-
-            <Button className="w-50" variant="danger" onClick={handleClose}>
-            Cancel
-            </Button>
-            <Button className="w-50" variant="success" onClick={handleClose}>
-            Yes
-            </Button>
-          </div>
-        </Modal.Body>
-        
-      </Modal> */}
-      {/* <Modal
-        className="network-popup logout-popup"
-        size="md"
-        centered
-        show={show} onHide={handleClose}
-      >
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <div>
-            <h4 className="sub-heading">Log Out </h4>
-            <p>You have successfully logged out</p>
-
-        
-          </div>
-        </Modal.Body>
-        
-      </Modal> */}
-
 
     </>
   );
