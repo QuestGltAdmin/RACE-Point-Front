@@ -47,6 +47,8 @@ export const Dashboard = () => {
 
   //========================= local variable =========================//
   const [dashboarddata, setDashboardData] = useState({});
+  const [amountInVault, setAmountInVault] = useState(0);
+  const [points, setPoints] = useState(0);
   //========================= end of code =========================//
 
   const data = {
@@ -117,24 +119,25 @@ export const Dashboard = () => {
       );
       if (getdata?.data?.status) {
         setDashboardData(getdata?.data);
+        setAmountInVault(getdata?.data?.amountInVaults);
+        setPoints(getdata?.data?.points)
       }
     } catch (err) { }
   };
   //===============End of code====================//
 
-  const number1 =
-    dashboarddata?.amountInVaults > 0
-      ? dashboarddata?.amountInVaults.toFixed(2)
-      : dashboarddata?.amountInVaults || 0;
-  const digits1 = number1.toString().split("");
+  // const number1 =
+  //   dashboarddata?.amountInVaults > 0
+  //     ? dashboarddata?.amountInVaults.toFixed(2)
+  //     : dashboarddata?.amountInVaults || 0;
+  // const digits1 = number1.toString().split("");
 
-  const number2 =
-    dashboarddata?.points > 0
-      ? dashboarddata?.points.toFixed(2)
-      : dashboarddata?.points || 0;
-  const digits2 = number2.toString().split("");
+  // const number2 =
+  //   dashboarddata?.points > 0
+  //     ? dashboarddata?.points.toFixed(2)
+  //     : dashboarddata?.points || 0;
+  // const digits2 = number2.toString().split("");
   //===============End of code====================//
-  // console.log(dashboarddata);
 
 
   return (
@@ -162,7 +165,7 @@ export const Dashboard = () => {
                       ))} */}
                       <div className="counter-otp">
                         <p>$</p>
-                        <p className="full-num">{digits1}</p>
+                        <p className="full-num">{amountInVault.toFixed(2)}</p>
                       </div>
                     </div>
                   </div>
@@ -182,7 +185,7 @@ export const Dashboard = () => {
                         </div>
                       ))} */}
                       <div className="counter-otp">
-                        <p className="full-num">{digits2}</p>
+                        <p className="full-num">{points.toFixed(2)}</p>
                       </div>
                     </div>
                   </div>
@@ -201,7 +204,7 @@ export const Dashboard = () => {
 
                     <div className="outer-box-no-deposite">
                       <div>
-                        {digits1 > 0 ? (
+                        {amountInVault > 0 ? (
                           <div className="pie-chart-outer">
                             <Pie data={data} options={options} />
                           </div>
