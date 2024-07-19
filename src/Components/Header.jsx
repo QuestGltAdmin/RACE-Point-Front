@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Dropdown, Nav, Navbar } from "react-bootstrap";
 import { Provider } from "../helpers/Web3Helper";
 import { Connect } from "../helpers/Connect";
 import { logout, setEVMWallet } from "../store/reducers/authReducer";
@@ -86,17 +86,37 @@ export const Header = () => {
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-            <Nav.Link
-              onClick={() => {
-                if (path == "dashboard") {
-                  navigate("/");
-                } else {
-                  navigate("/dashboard");
-                }
-              }}
-            >
-              <img src="assets/img/arrow.png" alt="" /> Return to Foundation
-            </Nav.Link>
+             <div className="d-flex align-items-center">
+                <Dropdown className="wallet-address-dropdown">
+                  <Dropdown.Toggle  id="dropdown-basic">
+                      <img src="assets/img/Avatar.png" alt="" />
+                      0xdfAA...872a
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item href=""> <img src="assets/img/coin1.png" alt="" /> Optimism</Dropdown.Item>
+                    <Dropdown.Item href=""> <img src="assets/img/coin2.png" alt="" /> Arbitrum</Dropdown.Item>
+                    <Dropdown.Item href=""> <img src="assets/img/coin3.png" alt="" /> Polygon</Dropdown.Item>
+                    <Dropdown.Item href=""> <img src="assets/img/coin4.png" alt="" /> Base</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item href=""> <img src="assets/img/logout.png" alt="" /> Log Out</Dropdown.Item>
+
+                  </Dropdown.Menu>
+                </Dropdown>
+                <a href="" className="social-head"><img src="assets/images/telegram.png" alt="" /></a>
+                <a href="" className="social-head"><img src="assets/images/twitt.png" alt="" /></a>
+                <Nav.Link
+                  onClick={() => {
+                    if (path == "dashboard") {
+                      navigate("/");
+                    } else {
+                      navigate("/dashboard");
+                    }
+                  }}
+                >
+                  <img src="assets/img/arrow.png" alt="" /> Return to Foundation
+                </Nav.Link>
+             </div>
           </Container>
         </Navbar>
       </header>

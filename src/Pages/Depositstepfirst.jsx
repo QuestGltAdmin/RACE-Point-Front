@@ -298,7 +298,7 @@ export const Depositstepfirst = () => {
           setShow(false);
           handleCloseWithdraw();
         }
-      } catch (err) {}
+      } catch (err) { }
     }
   };
   //========================= end of code =========================//
@@ -366,7 +366,7 @@ export const Depositstepfirst = () => {
         setRaceTokenPrice(getPrice?.raceTokenPrice);
         setAssetInOnePoint(getPrice?.AssetInOnePoint);
       }
-    } catch (err) {}
+    } catch (err) { }
   };
 
   //===============deposite code====================//
@@ -380,7 +380,7 @@ export const Depositstepfirst = () => {
       setFormError("Please enter amount");
     } else if (inputValue?.amount < 0.000001) {
       setFormError("Please enter valid amount");
-      console.log("here3++++++++++++++=");  
+      console.log("here3++++++++++++++=");
     } else if (inputValue?.amount >= balance) {
       setFormError("Balance is insufficient");
     } else {
@@ -638,7 +638,7 @@ export const Depositstepfirst = () => {
                     name="amount"
                     onChange={HandleData}
                     value={inputValue?.amount}
-                    // max={ balance }
+                  // max={ balance }
                   />
                   <InputGroup.Text
                     onClick={() =>
@@ -676,7 +676,7 @@ export const Depositstepfirst = () => {
                 className="progress-main-line"
                 variant="success"
                 now={totalpercentage}
-                // label={`${totalpercentage?.toFixed(2)}%`}
+              // label={`${totalpercentage?.toFixed(2)}%`}
               />
             </div>
             <div className="date-rang-percentage ">
@@ -1076,7 +1076,7 @@ export const Depositstepfirst = () => {
             </button> */}
             <p>{formError}</p>
             {walletaddress?.toLowerCase() !==
-            user?.wallet_address?.toLowerCase() ? (
+              user?.wallet_address?.toLowerCase() ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Please select registered wallet address{" "}
               </button>
@@ -1116,7 +1116,7 @@ export const Depositstepfirst = () => {
       {/* transaction popup  */}
 
       <Modal
-        className="network-popup deposit-input-popup"
+        className="network-popup  deposit-success-popup"
         size="md"
         centered
         show={showtransaction}
@@ -1125,7 +1125,9 @@ export const Depositstepfirst = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
-            <h4 className="sub-heading">Deposited Successfully </h4>
+            <h4 className="sub-heading">Deposit Successful </h4>
+            <p>Your funds have been successfully <br /> deposited and will be blocked for  24 hours. After this period, you
+              will be able to access them.</p>
 
             <div>
               {/* //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
@@ -1135,38 +1137,38 @@ export const Depositstepfirst = () => {
               {chainid == 10 ? (
                 <a
                   href={`https://optimistic.etherscan.io/tx/${transactionhash}`}
-                  style={{ color: "#FFF" }}
+                  className="common-btn bg-left"
                   target="_blank"
                 >
                   {" "}
-                  View on Explorer
+                  <img src="assets/img/withdraw.png" alt="" /> View on Explorer
                 </a>
               ) : chainid == 137 ? (
                 <a
                   href={`https://polygonscan.com/tx/${transactionhash}`}
-                  style={{ color: "#FFF" }}
+                  className="common-btn bg-left"
                   target="_blank"
                 >
                   {" "}
-                  View on Explorer
+                  <img src="assets/img/withdraw.png" alt="" /> View on Explorer
                 </a>
               ) : chainid == 8453 ? (
                 <a
                   href={`https://basescan.org/tx/${transactionhash}`}
-                  style={{ color: "#FFF" }}
+                  className="common-btn bg-left"
                   target="_blank"
                 >
                   {" "}
-                  View on Explorer
+                  <img src="assets/img/withdraw.png" alt="" /> View on Explorer
                 </a>
               ) : chainid == 42161 ? (
                 <a
                   href={`https://arbiscan.io/tx/${transactionhash}`}
-                  style={{ color: "#FFF" }}
+                  className="common-btn bg-left"
                   target="_blank"
                 >
                   {" "}
-                  View on Explorer
+                  <img src="assets/img/withdraw.png" alt="" /> View on Explorer
                 </a>
               ) : (
                 ""
@@ -1177,7 +1179,7 @@ export const Depositstepfirst = () => {
       </Modal>
 
       <Modal
-        className="network-popup deposit-input-popup"
+        className="network-popup  deposit-success-popup"
         size="md"
         centered
         show={showAfterWithdraw}
@@ -1186,7 +1188,9 @@ export const Depositstepfirst = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
-            <h4 className="sub-heading">Withdraw Successfully </h4>
+            <h4 className="sub-heading">Withdrawal Successful </h4>
+            <p>Your funds have been successfully
+            withdrawn.</p>
 
             <div>
               {/* //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
@@ -1196,38 +1200,38 @@ export const Depositstepfirst = () => {
               {chainid == 10 ? (
                 <a
                   href={`https://optimistic.etherscan.io/tx/${transactionhash}`}
-                  style={{ color: "#FFF" }}
+                  className="common-btn bg-left"
                   target="_blank"
                 >
                   {" "}
-                  View on Explorer
+                  <img src="assets/img/withdraw.png" alt="" /> View on Explorer
                 </a>
               ) : chainid == 137 ? (
                 <a
                   href={`https://polygonscan.com/tx/${transactionhash}`}
-                  style={{ color: "#FFF" }}
+                  className="common-btn bg-left"
                   target="_blank"
                 >
                   {" "}
-                  View on Explorer
+                  <img src="assets/img/withdraw.png" alt="" /> View on Explorer
                 </a>
               ) : chainid == 8453 ? (
                 <a
                   href={`https://basescan.org/tx/${transactionhash}`}
-                  style={{ color: "#FFF" }}
+                  className="common-btn bg-left"
                   target="_blank"
                 >
                   {" "}
-                  View on Explorer
+                  <img src="assets/img/withdraw.png" alt="" /> View on Explorer
                 </a>
               ) : chainid == 42161 ? (
                 <a
                   href={`https://arbiscan.io/tx/${transactionhash}`}
-                  style={{ color: "#FFF" }}
+                  className="common-btn bg-left"
                   target="_blank"
                 >
                   {" "}
-                  View on Explorer
+                  <img src="assets/img/withdraw.png" alt="" /> View on Explorer
                 </a>
               ) : (
                 ""

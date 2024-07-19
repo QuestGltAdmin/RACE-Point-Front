@@ -1298,6 +1298,13 @@ font-style: normal;
 font-weight: 500;
 line-height: 1.4rem;
 }
+
+.dash-count-box  .counter-otp p.full-num {
+    width: auto;
+    letter-spacing: 2px;
+    min-width: 46px;
+}
+
 .pie-chart-outer {
     max-width: 100%;
     margin: 0 auto;
@@ -1314,6 +1321,114 @@ line-height: 1.4rem;
     margin: 0 0 30px;
     padding: 13px;
 }
+.outer-box-no-deposite{
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.outer-box-no-deposite h3{
+    color: var(--Palette-Blue-Gray-400, #94A3B8);
+text-align: center;
+font-size: 22px;
+font-style: normal;
+font-weight: 400;
+line-height: 36px; 
+}
+.network-popup.logout-popup .modal-dialog.modal-md .sub-heading{
+border: none !important;
+}
+
+.network-popup.logout-popup .modal-body{
+padding: 50px;
+}
+.network-popup.logout-popup .modal-body .w-50.btn {
+    max-width: 160px;
+    margin: 10px;
+}
+.network-popup.deposit-success-popup .modal-dialog.modal-md {
+    max-width: 365px;
+}
+.network-popup.deposit-success-popup .modal-dialog.modal-md .sub-heading{
+border: none !important;
+}
+
+.network-popup.deposit-success-popup .modal-body{
+padding: 50px;
+}
+.network-popup.deposit-success-popup .modal-body .common-btn {
+    max-width: max-content;
+    margin: auto;
+}
+.wallet-address-dropdown{
+margin-right: 5px;
+}
+.wallet-address-dropdown .dropdown-toggle {
+    border-radius: 40px;
+    background: var(--Palette-Teal-600, #06487E);
+    color: var(--Palette-White-900, var(--white, #FFF));
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    padding: 5px 30px 5px 15px;
+    border: none !important;
+    box-shadow: none !important;
+}
+.wallet-address-dropdown .dropdown-toggle img{
+width: 32px;
+height: 32px;
+object-fit: contain;
+margin-right: 8px;
+}
+.wallet-address-dropdown .dropdown-toggle::after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    border-top: 0;
+    border-left: 0;
+    height: 7px;
+    width: 7px;
+    transform: rotate(45deg);
+    right: 12px;
+}
+.wallet-address-dropdown .dropdown-menu{
+    border-radius: 20px;
+background: #06487E;
+padding: 0;
+overflow: hidden;
+}
+.wallet-address-dropdown .dropdown-menu .dropdown-item{
+    color:  #FFF;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 142.857% */
+letter-spacing: 0.1px;
+padding: 8px 15px;
+}
+.wallet-address-dropdown .dropdown-menu .dropdown-item img{
+   height: 32px;
+   width: 32px; 
+   margin-right: 10px;
+}
+.wallet-address-dropdown .dropdown-menu .dropdown-item:hover,
+.wallet-address-dropdown .dropdown-menu .dropdown-item:focus,
+.wallet-address-dropdown .dropdown-menu .dropdown-item:active
+{
+    background-color: rgba(4, 29, 49, 0.60);
+}
+.social-head{
+margin-left: 15px;
+}
+.social-head img{
+    height: 26px;
+}
+
+
 
 
 @media (max-width:768px){
@@ -1350,6 +1465,38 @@ line-height: 1.4rem;
     }
     .dashboard-main-sec .common-btn.bg-left {
         padding: 10px;
+    }
+    .wallet-address-dropdown .dropdown-toggle {
+        font-size: 12px;
+        line-height: 16px;
+        padding: 5px 20px 5px 10px;
+    }
+    .wallet-address-dropdown .dropdown-toggle img {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
+    .wallet-address-dropdown .dropdown-toggle::after {
+        top: 11px;
+        height: 5px;
+        width: 5px;
+        right: 8px;
+    }
+    .social-head img {
+        height: 16px;
+    }
+    .social-head {
+        margin-left: 5px;
+    }
+    .wallet-address-dropdown .dropdown-menu .dropdown-item img {
+        height: 24px;
+        width: 24px;
+        margin-right: 6px;
+    }
+    .wallet-address-dropdown .dropdown-menu .dropdown-item {
+        font-size: 12px;
+        line-height: 16px;
+        padding: 5px 12px;
     }
 }
 
