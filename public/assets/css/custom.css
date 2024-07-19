@@ -1428,7 +1428,22 @@ margin-left: 15px;
     height: 26px;
 }
 
+.network-popup.logout-popup.lock-period-popup{
 
+}
+.network-popup.logout-popup.lock-period-popup p small{
+    color: var(--Palette-Blue-Gray-400, #94A3B8);
+text-align: center;
+font-size:13px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; 
+letter-spacing: 0.5px;
+}
+.network-popup.logout-popup.lock-period-popup .common-btn {
+    border-radius: 5px;
+    padding:8px;
+}
 
 
 @media (max-width:768px){
@@ -1497,6 +1512,16 @@ margin-left: 15px;
         font-size: 12px;
         line-height: 16px;
         padding: 5px 12px;
+    }
+    .network-popup.logout-popup .modal-body {
+        padding: 20px 10px;
+    }
+    .network-popup.logout-popup.lock-period-popup .common-btn {
+        padding: 7px;
+    }
+    .network-popup.logout-popup.lock-period-popup p small {
+       font-size: 10px;
+        line-height: 12px;
     }
 }
 

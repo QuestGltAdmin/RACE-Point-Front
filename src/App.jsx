@@ -11,6 +11,7 @@ import { Governace } from "./Pages/Governace";
 import Economy from "./Pages/Economy";
 import { Activities } from "./Pages/Activities";
 import UserPrivateRoutes from "./PrivateRoutes/userRoutes";
+import { AdminLogin } from "./Pages/Admin/AdminLogin";
 
 function App() {
   return (
@@ -48,6 +49,9 @@ function App() {
           <Route path="/home" element={<Homepage />} />
           <Route path="/governance" element={<Governace />} />
           <Route path="/economy" element={<Economy />} />
+
+          <Route path="/admin-login" element={<AdminLogin />} />
+
         </Routes>
       </BrowserRouter>
     </>
