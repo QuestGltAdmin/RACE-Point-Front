@@ -99,7 +99,8 @@ export const Depositstepfirst = () => {
   };
 
   const handleShow = async (data) => {
-    setShow(true);
+    setShow1(true);
+    // setShow(true);
     setFlag(true);
     setChainId(data?.chainId);
     setCurrency(data?.currency);
@@ -521,8 +522,10 @@ export const Depositstepfirst = () => {
   const [show1, setShow1] = useState(false);
 
   const handleClose1 = () => setShow1(false);
-  const handleShow1 = () => setShow1(true);
-
+  const DepositModel = () => {
+    setShow1(false);
+    setShow(true);
+  }
 
 
 
@@ -1201,7 +1204,7 @@ export const Depositstepfirst = () => {
           <div>
             <h4 className="sub-heading">Withdrawal Successful </h4>
             <p>Your funds have been successfully
-            withdrawn.</p>
+              withdrawn.</p>
 
             <div>
               {/* //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
@@ -1267,47 +1270,37 @@ export const Depositstepfirst = () => {
           </div>
         </Modal.Body>
       </Modal>
-    
-      <Button variant="primary" onClick={handleShow1}>
-        Launch demo modal
-      </Button>
 
       <Modal
-          className="network-popup logout-popup lock-period-popup"
-          size="md"
-          centered
-          show={show1}
-          onHide={handleClose1}
-        >
-          <Modal.Body>
-            <div>
-              <h4 className="sub-heading">24-Hour Lock Period Warning </h4>
-              <p>Before proceeding, please note that your funds will be locked for 24 hours, during which you cannot withdraw <br/> them.</p>
-
-              <p><small>This is a security measure to ensure the safety of your transaction.</small></p>
-
-              <div className="d-flex align-items-center justify-content-center">
+        className="network-popup logout-popup lock-period-popup"
+        size="md"
+        centered
+        show={show1}
+        onHide={handleClose1}
+      >
+        <Modal.Body>
+          <div>
+            <h4 className="sub-heading">24-Hour Lock Period Warning </h4>
+            <p>Before proceeding, please note that your funds will be locked for 24 hours, during which you cannot withdraw <br /> them.</p>
+            <p><small>This is a security measure to ensure the safety of your transaction.</small></p>
+            <div className="d-flex align-items-center justify-content-center">
               <Button
                 className="w-50 common-btn"
-               
+                onClick={() => DepositModel()}
               >
-               I understand
+                I understand
               </Button>
-
               <Button
                 className="w-50"
                 variant="danger"
-               
+                onClick={() => setShow1(false)}
               >
                 Cancel
               </Button>
-              </div>
-              
             </div>
-          </Modal.Body>
-        </Modal>
-
-
+          </div>
+        </Modal.Body>
+      </Modal>
 
       {/* deposite 1 popup  */}
       {/* <Modal
