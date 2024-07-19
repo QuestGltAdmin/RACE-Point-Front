@@ -78,7 +78,7 @@ export const LandingPageHeader = () => {
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-            {WalletEVM?.selectedAccount && <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>}
+            {WalletEVM?.selectedAccount && <Nav.Link onClick={() => handleLogout()}>Logout <img src="assets/img/logout.png" alt="" /></Nav.Link>}
           </Container>
         </Navbar>
       </header>

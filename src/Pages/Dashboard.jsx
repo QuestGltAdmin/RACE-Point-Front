@@ -46,14 +46,7 @@ export const Dashboard = () => {
   //========================= end of code =========================//
 
   //========================= local variable =========================//
-  const [dashboarddata, setDashboardData] = useState({
-    arbitrium: 0,
-    base: 0,
-    optimism: 0,
-    polygon: 0,
-  });
-  const [amountInVaults, setAmountInVaults] = useState(0);
-  const [points, setPoints] = useState(0);
+  const [dashboarddata, setDashboardData] = useState({});
   //========================= end of code =========================//
 
   const data = {
@@ -74,7 +67,6 @@ export const Dashboard = () => {
       },
     ],
   };
-
   const options = {
     responsive: true,
     plugins: {
@@ -104,11 +96,9 @@ export const Dashboard = () => {
   //   },
   // };
   //===============get dahboard data api====================//
-
   useEffect(() => {
     getdata();
   }, []);
-
   const getdata = async () => {
     const wallet = await encryptData(WalletEVM?.selectedAccount);
     const payload = {
@@ -126,25 +116,26 @@ export const Dashboard = () => {
         }
       );
       if (getdata?.data?.status) {
-        setDashboardData(getdata?.data?.location);
-        setPoints(getdata?.data?.points);
-        setAmountInVaults(getdata?.data?.amountInVaults);
+        setDashboardData(getdata?.data);
       }
-    } catch (err) {}
+    } catch (err) { }
   };
   //===============End of code====================//
-  // console.log(dashboarddata);
+
   const number1 =
-    amountInVaults > 0 ? amountInVaults.toFixed(2) : amountInVaults || 0;
+    dashboarddata?.amountInVaults > 0
+      ? dashboarddata?.amountInVaults.toFixed(2)
+      : dashboarddata?.amountInVaults || 0;
   const digits1 = number1.toString().split("");
 
-  const number2 = points > 0 ? points.toFixed(2) : points || 0;
+  const number2 =
+    dashboarddata?.points > 0
+      ? dashboarddata?.points.toFixed(2)
+      : dashboarddata?.points || 0;
   const digits2 = number2.toString().split("");
+  //===============End of code====================//
+  // console.log(dashboarddata);
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   return (
     <>
@@ -210,10 +201,7 @@ export const Dashboard = () => {
 
                     <div className="outer-box-no-deposite">
                       <div>
-                        {dashboarddata?.arbitrium !== 0 ||
-                        dashboarddata?.base !== 0 ||
-                        dashboarddata?.optimism !== 0 ||
-                        dashboarddata?.polygon !== 0 ? (
+                        {digits1 > 0 ? (
                           <div className="pie-chart-outer">
                             <Pie data={data} options={options} />
                           </div>

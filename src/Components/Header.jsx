@@ -137,6 +137,7 @@ export const Header = () => {
             </Navbar.Brand>
             <div className="d-flex align-items-center">
               {path === "dashboard" && (
+                <>
                 <Dropdown
                   className="wallet-address-dropdown"
                   onSelect={(e) => {
@@ -190,13 +191,15 @@ export const Header = () => {
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
+                 <a href="" className="social-head">
+                 <img src="assets/images/telegram.png" alt="" />
+               </a>
+               <a href="" className="social-head">
+                 <img src="assets/images/twitt.png" alt="" />
+               </a>
+               </>
               )}
-              <a href="" className="social-head">
-                <img src="assets/images/telegram.png" alt="" />
-              </a>
-              <a href="" className="social-head">
-                <img src="assets/images/twitt.png" alt="" />
-              </a>
+             {path !== "dashboard" && (
               <Nav.Link
                 onClick={() => {
                   if (path == "dashboard") {
@@ -208,6 +211,7 @@ export const Header = () => {
               >
                 <img src="assets/img/arrow.png" alt="" /> Return to Foundation
               </Nav.Link>
+             )}
             </div>
           </Container>
         </Navbar>
