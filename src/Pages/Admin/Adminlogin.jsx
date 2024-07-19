@@ -6,10 +6,12 @@ import {
     Form,
    InputGroup,
   } from "react-bootstrap";
+import { Adminheader } from '../../Components/Ui/Adminheader';
 
 export const AdminLogin = () => {
   return (
     <>
+    <Adminheader/>
     <section className="signup-sec">
      
         <Container>
@@ -46,7 +48,7 @@ export const AdminLogin = () => {
                 
                 <div>
                   <button
-                    className="common-btn w-100 m-0"
+                    className="common-btn bg-left w-100 m-0"
                    
                   >
                    Login
