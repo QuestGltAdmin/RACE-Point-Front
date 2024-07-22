@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { AdmindashHeader } from "../../Components/Ui/AdmindashHeader";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Modal, Row } from "react-bootstrap";
 import useAuth from "../../hooks/useAuth";
 import axiosMain from "../../http/axios/axios_main";
 import { debounce } from "lodash";
@@ -59,6 +59,14 @@ export const Adminuserlist = () => {
   }, [pageNumberTrxAll, searchTrxAll, filterTrxAll]);
 
   //==============================Get Data All Trx==============================//
+
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
   return (
     <>
       <div className="dashboard-layout">
@@ -135,8 +143,9 @@ export const Adminuserlist = () => {
                                   <p>
                                     <div>
                                       <a
+                                       onClick={handleShow}
                                         className="common-btn admin-table-btn"
-                                        href=""
+                                        href="#"
                                       >
                                         Referral Code
                                       </a>
@@ -282,6 +291,104 @@ export const Adminuserlist = () => {
             </Row>
           </Container>
         </section>
+         <Modal className="new-user-modal" centered show={show} onHide={handleClose}>
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+        <div>
+            <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
+            <p>Here are your referral codes</p>
+            <div class="referal-copy-row">
+              <div>
+                <span>1</span>VV5577M2
+              </div>
+              <a href="#"><img src="assets/img/copy.png" alt="Copy" /></a>
+              <a class="text-white"><i class="fa fa-share" aria-hidden="true"></i></a>
+            </div>
+            <div class="referal-copy-row">
+              <div>
+                <span>2</span>VV5577M2
+              </div>
+              <a href="#"><img src="assets/img/copy.png" alt="Copy" /></a>
+              <a class="text-white"><i class="fa fa-share" aria-hidden="true"></i></a>
+            </div>
+            <div class="referal-copy-row">
+              <div>
+                <span>3</span>VV5577M2
+              </div>
+              <a href="#"><img src="assets/img/copy.png" alt="Copy" /></a>
+              <a class="text-white"><i class="fa fa-share" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      {/* <Modal size="lg" className="network-popup  " centered show={show} onHide={handleClose}>
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+        <div>
+           <h4 className="sub-heading mb-3">Earn Points</h4>
+            <div className="table-view-transaction">
+                  <div className="thead">
+                    <div>
+                      <p>S. no</p>
+                      <p>Name</p>
+                      <p>Base Earn Points</p>
+                      <p>Layer Earn Points</p>
+                      <p>Total Earn Points</p>
+                    </div>
+                  </div>
+                  <div className="tbody">
+                            <div>
+                              <p>1</p>
+                              <p><span class="mobile-only">Name - </span> <big><b>Name</b></big> <br/> RTY3455g....g4hkgk</p>
+                              <p><span class="mobile-only">Base Earn Points - </span> 23</p>
+                              <p>
+                              <span class="mobile-only">Layer Earn Points - </span>
+                                46
+                              </p>
+                              <p>
+                              <span class="mobile-only">Total Earn Points - </span>
+                                24
+                              </p>
+                            
+                              
+                            </div>
+                            <div>
+                              <p>2</p>
+                              <p><span class="mobile-only">Name - </span> <big><b>Name</b></big> <br/> RTY3455g....g4hkgk</p>
+                              <p><span class="mobile-only">Base Earn Points - </span> 23</p>
+                              <p>
+                              <span class="mobile-only">Layer Earn Points - </span>
+                                46
+                              </p>
+                              <p>
+                              <span class="mobile-only">Total Earn Points - </span>
+                                24
+                              </p>
+                            
+                              
+                            </div>
+                            <div>
+                              <p>3</p>
+                              <p><span class="mobile-only">Name - </span> <big><b>Name</b></big> <br/> RTY3455g....g4hkgk</p>
+                              <p><span class="mobile-only">Base Earn Points - </span> 23</p>
+                              <p>
+                              <span class="mobile-only">Layer Earn Points - </span>
+                                46
+                              </p>
+                              <p>
+                              <span class="mobile-only">Total Earn Points - </span>
+                                24
+                              </p>
+                             
+                              
+                            </div>
+                          
+                  </div>
+                </div>
+          </div>
+        </Modal.Body>
+      </Modal> */}
       </div>
     </>
   );
