@@ -12,6 +12,7 @@ import Economy from "./Pages/Economy";
 import { Activities } from "./Pages/Activities";
 import UserPrivateRoutes from "./PrivateRoutes/userRoutes";
 import { AdminLogin } from "./Pages/Admin/AdminLogin";
+import { AdminDashboard } from "./Pages/Admin/AdminDashboard";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
           <Route path="/economy" element={<Economy />} />
 
           <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
         </Routes>
       </BrowserRouter>

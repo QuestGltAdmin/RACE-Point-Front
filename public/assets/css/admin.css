@@ -1,0 +1,124 @@
+
+.signup-sec {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.outer-bg-signup {
+    border-radius: 24px;
+    text-align: center;
+    background: rgba(3, 39, 68, 0.60);
+    min-height: 300px;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 10;
+}
+.outer-bg-signup h3 {
+    width: 100%;
+    display: block;
+    font-size: 28px;
+    color: #fff!important;
+    margin-top: 0px;
+    margin-bottom: 9px;
+    line-height: 1.2;
+    text-align: center;
+}
+.outer-bg-signup h5 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 40px;
+}
+.outer-bg-signup .form-control, .outer-bg-signup .form-select {
+    border: 1px solid #12033A !important;
+    background: #053863 !important;
+    box-shadow: none !important;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #fff !important;
+}
+.outer-bg-signup .input-group {
+    border: 1px solid #12033A !important;
+    border-radius: 0px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.outer-bg-signup .input-group .form-control {
+    border: none !important;
+}
+.outer-bg-signup .input-group .input-group-text {
+    background: #053863  !important;
+    color: #fff;
+    border: none !important;
+}
+.admin-dash-header{
+
+}
+.admin-dash-header .navbar-brand h1 {
+    color: #fff;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+.admin-dash-header .navbar-brand img {
+    height: 50px;
+}
+.dashboard-layout .admin-dash-header .navbar-expand-lg {
+    position: fixed;
+    top: 0;
+    z-index: 1020;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    background: rgba(3, 39, 68, 0.60) !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    margin: 0 auto;
+}
+.dashboard-layout .admin-dash-header .navbar-collapse .navbar-nav {
+    position: fixed;
+    left: 0;
+    top: 83px;
+    background: rgba(3, 39, 68, 0.60);
+    height: 100% !important;
+    width: 290px;
+    display: block;
+    padding-top: 40px;
+}
+.dashboard-layout .admin-dash-header .navbar-expand-lg .navbar-nav .nav-link {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 15px;
+    margin: 5px 15px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+.dashboard-layout .admin-dash-header .navbar-expand-lg .navbar-nav .nav-link i {
+    font-size: 24px;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navbar-toggler {
+    padding: 0 5px !important;
+    line-height: 20px !important;
+    background-color: #fff !important;
+    border: 2px solid #fff !important;
+    margin-left: 10px !important;
+}
+.navbar-toggler-icon {
+    height: 20px !important;
+    width: 20px !important;
+    line-height: 20px !important;
+}
+.dashboard-layout .navbar-collapse .navbar-nav {
+    /* top: 56px !important;
+    left: -290px !important; */
+    transition: all ease-in-out .5s;
+}
