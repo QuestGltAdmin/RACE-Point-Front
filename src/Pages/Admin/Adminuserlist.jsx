@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { AdmindashHeader } from "../../Components/Ui/AdmindashHeader";
-import { Col, Container, Modal, Row } from "react-bootstrap";
+import { Col, Container, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import useAuth from "../../hooks/useAuth";
 import axiosMain from "../../http/axios/axios_main";
 import { debounce } from "lodash";
@@ -80,6 +80,12 @@ export const Adminuserlist = () => {
                     <h2 className="inner-page-heading">User List</h2>
 
                     <div className="table-box-new shadow-box-main">
+                    <InputGroup className="mb-3 search-input">
+                      <Form.Control
+                        placeholder="Search...."
+                      />
+                      <InputGroup.Text id="basic-addon2"><a href=""><i class="fa fa-search"></i></a></InputGroup.Text>
+                    </InputGroup>
                       <div className="table-view-transaction">
                         <div className="thead">
                           <div>
