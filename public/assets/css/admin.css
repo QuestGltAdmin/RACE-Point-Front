@@ -240,9 +240,9 @@
 }
 .table-view-transaction > div.thead p {
     background-color: #305069;
-    color: #fff;
-    font-weight: 500;
-    font-size: 14px;
+    color: #fff !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
 }
 .table-view-transaction > div {
     display: table-row-group;
@@ -256,9 +256,9 @@
     padding: 10px;
 }
 .table-view-transaction > div.tbody p {
-    font-size: 14px;
-    color: #ddd;
-    font-weight: 400;
+    font-size: 14px !important;
+    color: #ddd !important;
+    font-weight: 400 !important;
     border-bottom: 1px solid #ddd !important;
 }
 .admin-table-btn.common-btn {
@@ -269,6 +269,10 @@
 .table-view-transaction > div.tbody p .mobile-only {
     display: none;
 }
+.network-popup .modal-content .modal-body .table-view-transaction > div p {
+    text-align: left;
+}
+
 
 @media (max-width:992px){
     .dashboard-layout {

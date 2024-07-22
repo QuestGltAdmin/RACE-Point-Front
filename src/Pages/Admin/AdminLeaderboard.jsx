@@ -1,6 +1,6 @@
 import React from 'react'
 import { AdmindashHeader } from '../../Components/Ui/AdmindashHeader'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row, Tab, Tabs } from 'react-bootstrap'
 
 export const AdminLeaderboard = () => {
     return (
@@ -110,164 +110,330 @@ export const AdminLeaderboard = () => {
                         <Row>
                             <Col lg={12} className="m-auto">
                                 <div className="top-deposit-table">
+                                <Tabs defaultActiveKey="top-depsit1" className="mb-3 ">
+                                    {/*================================================Monthly============================================== */}
+                                    <Tab eventKey="top-depsit1" title="Monthly">
+                                        <ul className="deposit-list-outer">
+                                            <li>
+                                                <div className="deposit-list-main">
+                                                    <div className="left-user">
+                                                        <div className="count-deposit">
+                                                            <span>1</span>
+                                                            <img
+                                                                className="crown-img"
+                                                                src="assets/img/king.png"
+
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                        <img
+                                                            className="user-img"
+                                                            src="https://q3.donative.in:3006/images/profilePic/avatar.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>rryryr</h4>
+                                                            <p>
+                                                                hgfhfhfhf
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="right-trophy">
+                                                        <img
+                                                            className="trophy-img"
+                                                            src="assets/img/trophy.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>
+                                                                00
+                                                            </h4>
+                                                            <p>Points</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div className="deposit-list-main">
+                                                    <div className="left-user">
+                                                        <div className="count-deposit">
+                                                            <span>2</span>
+                                                            <img
+                                                                className="crown-img"
+                                                                src="assets/img/crown.png"
+
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                        <img
+                                                            className="user-img"
+                                                            src="https://q3.donative.in:3006/images/profilePic/avatar.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>rryryr</h4>
+                                                            <p>
+                                                                hgfhfhfhf
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="right-trophy">
+                                                        <img
+                                                            className="trophy-img"
+                                                            src="assets/img/trophy.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>
+                                                                00
+                                                            </h4>
+                                                            <p>Points</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div className="deposit-list-main">
+                                                    <div className="left-user">
+                                                        <div className="count-deposit">
+                                                            <span>3</span>
+                                                            <img
+                                                                className="crown-img"
+                                                                src="assets/img/king.png"
+
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                        <img
+                                                            className="user-img"
+                                                            src="https://q3.donative.in:3006/images/profilePic/avatar.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>rryryr</h4>
+                                                            <p>
+                                                                hgfhfhfhf
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="right-trophy">
+                                                        <img
+                                                            className="trophy-img"
+                                                            src="assets/img/trophy.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>
+                                                                00
+                                                            </h4>
+                                                            <p>Points</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div className="deposit-list-main">
+                                                    <div className="left-user">
+                                                        <div className="count-deposit">
+                                                            <span>4</span>
+                                                            <img
+                                                                className="crown-img"
+                                                                src="assets/img/crown.png"
+
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                        <img
+                                                            className="user-img"
+                                                            src="https://q3.donative.in:3006/images/profilePic/avatar.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>rryryr</h4>
+                                                            <p>
+                                                                hgfhfhfhf
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="right-trophy">
+                                                        <img
+                                                            className="trophy-img"
+                                                            src="assets/img/trophy.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>
+                                                                00
+                                                            </h4>
+                                                            <p>Points</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </Tab>
+                                    <Tab eventKey="top-depsit2" title="Quarterly">
                                     <ul className="deposit-list-outer">
-                                        <li>
-                                            <div className="deposit-list-main">
-                                                <div className="left-user">
-                                                    <div className="count-deposit">
-                                                        <span>1</span>
-                                                        <img
-                                                            className="crown-img"
-                                                            src="assets/img/king.png"
+                                            <li>
+                                                <div className="deposit-list-main">
+                                                    <div className="left-user">
+                                                        <div className="count-deposit">
+                                                            <span>1</span>
+                                                            <img
+                                                                className="crown-img"
+                                                                src="assets/img/king.png"
 
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                        <img
+                                                            className="user-img"
+                                                            src="https://q3.donative.in:3006/images/profilePic/avatar.png"
                                                             alt=""
                                                         />
+                                                        <div>
+                                                            <h4>rryryr</h4>
+                                                            <p>
+                                                                hgfhfhfhf
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                    <img
-                                                        className="user-img"
-                                                        src="https://q3.donative.in:3006/images/profilePic/avatar.png"
-                                                        alt=""
-                                                    />
-                                                    <div>
-                                                        <h4>rryryr</h4>
-                                                        <p>
-                                                            hgfhfhfhf
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="right-trophy">
-                                                    <img
-                                                        className="trophy-img"
-                                                        src="assets/img/trophy.png"
-                                                        alt=""
-                                                    />
-                                                    <div>
-                                                        <h4>
-                                                            00
-                                                        </h4>
-                                                        <p>Points</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="deposit-list-main">
-                                                <div className="left-user">
-                                                    <div className="count-deposit">
-                                                        <span>2</span>
+                                                    <div className="right-trophy">
                                                         <img
-                                                            className="crown-img"
-                                                            src="assets/img/crown.png"
-
+                                                            className="trophy-img"
+                                                            src="assets/img/trophy.png"
                                                             alt=""
                                                         />
-                                                    </div>
-                                                    <img
-                                                        className="user-img"
-                                                        src="https://q3.donative.in:3006/images/profilePic/avatar.png"
-                                                        alt=""
-                                                    />
-                                                    <div>
-                                                        <h4>rryryr</h4>
-                                                        <p>
-                                                            hgfhfhfhf
-                                                        </p>
+                                                        <div>
+                                                            <h4>
+                                                                00
+                                                            </h4>
+                                                            <p>Points</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="right-trophy">
-                                                    <img
-                                                        className="trophy-img"
-                                                        src="assets/img/trophy.png"
-                                                        alt=""
-                                                    />
-                                                    <div>
-                                                        <h4>
-                                                            00
-                                                        </h4>
-                                                        <p>Points</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="deposit-list-main">
-                                                <div className="left-user">
-                                                    <div className="count-deposit">
-                                                        <span>3</span>
-                                                        <img
-                                                            className="crown-img"
-                                                            src="assets/img/king.png"
+                                            </li>
+                                            <li>
+                                                <div className="deposit-list-main">
+                                                    <div className="left-user">
+                                                        <div className="count-deposit">
+                                                            <span>2</span>
+                                                            <img
+                                                                className="crown-img"
+                                                                src="assets/img/crown.png"
 
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                        <img
+                                                            className="user-img"
+                                                            src="https://q3.donative.in:3006/images/profilePic/avatar.png"
                                                             alt=""
                                                         />
+                                                        <div>
+                                                            <h4>rryryr</h4>
+                                                            <p>
+                                                                hgfhfhfhf
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                    <img
-                                                        className="user-img"
-                                                        src="https://q3.donative.in:3006/images/profilePic/avatar.png"
-                                                        alt=""
-                                                    />
-                                                    <div>
-                                                        <h4>rryryr</h4>
-                                                        <p>
-                                                            hgfhfhfhf
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="right-trophy">
-                                                    <img
-                                                        className="trophy-img"
-                                                        src="assets/img/trophy.png"
-                                                        alt=""
-                                                    />
-                                                    <div>
-                                                        <h4>
-                                                            00
-                                                        </h4>
-                                                        <p>Points</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="deposit-list-main">
-                                                <div className="left-user">
-                                                    <div className="count-deposit">
-                                                        <span>4</span>
+                                                    <div className="right-trophy">
                                                         <img
-                                                            className="crown-img"
-                                                            src="assets/img/crown.png"
-
+                                                            className="trophy-img"
+                                                            src="assets/img/trophy.png"
                                                             alt=""
                                                         />
-                                                    </div>
-                                                    <img
-                                                        className="user-img"
-                                                        src="https://q3.donative.in:3006/images/profilePic/avatar.png"
-                                                        alt=""
-                                                    />
-                                                    <div>
-                                                        <h4>rryryr</h4>
-                                                        <p>
-                                                            hgfhfhfhf
-                                                        </p>
+                                                        <div>
+                                                            <h4>
+                                                                00
+                                                            </h4>
+                                                            <p>Points</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="right-trophy">
-                                                    <img
-                                                        className="trophy-img"
-                                                        src="assets/img/trophy.png"
-                                                        alt=""
-                                                    />
-                                                    <div>
-                                                        <h4>
-                                                            00
-                                                        </h4>
-                                                        <p>Points</p>
+                                            </li>
+                                            <li>
+                                                <div className="deposit-list-main">
+                                                    <div className="left-user">
+                                                        <div className="count-deposit">
+                                                            <span>3</span>
+                                                            <img
+                                                                className="crown-img"
+                                                                src="assets/img/king.png"
+
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                        <img
+                                                            className="user-img"
+                                                            src="https://q3.donative.in:3006/images/profilePic/avatar.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>rryryr</h4>
+                                                            <p>
+                                                                hgfhfhfhf
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="right-trophy">
+                                                        <img
+                                                            className="trophy-img"
+                                                            src="assets/img/trophy.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>
+                                                                00
+                                                            </h4>
+                                                            <p>Points</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                            </li>
+                                            <li>
+                                                <div className="deposit-list-main">
+                                                    <div className="left-user">
+                                                        <div className="count-deposit">
+                                                            <span>4</span>
+                                                            <img
+                                                                className="crown-img"
+                                                                src="assets/img/crown.png"
+
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                        <img
+                                                            className="user-img"
+                                                            src="https://q3.donative.in:3006/images/profilePic/avatar.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>rryryr</h4>
+                                                            <p>
+                                                                hgfhfhfhf
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="right-trophy">
+                                                        <img
+                                                            className="trophy-img"
+                                                            src="assets/img/trophy.png"
+                                                            alt=""
+                                                        />
+                                                        <div>
+                                                            <h4>
+                                                                00
+                                                            </h4>
+                                                            <p>Points</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </Tab>
+                                </Tabs>
+                                
                                 </div>
                             </Col>
                         </Row>
