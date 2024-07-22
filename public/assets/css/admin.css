@@ -53,6 +53,21 @@
     color: #fff;
     border: none !important;
 }
+.outer-bg-signup .otp_box > div {
+    justify-content: center;
+    gap: 10px;
+}
+.outer-bg-signup .otp_box > div > input {
+    border: 1px solid #12033A !important;
+    background: #053863 !important;
+    box-shadow: none !important;
+    padding: 6px;
+    border-radius: 8px;
+    color: #fff !important;
+    width: 16.33% !important;
+    max-width: 50px !important;
+    height: 50px !important;
+}
 .admin-dash-header{
 
 }
