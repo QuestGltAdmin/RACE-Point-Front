@@ -30,9 +30,63 @@ export const Adminuserlist = () => {
                             </div>
                           </div>
                           <div className="tbody">
-                                 <div>
+                                    <div>
                                       <p>1</p>
-                                      <p><span class="mobile-only">Name - </span> Name RTY3455g....g4hkgk</p>
+                                      <p><span class="mobile-only">Name - </span> <big><b>Name</b></big> <br/> RTY3455g....g4hkgk</p>
+                                      <p><span class="mobile-only">Referral Code - </span> rwrwrw</p>
+                                      <p>
+                                      <span class="mobile-only">Deposit - </span>
+                                       4654644
+                                      </p>
+                                      <p>
+                                      <span class="mobile-only">Earn Points - </span>
+                                        6464
+                                      </p>
+                                      <p>
+                                      <span class="mobile-only">Joining Date - </span>
+                                        6464
+                                      </p>
+                                      <p>
+                                      <span class="mobile-only">Status - </span>
+                                        6464
+                                      </p>
+                                      <p>
+                                        <div>
+                                            <a className="common-btn admin-table-btn" href="">Referral Code</a>
+                                            <a className="common-btn admin-table-btn" href="">Earn Point</a>
+                                        </div>
+                                      </p>
+                                    </div>
+                                    <div>
+                                      <p>2</p>
+                                      <p><span class="mobile-only">Name - </span> <big><b>Name</b></big> <br/> RTY3455g....g4hkgk</p>
+                                      <p><span class="mobile-only">Referral Code - </span> rwrwrw</p>
+                                      <p>
+                                      <span class="mobile-only">Deposit - </span>
+                                       4654644
+                                      </p>
+                                      <p>
+                                      <span class="mobile-only">Earn Points - </span>
+                                        6464
+                                      </p>
+                                      <p>
+                                      <span class="mobile-only">Joining Date - </span>
+                                        6464
+                                      </p>
+                                      <p>
+                                      <span class="mobile-only">Status - </span>
+                                        6464
+                                      </p>
+                                      <p>
+                                        <div>
+                                            <a className="common-btn admin-table-btn" href="">Referral Code</a>
+                                            <a className="common-btn admin-table-btn" href="">Earn Point</a>
+                                        </div>
+                                      </p>
+                                    </div>
+                                    <div>
+                                      <p>3</p>
+                                      <p><span class="mobile-only">Name - </span> <big><b>Name</b></big> <br/> RTY3455g....g4hkgk</p>
                                       <p><span class="mobile-only">Referral Code - </span> rwrwrw</p>
                                       <p>
                                       <span class="mobile-only">Deposit - </span>

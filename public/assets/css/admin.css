@@ -72,7 +72,7 @@
     left: 0;
     right: 0;
     border-radius: 0;
-    background: rgba(3, 39, 68, 0.60) !important;
+    background: #041F34 !important;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     width: 100%;
     margin: 0 auto;
@@ -81,7 +81,7 @@
     position: fixed;
     left: 0;
     top: 83px;
-    background: rgba(3, 39, 68, 0.60);
+    background: #041F34;
     height: 100% !important;
     width: 290px;
     display: block;
@@ -136,7 +136,7 @@
     margin-right: 10px;
 }
 .dashboard-layout {
-    padding-top: 95px;
+    padding-top: 110px;
     padding-left: 300px;
     min-height: 100vh;
 }
@@ -224,7 +224,7 @@
     padding: 10px;
 }
 .table-view-transaction > div.thead p {
-    background-color: rgba(3, 39, 68, 0.60);
+    background-color: #305069;
     color: #fff;
     font-weight: 500;
     font-size: 14px;
@@ -237,13 +237,14 @@
 }
 .table-view-transaction > div p {
     display: table-cell;
-    border: 1px solid #ddd;
+    border: none !important;
     padding: 10px;
 }
 .table-view-transaction > div.tbody p {
     font-size: 14px;
     color: #ddd;
     font-weight: 400;
+    border-bottom: 1px solid #ddd !important;
 }
 .admin-table-btn.common-btn {
     font-size: 13px;
@@ -260,7 +261,7 @@
         padding-left: 0;
     }
     .dashboard-layout .navbar-collapse .navbar-nav {
-        top: 63px !important;
+        top: 55px !important;
         left: -290px !important;
         transition: all ease-in-out .5s;
         background-color: #041F34 !important;
@@ -348,5 +349,8 @@
     .table-view-transaction > div.tbody p .mobile-only {
         display: inline-block !important;
         min-width: 110px;
+    }
+    .deposit-list-main .right-trophy > div {
+        min-width: auto;
     }
 }

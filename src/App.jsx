@@ -16,6 +16,7 @@ import { AdminDashboard } from "./Pages/Admin/AdminDashboard";
 import { AdminLeaderboard } from "./Pages/Admin/AdminLeaderboard";
 import { Adminuserlist } from "./Pages/Admin/Adminuserlist";
 import { AdminVerifyOtp } from "./Pages/Admin/AdminVerifyOtp";
+import { Adminearnpoint } from "./Pages/Admin/Adminearnpoint";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin-leaderboard" element={<AdminLeaderboard />} />
           <Route path="/admin-userlist" element={<Adminuserlist />} />
+          <Route path="/admin-earnpoint" element={<Adminearnpoint />} />
 
         </Routes>
       </BrowserRouter>
