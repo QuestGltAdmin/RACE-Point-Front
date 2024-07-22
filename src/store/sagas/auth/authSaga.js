@@ -8,6 +8,9 @@ import {
   userLoginStart,
   userloginSuccess,
   userLoginFail,
+  adminLoginStart,
+  adminloginSuccess,
+  adminLoginFail,
 } from "../../reducers/authReducer";
 import { toast } from "react-toastify";
 import axiosMain from "../../../http/axios/axios_main";
@@ -59,6 +62,46 @@ export function* userLoginSaga(action) {
   }
 }
 //===============================End Of UserLoginSaga============================//
+
+//===============================AdminLoginSaga============================//
+export function* adminLoginSaga(action) {
+  yield put(adminLoginStart());
+  const { payload, toast, navigate, setDisable } = action.payload;
+  try {
+    const response = yield axiosMain.post(`/admin/verify-otp`, payload);
+    if (response?.data.status) {
+      yield call(setItemToLocalStorage, "isUserAuthenticated", true);
+      yield call(
+        setItemToLocalStorage,
+        "usertoken",
+        JSON.stringify(response?.data?.data?.token)
+      );
+
+      yield call(
+        setItemToLocalStorage,
+        "userData",
+        JSON.stringify(response?.data?.data)
+      );
+
+      yield put(adminloginSuccess(response.data.data));
+
+      sessionStorage.setItem("jwt", "enable");
+      toast.success(response.data.message);
+      setTimeout(() => {
+        navigate("/admin-dashboard");
+      }, 3000);
+    } else {
+      setDisable(false);
+      toast.error(response.data.message);
+      yield put(adminLoginFail(response.data.message));
+    }
+  } catch (error) {
+    setDisable(false);
+    toast.error(error.response.data.message);
+    yield call(catchHandler, error, userLoginFail);
+  }
+}
+//===============================End Of AdminLoginSaga============================//
 
 //===============================UserRegisterSaga============================//
 export function* registerSaga(action) {

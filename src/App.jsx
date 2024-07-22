@@ -15,6 +15,7 @@ import { AdminLogin } from "./Pages/Admin/AdminLogin";
 import { AdminDashboard } from "./Pages/Admin/AdminDashboard";
 import { AdminLeaderboard } from "./Pages/Admin/AdminLeaderboard";
 import { Adminuserlist } from "./Pages/Admin/Adminuserlist";
+import { AdminVerifyOtp } from "./Pages/Admin/AdminVerifyOtp";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
           <Route path="/economy" element={<Economy />} />
 
           <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-otp" element={<AdminVerifyOtp />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin-leaderboard" element={<AdminLeaderboard />} />
           <Route path="/admin-userlist" element={<Adminuserlist />} />

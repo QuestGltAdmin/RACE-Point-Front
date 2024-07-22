@@ -82,6 +82,37 @@ const authSlice = createSlice({
       };
     },
 
+    adminLoginSaga: (state, action) => {
+      return { ...state };
+    },
+
+    adminLoginStart: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    },
+
+    adminloginSuccess: (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        isUserAuthenticated: true,
+        user: action.payload,
+        authToken: action.payload.token,
+      };
+    },
+
+    adminLoginFail: (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        isUserAuthenticated: false,
+        user: {},
+        errorMsg: action.payload,
+      };
+    },
+
     setEVMWallet: (state, action) => {
       localStorage.setItem("WalletEVM", JSON.stringify(action.payload));
       // console.log(action.payload,"ppp")
@@ -148,6 +179,10 @@ export const {
   userloginSuccess,
   userLoginFail,
   userWalletLogin,
+  adminLoginSaga,
+  adminLoginStart,
+  adminloginSuccess,
+  adminLoginFail,
   isLogin,
 } = authSlice.actions;
 
