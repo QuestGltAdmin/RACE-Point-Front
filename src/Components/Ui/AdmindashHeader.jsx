@@ -11,14 +11,14 @@ export const AdmindashHeader = () => {
               <Col>
                 <div className="d-flex justify-content-between align-items-center">
                 <Navbar.Brand
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              <h1>
-                <img src="assets/img/Logo.png" alt="" /> Points
-              </h1>
-            </Navbar.Brand>
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
+                    <h1>
+                      <img src="assets/img/Logo.png" alt="" /> Points
+                    </h1>
+                  </Navbar.Brand>
            
 
                   <Navbar.Collapse id="basic-navbar-nav">
@@ -70,7 +70,13 @@ export const AdmindashHeader = () => {
                     </Nav>
                   </Navbar.Collapse>
 
-                  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                     <div className="d-flex align-items-center">
+                      <Nav.Link className="user-profile-icon">
+                        <img src="assets/img/user.png" alt="" /> Admin Patidar
+                      </Nav.Link>
+
+                       <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                     </div>
                 </div>
               </Col>
             </Row>
