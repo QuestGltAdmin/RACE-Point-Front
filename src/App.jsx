@@ -13,6 +13,8 @@ import { Activities } from "./Pages/Activities";
 import UserPrivateRoutes from "./PrivateRoutes/userRoutes";
 import { AdminLogin } from "./Pages/Admin/AdminLogin";
 import { AdminDashboard } from "./Pages/Admin/AdminDashboard";
+import { AdminLeaderboard } from "./Pages/Admin/AdminLeaderboard";
+import { Adminuserlist } from "./Pages/Admin/Adminuserlist";
 
 function App() {
   return (
@@ -53,6 +55,8 @@ function App() {
 
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/admin-leaderboard" element={<AdminLeaderboard />} />
+          <Route path="/admin-userlist" element={<Adminuserlist />} />
 
         </Routes>
       </BrowserRouter>

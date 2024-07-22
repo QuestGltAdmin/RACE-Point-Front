@@ -196,6 +196,63 @@
     margin-bottom: 5px;
     color: #ddd;
 }
+.shadow-box-main {
+    margin: 15px 0;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(77, 130, 173, 0.30);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+}
+.table-box-new {
+    margin: 30px 0;
+}
+.table-view-transaction {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 30px;
+}
+.table-view-transaction > div {
+    display: table-row-group;
+}
+.table-view-transaction > div > div {
+    display: table-row;
+}
+.table-view-transaction > div p {
+    display: table-cell;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+.table-view-transaction > div.thead p {
+    background-color: rgba(3, 39, 68, 0.60);
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+}
+.table-view-transaction > div {
+    display: table-row-group;
+}
+.table-view-transaction > div > div {
+    display: table-row;
+}
+.table-view-transaction > div p {
+    display: table-cell;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+.table-view-transaction > div.tbody p {
+    font-size: 14px;
+    color: #ddd;
+    font-weight: 400;
+}
+.admin-table-btn.common-btn {
+    font-size: 13px;
+    padding: 5px 10px;
+    margin: 4px;
+}
+.table-view-transaction > div.tbody p .mobile-only {
+    display: none;
+}
 
 @media (max-width:992px){
     .dashboard-layout {
@@ -263,5 +320,33 @@
         padding: 20px 15px;
         max-width: 370px;
         margin: 0 auto;
+    }
+    .table-box-new {
+        margin: 20px 0;
+        padding: 10px;
+    }
+    .table-view-transaction {
+        display: block;
+    }
+    .table-view-transaction > div.thead {
+        display: none !important;
+    }
+    .table-view-transaction > div > div {
+        display: block;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .table-view-transaction > div p {
+        display: block;
+        border: none;
+        padding: 0;
+    }
+    .table-view-transaction > div {
+        display: block;
+    }
+    .table-view-transaction > div.tbody p .mobile-only {
+        display: inline-block !important;
+        min-width: 110px;
     }
 }
