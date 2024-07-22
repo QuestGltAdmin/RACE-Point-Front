@@ -57,10 +57,10 @@ export const Dashboard = () => {
       {
         label: "Deposit",
         data: [
-          dashboarddata?.location?.arbitrium,
-          dashboarddata?.location?.base,
-          dashboarddata?.location?.optimism,
-          dashboarddata?.location?.polygon,
+          (dashboarddata?.location?.arbitrium * 1).toFixed(1),
+          (dashboarddata?.location?.base * 1).toFixed(1),
+          (dashboarddata?.location?.optimism * 1).toFixed(1),
+          (dashboarddata?.location?.polygon * 1).toFixed(1),
         ],
         // data: [30, 40, 10, 20],
         backgroundColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
