@@ -324,6 +324,14 @@
 .min-height-genealogy .custom-links{
     stroke: #EEBC9C !important;
 }
+.paginate-register .common-btn{
+    min-width: 40px;
+    line-height: 1rem;
+}
+.paginate-register .common-btn.m-2 {
+    font-size: 0.8rem;
+    line-height: 1rem;
+}
 
 @media (max-width:992px){
     .dashboard-layout {

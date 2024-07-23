@@ -145,7 +145,7 @@ export const Adminuserlist = () => {
                         <div className="thead">
                           <div>
                             <p>S. no</p>
-                            <p>Name</p>
+                            <p>Wallet & ENS</p>
                             <p>Referral Code</p>
                             <p>Deposit</p>
                             <p>Earn Points</p>
@@ -161,7 +161,7 @@ export const Adminuserlist = () => {
                                 <div>
                                   <p>{index + 1}</p>
                                   <p>
-                                    <span class="mobile-only">Name - </span>{" "}
+                                    <span class="mobile-only">Wallet & ENS - </span>{" "}
                                     <big>
                                       <b>
                                         {items?.ENS_name
@@ -177,7 +177,7 @@ export const Adminuserlist = () => {
                                   </p>
                                   <p>
                                     <span class="mobile-only">
-                                      Referral Code -{" "}
+                                    Referrer Code -{" "}
                                     </span>{" "}
                                     {items?.from_referral_code}
                                   </p>
@@ -434,12 +434,12 @@ export const Adminuserlist = () => {
           <Modal.Body>
             <div>
               <h4 className="sub-heading mb-3">Referral User</h4>
-              <div className="table-view-transaction">
+              <div className="table-view-transaction refferal-user-table">
                 <div className="thead">
                   <div>
                     <p>S. no</p>
-                    <p>Name</p>
-                    <p>Referral Code</p>
+                    <p>Wallet & ENS</p>
+                    <p>Referrer Code</p>
                     <p>Deposit</p>
                     <p>Earn Points</p>
                     <p>Joining Date</p>
@@ -453,7 +453,7 @@ export const Adminuserlist = () => {
                         <div>
                           <p>{index + 1}</p>
                           <p>
-                            <span class="mobile-only">Name - </span>{" "}
+                            <span class="mobile-only">Wallet & ENS - </span>{" "}
                             <big>
                               <b>
                                 {items?.user_id?.ENS_name
@@ -468,7 +468,7 @@ export const Adminuserlist = () => {
                             )}
                           </p>
                           <p>
-                            <span class="mobile-only">Referral Code - </span>{" "}
+                            <span class="mobile-only">Referrer Code - </span>{" "}
                             {items?.user_id?.from_referral_code}
                           </p>
                           <p>
