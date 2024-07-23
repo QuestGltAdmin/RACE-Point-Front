@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { AdmindashHeader } from "../../Components/Ui/AdmindashHeader";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { debounce } from "lodash";
 import axiosMain from "../../http/axios/axios_main";
 import useAuth from "../../hooks/useAuth";
+import moment from "moment/moment";
 
 export const Adminearnpoint = () => {
   //==================================Global Variable================================//
@@ -74,6 +75,22 @@ export const Adminearnpoint = () => {
                     <h2 className="inner-page-heading">Earn Point Statment</h2>
 
                     <div className="table-box-new shadow-box-main">
+                      <InputGroup className="mb-3 search-input">
+                        <Form.Control
+                          placeholder="Search...."
+                          name="searchTrxAll"
+                          type="text"
+                          onChange={(e) => {
+                            setSearchTrxAll(e.target.value);
+                          }}
+                          value={searchTrxAll}
+                        />
+                        <InputGroup.Text id="basic-addon2">
+                          <a href="">
+                            <i class="fa fa-search"></i>
+                          </a>
+                        </InputGroup.Text>
+                      </InputGroup>
                       <div className="table-view-transaction">
                         <div className="thead">
                           <div>
@@ -90,35 +107,46 @@ export const Adminearnpoint = () => {
                             showDataTrxAll?.map((items, index) => {
                               return (
                                 <div>
-                                  <p>1</p>
+                                  <p>{index + 1}</p>
                                   <p>
                                     <span class="mobile-only">Name - </span>{" "}
                                     <big>
-                                      <b>Name</b>
+                                      <b>
+                                        {items?.user_id?.ENS_name
+                                          ? items?.user_id?.ENS_name
+                                          : "No Name"}
+                                      </b>
                                     </big>{" "}
-                                    <br /> RTY3455g....g4hkgk
+                                    <br />{" "}
+                                    {items?.user_id?.wallet_address?.replace(
+                                      items?.user_id?.wallet_address?.substring(
+                                        5,
+                                        37
+                                      ),
+                                      "..."
+                                    )}
                                   </p>
                                   <p>
                                     <span class="mobile-only">
                                       Base Earn Points -{" "}
                                     </span>{" "}
-                                    23
+                                    {(items?.base_earn_points * 1).toFixed(4)}
                                   </p>
                                   <p>
                                     <span class="mobile-only">
                                       Layer Earn Points -{" "}
                                     </span>
-                                    46
+                                    {(items?.layer_earn_points * 1).toFixed(4)}
                                   </p>
                                   <p>
                                     <span class="mobile-only">
                                       Total Earn Points -{" "}
                                     </span>
-                                    24
+                                    {(items?.total_earn_points * 1).toFixed(4)}
                                   </p>
                                   <p>
                                     <span class="mobile-only">Date - </span>
-                                    22/07/2024
+                                    {moment(items?.createdAt).format("lll")}
                                   </p>
                                 </div>
                               );
@@ -189,6 +217,12 @@ export const Adminearnpoint = () => {
                           </div> */}
                         </div>
                       </div>
+
+                      {showDataTrxAll?.length <= 0 && (
+                        <div>
+                          <p className="text-center">No Data Found</p>
+                        </div>
+                      )}
                       <div className="d-flex justify-content-end">
                         {showDataTrxAll?.length > 0 ? (
                           <div className="d-flex justify-content-center paginate-register">

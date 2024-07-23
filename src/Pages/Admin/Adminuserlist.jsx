@@ -12,15 +12,25 @@ export const Adminuserlist = () => {
   //==================================End of code================================//
   const [pageNumberTrxAll, setPageNumberTrxAll] = useState(1);
   const [searchTrxAll, setSearchTrxAll] = useState("");
-  const [filterTrxAll, setFilterTrxAll] = useState("");
   const [totalOrderCountTrxAll, setTotalOrderCountTrxAll] = useState(1);
   const [showDataTrxAll, setShowDataTrxAll] = useState([]);
+  const [showDataEarn, setShowDataEarn] = useState([]);
+  const [showDataReferral, setShowDataReferral] = useState([]);
+  const [refferalCode, setRefferalCode] = useState([]);
+  const [showEarnData, setShowEarnData] = useState(false);
+  const [showReferralUser, setShowReferralUser] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleCloseEarnData = async () => {
+    setShowEarnData(false);
+  };
+  const handleCloseReferralUser = async () => {
+    setShowReferralUser(false);
+  };
   //==============================Get Data All Trx==============================//
-  const getDataTrxAll = async (
-    pageNumberTrxAll,
-    searchTrxAll,
-    filterTrxAll
-  ) => {
+  const getDataTrxAll = async (pageNumberTrxAll, searchTrxAll) => {
     const payload = {};
     try {
       const getResAll = await axiosMain.get(
@@ -55,17 +65,52 @@ export const Adminuserlist = () => {
 
   const filterDataTrxAll = useCallback(debounce(getDataTrxAll, 1000), []);
   useEffect(() => {
-    filterDataTrxAll(pageNumberTrxAll, searchTrxAll, filterTrxAll);
-  }, [pageNumberTrxAll, searchTrxAll, filterTrxAll]);
+    filterDataTrxAll(pageNumberTrxAll, searchTrxAll);
+  }, [pageNumberTrxAll, searchTrxAll]);
 
   //==============================Get Data All Trx==============================//
 
+  const getEarnData = async (id) => {
+    try {
+      const payload = {
+        userId: id,
+        date_from: "",
+        date_to: "",
+      };
+      const getDataEarn = await axiosMain.post(
+        "/admin/user-wise-income",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${user.token}`,
+          },
+        }
+      );
+      if (getDataEarn?.data?.status) {
+        setShowDataEarn(getDataEarn?.data?.data);
+      }
+    } catch (err) {}
+  };
 
-  const [show, setShow] = useState(false);
+  const getReferralData = async (id) => {
+    try {
+      const getDataReferral = await axiosMain.get(
+        `/admin/user-wise-referral-user?user_id=${id}`,
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${user.token}`,
+          },
+        }
+      );
+      console.log(getDataReferral);
+      if (getDataReferral?.data?.status) {
+        setShowDataReferral(getDataReferral?.data?.data);
+      }
+    } catch (err) {}
+  };
 
   return (
     <>
@@ -80,12 +125,22 @@ export const Adminuserlist = () => {
                     <h2 className="inner-page-heading">User List</h2>
 
                     <div className="table-box-new shadow-box-main">
-                    <InputGroup className="mb-3 search-input">
-                      <Form.Control
-                        placeholder="Search...."
-                      />
-                      <InputGroup.Text id="basic-addon2"><a href=""><i class="fa fa-search"></i></a></InputGroup.Text>
-                    </InputGroup>
+                      <InputGroup className="mb-3 search-input">
+                        <Form.Control
+                          placeholder="Search...."
+                          name="searchTrxAll"
+                          type="text"
+                          onChange={(e) => {
+                            setSearchTrxAll(e.target.value);
+                          }}
+                          value={searchTrxAll}
+                        />
+                        <InputGroup.Text id="basic-addon2">
+                          <a href="">
+                            <i class="fa fa-search"></i>
+                          </a>
+                        </InputGroup.Text>
+                      </InputGroup>
                       <div className="table-view-transaction">
                         <div className="thead">
                           <div>
@@ -149,15 +204,34 @@ export const Adminuserlist = () => {
                                   <p>
                                     <div>
                                       <a
-                                       onClick={handleShow}
+                                        onClick={() => {
+                                          setRefferalCode(
+                                            items?.referral_codes
+                                          );
+                                          handleShow();
+                                        }}
                                         className="common-btn admin-table-btn"
                                         href="#"
                                       >
                                         Referral Code
                                       </a>
                                       <a
+                                        onClick={() => {
+                                          getReferralData(items?._id);
+                                          setShowReferralUser(true);
+                                        }}
                                         className="common-btn admin-table-btn"
-                                        href=""
+                                        href="#"
+                                      >
+                                        Referral User
+                                      </a>
+                                      <a
+                                        className="common-btn admin-table-btn"
+                                        href="#"
+                                        onClick={() => {
+                                          getEarnData(items?._id);
+                                          setShowEarnData(true);
+                                        }}
                                       >
                                         Earn Point
                                       </a>
@@ -166,100 +240,13 @@ export const Adminuserlist = () => {
                                 </div>
                               );
                             })}
-                          {/* <div>
-                            <p>2</p>
-                            <p>
-                              <span class="mobile-only">Name - </span>{" "}
-                              <big>
-                                <b>Name</b>
-                              </big>{" "}
-                              <br /> RTY3455g....g4hkgk
-                            </p>
-                            <p>
-                              <span class="mobile-only">Referral Code - </span>{" "}
-                              rwrwrw
-                            </p>
-                            <p>
-                              <span class="mobile-only">Deposit - </span>
-                              4654644
-                            </p>
-                            <p>
-                              <span class="mobile-only">Earn Points - </span>
-                              6464
-                            </p>
-                            <p>
-                              <span class="mobile-only">Joining Date - </span>
-                              6464
-                            </p>
-                            <p>
-                              <span class="mobile-only">Status - </span>
-                              6464
-                            </p>
-                            <p>
-                              <div>
-                                <a
-                                  className="common-btn admin-table-btn"
-                                  href=""
-                                >
-                                  Referral Code
-                                </a>
-                                <a
-                                  className="common-btn admin-table-btn"
-                                  href=""
-                                >
-                                  Earn Point
-                                </a>
-                              </div>
-                            </p>
-                          </div>
-                          <div>
-                            <p>3</p>
-                            <p>
-                              <span class="mobile-only">Name - </span>{" "}
-                              <big>
-                                <b>Name</b>
-                              </big>{" "}
-                              <br /> RTY3455g....g4hkgk
-                            </p>
-                            <p>
-                              <span class="mobile-only">Referral Code - </span>{" "}
-                              rwrwrw
-                            </p>
-                            <p>
-                              <span class="mobile-only">Deposit - </span>
-                              4654644
-                            </p>
-                            <p>
-                              <span class="mobile-only">Earn Points - </span>
-                              6464
-                            </p>
-                            <p>
-                              <span class="mobile-only">Joining Date - </span>
-                              6464
-                            </p>
-                            <p>
-                              <span class="mobile-only">Status - </span>
-                              6464
-                            </p>
-                            <p>
-                              <div>
-                                <a
-                                  className="common-btn admin-table-btn"
-                                  href=""
-                                >
-                                  Referral Code
-                                </a>
-                                <a
-                                  className="common-btn admin-table-btn"
-                                  href=""
-                                >
-                                  Earn Point
-                                </a>
-                              </div>
-                            </p>
-                          </div> */}
                         </div>
                       </div>
+                      {showDataTrxAll?.length <= 0 && (
+                        <div>
+                          <p className="text-center">No Data Found</p>
+                        </div>
+                      )}
                       <div className="d-flex justify-content-end">
                         {showDataTrxAll?.length > 0 ? (
                           <div className="d-flex justify-content-center paginate-register">
@@ -297,104 +284,338 @@ export const Adminuserlist = () => {
             </Row>
           </Container>
         </section>
-         <Modal className="new-user-modal" centered show={show} onHide={handleClose}>
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-        <div>
-            <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
-            <p>Here are your referral codes</p>
-            <div class="referal-copy-row">
-              <div>
-                <span>1</span>VV5577M2
-              </div>
-              <a href="#"><img src="assets/img/copy.png" alt="Copy" /></a>
-              <a class="text-white"><i class="fa fa-share" aria-hidden="true"></i></a>
-            </div>
-            <div class="referal-copy-row">
-              <div>
-                <span>2</span>VV5577M2
-              </div>
-              <a href="#"><img src="assets/img/copy.png" alt="Copy" /></a>
-              <a class="text-white"><i class="fa fa-share" aria-hidden="true"></i></a>
-            </div>
-            <div class="referal-copy-row">
-              <div>
-                <span>3</span>VV5577M2
-              </div>
-              <a href="#"><img src="assets/img/copy.png" alt="Copy" /></a>
-              <a class="text-white"><i class="fa fa-share" aria-hidden="true"></i></a>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
-
-      {/* <Modal size="lg" className="network-popup  " centered show={show} onHide={handleClose}>
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-        <div>
-           <h4 className="sub-heading mb-3">Earn Points</h4>
-            <div className="table-view-transaction">
-                  <div className="thead">
-                    <div>
-                      <p>S. no</p>
-                      <p>Name</p>
-                      <p>Base Earn Points</p>
-                      <p>Layer Earn Points</p>
-                      <p>Total Earn Points</p>
+        <Modal
+          className="new-user-modal"
+          centered
+          show={show}
+          onHide={handleClose}
+        >
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body>
+            <div>
+              <img
+                src="assets/img/Logo.png"
+                alt=""
+                className="img-fluid logo"
+              />
+              <p>Here are your referral codes</p>
+              {refferalCode?.length &&
+                refferalCode?.map((items, index) => {
+                  return (
+                    <div class="referal-copy-row">
+                      <div>
+                        <span>{index + 1}</span>
+                        {items?.code}
+                      </div>
+               {items?.is_used &&  <a href="#">
+                      <img
+                        src="assets/img/Green-Tick-Vector-PNG-Images.png"
+                        alt="Copy"
+                      />
+                    </a>}
                     </div>
-                  </div>
-                  <div className="tbody">
-                            <div>
-                              <p>1</p>
-                              <p><span class="mobile-only">Name - </span> <big><b>Name</b></big> <br/> RTY3455g....g4hkgk</p>
-                              <p><span class="mobile-only">Base Earn Points - </span> 23</p>
-                              <p>
-                              <span class="mobile-only">Layer Earn Points - </span>
-                                46
-                              </p>
-                              <p>
-                              <span class="mobile-only">Total Earn Points - </span>
-                                24
-                              </p>
-                            
-                              
-                            </div>
-                            <div>
-                              <p>2</p>
-                              <p><span class="mobile-only">Name - </span> <big><b>Name</b></big> <br/> RTY3455g....g4hkgk</p>
-                              <p><span class="mobile-only">Base Earn Points - </span> 23</p>
-                              <p>
-                              <span class="mobile-only">Layer Earn Points - </span>
-                                46
-                              </p>
-                              <p>
-                              <span class="mobile-only">Total Earn Points - </span>
-                                24
-                              </p>
-                            
-                              
-                            </div>
-                            <div>
-                              <p>3</p>
-                              <p><span class="mobile-only">Name - </span> <big><b>Name</b></big> <br/> RTY3455g....g4hkgk</p>
-                              <p><span class="mobile-only">Base Earn Points - </span> 23</p>
-                              <p>
-                              <span class="mobile-only">Layer Earn Points - </span>
-                                46
-                              </p>
-                              <p>
-                              <span class="mobile-only">Total Earn Points - </span>
-                                24
-                              </p>
-                             
-                              
-                            </div>
-                          
+                  );
+                })}
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        <Modal
+          size="lg"
+          className="network-popup  "
+          centered
+          show={showEarnData}
+          onHide={handleCloseEarnData}
+        >
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body>
+            <div>
+              <h4 className="sub-heading mb-3">Earn Points</h4>
+              <div className="table-view-transaction">
+                <div className="thead">
+                  <div>
+                    <p>S. no</p>
+                    <p>Date</p>
+                    <p>Base Earn Points</p>
+                    <p>Layer Earn Points</p>
+                    <p>Total Earn Points</p>
                   </div>
                 </div>
-          </div>
-        </Modal.Body>
-      </Modal> */}
+                <div className="tbody">
+                  {showDataEarn?.length > 0 &&
+                    showDataEarn?.map((items, index) => {
+                      return (
+                        <div>
+                          <p>{index + 1}</p>
+                          <p>
+                            <span class="mobile-only">Date</span>{" "}
+                            {moment(items?.createdAt).format("lll")}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Base Earn Points - </span>{" "}
+                            {(items?.base_earn_points * 1).toFixed(4)}
+                          </p>
+                          <p>
+                            <span class="mobile-only">
+                              Layer Earn Points -{" "}
+                            </span>
+                            {(items?.layer_earn_points * 1).toFixed(4)}
+                          </p>
+                          <p>
+                            <span class="mobile-only">
+                              Total Earn Points -{" "}
+                            </span>
+                            {(items?.total_earn_points * 1).toFixed(4)}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  {/* <div>
+                    <p>2</p>
+                    <p>
+                      <span class="mobile-only">Name - </span>{" "}
+                      <big>
+                        <b>Name</b>
+                      </big>{" "}
+                      <br /> RTY3455g....g4hkgk
+                    </p>
+                    <p>
+                      <span class="mobile-only">Base Earn Points - </span> 23
+                    </p>
+                    <p>
+                      <span class="mobile-only">Layer Earn Points - </span>
+                      46
+                    </p>
+                    <p>
+                      <span class="mobile-only">Total Earn Points - </span>
+                      24
+                    </p>
+                  </div>
+                  <div>
+                    <p>3</p>
+                    <p>
+                      <span class="mobile-only">Name - </span>{" "}
+                      <big>
+                        <b>Name</b>
+                      </big>{" "}
+                      <br /> RTY3455g....g4hkgk
+                    </p>
+                    <p>
+                      <span class="mobile-only">Base Earn Points - </span> 23
+                    </p>
+                    <p>
+                      <span class="mobile-only">Layer Earn Points - </span>
+                      46
+                    </p>
+                    <p>
+                      <span class="mobile-only">Total Earn Points - </span>
+                      24
+                    </p>
+                  </div> */}
+                </div>
+              </div>
+              {showDataEarn?.length <= 0 && (
+                <div>
+                  <p className="text-center">No Data Found</p>
+                </div>
+              )}
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        <Modal
+          size="lg"
+          className="network-popup  "
+          centered
+          show={showReferralUser}
+          onHide={handleCloseReferralUser}
+        >
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body>
+            <div>
+              <h4 className="sub-heading mb-3">Referral User</h4>
+              <div className="table-view-transaction">
+                <div className="thead">
+                  <div>
+                    <p>S. no</p>
+                    <p>Name</p>
+                    <p>Referral Code</p>
+                    <p>Deposit</p>
+                    <p>Earn Points</p>
+                    <p>Joining Date</p>
+                  </div>
+                </div>
+                <div className="tbody">
+                  <p>Level 1</p>
+                  {showDataReferral?.level_1?.length > 0 &&
+                    showDataReferral?.level_1?.map((items, index) => {
+                      return (
+                        <div>
+                          <p>{index + 1}</p>
+                          <p>
+                            <span class="mobile-only">Name - </span>{" "}
+                            <big>
+                              <b>
+                                {items?.user_id?.ENS_name
+                                  ? items?.user_id?.ENS_name
+                                  : "No ENS Name"}
+                              </b>
+                            </big>{" "}
+                            <br />{" "}
+                            {items?.user_id?.wallet_address?.replace(
+                              items?.user_id?.wallet_address?.substring(5, 37),
+                              "..."
+                            )}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Referral Code - </span>{" "}
+                            {items?.user_id?.from_referral_code}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Deposit - </span>
+                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Earn Points - </span>
+                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Joining Date - </span>
+                            {moment(items?.createdAt).format("lll")}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  <p>Level 2</p>
+                  {showDataReferral?.level_2?.length > 0 &&
+                    showDataReferral?.level_2?.map((items, index) => {
+                      return (
+                        <div>
+                          <p>{index + 1}</p>
+                          <p>
+                            <span class="mobile-only">Name - </span>{" "}
+                            <big>
+                              <b>
+                                {items?.user_id?.ENS_name
+                                  ? items?.user_id?.ENS_name
+                                  : "No ENS Name"}
+                              </b>
+                            </big>{" "}
+                            <br />{" "}
+                            {items?.user_id?.wallet_address?.replace(
+                              items?.user_id?.wallet_address?.substring(5, 37),
+                              "..."
+                            )}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Referral Code - </span>{" "}
+                            {items?.user_id?.from_referral_code}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Deposit - </span>
+                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Earn Points - </span>
+                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Joining Date - </span>
+                            {moment(items?.createdAt).format("lll")}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  <p>Level 3</p>
+                  {showDataReferral?.level_3?.length > 0 &&
+                    showDataReferral?.level_3?.map((items, index) => {
+                      return (
+                        <div>
+                          <p>{index + 1}</p>
+                          <p>
+                            <span class="mobile-only">Name - </span>{" "}
+                            <big>
+                              <b>
+                                {items?.user_id?.ENS_name
+                                  ? items?.user_id?.ENS_name
+                                  : "No ENS Name"}
+                              </b>
+                            </big>{" "}
+                            <br />{" "}
+                            {items?.user_id?.wallet_address?.replace(
+                              items?.user_id?.wallet_address?.substring(5, 37),
+                              "..."
+                            )}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Referral Code - </span>{" "}
+                            {items?.user_id?.from_referral_code}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Deposit - </span>
+                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Earn Points - </span>
+                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Joining Date - </span>
+                            {moment(items?.createdAt).format("lll")}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  <p>Level 4</p>
+                  {showDataReferral?.level_4?.length > 0 &&
+                    showDataReferral?.level_4?.map((items, index) => {
+                      return (
+                        <div>
+                          <p>{index + 1}</p>
+                          <p>
+                            <span class="mobile-only">Name - </span>{" "}
+                            <big>
+                              <b>
+                                {items?.user_id?.ENS_name
+                                  ? items?.user_id?.ENS_name
+                                  : "No ENS Name"}
+                              </b>
+                            </big>{" "}
+                            <br />{" "}
+                            {items?.user_id?.wallet_address?.replace(
+                              items?.user_id?.wallet_address?.substring(5, 37),
+                              "..."
+                            )}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Referral Code - </span>{" "}
+                            {items?.user_id?.from_referral_code}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Deposit - </span>
+                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Earn Points - </span>
+                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                          </p>
+                          <p>
+                            <span class="mobile-only">Joining Date - </span>
+                            {moment(items?.createdAt).format("lll")}
+                          </p>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+              {showDataReferral?.length <= 0 && (
+                <div>
+                  <p className="text-center">No Data Found</p>
+                </div>
+              )}
+            </div>
+          </Modal.Body>
+        </Modal>
       </div>
     </>
   );

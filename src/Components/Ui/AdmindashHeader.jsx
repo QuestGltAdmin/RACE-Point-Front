@@ -58,7 +58,7 @@ export const AdmindashHeader = () => {
 
                       <Nav.Link
                         onClick={() => {
-                          navigate("/");
+                          navigate("/admin-genealogy");
                         }}
                       >
                         <i className="fa fa-exchange"></i>USER GENEALOGY
