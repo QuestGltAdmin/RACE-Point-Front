@@ -83,7 +83,7 @@ export const Dashboard = () => {
     plugins: {
       tooltip: {
         callbacks: {
-          label: function(tooltipItem) {
+          label: function (tooltipItem) {
             const data = tooltipItem.dataset.data;
             const currentValue = data[tooltipItem.dataIndex];
             const total = data.reduce((a, b) => a + b, 0);
@@ -91,10 +91,13 @@ export const Dashboard = () => {
             return `${percentage}%`;
           }
         }
-      }
+      },
+      legend: {
+        position: "bottom",
+      },
     }
   };
-  
+
   //===============get dahboard data api====================//
   useEffect(() => {
     getdata();
