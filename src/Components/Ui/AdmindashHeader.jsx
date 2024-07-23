@@ -80,7 +80,7 @@ export const AdmindashHeader = () => {
 
                   <div className="d-flex align-items-center">
                     <Nav.Link className="user-profile-icon">
-                      <img src="assets/img/user.png" alt="" /> Admin Patidar
+                      <img src="assets/img/user.png" alt="" /> Admin
                     </Nav.Link>
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

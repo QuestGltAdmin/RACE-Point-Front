@@ -27,12 +27,13 @@ export const AdminGenealogy = () => {
   //     children: nodes,
   //   };
 
-  //   const renderTooltip = (props) => (
-  //     <Tooltip id="button-tooltip" style={{ width: "400px" }} {...props}>
-  //       Name : - {props.name} <br />
-  //       Email : - {props.email}
-  //     </Tooltip>
-  //   );
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Name : - {props?.ENS_name ? props?.ENS_name : "-"} <br />
+      Points : - {(props.earn_points * 1).toFixed(2)} <br />
+      Deposit : - ${(props.deposit * 1).toFixed(2)} <br />
+    </Tooltip>
+  );
 
   //   const renderRectSvgNode = ({ nodeDatum, toggleNode }) => {
   //     console.log(nodeDatum , toggleNode);
@@ -108,74 +109,82 @@ export const AdminGenealogy = () => {
   //     );
   //   };
 
-  
   const createHierarchy = (data) => {
-      const levels = {};
-      
-      data.forEach((item) => {
-          if (!levels[item.level_no]) {
-              levels[item.level_no] = [];
-            }
-            levels[item.level_no].push(item);
-        });
-        
-        const addChildNodes = (node, currentLevel) => {
-            if (levels[currentLevel]) {
-                node.children = levels[currentLevel].filter(
-                    (child) => child.level_no === currentLevel
-                );
-                node.children.forEach((child) =>
-                    addChildNodes(child, currentLevel + 1)
-            );
-        }
-    };
-    
-    const root = { name: "Root", children: levels[1] || [] };
-    root.children.forEach((child) => addChildNodes(child, 2));
-    
-    return root;
-    
-};
-// if(nodes?.length > 0){
+    const map = {};
+    let root;
 
-    const  hierarchicalData = createHierarchy(nodes);
-// }
-// useEffect(() => {
-//     if (nodes?.length > 0) {
-//         let hierarchicalData;
-//       console.log(hierarchicalData);
-//     }
-//   }, [nodes]);
-// console.log(hierarchicalData);
+    data.forEach((node) => {
+      map[node._id] = { ...node, children: [] };
+    });
+
+    data.forEach((node) => {
+      if (node.parent_id === 0) {
+        root = map[node._id];
+      } else {
+        map[node.parent_id].children.push(map[node._id]);
+      }
+    });
+
+    return root;
+  };
+  // if(nodes?.length > 0){
+
+  const hierarchicalData = createHierarchy(nodes);
+  // }
+  // useEffect(() => {
+  //     if (nodes?.length > 0) {
+  //         let hierarchicalData;
+  //       console.log(hierarchicalData);
+  //     }
+  //   }, [nodes]);
+  // console.log(hierarchicalData);
   const renderRectSvgNode = ({ nodeDatum }) => (
-    <g>
-      <circle r="15" />
-      <text fill="white" strokeWidth="1" x="20">
-        {nodeDatum.wallet_address?.replace(nodeDatum.wallet_address?.substring(5 , 37) , "...")}
-      </text>
-    </g>
+    <OverlayTrigger
+      placement="right"
+      delay={{ show: 250, hide: 400 }}
+      overlay={renderTooltip(nodeDatum)}
+    >
+      <g>
+        <circle r="15" />
+        <text
+          fill="white"
+          strokeWidth="1"
+          x="20"
+          onClick={() => {
+            getData(nodeDatum?._id);
+          }}
+        >
+          {nodeDatum.wallet_address?.replace(
+            nodeDatum.wallet_address?.substring(5, 37),
+            "..."
+          )}
+        </text>
+      </g>
+    </OverlayTrigger>
   );
   //   const hierarchicalData = createHierarchy(data);
   useEffect(() => {
-    getData();
+    let data = "";
+    getData(data);
   }, []);
 
-  const getData = async () => {
+  const getData = async (id) => {
     try {
-      const get_data = await axiosMain.get("/admin/get-team-genealogy", {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `bearer ${user.token}`,
-        },
-      });
+      const get_data = await axiosMain.get(
+        `/admin/get-team-genealogy?userId=${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${user.token}`,
+          },
+        }
+      );
       if (get_data?.data?.status) {
         console.log(get_data);
         setNodes(get_data?.data?.levelDetail);
       }
     } catch (err) {}
   };
-
-
 
   return (
     <>
@@ -215,8 +224,6 @@ export const AdminGenealogy = () => {
                           rootNodeClassName="node__root"
                           branchNodeClassName="node__branch"
                           leafNodeClassName="node__leaf"
-                         
-                          
                         />
                       )}
                     </div>
