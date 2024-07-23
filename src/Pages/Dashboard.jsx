@@ -57,10 +57,10 @@ export const Dashboard = () => {
       {
         label: "Deposit",
         data: [
-          (dashboarddata?.location?.arbitrium * 1).toFixed(1),
-          (dashboarddata?.location?.base * 1).toFixed(1),
-          (dashboarddata?.location?.optimism * 1).toFixed(1),
-          (dashboarddata?.location?.polygon * 1).toFixed(1),
+          (dashboarddata?.location?.arbitrium * 1),
+          (dashboarddata?.location?.base * 1),
+          (dashboarddata?.location?.optimism * 1),
+          (dashboarddata?.location?.polygon * 1),
         ],
         // data: [30, 40, 10, 20],
         backgroundColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
@@ -69,27 +69,7 @@ export const Dashboard = () => {
       },
     ],
   };
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "bottom",
-      },
-    },
-  };
-  // const data1 = {
-  //   labels: ["USDC", "USDT", "ETH"],
-  //   datasets: [
-  //     {
-  //       label: "# of Votes",
-  //       data: [60, 25, 15],
-  //       backgroundColor: ["#7BB9ED", "#053863", "#1771BD", "#06487E"],
-  //       borderColor: ["#7BB9ED", "#053863", "#1771BD", "#06487E"],
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
-  // const options1 = {
+  // const options = {
   //   responsive: true,
   //   plugins: {
   //     legend: {
@@ -97,6 +77,24 @@ export const Dashboard = () => {
   //     },
   //   },
   // };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function(tooltipItem) {
+            const data = tooltipItem.dataset.data;
+            const currentValue = data[tooltipItem.dataIndex];
+            const total = data.reduce((a, b) => a + b, 0);
+            const percentage = ((currentValue / total) * 100).toFixed(2);
+            return `${percentage}%`;
+          }
+        }
+      }
+    }
+  };
+  
   //===============get dahboard data api====================//
   useEffect(() => {
     getdata();
