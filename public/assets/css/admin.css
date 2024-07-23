@@ -295,6 +295,35 @@
 .dashboard-layout .search-input.input-group .input-group-text a{
     color: #fff;
 }
+.min-height-genealogy{
+    min-height: auto;
+}
+.min-height-genealogy .rd3t-tree-container {
+    width: auto;
+    height: auto;
+}
+.min-height-genealogy svg{
+    height: 400px;
+}
+
+.min-height-genealogy .node__root{
+    fill: #965D3D;
+    stroke: #fff;
+} 
+.min-height-genealogy .node__branch{
+    fill: #BA825E;
+    stroke: #fff;
+    font-weight: 300;
+}
+.min-height-genealogy .node__leaf{
+    fill: #E5B38F;
+    stroke: #fff;
+    font-weight: 300;
+}
+
+.min-height-genealogy .custom-links{
+    stroke: #EEBC9C !important;
+}
 
 @media (max-width:992px){
     .dashboard-layout {

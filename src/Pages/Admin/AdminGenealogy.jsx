@@ -175,6 +175,8 @@ export const AdminGenealogy = () => {
     } catch (err) {}
   };
 
+
+
   return (
     <>
       <div className="dashboard-layout">
@@ -186,7 +188,7 @@ export const AdminGenealogy = () => {
                 <div className="dashboard-white-box">
                   <div className="w-100">
                     <h2 className="inner-page-heading">User Genealogy</h2>
-                    <div className=" shadow-box-main">
+                    <div className=" shadow-box-main min-height-genealogy">
                       {nodes?.length > 0 && (
                         <Tree
                           // separation={{ siblings: 1, nonSiblings: 1 }}
@@ -198,13 +200,23 @@ export const AdminGenealogy = () => {
                           // pathClassFunc={() => "custom-links"}
                           // pathFunc={"step"}
                           data={hierarchicalData}
-                          orientation="horizontal"
+                          orientation="vertical"
                           separation={{ siblings: 1, nonSiblings: 1 }}
-                          translate={{ x: 100, y: 350 }}
-                          nodeSize={{ x: 200, y: 100 }}
+                          translate={{ x: 600, y: 50 }}
+                          nodeSize={{ x: 200, y: 120 }}
                           pathFunc="step"
                           pathClassFunc={() => "custom-links"}
                           renderCustomNodeElement={renderRectSvgNode}
+                          transitionDuration={500}
+                          zoomable={true}
+                          zoom="0.5"
+                          collapsible={true}
+                          centeringTransitionDuration={100}
+                          rootNodeClassName="node__root"
+                          branchNodeClassName="node__branch"
+                          leafNodeClassName="node__leaf"
+                         
+                          
                         />
                       )}
                     </div>
