@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Container, Row, Col, Form, InputGroup } from "react-bootstrap";
 import { Adminheader } from "../../Components/Ui/Adminheader";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,14 @@ import { useDispatch } from "react-redux";
 import { encryptData } from "../../Encrypt-Decrypt/encryption-decryption";
 import axiosMain from "../../http/axios/axios_main";
 import { toast } from "react-toastify";
+import ConnectWalletModal from "../../Components/Ui/ConnectWalletModal";
+import useAuth from "../../hooks/useAuth";
+import { generateSignature } from "../../helpers/generateSignature";
+import { adminloginSuccess, logout } from "../../store/reducers/authReducer";
 
 export const AdminLogin = () => {
   //=============== Globle vaiable ====================//
+  const { WalletEVM } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //===============End of code====================//
@@ -20,6 +25,10 @@ export const AdminLogin = () => {
     email: "",
     password: "",
   });
+
+  const [disableWallet, setDisableWallet] = useState(false);
+  const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
+  const [checkForOne, setCheckForOne] = useState(false);
   //===============End of code====================//
 
   //========================= show password on eye click =========================//
@@ -83,6 +92,71 @@ export const AdminLogin = () => {
     }
   };
   //========================= end of code =========================//
+
+  const handleCloseModals = () => {
+    setShowConnectWalletModal(false);
+  };
+
+  const ConnectWalletModalProps = useMemo(
+    () => ({
+      modalProps: {
+        show: showConnectWalletModal,
+        onHide: handleCloseModals,
+      },
+      // Check this line for correct function reference
+    }),
+    [showConnectWalletModal]
+  );
+
+  useEffect(() => {
+    if (WalletEVM?.selectedAccount && checkForOne == false) {
+      loginWithWallet();
+    }
+  }, [WalletEVM?.selectedAccount]);
+
+  const loginWithWallet = async () => {
+    setDisableWallet(true);
+    try {
+      const walletPayload = {
+        type: WalletEVM?.type,
+      };
+      const getSignature = await generateSignature(walletPayload);
+      if (getSignature) {
+        setCheckForOne(true);
+        const RowMessage = await encryptData(getSignature?.message);
+        const RowSignature = await encryptData(getSignature?.signatures);
+        const RowType = await encryptData(WalletEVM?.type);
+        const payload = {
+          signature: RowSignature,
+          message: RowMessage,
+          type: RowType,
+        };
+        try {
+          const loginObj = await axiosMain.post(
+            "/admin/login-with-wallet",
+            payload
+          );
+          if (loginObj?.data?.status) {
+            setDisableWallet(false);
+            dispatch(adminloginSuccess(loginObj?.data?.data));
+            toast.success("Admin login success");
+            setTimeout(() => {
+              navigate("/admin-dashboard");
+            }, 2000);
+          }
+        } catch (err) {
+          setDisableWallet(false);
+          setCheckForOne(false);
+          toast.error("Admin Not Exist, Please Try Again");
+          dispatch(logout());
+        }
+      }
+    } catch (err) {
+      setDisableWallet(false);
+      dispatch(logout());
+      setCheckForOne(false);
+    }
+  };
   return (
     <>
       <Adminheader />
@@ -142,10 +216,33 @@ export const AdminLogin = () => {
                     {disable === true ? "Processing" : "Login"}
                   </button>
                 </div>
+                <p className="text-center">Or</p>
+
+                {!WalletEVM?.selectedAccount ? (
+                  <button
+                    className="common-btn bg-left w-100 m-0"
+                    onClick={() => {
+                      setShowConnectWalletModal(true);
+                    }}
+                  >
+                    {disableWallet ? "Processing" : "Connect Wallet"}
+                  </button>
+                ) : (
+                  <button className="common-btn bg-left w-100 m-0">
+                    {disableWallet
+                      ? "Processing"
+                      : WalletEVM?.selectedAccount?.replace(
+                          WalletEVM?.selectedAccount?.substring(5, 37),
+                          "..."
+                        )}
+                  </button>
+                )}
               </div>
             </Col>
           </Row>
         </Container>
+
+        <ConnectWalletModal {...ConnectWalletModalProps} />
       </section>
     </>
   );

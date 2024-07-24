@@ -94,6 +94,7 @@ const authSlice = createSlice({
     },
 
     adminloginSuccess: (state, action) => {
+      localStorage.setItem("userData" , JSON.stringify(action?.payload))
       return {
         ...state,
         isLoading: false,

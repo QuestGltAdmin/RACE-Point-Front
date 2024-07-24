@@ -20,10 +20,16 @@ export const Adminuserlist = () => {
   const [showEarnData, setShowEarnData] = useState(false);
   const [showReferralUser, setShowReferralUser] = useState(false);
   const [show, setShow] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [idCheck , setIdCheck] = useState("")
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseEarnData = async () => {
+    setIdCheck("");
+    setStartDate("")
+    setEndDate("")
     setShowEarnData(false);
   };
   const handleCloseReferralUser = async () => {
@@ -70,12 +76,19 @@ export const Adminuserlist = () => {
 
   //==============================Get Data All Trx==============================//
 
+  useEffect(()=>{
+if(idCheck != ""){
+  getEarnData(idCheck) 
+}
+  },[startDate , endDate])
+
   const getEarnData = async (id) => {
+    setIdCheck(id)
     try {
       const payload = {
         userId: id,
-        date_from: "",
-        date_to: "",
+        date_from: startDate,
+        date_to: endDate,
       };
       const getDataEarn = await axiosMain.post(
         "/admin/user-wise-income",
@@ -146,7 +159,7 @@ export const Adminuserlist = () => {
                           <div>
                             <p>S. no</p>
                             <p>Wallet & ENS</p>
-                            <p>Referral Code</p>
+                            <p>Referrer Code</p>
                             <p>Deposit</p>
                             <p>Earn Points</p>
                             <p>Joining Date</p>
@@ -161,7 +174,9 @@ export const Adminuserlist = () => {
                                 <div>
                                   <p>{index + 1}</p>
                                   <p>
-                                    <span class="mobile-only">Wallet & ENS - </span>{" "}
+                                    <span class="mobile-only">
+                                      Wallet & ENS -{" "}
+                                    </span>{" "}
                                     <big>
                                       <b>
                                         {items?.ENS_name
@@ -177,7 +192,7 @@ export const Adminuserlist = () => {
                                   </p>
                                   <p>
                                     <span class="mobile-only">
-                                    Referrer Code -{" "}
+                                      Referrer Code -{" "}
                                     </span>{" "}
                                     {items?.from_referral_code}
                                   </p>
@@ -307,12 +322,14 @@ export const Adminuserlist = () => {
                         <span>{index + 1}</span>
                         {items?.code}
                       </div>
-               {items?.is_used &&  <a href="#">
-                      <img
-                        src="assets/img/Green-Tick-Vector-PNG-Images.png"
-                        alt="Copy"
-                      />
-                    </a>}
+                      {items?.is_used && (
+                        <a href="#">
+                          <img
+                            src="assets/img/Green-Tick-Vector-PNG-Images.png"
+                            alt="Copy"
+                          />
+                        </a>
+                      )}
                     </div>
                   );
                 })}
@@ -331,6 +348,31 @@ export const Adminuserlist = () => {
           <Modal.Body>
             <div>
               <h4 className="sub-heading mb-3">Earn Points</h4>
+              <div className="d-flex gap-2">
+                <InputGroup className="mb-3 search-input">
+                  <Form.Control
+                    placeholder="Search...."
+                    name="startDate"
+                    type="date"
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setStartDate(e.target.value);
+                    }}
+                    value={startDate}
+                  />
+                </InputGroup>
+                <InputGroup className="mb-3 search-input">
+                  <Form.Control
+                    placeholder="Search...."
+                    name="endDate"
+                    type="date"
+                    onChange={(e) => {
+                      setEndDate(e.target.value);
+                    }}
+                    value={endDate}
+                  />
+                </InputGroup>
+              </div>
               <div className="table-view-transaction">
                 <div className="thead">
                   <div>

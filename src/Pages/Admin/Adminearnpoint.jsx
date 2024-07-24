@@ -15,15 +15,18 @@ export const Adminearnpoint = () => {
   const [filterTrxAll, setFilterTrxAll] = useState("");
   const [totalOrderCountTrxAll, setTotalOrderCountTrxAll] = useState(1);
   const [showDataTrxAll, setShowDataTrxAll] = useState([]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   //==============================Get Data All Trx==============================//
   const getDataTrxAll = async (
     pageNumberTrxAll,
     searchTrxAll,
-    filterTrxAll
+    startDate,
+    endDate
   ) => {
     const payload = {
-      date_from: "2024-07-22",
-      date_to: "2024-07-22",
+      date_from: startDate,
+      date_to: endDate,
     };
     try {
       const getResAll = await axiosMain.post(
@@ -58,8 +61,8 @@ export const Adminearnpoint = () => {
 
   const filterDataTrxAll = useCallback(debounce(getDataTrxAll, 1000), []);
   useEffect(() => {
-    filterDataTrxAll(pageNumberTrxAll, searchTrxAll, filterTrxAll);
-  }, [pageNumberTrxAll, searchTrxAll, filterTrxAll]);
+    filterDataTrxAll(pageNumberTrxAll, searchTrxAll, startDate, endDate);
+  }, [pageNumberTrxAll, searchTrxAll, startDate, endDate]);
 
   //==============================Get Data All Trx==============================//
   return (
@@ -75,27 +78,52 @@ export const Adminearnpoint = () => {
                     <h2 className="inner-page-heading">Earn Point Statment</h2>
 
                     <div className="table-box-new shadow-box-main">
-                      <InputGroup className="mb-3 search-input">
-                        <Form.Control
-                          placeholder="Search...."
-                          name="searchTrxAll"
-                          type="text"
-                          onChange={(e) => {
-                            setSearchTrxAll(e.target.value);
-                          }}
-                          value={searchTrxAll}
-                        />
-                        <InputGroup.Text id="basic-addon2">
-                          <a href="">
-                            <i class="fa fa-search"></i>
-                          </a>
-                        </InputGroup.Text>
-                      </InputGroup>
+                      <div className="d-flex gap-2">
+                        <InputGroup className="mb-3 search-input">
+                          <Form.Control
+                            placeholder="Search...."
+                            name="searchTrxAll"
+                            type="text"
+                            onChange={(e) => {
+                              setSearchTrxAll(e.target.value);
+                            }}
+                            value={searchTrxAll}
+                          />
+                          <InputGroup.Text id="basic-addon2">
+                            <a href="">
+                              <i class="fa fa-search"></i>
+                            </a>
+                          </InputGroup.Text>
+                        </InputGroup>
+                        <InputGroup className="mb-3 search-input">
+                          <Form.Control
+                            placeholder="Search...."
+                            name="startDate"
+                            type="date"
+                            onChange={(e) => {
+                              console.log(e.target.value);
+                              setStartDate(e.target.value);
+                            }}
+                            value={startDate}
+                          />
+                        </InputGroup>
+                        <InputGroup className="mb-3 search-input">
+                          <Form.Control
+                            placeholder="Search...."
+                            name="endDate"
+                            type="date"
+                            onChange={(e) => {
+                              setEndDate(e.target.value);
+                            }}
+                            value={endDate}
+                          />
+                        </InputGroup>
+                      </div>
                       <div className="table-view-transaction">
                         <div className="thead">
                           <div>
                             <p>S. no</p>
-                            <p>Name</p>
+                            <p>Wallet & ENS</p>
                             <p>Base Earn Points</p>
                             <p>Layer Earn Points</p>
                             <p>Total Earn Points</p>
@@ -114,7 +142,7 @@ export const Adminearnpoint = () => {
                                       <b>
                                         {items?.user_id?.ENS_name
                                           ? items?.user_id?.ENS_name
-                                          : "No Name"}
+                                          : "No ENS Name"}
                                       </b>
                                     </big>{" "}
                                     <br />{" "}
