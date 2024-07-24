@@ -60,14 +60,14 @@ export const AdminDashboard = () => {
                             alt=""
                           />
                           <h4>
-                            {!isNaN(totalDeposit)
+                            ${!isNaN(totalDeposit)
                               ? (totalDeposit * 1).toFixed(2)
                               : 0}
                           </h4>
-                          <p>Total Deposit Count</p>
+                          <p>Total Deposit</p>
                         </div>
                       </Col>
-                      <Col lg={4} md={6} sm={6} xs={12}>
+                      {/*<Col lg={4} md={6} sm={6} xs={12}>
                         <div className="shadow-box-dash">
                           <img
                             className="img-coin"
@@ -77,7 +77,7 @@ export const AdminDashboard = () => {
                           <h4>00</h4>
                           <p>Total transaction Count</p>
                         </div>
-                      </Col>
+                      </Col>*/}
                     </Row>
                   </div>
                 </div>

@@ -103,17 +103,17 @@ export const AdminLogin = () => {
         show: showConnectWalletModal,
         onHide: handleCloseModals,
       },
-      checkForAdmin : true
+      checkForAdmin: true
       // Check this line for correct function reference
     }),
     [showConnectWalletModal]
   );
 
-  useEffect(() => {
-    if (WalletEVM?.selectedAccount && checkForOne == false) {
-      loginWithWallet();
-    }
-  }, [WalletEVM?.selectedAccount]);
+  // useEffect(() => {
+  //   if (WalletEVM?.selectedAccount && checkForOne == false) {
+  //     loginWithWallet();
+  //   }
+  // }, [WalletEVM?.selectedAccount]);
 
   const loginWithWallet = async () => {
     setDisableWallet(true);
@@ -132,11 +132,13 @@ export const AdminLogin = () => {
           message: RowMessage,
           type: RowType,
         };
+
         try {
           const loginObj = await axiosMain.post(
             "/admin/login-with-wallet",
             payload
           );
+
           if (loginObj?.data?.status) {
             setDisableWallet(false);
             dispatch(adminloginSuccess(loginObj?.data?.data));
@@ -151,6 +153,8 @@ export const AdminLogin = () => {
           toast.error("Admin Not Exist, Please Try Again");
           dispatch(logout());
         }
+      } else {
+        setDisableWallet(false);
       }
     } catch (err) {
       setDisableWallet(false);
@@ -207,19 +211,35 @@ export const AdminLogin = () => {
                 </Form.Group>
                 <p style={{ color: "red" }}>{formError}</p>
                 <div>
-                  <button
-                    className="common-btn bg-left w-100 m-0"
-                    disabled={disable}
-                    onClick={() => {
-                      HandleLogin();
-                    }}
-                  >
-                    {disable === true ? "Processing" : "Login"}
-                  </button>
+                <button
+                  className="common-btn bg-left w-100 m-0"
+                  disabled={disable}
+                  onClick={() => {
+                    HandleLogin();
+                  }}
+                >
+                  {disable === true ? "Processing" : "Login"}
+                </button>
                 </div>
                 <p className="text-center">Or</p>
-
                 {!WalletEVM?.selectedAccount ? (
+                  <button
+                    className="common-btn bg-left w-100 m-0"
+                    onClick={() => {
+                      setShowConnectWalletModal(true);
+                    }}
+                  >
+                    Connect Wallet
+                  </button>
+                ) : (
+                  <button className="common-btn bg-left w-100 m-0" onClick={() => {
+                    loginWithWallet();
+                  }}
+                  disabled={disableWallet}
+                  > {disableWallet ? "Processing" : "Sign"} </button>
+                )}
+
+                {/* {!WalletEVM?.selectedAccount ? (
                   <button
                     className="common-btn bg-left w-100 m-0"
                     onClick={() => {
@@ -229,22 +249,23 @@ export const AdminLogin = () => {
                     {disableWallet ? "Processing" : "Connect Wallet"}
                   </button>
                 ) : (
-                  <button className="common-btn bg-left w-100 m-0">
-                    {disableWallet
-                      ? "Processing"
-                      : WalletEVM?.selectedAccount?.replace(
-                          WalletEVM?.selectedAccount?.substring(5, 37),
-                          "..."
-                        )}
-                  </button>
-                )}
+                  <>
+                    {
+                      disableWallet ?
+                        <button className="common-btn bg-left w-100 m-0">
+                          Processing
+                        </button>
+                        :
+                        <button className="common-btn bg-left w-100 m-0">Sign</button>
+                    }
+                  </>)} */}
               </div>
             </Col>
           </Row>
         </Container>
 
         <ConnectWalletModal {...ConnectWalletModalProps} />
-      </section>
+      </section >
     </>
   );
 };

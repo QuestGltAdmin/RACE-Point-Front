@@ -13,7 +13,6 @@ export const generateSignature = async (data) => {
       );
 
       let msg1 = "To ensure the security of your account, please sign this message to log in. Rest assured, this won't initiate any blockchain transactions or incur fees.";
-      console.log(msg1);
       let _config = config();
 
       const accounts = await getAccountDetail();
@@ -24,7 +23,6 @@ export const generateSignature = async (data) => {
         account: from_account,
         message: msg1,
       });
-      console.log(signatures);
 
       if (signatures) {
         return {
