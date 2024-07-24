@@ -12,7 +12,7 @@ export const generateSignature = async (data) => {
         new Web3.providers.HttpProvider(network.chain.rpcUrls.default.http[0])
       );
 
-      let msg1 = "hello please sign";
+      let msg1 = "To ensure the security of your account, please sign this message to log in. Rest assured, this won't initiate any blockchain transactions or incur fees.";
       console.log(msg1);
       let _config = config();
 
@@ -49,7 +49,7 @@ export const generateSignature = async (data) => {
       let from = await web3connect.eth.getAccounts();
       const from_account = web3connect.utils.toChecksumAddress(from[0]);
 
-      let msg = web3connect.utils.utf8ToHex("hello please sign");
+      let msg = web3connect.utils.utf8ToHex("To ensure the security of your account, please sign this message to log in. Rest assured, this won't initiate any blockchain transactions or incur fees.");
 
       let signatures = await web3connect.currentProvider.request({
         method: "personal_sign",
