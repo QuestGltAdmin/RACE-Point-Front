@@ -103,6 +103,7 @@ export const AdminLogin = () => {
         show: showConnectWalletModal,
         onHide: handleCloseModals,
       },
+      checkForAdmin : true
       // Check this line for correct function reference
     }),
     [showConnectWalletModal]

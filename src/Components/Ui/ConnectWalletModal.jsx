@@ -8,7 +8,8 @@ import useAuth from "../../hooks/useAuth";
 import { setEVMWallet } from "../../store/reducers/authReducer";
 import Web3 from "web3";
 
-const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
+const ConnectWalletModal = ({ forMobileView, chainData, checkForAdmin ,  ...props }) => {
+
   const dispatch = useDispatch();
   const { WalletEVM } = useAuth();
 
@@ -152,9 +153,9 @@ const ConnectWalletModal = ({ forMobileView, chainData, ...props }) => {
           <p>
             <b>Connect with:</b>
           </p>
-          <a className="browse-btn" onClick={() => connect("metamask")}>
+      {checkForAdmin ? "" :   <a className="browse-btn" onClick={() => connect("metamask")}>
             <img src="assets/img/Icon.png" alt="" /> Browser Wallet
-          </a>
+          </a>}
           <a
             className="wallet-connect"
             onClick={() => connect("walletConnect")}
