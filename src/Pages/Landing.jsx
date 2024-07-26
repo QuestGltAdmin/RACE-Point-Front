@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { isLogin, userWalletLogin } from "../store/reducers/authReducer";
 import axios from "axios";
 import { LandingPageHeader } from "../Components/LandingPageHeader";
+import { resolveENSName } from "../helpers/ENSname";
 
 //================================================== All the juridictions restricted countries ===================================
 {
@@ -47,7 +48,7 @@ const Landing = () => {
   const [referralCodes, setReferralCodes] = useState([]); // State to store referral codes
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [ENSName, setENSName] = useState(""); // State to hold the ENS name
+  // const [ENSName, setENSName] = useState(""); // State to hold the ENS name
   const [walletAddress, setWalletAddress] = useState(""); // State to hold the wallet address
 
   const [loading, setLoading] = useState(false); // Loading state for async operations
@@ -163,10 +164,12 @@ const Landing = () => {
         return;
       }
 
+      let ensName = await resolveENSName(walletAddress);      
+
       // Prepare payload with encrypted data
       const encryptedReferralCode = await encryptData(referralCode);
       const encryptedWalletAddress = await encryptData(walletAddress); // Use the state walletAddress
-      const encryptedENSName = ENSName ? await encryptData(ENSName) : null; // Encrypt ENS name if available
+      const encryptedENSName = ensName ? await encryptData(ensName) : null; // Encrypt ENS name if available
 
       const payload = {
         referralCode: encryptedReferralCode,

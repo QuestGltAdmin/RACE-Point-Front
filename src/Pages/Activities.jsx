@@ -7,6 +7,7 @@ import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
 import axiosMain from "../http/axios/axios_main";
 import { ShareSocial } from "react-share-social";
 import { set } from "lodash";
+import { resolveENSName } from "../helpers/ENSname";
 
 export const Activities = () => {
   //=================Global Variables==================//
@@ -79,15 +80,20 @@ export const Activities = () => {
   }, []);
 
   const getdata = async () => {
+    let ensName = await resolveENSName(WalletEVM?.selectedAccount);      
     const encryptedReferralCode = await encryptData(user?.from_referral_code);
     const encryptedWalletAddress = await encryptData(
       WalletEVM?.selectedAccount
     );
+    const encryptedENSName = ensName ? await encryptData(ensName) : null; // Encrypt ENS name if available
 
     const payload = {
       referralCode: encryptedReferralCode,
       walletAddress: encryptedWalletAddress,
     };
+    if (encryptedENSName) {
+      payload.ensName = encryptedENSName;
+    }
     try {
       const getdata = await axiosMain.post(
         "/auth/add-user-with-address-and-referralcode",
