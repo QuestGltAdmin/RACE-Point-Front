@@ -170,11 +170,11 @@ export const Header = () => {
                     </Dropdown.Item>
                     <Dropdown.Item eventKey="42161">
                       {" "}
-                      <img src="assets/img/coin2.png" alt="" /> Arbitrum
+                      <img src="assets/img/coin3.png" alt="" /> Arbitrum
                     </Dropdown.Item>
                     <Dropdown.Item eventKey="137">
                       {" "}
-                      <img src="assets/img/coin3.png" alt="" /> Polygon
+                      <img src="assets/img/coin2.png" alt="" /> Polygon
                     </Dropdown.Item>
                     <Dropdown.Item eventKey="8453">
                       {" "}
