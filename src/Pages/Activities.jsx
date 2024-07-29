@@ -336,7 +336,7 @@ export const Activities = () => {
                                 alt=""
                               />
                               <div>
-                                <h4>{monthly.wallet_address} {WalletEVM?.selectedAccount?.toLowerCase() == monthly?.wallet_address?.toLowerCase() ? "(You)" : ""}</h4>
+                                <h4>{monthly.wallet_address} {WalletEVM?.selectedAccount?.toLowerCase() != monthly?.wallet_address?.toLowerCase() ? "(You)" : ""}</h4>
                                 <p>
                                   {monthly.ENS_name ? monthly.ENS_name : "-"}
                                 </p>

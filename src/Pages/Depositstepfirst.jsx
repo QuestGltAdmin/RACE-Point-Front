@@ -778,15 +778,6 @@ export const Depositstepfirst = () => {
                 {" "}
                 {approvedisable ? "Processing" : "Enable"}{" "}
                 {!approvedisable && cointype}
-                {!approvedisable ? (
-                  cointype === "USDT" ? (
-                    <img src="assets/img/Tokens.png" alt="" />
-                  ) : (
-                    <img src="assets/img/daller.png" alt="" />
-                  )
-                ) : (
-                  ""
-                )}{" "}
               </button>
             ) : (
               <button
@@ -1120,15 +1111,6 @@ export const Depositstepfirst = () => {
                 {" "}
                 {approvedisable ? "Processing" : "Enable"}{" "}
                 {!approvedisable && cointype}
-                {!approvedisable ? (
-                  cointype === "USDT" ? (
-                    <img src="assets/img/Tokens.png" alt="" />
-                  ) : (
-                    <img src="assets/img/daller.png" alt="" />
-                  )
-                ) : (
-                  ""
-                )}{" "}
               </button>
             ) : (
               <button
