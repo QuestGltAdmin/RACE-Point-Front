@@ -383,7 +383,7 @@ export const Activities = () => {
                           <div
                             className={
                               WalletEVM?.selectedAccount?.toLowerCase() ==
-                              monthly?.wallet_address?.toLowerCase()
+                              quarterly?.wallet_address?.toLowerCase()
                                 ? "deposit-list-main user-address-main"
                                 : "deposit-list-main"
                             }
