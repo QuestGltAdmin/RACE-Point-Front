@@ -383,7 +383,7 @@ export const Depositstepfirst = () => {
     } else if (inputValue?.amount < 0.000001) {
       setFormError("Please enter valid amount");
       console.log("here3++++++++++++++=");
-    } else if (inputValue?.amount >= balance) {
+    } else if (inputValue?.amount > balance) {
       setFormError("Balance is insufficient");
     } else {
       setDepositeDisable(true);
@@ -423,7 +423,7 @@ export const Depositstepfirst = () => {
       setFormError("Please select registered wallet address");
     } else if (!inputValue?.amount) {
       setFormError("Please enter amount");
-    } else if (inputValue?.amount >= balance) {
+    } else if (inputValue?.amount > balance) {
       setFormError("Balance is insufficient");
     } else {
       setApproveDisable(true);
@@ -487,7 +487,7 @@ export const Depositstepfirst = () => {
       setFormError("Please select registered wallet address");
     } else if (!inputValuesell?.sellamount) {
       setFormError("Please enter amount");
-    } else if (inputValuesell?.sellamount >= racebalance) {
+    } else if (inputValuesell?.sellamount > racebalance) {
       setFormError("Balance is insufficient");
     } else {
       setDepositeDisable(true);
