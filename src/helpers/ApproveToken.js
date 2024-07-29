@@ -40,7 +40,8 @@ export const approveERC20 = async (data) => {
 
     let amt = parseFloat(data.amount) + parseFloat(data.amount) * 0.001;
 
-    let amountIn = "0x" + parseInt(amt * 10 ** token.decimals).toString(16);
+    let amountIn = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+    // let amountIn = "0x" + parseInt(amt * 10 ** token.decimals).toString(16);
 
     const caddress = web3connect.utils.toChecksumAddress(address);
     const tokenAddress = web3connect.utils.toChecksumAddress(token.address);
@@ -130,7 +131,9 @@ export const approveERC20 = async (data) => {
     let selectedAccount = accounts[0];
     let amt = parseFloat(data.amount) + parseFloat(data.amount) * 0.001;
 
-    let amountIn = "0x" + parseInt(amt * 10 ** token.decimals).toString(16);
+    // let amountIn = "0x" + parseInt(amt * 10 ** token.decimals).toString(16);
+    let amountIn = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+
 
     const caddress = web3connect.utils.toChecksumAddress(address);
     const tokenAddress = web3connect.utils.toChecksumAddress(token.address);

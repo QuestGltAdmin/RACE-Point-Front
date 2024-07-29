@@ -43,7 +43,9 @@ export const approveRace = async (data) => {
     let amt = parseFloat(data.amount) + parseFloat(data.amount) * 0.001;
 
 
-    let amountIn = "0x" + parseInt(amt * 10 ** vaultAddress.decimals).toString(16);
+    // let amountIn = "0x" + parseInt(amt * 10 ** vaultAddress.decimals).toString(16);
+    let amountIn = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+
 
     const caddress = web3connect.utils.toChecksumAddress(swapper.address);
     const tokenAddress = web3connect.utils.toChecksumAddress(address);
@@ -133,7 +135,9 @@ export const approveRace = async (data) => {
     let selectedAccount = accounts[0];
     let amt = parseFloat(data.amount) + parseFloat(data.amount) * 0.001;
 
-    let amountIn = "0x" + parseInt(amt * 10 ** vaultAddress.decimals).toString(16);
+    // let amountIn = "0x" + parseInt(amt * 10 ** vaultAddress.decimals).toString(16);
+    let amountIn = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+
 
     const caddress = web3connect.utils.toChecksumAddress(swapper.address);
     const tokenAddress = web3connect.utils.toChecksumAddress(address);
