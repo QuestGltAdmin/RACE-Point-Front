@@ -343,17 +343,19 @@ export const Activities = () => {
                                 alt=""
                               />
                               <div>
-                                <h4>
-                                  {monthly.wallet_address}{" "}
-                                  {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                  monthly?.wallet_address?.toLowerCase()
-                                    ? "(You)"
-                                    : ""}
-                                </h4>
+                                <h4>{monthly.wallet_address} </h4>
                                 <p>
                                   {monthly.ENS_name ? monthly.ENS_name : "-"}
                                 </p>
                               </div>
+                            </div>
+                            <div>
+                              <h4>
+                                {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                monthly?.wallet_address?.toLowerCase()
+                                  ? "(You)"
+                                  : ""}
+                              </h4>
                             </div>
                             <div className="right-trophy">
                               <img
@@ -409,10 +411,7 @@ export const Activities = () => {
                               <div>
                                 <h4>
                                   {quarterly.wallet_address}{" "}
-                                  {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                  quarterly?.wallet_address?.toLowerCase()
-                                    ? "(You)"
-                                    : ""}
+                                 
                                 </h4>
                                 <p>
                                   {quarterly.ENS_name
@@ -421,6 +420,14 @@ export const Activities = () => {
                                 </p>{" "}
                               </div>
                             </div>
+                            <div>
+                                <h4>
+                                  {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                  quarterly?.wallet_address?.toLowerCase()
+                                    ? "(You)"
+                                    : ""}
+                                </h4>
+                              </div>
                             <div className="right-trophy">
                               <img
                                 className="trophy-img"
