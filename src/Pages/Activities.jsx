@@ -316,7 +316,7 @@ export const Activities = () => {
                     <ul className="deposit-list-outer">
                       {monthlyTopUser.slice(0, 10).map((monthly, index) => (
                         <li>
-                          <div className="deposit-list-main">
+                          <div className="deposit-list-main user-address-main">
                             <div className="left-user">
                               <div className="count-deposit">
                                 <span>{index + 1}</span>

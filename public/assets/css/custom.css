@@ -1709,6 +1709,12 @@ margin-top: 30px;
     padding: 15px;
     margin-bottom: 15px;
 }
+.deposit-list-main.user-address-main{
+    background-color: #053863;
+    border: 1px solid #fff;
+}
+
+
 .deposit-list-main .crown-img {
     height: 20px;
     width: 30px;
