@@ -80,7 +80,7 @@ export const Activities = () => {
   }, []);
 
   const getdata = async () => {
-    let ensName = await resolveENSName(WalletEVM?.selectedAccount);      
+    let ensName = await resolveENSName(WalletEVM?.selectedAccount);
     const encryptedReferralCode = await encryptData(user?.from_referral_code);
     const encryptedWalletAddress = await encryptData(
       WalletEVM?.selectedAccount
@@ -316,7 +316,14 @@ export const Activities = () => {
                     <ul className="deposit-list-outer">
                       {monthlyTopUser.slice(0, 10).map((monthly, index) => (
                         <li>
-                          <div className="deposit-list-main user-address-main">
+                          <div
+                            className={
+                              WalletEVM?.selectedAccount?.toLowerCase() ==
+                              monthly?.wallet_address?.toLowerCase()
+                                ? "deposit-list-main user-address-main"
+                                : "deposit-list-main"
+                            }
+                          >
                             <div className="left-user">
                               <div className="count-deposit">
                                 <span>{index + 1}</span>
@@ -336,7 +343,13 @@ export const Activities = () => {
                                 alt=""
                               />
                               <div>
-                                <h4>{monthly.wallet_address} {WalletEVM?.selectedAccount?.toLowerCase() != monthly?.wallet_address?.toLowerCase() ? "(You)" : ""}</h4>
+                                <h4>
+                                  {monthly.wallet_address}{" "}
+                                  {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                  monthly?.wallet_address?.toLowerCase()
+                                    ? "(You)"
+                                    : ""}
+                                </h4>
                                 <p>
                                   {monthly.ENS_name ? monthly.ENS_name : "-"}
                                 </p>
@@ -367,7 +380,14 @@ export const Activities = () => {
                     <ul className="deposit-list-outer">
                       {quarterlyTopUser.slice(0, 10).map((quarterly, index) => (
                         <li>
-                          <div className="deposit-list-main">
+                          <div
+                            className={
+                              WalletEVM?.selectedAccount?.toLowerCase() ==
+                              monthly?.wallet_address?.toLowerCase()
+                                ? "deposit-list-main user-address-main"
+                                : "deposit-list-main"
+                            }
+                          >
                             <div className="left-user">
                               <div className="count-deposit">
                                 <span>{index + 1}</span>
@@ -387,7 +407,13 @@ export const Activities = () => {
                                 alt=""
                               />
                               <div>
-                                <h4>{quarterly.wallet_address} {WalletEVM?.selectedAccount?.toLowerCase() == quarterly?.wallet_address?.toLowerCase() ? "(You)" : ""}</h4>
+                                <h4>
+                                  {quarterly.wallet_address}{" "}
+                                  {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                  quarterly?.wallet_address?.toLowerCase()
+                                    ? "(You)"
+                                    : ""}
+                                </h4>
                                 <p>
                                   {quarterly.ENS_name
                                     ? quarterly.ENS_name
