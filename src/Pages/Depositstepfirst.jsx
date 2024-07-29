@@ -776,13 +776,12 @@ export const Depositstepfirst = () => {
                 onClick={() => approveToken()}
               >
                 {" "}
-                {approvedisable ? "Processing" : "Enable"}{" "}
+                {approvedisable ? "Processing" : "Enable"} {cointype}
                 {cointype === "USDT" ? (
                   <img src="assets/img/Tokens.png" alt="" />
                 ) : (
                   <img src="assets/img/daller.png" alt="" />
                 )}{" "}
-                {cointype}
               </button>
             ) : (
               <button
@@ -1114,13 +1113,12 @@ export const Depositstepfirst = () => {
                 onClick={() => approveTokenWithdraw()}
               >
                 {" "}
-                {approvedisable ? "Processing" : "Enable"}{" "}
+                {approvedisable ? "Processing" : "Enable"} {cointype}
                 {cointype === "USDT" ? (
                   <img src="assets/img/Tokens.png" alt="" />
                 ) : (
                   <img src="assets/img/daller.png" alt="" />
                 )}{" "}
-                {cointype}
               </button>
             ) : (
               <button
