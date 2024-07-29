@@ -300,7 +300,7 @@ export const Depositstepfirst = () => {
           setShow(false);
           handleCloseWithdraw();
         }
-      } catch (err) { }
+      } catch (err) {}
     }
   };
   //========================= end of code =========================//
@@ -368,7 +368,7 @@ export const Depositstepfirst = () => {
         setRaceTokenPrice(getPrice?.raceTokenPrice);
         setAssetInOnePoint(getPrice?.AssetInOnePoint);
       }
-    } catch (err) { }
+    } catch (err) {}
   };
 
   //===============deposite code====================//
@@ -491,7 +491,7 @@ export const Depositstepfirst = () => {
       setFormError("Balance is insufficient");
     } else {
       setDepositeDisable(true);
-      setWithdrawDisable(true)
+      setWithdrawDisable(true);
       try {
         let data = {
           chainId: chainid,
@@ -518,17 +518,13 @@ export const Depositstepfirst = () => {
     }
   };
 
-
   const [show1, setShow1] = useState(false);
 
   const handleClose1 = () => setShow1(false);
   const DepositModel = () => {
     setShow1(false);
     setShow(true);
-  }
-
-
-
+  };
 
   return (
     <>
@@ -652,7 +648,7 @@ export const Depositstepfirst = () => {
                     name="amount"
                     onChange={HandleData}
                     value={inputValue?.amount}
-                  // max={ balance }
+                    // max={ balance }
                   />
                   <InputGroup.Text
                     onClick={() =>
@@ -690,7 +686,7 @@ export const Depositstepfirst = () => {
                 className="progress-main-line"
                 variant="success"
                 now={totalpercentage}
-              // label={`${totalpercentage?.toFixed(2)}%`}
+                // label={`${totalpercentage?.toFixed(2)}%`}
               />
             </div>
             <div className="date-rang-percentage ">
@@ -780,7 +776,13 @@ export const Depositstepfirst = () => {
                 onClick={() => approveToken()}
               >
                 {" "}
-                {approvedisable ? "Processing" : "Approve"}
+                {approvedisable ? "Processing" : "Enable"}{" "}
+                {cointype === "USDT" ? (
+                  <img src="assets/img/Tokens.png" alt="" />
+                ) : (
+                  <img src="assets/img/daller.png" alt="" />
+                )}{" "}
+                {cointype}
               </button>
             ) : (
               <button
@@ -1090,7 +1092,7 @@ export const Depositstepfirst = () => {
             </button> */}
             <p>{formError}</p>
             {walletaddress?.toLowerCase() !==
-              user?.wallet_address?.toLowerCase() ? (
+            user?.wallet_address?.toLowerCase() ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Please select registered wallet address{" "}
               </button>
@@ -1112,7 +1114,13 @@ export const Depositstepfirst = () => {
                 onClick={() => approveTokenWithdraw()}
               >
                 {" "}
-                {approvedisable ? "Processing" : "Approve"}
+                {approvedisable ? "Processing" : "Enable"}{" "}
+                {cointype === "USDT" ? (
+                  <img src="assets/img/Tokens.png" alt="" />
+                ) : (
+                  <img src="assets/img/daller.png" alt="" />
+                )}{" "}
+                {cointype}
               </button>
             ) : (
               <button
@@ -1140,8 +1148,11 @@ export const Depositstepfirst = () => {
         <Modal.Body>
           <div>
             <h4 className="sub-heading">Deposit Successful </h4>
-            <p>Your funds have been successfully <br /> deposited and will be blocked for  24 hours. After this period, you
-              will be able to access them.</p>
+            <p>
+              Your funds have been successfully <br /> deposited and will be
+              blocked for 24 hours. After this period, you will be able to
+              access them.
+            </p>
 
             <div>
               {/* //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
@@ -1203,8 +1214,7 @@ export const Depositstepfirst = () => {
         <Modal.Body>
           <div>
             <h4 className="sub-heading">Withdrawal Successful </h4>
-            <p>Your funds have been successfully
-              withdrawn.</p>
+            <p>Your funds have been successfully withdrawn.</p>
 
             <div>
               {/* //https://optimistic.etherscan.io/tx/{deposite?.transactionHash};
@@ -1281,8 +1291,16 @@ export const Depositstepfirst = () => {
         <Modal.Body>
           <div>
             <h4 className="sub-heading">24-Hour Lock Period Warning </h4>
-            <p>Before proceeding, please note that your funds will be locked for 24 hours, during which you cannot withdraw <br /> them.</p>
-            <p><small>This is a security measure to ensure the safety of your transaction.</small></p>
+            <p>
+              Before proceeding, please note that your funds will be locked for
+              24 hours, during which you cannot withdraw <br /> them.
+            </p>
+            <p>
+              <small>
+                This is a security measure to ensure the safety of your
+                transaction.
+              </small>
+            </p>
             <div className="d-flex align-items-center justify-content-center">
               <Button
                 className="w-50 common-btn"

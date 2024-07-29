@@ -11,13 +11,13 @@ import { Governace } from "./Pages/Governace";
 import Economy from "./Pages/Economy";
 import { Activities } from "./Pages/Activities";
 import UserPrivateRoutes from "./PrivateRoutes/userRoutes";
-import { AdminLogin } from "./Pages/Admin/AdminLogin";
 import { AdminDashboard } from "./Pages/Admin/AdminDashboard";
 import { AdminLeaderboard } from "./Pages/Admin/AdminLeaderboard";
 import { Adminuserlist } from "./Pages/Admin/Adminuserlist";
 import { AdminVerifyOtp } from "./Pages/Admin/AdminVerifyOtp";
 import { Adminearnpoint } from "./Pages/Admin/Adminearnpoint";
 import { AdminGenealogy } from "./Pages/Admin/AdminGenealogy";
+import { AdminLogin } from "./Pages/Admin/Adminlogin";
 
 function App() {
   return (
