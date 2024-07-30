@@ -18,6 +18,7 @@ import { AdminVerifyOtp } from "./Pages/Admin/AdminVerifyOtp";
 import { Adminearnpoint } from "./Pages/Admin/Adminearnpoint";
 import { AdminGenealogy } from "./Pages/Admin/AdminGenealogy";
 import { AdminLogin } from "./Pages/Admin/Adminlogin";
+import { AdminUpdateMulti } from "./Pages/Admin/AdminUpdateMulti";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
           <Route path="/admin-userlist" element={<Adminuserlist />} />
           <Route path="/admin-earnpoint" element={<Adminearnpoint />} />
           <Route path="/admin-genealogy" element={<AdminGenealogy />} />
+          <Route path="/admin-update-multi" element={<AdminUpdateMulti />} />
 
         </Routes>
       </BrowserRouter>
