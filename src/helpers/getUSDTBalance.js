@@ -45,8 +45,8 @@ export const getUsdtAndUsdcBalance = async (
 
   allowance = (allowance / (10 ** decimals));
   let obj = {
-    balance: balance,
-    allowance: allowance
+    balance: (balance).toFixed(15),
+    allowance: (allowance).toFixed(15)
   }
 
   return obj;

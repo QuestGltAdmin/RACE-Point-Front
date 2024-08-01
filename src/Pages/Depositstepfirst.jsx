@@ -194,6 +194,7 @@ export const Depositstepfirst = () => {
   const racetokenbalance = async () => {
     try {
       const racebalance = await getRaceBalance(chainid, walletaddress);
+      console.log(racebalance,"justnow bal.");
       const raceliveprice = await getRaceTokenPrice(chainid);
       setRaceLivePrice(raceliveprice == 0 ? 1 : raceliveprice);
       setRaceBalance(racebalance?.balance);
@@ -798,7 +799,7 @@ export const Depositstepfirst = () => {
             <button
               className="withdraw-btn"
               onClick={() => {
-                if (balance <= 0) {
+                if (racebalance <= 0) {
                   toast.warn("You don't have sufficient amount to withdraw");
                 } else if (
                   remaningTime?.hours !== 0 ||

@@ -51,7 +51,7 @@ export const withdrawVault = async (data) => {
         let swapperContract = new web3connect.eth.Contract(abi, caddress);
 
         let tokenAmount = web3connect.utils.toWei(data.amount.toString(), "ether");
-
+        console.log(tokenAmount,"tokenAmount"); 
         let Data = swapperContract.methods 
         .withdraw(vaultAddress,tokenAmount,AssetAddress,expextedAmount)
         .encodeABI();

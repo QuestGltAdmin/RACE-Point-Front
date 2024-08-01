@@ -124,8 +124,9 @@ export const approveRace = async (data) => {
       // window.location.reload();
     }
   }catch(err){
+    toast.error(err?.data?.message);
     console.log(err);
-    window.location.reload();
+    // window.location.reload();
   }  
   } else {
     const web3connect = await web3(data.type);

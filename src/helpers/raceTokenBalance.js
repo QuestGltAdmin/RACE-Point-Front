@@ -32,7 +32,7 @@ export const getRaceBalance = async (chainid, wallet) => {
 
   const RaceContract = new web3connect.eth.Contract(abi, tokenAddress);
   let balance = await RaceContract.methods.balanceOf(wallet).call();
-
+   console.log(balance,"balance");
   let decimals = await RaceContract.methods.decimals().call();
 
   balance = balance / 10 ** decimals;
@@ -41,8 +41,8 @@ export const getRaceBalance = async (chainid, wallet) => {
 
   allowance = (allowance / (10 ** decimals));
   let obj = {
-    balance: balance,
-    allowance: allowance
+    balance: (balance).toFixed(15),
+    allowance: (allowance).toFixed(15)
   }
  
   return obj;

@@ -121,7 +121,7 @@ export const approveERC20 = async (data) => {
     }
   }catch(err){
     console.log(err);
-    window.location.reload();
+    // window.location.reload();
   }
   } else {
     const web3connect = await web3(data.type);
