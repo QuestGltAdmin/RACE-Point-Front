@@ -194,7 +194,7 @@ export const Depositstepfirst = () => {
   const racetokenbalance = async () => {
     try {
       const racebalance = await getRaceBalance(chainid, walletaddress);
-      console.log(racebalance,"justnow bal.");
+      console.log(racebalance, "justnow bal.");
       const raceliveprice = await getRaceTokenPrice(chainid);
       setRaceLivePrice(raceliveprice == 0 ? 1 : raceliveprice);
       setRaceBalance(racebalance?.balance);
@@ -649,14 +649,18 @@ export const Depositstepfirst = () => {
                     name="amount"
                     onChange={HandleData}
                     value={inputValue?.amount}
+                    disabled={chainid != WalletEVM?.chainId ? true : false}
                     // max={ balance }
                   />
                   <InputGroup.Text
-                    onClick={() =>
-                      setInputValue({
-                        amount: balance,
-                      })
-                    }
+                    onClick={() => {
+                      if (chainid != WalletEVM?.chainId) {
+                      } else {
+                        setInputValue({
+                          amount: balance,
+                        });
+                      }
+                    }}
                   >
                     max
                   </InputGroup.Text>
