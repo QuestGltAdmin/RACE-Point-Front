@@ -967,11 +967,14 @@ export const Depositstepfirst = () => {
                     disabled={chainid != WalletEVM?.chainId ? true : false}
                   />
                   <InputGroup.Text
-                    onClick={() =>
-                      setInputValueSell({
-                        sellamount: racebalance,
-                      })
-                    }
+                    onClick={() => {
+                      if (chainid != WalletEVM?.chainId) {
+                      } else {
+                        setInputValueSell({
+                          sellamount: racebalance,
+                        });
+                      }
+                    }}
                   >
                     max
                   </InputGroup.Text>
