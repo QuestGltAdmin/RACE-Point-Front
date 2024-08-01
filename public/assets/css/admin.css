@@ -137,7 +137,7 @@
     font-weight: 400;
     margin: 0 15px;
     margin: 5px 15px;
-    color: #fff;
+    color: #fff !important;
     display: flex;
     align-items: center;
     text-transform: uppercase;
@@ -332,6 +332,42 @@
     font-size: 0.8rem;
     line-height: 1rem;
 }
+input[type="date"] { 
+    background: transparent;
+    color: white;
+  }
+  
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);
+  }
+.form-box-multiplier{
+    border-radius: 12px;
+    background: rgba(77, 130, 173, 0.30);
+    backdrop-filter: blur(10px);
+    padding: 50px 30px;
+    margin: 15px 0;
+}
+.form-box-multiplier .form-label{
+    color: #fff;
+    margin-bottom: 10px;
+}
+.form-box-multiplier .form-control{
+    margin-right: 10px;
+    border-radius: 8px;
+    background-color: #0F172A;
+    padding: 8px 10px;
+    border: none !important;
+    color: #fff;
+    font-size: 14px;
+    box-shadow: none  !important;
+    outline: none !important;
+}
+.form-box-multiplier .common-btn{
+    margin-top: 20px;
+    font-size: 16px;
+    padding: 8px 30px;
+}
+
 
 @media (max-width:992px){
     .dashboard-layout {
@@ -430,5 +466,17 @@
     }
     .deposit-list-main .right-trophy > div {
         min-width: auto;
+    }
+    .form-box-multiplier {
+        border-radius: 10px;
+        padding: 25px 15px;
+    }
+    .form-box-multiplier .form-label, .form-box-multiplier .form-control {
+        font-size: 12px;
+    }
+    .form-box-multiplier .common-btn {
+        margin-top: 10px;
+        font-size: 14px;
+        padding: 5px 15px;
     }
 }
