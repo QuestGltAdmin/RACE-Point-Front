@@ -964,6 +964,7 @@ export const Depositstepfirst = () => {
                     name="sellamount"
                     onChange={HandleSellData}
                     value={inputValuesell?.sellamount}
+                    disabled={chainid != WalletEVM?.chainId ? true : false}
                   />
                   <InputGroup.Text
                     onClick={() =>
