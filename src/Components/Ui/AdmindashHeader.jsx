@@ -72,6 +72,14 @@ export const AdmindashHeader = () => {
                         <i className="fa fa-exchange"></i>EARN POINT STATEMENT
                       </Nav.Link>
 
+                      <Nav.Link
+                        onClick={() => {
+                          navigate("/admin-update-multi");
+                        }}
+                      >
+                        <i className="fa fa-exchange"></i>MULTIPLIER
+                      </Nav.Link>
+
                       <Nav.Link onClick={() => HandleLogout()}>
                         <i className="fa fa-sign-out"></i> LOGOUT
                       </Nav.Link>
