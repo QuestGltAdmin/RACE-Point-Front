@@ -73,9 +73,19 @@ export const approveRace = async (data) => {
       data: Data,
     });
 
+    let balance = await web3connect.eth.getBalance(from_account);
+    
+    
     let gasLimit = web3connect.utils.toHex(parseInt(estimates_gas) * 2);
     let gasPrice_bal = await web3connect.eth.getGasPrice();
     let gasPrice = web3connect.utils.toHex(parseInt(gasPrice_bal));
+    let gasfee = gasLimit * gasPrice; 
+
+    if(parseInt(balance) < parseInt(gasfee)){
+      toast.warn("insufficient fund for gas fee");
+      return false;
+    }
+
 
     let tx = {
       from: from_account,
@@ -124,9 +134,9 @@ export const approveRace = async (data) => {
       // window.location.reload();
     }
   }catch(err){
-    toast.error(err?.data?.message);
+    
     console.log(err);
-    // window.location.reload();
+    window.location.reload();
   }  
   } else {
     const web3connect = await web3(data.type);
