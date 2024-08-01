@@ -1115,7 +1115,7 @@ export const Depositstepfirst = () => {
               >
                 {" "}
                 {approvedisable ? "Processing" : "Enable"}{" "}
-                {!approvedisable && cointype}
+                {!approvedisable && "Race Point"}
               </button>
             ) : (
               <button
