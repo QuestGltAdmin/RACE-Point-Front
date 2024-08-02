@@ -838,9 +838,9 @@ export const Depositstepfirst = () => {
               ""
             )}
 
-            <button className="common-btn bg-left disable-btn">
+            {/* <button className="common-btn bg-left disable-btn">
               Not available for US{" "}
-            </button>
+            </button> */}
 
             <button
               className="withdraw-btn"
