@@ -826,7 +826,7 @@ export const Depositstepfirst = () => {
               >
                 Switch Network
               </button>
-            ) : inputValue?.amount == "" ? (
+            ) : inputValue?.amount <= 0 ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Enter value
               </button>
@@ -841,6 +841,7 @@ export const Depositstepfirst = () => {
             {walletaddress == user?.wallet_address &&
             chainid == WalletEVM?.chainId &&
             inputValue?.amount !== "" &&
+            inputValue?.amount != 0 &&
             inputValue?.amount <= balance ? (
               <Row>
                 <p>{formError}</p>
@@ -1245,7 +1246,7 @@ export const Depositstepfirst = () => {
               >
                 Switch Network
               </button>
-            ) : inputValuesell?.sellamount == "" ? (
+            ) : inputValuesell?.sellamount <= 0 ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Enter value
               </button>
@@ -1279,6 +1280,7 @@ export const Depositstepfirst = () => {
             {walletaddress == user?.wallet_address &&
             chainid == WalletEVM?.chainId &&
             inputValuesell?.sellamount !== "" &&
+            inputValuesell?.sellamount != 0 &&
             inputValuesell?.sellamount <= racebalance ? (
               <Row>
                 <p>{formError}</p>

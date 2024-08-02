@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  Button,
+  Container,
+  Dropdown,
+  Modal,
+  Nav,
+  Navbar,
+} from "react-bootstrap";
 import { Provider } from "../helpers/Web3Helper";
 import { Connect, onDisconnect } from "../helpers/Connect";
 import { logout, setEVMWallet } from "../store/reducers/authReducer";
@@ -7,11 +14,23 @@ import { useDispatch } from "react-redux";
 import { ethers } from "ethers";
 import useAuth from "../hooks/useAuth";
 import { reConnect } from "../helpers/web3Model";
+import { commonSwitch } from "../helpers/ChainSwitch";
+import ConnectWalletModal from "./Ui/ConnectWalletModal";
 
 export const LandingPageHeader = () => {
   //========================= Global variable =========================//
   const { WalletEVM, walletbalance } = useAuth();
   const dispatch = useDispatch();
+  const [chainData, setChainData] = useState(WalletEVM?.chainId);
+  const [showLogout1, setShowLogout1] = useState(false);
+  const [showLogout2, setShowLogout2] = useState(false);
+  const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
+  const handleCloseLogout1 = () => {
+    setShowLogout1(false);
+  };
+  const handleCloseLogout2 = () => {
+    setShowLogout2(false);
+  };
   //========================= end of code =========================//
 
   const controlNavbar = () => {
@@ -30,58 +49,235 @@ export const LandingPageHeader = () => {
     };
   }, []);
 
+  const handleCloseModals = () => {
+    setShowConnectWalletModal(false);
+  };
+
+  const ConnectWalletModalProps = useMemo(
+    () => ({
+      modalProps: {
+        show: showConnectWalletModal,
+        onHide: handleCloseModals,
+      },
+      // handleConnectSuccess: handleShowReferral1, // Check this line for correct function reference
+    }),
+    [showConnectWalletModal]
+  );
+
   useEffect(() => {
     if (WalletEVM?.selectedAccount) {
-    const handleChain = async () => {
-      let provider = await Provider(WalletEVM?.type);
-      if (WalletEVM?.type === "walletConnect") {
-        let reconnect = await reConnect();
-        if (reconnect) {
-          dispatch(setEVMWallet(reconnect));
+      const handleChain = async () => {
+        let provider = await Provider(WalletEVM?.type);
+        if (WalletEVM?.type === "walletConnect") {
+          let reconnect = await reConnect();
+          if (reconnect) {
+            dispatch(setEVMWallet(reconnect));
+          }
+        } else {
+          //=================Account change code===============//
+          provider.on("accountsChanged", async (accounts) => {
+            const walletAcc = await Connect(WalletEVM?.type);
+
+            dispatch(setEVMWallet(walletAcc));
+            // window.location.reload();
+            // }
+          });
+
+          //=================Chain change code===============//
+          provider.on("chainChanged", async (chainId) => {
+            const walletChain = await Connect(WalletEVM?.type);
+
+            dispatch(setEVMWallet(walletChain));
+            // window.location.reload();
+            // }
+          });
         }
-      }
-      else {
-        //=================Account change code===============//
-        provider.on("accountsChanged", async (accounts) => {
-          const walletAcc = await Connect(WalletEVM?.type);
-
-          dispatch(setEVMWallet(walletAcc));
-          // window.location.reload();
-          // }
-        });
-
-        //=================Chain change code===============//
-        provider.on("chainChanged", async (chainId) => {
-          const walletChain = await Connect(WalletEVM?.type);
-
-          dispatch(setEVMWallet(walletChain));
-          // window.location.reload();
-          // }
-        });
-      }
-    };
-    handleChain();
+      };
+      handleChain();
     }
   }, []);
 
+  const handleChain = async (chain_id) => {
+    // console.log("chain_id", chain_id);
+    if (chain_id != null) {
+      try {
+        const chain = await commonSwitch(chain_id, WalletEVM?.type);
+        if (chain) {
+          // console.log("chain", chain);
+          // const connect = await Connect(WalletEVM?.type)
+          // console.log("connect" , connect);
+          const payload = {
+            chainId: chain_id,
+            selectedAccount: WalletEVM?.selectedAccount,
+            type: WalletEVM?.type,
+          };
+          setChainData(chain_id);
+          dispatch(setEVMWallet(payload));
+        }
+        // setRaceLivePrice(raceliveprice);
+      } catch (error) {
+        console.error("Error to change:", error);
+      }
+    }
+  };
+
   const handleLogout = async () => {
-    const disconect = await onDisconnect(WalletEVM?.type);
-    dispatch(logout({}));
+    handleCloseLogout1();
+    setShowLogout2(true);
+    setTimeout(async () => {
+      const disconect = await onDisconnect(WalletEVM?.type);
+      dispatch(logout({}));
+      handleCloseLogout2();
+      navigate("/");
+    }, 2000);
   };
   return (
     <>
       <header className="header-landing" id="headerId">
         <Navbar expand="lg" className="">
           <Container>
+            {/* <a href="#" className="text-white">
+              {" "}
+              <img src="assets/img/arrow.png" alt="" /> Return to Foundation
+            </a> */}
             <Navbar.Brand href="/">
               <h1>
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-            {WalletEVM?.selectedAccount && <Nav.Link onClick={() => handleLogout()}>Logout <img src="assets/img/logout.png" alt="" /></Nav.Link>}
+            <div className="d-flex align-items-center">
+              {!WalletEVM?.selectedAccount ? (
+                <button
+                  className="common-btn"
+                  onClick={() => {
+                    setShowConnectWalletModal(true);
+                  }}
+                >
+                  Connect Wallet
+                </button>
+              ) : (
+                <>
+                  <Dropdown
+                    className="wallet-address-dropdown"
+                    onSelect={(e) => {
+                      handleChain(e);
+                    }}
+                  >
+                    <Dropdown.Toggle id="dropdown-basic">
+                      <img
+                        src={`assets/img/${
+                          chainData == 10
+                            ? "coin1.png"
+                            : chainData == 42161
+                            ? "coin2.png"
+                            : chainData == 137
+                            ? "coin3.png"
+                            : "coin4.png"
+                        }`}
+                        alt=""
+                      />
+                      {WalletEVM?.selectedAccount?.replace(
+                        WalletEVM?.selectedAccount?.substring(5, 37),
+                        "..."
+                      )}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item eventKey="10">
+                        {" "}
+                        <img src="assets/img/coin1.png" alt="" /> Optimism
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="42161">
+                        {" "}
+                        <img src="assets/img/coin3.png" alt="" /> Arbitrum
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="137">
+                        {" "}
+                        <img src="assets/img/coin2.png" alt="" /> Polygon
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="8453">
+                        {" "}
+                        <img src="assets/img/coin4.png" alt="" /> Base
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item
+                        onClick={() => {
+                          setShowLogout1(true);
+                        }}
+                      >
+                        {" "}
+                        <img src="assets/img/logout.png" alt="" /> Log Out
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <a href="" className="social-head">
+                    <img src="assets/images/telegram.png" alt="" />
+                  </a>
+                  <a href="" className="social-head">
+                    <img src="assets/images/twitt.png" alt="" />
+                  </a>
+                </>
+              )}
+            </div>
+            {/* {WalletEVM?.selectedAccount && (
+              <Nav.Link onClick={() => handleLogout()}>
+                Logout <img src="assets/img/logout.png" alt="" />
+              </Nav.Link>
+            )} */}
           </Container>
         </Navbar>
       </header>
+      <ConnectWalletModal
+        {...ConnectWalletModalProps}
+        // Pass handleShowReferral1 function as prop
+      />
+
+      <Modal
+        className="network-popup logout-popup"
+        size="md"
+        centered
+        show={showLogout1}
+        onHide={handleCloseLogout1}
+      >
+        <Modal.Body>
+          <div>
+            <h4 className="sub-heading">Log Out </h4>
+            <p>Are you sure you want to log out?</p>
+
+            <Button
+              className="w-50"
+              variant="danger"
+              onClick={handleCloseLogout1}
+            >
+              Cancel
+            </Button>
+            <Button
+              className="w-50"
+              variant="success"
+              onClick={() => {
+                handleLogout();
+              }}
+            >
+              Yes
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="network-popup logout-popup"
+        size="md"
+        centered
+        show={showLogout2}
+        onHide={handleCloseLogout2}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4 className="sub-heading">Log Out </h4>
+            <p>You have successfully logged out</p>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

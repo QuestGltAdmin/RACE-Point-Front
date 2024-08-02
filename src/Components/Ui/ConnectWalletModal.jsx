@@ -9,6 +9,7 @@ import { setEVMWallet } from "../../store/reducers/authReducer";
 import Web3 from "web3";
 
 const ConnectWalletModal = ({ forMobileView, chainData, checkForAdmin ,  ...props }) => {
+  console.log(props);
 
   const dispatch = useDispatch();
   const { WalletEVM } = useAuth();

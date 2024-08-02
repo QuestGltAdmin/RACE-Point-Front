@@ -114,7 +114,7 @@ export const Header = () => {
   const handleLogout = async () => {
     handleCloseLogout1();
     setShowLogout2(true);
-    setTimeout(async() => {
+    setTimeout(async () => {
       const disconect = await onDisconnect(WalletEVM?.type);
       dispatch(logout({}));
       navigate("/");
@@ -126,6 +126,21 @@ export const Header = () => {
       <header className="header-landing" id="headerId">
         <Navbar expand="lg" className="">
           <Container>
+            <a
+              className="text-white"
+              href="#"
+              onClick={() => {
+                if (path == "dashboard") {
+                  navigate("/");
+                } else if (path == "activities") {
+                  navigate("/dashboard");
+                }else{
+                  navigate("/activities");
+                }
+              }}
+            >
+              <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
             <Navbar.Brand
               onClick={() => {
                 navigate("/");
@@ -136,82 +151,82 @@ export const Header = () => {
               </h1>
             </Navbar.Brand>
             <div className="d-flex align-items-center">
-              {path === "dashboard" && (
+            
                 <>
-                <Dropdown
-                  className="wallet-address-dropdown"
-                  onSelect={(e) => {
-                    handleChain(e);
+                  <Dropdown
+                    className="wallet-address-dropdown"
+                    onSelect={(e) => {
+                      handleChain(e);
+                    }}
+                  >
+                    <Dropdown.Toggle id="dropdown-basic">
+                      <img
+                        src={`assets/img/${
+                          chainData == 10
+                            ? "coin1.png"
+                            : chainData == 42161
+                            ? "coin2.png"
+                            : chainData == 137
+                            ? "coin3.png"
+                            : "coin4.png"
+                        }`}
+                        alt=""
+                      />
+                      {WalletEVM?.selectedAccount?.replace(
+                        WalletEVM?.selectedAccount?.substring(5, 37),
+                        "..."
+                      )}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item eventKey="10">
+                        {" "}
+                        <img src="assets/img/coin1.png" alt="" /> Optimism
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="42161">
+                        {" "}
+                        <img src="assets/img/coin3.png" alt="" /> Arbitrum
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="137">
+                        {" "}
+                        <img src="assets/img/coin2.png" alt="" /> Polygon
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="8453">
+                        {" "}
+                        <img src="assets/img/coin4.png" alt="" /> Base
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item
+                        onClick={() => {
+                          setShowLogout1(true);
+                        }}
+                      >
+                        {" "}
+                        <img src="assets/img/logout.png" alt="" /> Log Out
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <a href="" className="social-head">
+                    <img src="assets/images/telegram.png" alt="" />
+                  </a>
+                  <a href="" className="social-head">
+                    <img src="assets/images/twitt.png" alt="" />
+                  </a>
+                </>
+           
+              {/* {path !== "dashboard" && (
+                <Nav.Link
+                  onClick={() => {
+                    if (path == "dashboard") {
+                      navigate("/");
+                    } else {
+                      navigate("/dashboard");
+                    }
                   }}
                 >
-                  <Dropdown.Toggle id="dropdown-basic">
-                    <img
-                      src={`assets/img/${
-                        chainData == 10
-                          ? "coin1.png"
-                          : chainData == 42161
-                          ? "coin2.png"
-                          : chainData == 137
-                          ? "coin3.png"
-                          : "coin4.png"
-                      }`}
-                      alt=""
-                    />
-                    {WalletEVM?.selectedAccount?.replace(
-                      WalletEVM?.selectedAccount?.substring(5, 37),
-                      "..."
-                    )}
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item eventKey="10">
-                      {" "}
-                      <img src="assets/img/coin1.png" alt="" /> Optimism
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey="42161">
-                      {" "}
-                      <img src="assets/img/coin3.png" alt="" /> Arbitrum
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey="137">
-                      {" "}
-                      <img src="assets/img/coin2.png" alt="" /> Polygon
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey="8453">
-                      {" "}
-                      <img src="assets/img/coin4.png" alt="" /> Base
-                    </Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item
-                      onClick={() => {
-                        setShowLogout1(true);
-                      }}
-                    >
-                      {" "}
-                      <img src="assets/img/logout.png" alt="" /> Log Out
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                 <a href="" className="social-head">
-                 <img src="assets/images/telegram.png" alt="" />
-               </a>
-               <a href="" className="social-head">
-                 <img src="assets/images/twitt.png" alt="" />
-               </a>
-               </>
-              )}
-             {path !== "dashboard" && (
-              <Nav.Link
-                onClick={() => {
-                  if (path == "dashboard") {
-                    navigate("/");
-                  } else {
-                    navigate("/dashboard");
-                  }
-                }}
-              >
-                <img src="assets/img/arrow.png" alt="" /> Return to Foundation
-              </Nav.Link>
-             )}
+                  <img src="assets/img/arrow.png" alt="" /> Return to Foundation
+                </Nav.Link>
+              )} */}
             </div>
           </Container>
         </Navbar>
