@@ -126,7 +126,7 @@ export const Depositstepfirst = () => {
     try {
       const getTimeData = await getRemainingTime(
         chainid,
-        "0x5e1455F8cA86375a72E0D9cc7583F8d3f460dF7F"
+        WalletEVM?.selectedAccount
       );
       if (getTimeData > 0) {
         const days = Math.floor(getTimeData / 86400);
