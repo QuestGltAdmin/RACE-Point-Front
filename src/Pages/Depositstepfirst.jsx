@@ -388,17 +388,19 @@ export const Depositstepfirst = () => {
       setFormError("Balance is insufficient");
     } else {
       setDepositeDisable(true);
-
+      
       try {
         let data = {
           chainId: chainid,
           currency: currency,
           cointype: cointype,
           type: WalletEVM?.type,
-          amount: inputValue?.amount,
+          amount: parseFloat(inputValue?.amount),
           userAddress: walletaddress,
         };
         let deposite = await deposit(data);
+        console.log(deposite,"here1");
+
         // console.log(deposite?.transactionHash);
 
         if (deposite) {
@@ -812,8 +814,9 @@ export const Depositstepfirst = () => {
             {walletaddress == user?.wallet_address &&
             chainid == WalletEVM?.chainId &&
             inputValue?.amount !== "" &&
-            inputValue?.amount < balance ? (
+            inputValue?.amount <= balance ? (
               <Row>
+              <p>{formError}</p>
                 <Col lg={6} className="p-1">
                   <h6 className="heading-approve">
                     Step 1: Approve the Transaction
@@ -837,7 +840,7 @@ export const Depositstepfirst = () => {
                   <h6 className="heading-approve"> Step 2: Complete Deposit</h6>
                   {inputValue?.amount > allowance ? (
                     <button className="common-btn mt-3 disable-btn deposit-disable">
-                      Deposit
+                      Deposits
                     </button>
                   ) : (
                     <button
