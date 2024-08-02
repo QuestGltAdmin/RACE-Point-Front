@@ -19,54 +19,56 @@ import { Adminearnpoint } from "./Pages/Admin/Adminearnpoint";
 import { AdminGenealogy } from "./Pages/Admin/AdminGenealogy";
 import { AdminLogin } from "./Pages/Admin/Adminlogin";
 import { AdminUpdateMulti } from "./Pages/Admin/AdminUpdateMulti";
+import ScrollToTop from "./Components/ScrollToTop";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <ToastContainer />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route
-            path="/deposit-step-1"
-            element={
-              <UserPrivateRoutes>
-                <Depositstepfirst />
-              </UserPrivateRoutes>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <UserPrivateRoutes>
-                <Dashboard />
-              </UserPrivateRoutes>
-            }
-          />
-          <Route
-            path="/activities"
-            element={
-              <UserPrivateRoutes>
-                <Activities />
-              </UserPrivateRoutes>
-            }
-          />
+        <ScrollToTop>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route
+              path="/deposit-step-1"
+              element={
+                <UserPrivateRoutes>
+                  <Depositstepfirst />
+                </UserPrivateRoutes>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <UserPrivateRoutes>
+                  <Dashboard />
+                </UserPrivateRoutes>
+              }
+            />
+            <Route
+              path="/activities"
+              element={
+                <UserPrivateRoutes>
+                  <Activities />
+                </UserPrivateRoutes>
+              }
+            />
 
-          {/* front pages */}
-          <Route path="/home" element={<Homepage />} />
-          <Route path="/governance" element={<Governace />} />
-          <Route path="/economy" element={<Economy />} />
+            {/* front pages */}
+            <Route path="/home" element={<Homepage />} />
+            <Route path="/governance" element={<Governace />} />
+            <Route path="/economy" element={<Economy />} />
 
-          <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/admin-otp" element={<AdminVerifyOtp />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/admin-leaderboard" element={<AdminLeaderboard />} />
-          <Route path="/admin-userlist" element={<Adminuserlist />} />
-          <Route path="/admin-earnpoint" element={<Adminearnpoint />} />
-          <Route path="/admin-genealogy" element={<AdminGenealogy />} />
-          <Route path="/admin-update-multi" element={<AdminUpdateMulti />} />
-
-        </Routes>
+            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/admin-otp" element={<AdminVerifyOtp />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin-leaderboard" element={<AdminLeaderboard />} />
+            <Route path="/admin-userlist" element={<Adminuserlist />} />
+            <Route path="/admin-earnpoint" element={<Adminearnpoint />} />
+            <Route path="/admin-genealogy" element={<AdminGenealogy />} />
+            <Route path="/admin-update-multi" element={<AdminUpdateMulti />} />
+          </Routes>
+        </ScrollToTop>
       </BrowserRouter>
     </>
   );
