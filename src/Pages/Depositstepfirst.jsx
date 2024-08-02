@@ -277,7 +277,7 @@ export const Depositstepfirst = () => {
     } else if (!selectedOption && !inputValuereason?.reason) {
       setFormError("Please select feedback reason");
     } else {
-      setFormError("")
+      setFormError("");
       const wallet = await encryptData(walletaddress);
       const reason = await encryptData(
         inputValuereason?.reason ? inputValuereason?.reason : selectedOption
@@ -707,32 +707,77 @@ export const Depositstepfirst = () => {
             </div>
             <div className="date-rang-percentage ">
               <span
-                className={activeflag == 0 ? "active" : ""}
-                onClick={() => handlePercentageClick(0)}
+                className={
+                  activeflag == 0 && chainid == WalletEVM?.chainId
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  if (chainid != WalletEVM?.chainId) {
+                  } else {
+                    handlePercentageClick(0);
+                  }
+                }}
               >
                 0%
               </span>
               <span
-                className={activeflag == 25 ? "active" : ""}
-                onClick={() => handlePercentageClick(25)}
+                className={
+                  activeflag == 25 && chainid == WalletEVM?.chainId
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  if (chainid != WalletEVM?.chainId) {
+                  } else {
+                    handlePercentageClick(25);
+                  }
+                }}
               >
                 25%
               </span>
               <span
-                className={activeflag == 50 ? "active" : ""}
-                onClick={() => handlePercentageClick(50)}
+                className={
+                  activeflag == 50 && chainid == WalletEVM?.chainId
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  if (chainid != WalletEVM?.chainId) {
+                  } else {
+                    handlePercentageClick(50);
+                  }
+                }}
               >
                 50%
               </span>
               <span
-                className={activeflag == 75 ? "active" : ""}
-                onClick={() => handlePercentageClick(75)}
+                className={
+                  activeflag == 75 && chainid == WalletEVM?.chainId
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  if (chainid != WalletEVM?.chainId) {
+                  } else {
+                    handlePercentageClick(75);
+                  }
+                }}
               >
                 75%
               </span>
               <span
-                className={activeflag == 100 ? "active" : ""}
-                onClick={() => handlePercentageClick(100)}
+                className={
+                  activeflag == 100 && chainid == WalletEVM?.chainId
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  if (chainid != WalletEVM?.chainId) {
+                  } else {
+                    handlePercentageClick(100);
+                  }
+                }}
               >
                 100%
               </span>
@@ -846,7 +891,9 @@ export const Depositstepfirst = () => {
             <button
               className="withdraw-btn"
               onClick={() => {
-                if (racebalance <= 0) {
+                if (chainid != WalletEVM?.chainId) {
+                  toast.warn("Please switch network");
+                } else if (racebalance <= 0) {
                   toast.warn("You don't have sufficient amount to withdraw");
                 } else if (
                   remaningTime?.hours !== 0 ||
@@ -1046,32 +1093,77 @@ export const Depositstepfirst = () => {
             </div>
             <div className="date-rang-percentage ">
               <span
-                className={activesellflag == 0 ? "active" : ""}
-                onClick={() => handlePercentageClickSell(0)}
+                className={
+                  activesellflag == 0 && chainid == WalletEVM?.chainId
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  if (chainid != WalletEVM?.chainId) {
+                  } else {
+                    handlePercentageClickSell(0);
+                  }
+                }}
               >
                 0%
               </span>
               <span
-                className={activesellflag == 25 ? "active" : ""}
-                onClick={() => handlePercentageClickSell(25)}
+                className={
+                  activesellflag == 25 && chainid == WalletEVM?.chainId
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  if (chainid != WalletEVM?.chainId) {
+                  } else {
+                    handlePercentageClickSell(25);
+                  }
+                }}
               >
                 25%
               </span>
               <span
-                className={activesellflag == 50 ? "active" : ""}
-                onClick={() => handlePercentageClickSell(50)}
+                className={
+                  activesellflag == 50 && chainid == WalletEVM?.chainId
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  if (chainid != WalletEVM?.chainId) {
+                  } else {
+                    handlePercentageClickSell(50);
+                  }
+                }}
               >
                 50%
               </span>
               <span
-                className={activesellflag == 75 ? "active" : ""}
-                onClick={() => handlePercentageClickSell(75)}
+                className={
+                  activesellflag == 75 && chainid == WalletEVM?.chainId
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  if (chainid != WalletEVM?.chainId) {
+                  } else {
+                    handlePercentageClickSell(75);
+                  }
+                }}
               >
                 75%
               </span>
               <span
-                className={activesellflag == 100 ? "active" : ""}
-                onClick={() => handlePercentageClickSell(100)}
+                className={
+                  activesellflag == 100 && chainid == WalletEVM?.chainId
+                    ? "active"
+                    : ""
+                }
+                onClick={() => {
+                  if (chainid != WalletEVM?.chainId) {
+                  } else {
+                    handlePercentageClickSell(100);
+                  }
+                }}
               >
                 100%
               </span>
