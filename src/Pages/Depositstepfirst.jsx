@@ -618,7 +618,9 @@ export const Depositstepfirst = () => {
             </Col>
           </Row>
           <div>
-              <h3 className="powerdby-text">Powered by <img src="assets/img/dhed.png" alt="" /></h3>
+            <h3 className="powerdby-text">
+              Powered by <img src="assets/img/dhed.png" alt="" />
+            </h3>
           </div>
         </Container>
       </section>
@@ -656,7 +658,9 @@ export const Depositstepfirst = () => {
                     // max={ balance }
                   />
                   <InputGroup.Text
-                   className="disable-btn"
+                    className={
+                      chainid != WalletEVM?.chainId ? "disable-btn" : ""
+                    }
                     onClick={() => {
                       if (chainid != WalletEVM?.chainId) {
                       } else {
@@ -774,11 +778,19 @@ export const Depositstepfirst = () => {
               >
                 Switch Network
               </button>
+            ) : inputValue?.amount == "" ? (
+              <button className="common-btn bg-left disable-btn" disabled>
+                Enter value
+              </button>
             ) : inputValue?.amount > balance ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Insufficient balance
               </button>
-            ) : inputValue?.amount > allowance ? (
+            ) : (
+              ""
+            )}
+
+            {/* inputValue?.amount > allowance ? (
               <button
                 className="common-btn bg-left"
                 disabled={approvedisable}
@@ -796,32 +808,55 @@ export const Depositstepfirst = () => {
               >
                 {depositeDisable ? "Processing" : "Deposit"}
               </button>
+            ) */}
+            {walletaddress == user?.wallet_address &&
+            chainid == WalletEVM?.chainId &&
+            inputValue == "" &&
+            inputValue?.amount < balance ? (
+              <Row>
+                <Col lg={6} className="p-1">
+                  <h6 className="heading-approve">
+                    Step 1: Approve the Transaction
+                  </h6>
+                  {inputValue?.amount > allowance ? (
+                    <button
+                      className="common-btn mt-3 approve-transation"
+                      disabled={approvedisable}
+                      onClick={() => approveToken()}
+                    >
+                      {approvedisable ? "Processing" : "Approve Transaction"}
+                    </button>
+                  ) : (
+                    <button className="common-btn mt-3 transation-successfull">
+                      Transaction Approved &nbsp;{" "}
+                      <i className="fa fa-check-circle"></i>
+                    </button>
+                  )}
+                </Col>
+                <Col lg={6} className="p-1">
+                  <h6 className="heading-approve"> Step 2: Complete Deposit</h6>
+                  {inputValue?.amount > allowance ? (
+                    <button className="common-btn mt-3 disable-btn deposit-disable">
+                      Deposit
+                    </button>
+                  ) : (
+                    <button
+                      className="common-btn bg-left mt-3 "
+                      disabled={depositeDisable}
+                      onClick={() => HandleDeposit()}
+                    >
+                      {depositeDisable ? "Processing" : "Deposit"}
+                    </button>
+                  )}
+                </Col>
+              </Row>
+            ) : (
+              ""
             )}
 
-            <Row>
-              <Col lg={6} className="p-1">
-               <h6 className="heading-approve">Step 1: Approve the Transaction</h6>
-              {/* <button className="common-btn mt-3 approve-transation">
-              Approve Transaction
-            </button> */}
-            <button className="common-btn mt-3 transation-successfull">
-            Transaction Approved &nbsp; <i className="fa fa-check-circle"></i>
+            <button className="common-btn bg-left disable-btn">
+              Not available for US{" "}
             </button>
-              </Col>
-              <Col lg={6} className="p-1">
-              <h6 className="heading-approve"> Step 2: Complete Deposit</h6>
-              {/* <button className="common-btn mt-3 disable-btn deposit-disable">
-            Deposit
-            </button> */}
-            <button className="common-btn bg-left mt-3 ">
-            Deposit
-            </button>
-              </Col>
-            </Row>
-
-            <button className="common-btn bg-left disable-btn">Not available for US </button>
-            
-           
 
             <button
               className="withdraw-btn"
