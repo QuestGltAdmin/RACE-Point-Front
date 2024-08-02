@@ -184,7 +184,7 @@ export const Activities = () => {
                 Multiplier
               </h2>
 
-              <div className="deposit-outer-box d-block">
+              {/* <div className="deposit-outer-box d-block">
                 <div className="invite-flex">
                   <div className="deposit-inner-box">
                     <img src="assets/images/invite.png" alt="" />
@@ -223,7 +223,101 @@ export const Activities = () => {
                     <span>Coming Soon!</span>
                   </h6>
                 </div>
-              </div>
+              </div> */}
+
+
+
+              <Row>
+                <Col lg={4}>
+                  <div className="deposit-outer-box d-block">
+                    <div className="invite-flex d-block">
+                      <div className="deposit-inner-box">
+                        <img src="assets/images/invite.png" alt="" />
+                        <div>
+                          <h3>Invite</h3>
+                          <h5>5x invites available</h5>
+                          <p className="mt-3">
+                            Invite your friends to join the race and earn more
+                            points!
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        className="common-btn bg-left w-100 mt-3"
+                        onClick={() => {
+                          if (referralCodes?.length > 0) {
+                            handleShowReferralCodesModal();
+                          }
+                        }}
+                      >
+                        <img src="assets/images/share.png" alt="" />
+                        Invite now
+                      </button>
+                    </div>
+                   
+                  </div>
+                </Col>
+                <Col lg={4}>
+                  <div className="deposit-outer-box d-block">
+                    <div className="invite-flex d-block">
+                      <div className="deposit-inner-box">
+                        <img src="assets/images/coming-soon.png" alt="" />
+                        <div>
+                          <h3>Coming Soon</h3>
+                          
+                        </div>
+                      </div>
+                      <div className="coming-soon-box">
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. 
+                  </p>
+                 
+                </div>
+                      <button
+                        className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon"
+                        
+                      >
+                        <img src="assets/images/share.png" alt="" />
+                        Invite now
+                      </button>
+                    </div>
+                   
+                  </div>
+                </Col>
+                <Col lg={4}>
+                  <div className="deposit-outer-box d-block">
+                    <div className="invite-flex d-block">
+                      <div className="deposit-inner-box">
+                        <img src="assets/images/coming-soon.png" alt="" />
+                        <div>
+                          <h3>Coming Soon</h3>
+                          
+                        </div>
+                      </div>
+                      <div className="coming-soon-box">
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. 
+                  </p>
+                 
+                </div>
+                      <button
+                        className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon"
+                        
+                      >
+                        <img src="assets/images/share.png" alt="" />
+                        Invite now
+                      </button>
+                    </div>
+                   
+                  </div>
+                </Col>
+                
+              </Row>
+
+
+
             </Col>
           </Row>
         </Container>

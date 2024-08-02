@@ -2199,3 +2199,8 @@ justify-content: center;
     height: 28px;
     margin-left: 10px;
 }
+.blur-btn-coming-soon {
+    opacity: 1;
+    filter: blur(3px);
+    cursor: not-allowed !important;
+}
