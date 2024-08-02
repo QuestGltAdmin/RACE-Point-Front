@@ -811,7 +811,7 @@ export const Depositstepfirst = () => {
             ) */}
             {walletaddress == user?.wallet_address &&
             chainid == WalletEVM?.chainId &&
-            inputValue == "" &&
+            inputValue?.amount !== "" &&
             inputValue?.amount < balance ? (
               <Row>
                 <Col lg={6} className="p-1">
