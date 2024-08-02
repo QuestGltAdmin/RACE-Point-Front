@@ -617,6 +617,9 @@ export const Depositstepfirst = () => {
               </div>
             </Col>
           </Row>
+          <div>
+              <h3 className="powerdby-text">Powered by <img src="assets/img/dhed.png" alt="" /></h3>
+          </div>
         </Container>
       </section>
 
@@ -653,6 +656,7 @@ export const Depositstepfirst = () => {
                     // max={ balance }
                   />
                   <InputGroup.Text
+                   className="disable-btn"
                     onClick={() => {
                       if (chainid != WalletEVM?.chainId) {
                       } else {
@@ -793,12 +797,31 @@ export const Depositstepfirst = () => {
                 {depositeDisable ? "Processing" : "Deposit"}
               </button>
             )}
-            {/* <button className="common-btn bg-left ">
-              Enter {cointype} Amount
+
+            <Row>
+              <Col lg={6} className="p-1">
+               <h6 className="heading-approve">Step 1: Approve the Transaction</h6>
+              {/* <button className="common-btn mt-3 approve-transation">
+              Approve Transaction
             </button> */}
-            {/* <button className="common-btn bg-left disable-btn">
-              Not available for US
+            <button className="common-btn mt-3 transation-successfull">
+            Transaction Approved &nbsp; <i className="fa fa-check-circle"></i>
+            </button>
+              </Col>
+              <Col lg={6} className="p-1">
+              <h6 className="heading-approve"> Step 2: Complete Deposit</h6>
+              {/* <button className="common-btn mt-3 disable-btn deposit-disable">
+            Deposit
             </button> */}
+            <button className="common-btn bg-left mt-3 ">
+            Deposit
+            </button>
+              </Col>
+            </Row>
+
+            <button className="common-btn bg-left disable-btn">Not available for US </button>
+            
+           
 
             <button
               className="withdraw-btn"
