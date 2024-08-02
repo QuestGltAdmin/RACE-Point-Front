@@ -388,7 +388,7 @@ export const Depositstepfirst = () => {
       setFormError("Balance is insufficient");
     } else {
       setDepositeDisable(true);
-      
+
       try {
         let data = {
           chainId: chainid,
@@ -399,7 +399,7 @@ export const Depositstepfirst = () => {
           userAddress: walletaddress,
         };
         let deposite = await deposit(data);
-        console.log(deposite,"here1");
+        console.log(deposite, "here1");
 
         // console.log(deposite?.transactionHash);
 
@@ -792,31 +792,12 @@ export const Depositstepfirst = () => {
               ""
             )}
 
-            {/* inputValue?.amount > allowance ? (
-              <button
-                className="common-btn bg-left"
-                disabled={approvedisable}
-                onClick={() => approveToken()}
-              >
-                {" "}
-                {approvedisable ? "Processing" : "Enable"}{" "}
-                {!approvedisable && cointype}
-              </button>
-            ) : (
-              <button
-                className="common-btn bg-left"
-                disabled={depositeDisable}
-                onClick={() => HandleDeposit()}
-              >
-                {depositeDisable ? "Processing" : "Deposit"}
-              </button>
-            ) */}
             {walletaddress == user?.wallet_address &&
             chainid == WalletEVM?.chainId &&
             inputValue?.amount !== "" &&
             inputValue?.amount <= balance ? (
               <Row>
-              <p>{formError}</p>
+                <p>{formError}</p>
                 <Col lg={6} className="p-1">
                   <h6 className="heading-approve">
                     Step 1: Approve the Transaction
@@ -840,7 +821,7 @@ export const Depositstepfirst = () => {
                   <h6 className="heading-approve"> Step 2: Complete Deposit</h6>
                   {inputValue?.amount > allowance ? (
                     <button className="common-btn mt-3 disable-btn deposit-disable">
-                      Deposits
+                      Deposit
                     </button>
                   ) : (
                     <button
@@ -1028,6 +1009,9 @@ export const Depositstepfirst = () => {
                     disabled={chainid != WalletEVM?.chainId ? true : false}
                   />
                   <InputGroup.Text
+                    className={
+                      chainid != WalletEVM?.chainId ? "disable-btn" : ""
+                    }
                     onClick={() => {
                       if (chainid != WalletEVM?.chainId) {
                       } else {
@@ -1168,11 +1152,19 @@ export const Depositstepfirst = () => {
               >
                 Switch Network
               </button>
+            ) : inputValuesell?.sellamount == "" ? (
+              <button className="common-btn bg-left disable-btn" disabled>
+                Enter value
+              </button>
             ) : inputValuesell?.sellamount > racebalance ? (
               <button className="common-btn bg-left disable-btn" disabled>
                 Insufficient balance
               </button>
-            ) : inputValuesell?.sellamount > raceAllowance ? (
+            ) : (
+              ""
+            )}
+
+            {/* inputValuesell?.sellamount > raceAllowance ? (
               <button
                 className="common-btn bg-left"
                 disabled={approvedisable}
@@ -1189,7 +1181,52 @@ export const Depositstepfirst = () => {
                 onClick={() => HandleWithdraw()}
               >
                 {depositeDisable ? "Processing" : "Withdraw"}
-              </button>
+              </button> */}
+
+            {walletaddress == user?.wallet_address &&
+            chainid == WalletEVM?.chainId &&
+            inputValuesell?.sellamount !== "" &&
+            inputValuesell?.sellamount <= racebalance ? (
+              <Row>
+                <p>{formError}</p>
+                <Col lg={6} className="p-1">
+                  <h6 className="heading-approve">
+                    Step 1: Approve the Transaction
+                  </h6>
+                  {inputValuesell?.sellamount > raceAllowance ? (
+                    <button
+                      className="common-btn mt-3 approve-transation"
+                      disabled={approvedisable}
+                      onClick={() => approveTokenWithdraw()}
+                    >
+                      {approvedisable ? "Processing" : "Approve Transaction"}
+                    </button>
+                  ) : (
+                    <button className="common-btn mt-3 transation-successfull">
+                      Transaction Approved &nbsp;{" "}
+                      <i className="fa fa-check-circle"></i>
+                    </button>
+                  )}
+                </Col>
+                <Col lg={6} className="p-1">
+                  <h6 className="heading-approve"> Step 2: Complete Deposit</h6>
+                  {inputValuesell?.sellamount > raceAllowance ? (
+                    <button className="common-btn mt-3 disable-btn deposit-disable">
+                      Withdraw
+                    </button>
+                  ) : (
+                    <button
+                      className="common-btn bg-left mt-3 "
+                      disabled={depositeDisable}
+                      onClick={() => HandleWithdraw()}
+                    >
+                      {depositeDisable ? "Processing" : "Withdraw"}
+                    </button>
+                  )}
+                </Col>
+              </Row>
+            ) : (
+              ""
             )}
           </div>
         </Modal.Body>
