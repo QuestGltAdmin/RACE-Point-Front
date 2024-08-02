@@ -277,6 +277,7 @@ export const Depositstepfirst = () => {
     } else if (!selectedOption && !inputValuereason?.reason) {
       setFormError("Please select feedback reason");
     } else {
+      setFormError("")
       const wallet = await encryptData(walletaddress);
       const reason = await encryptData(
         inputValuereason?.reason ? inputValuereason?.reason : selectedOption
