@@ -165,15 +165,14 @@ export const LandingPageHeader = () => {
                   >
                     <Dropdown.Toggle id="dropdown-basic">
                       <img
-                        src={`assets/img/${
-                          chainData == 10
+                        src={`assets/img/${chainData == 10
                             ? "coin1.png"
                             : chainData == 42161
-                            ? "coin3.png"
-                            : chainData == 137
-                            ? "coin2.png"
-                            : "coin4.png"
-                        }`}
+                              ? "coin3.png"
+                              : chainData == 137
+                                ? "coin2.png"
+                                : "coin4.png"
+                          }`}
                         alt=""
                       />
                       {WalletEVM?.selectedAccount?.replace(
@@ -210,14 +209,14 @@ export const LandingPageHeader = () => {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                  <a href="" className="social-head">
-                    <img src="assets/images/telegram.png" alt="" />
-                  </a>
-                  <a href="" className="social-head">
-                    <img src="assets/images/twitt.png" alt="" />
-                  </a>
                 </>
               )}
+              <a href="" className="social-head">
+                <img src="assets/images/telegram.png" alt="" />
+              </a>
+              <a href="" className="social-head">
+                <img src="assets/images/twitt.png" alt="" />
+              </a>
             </div>
             {/* {WalletEVM?.selectedAccount && (
               <Nav.Link onClick={() => handleLogout()}>
@@ -229,7 +228,7 @@ export const LandingPageHeader = () => {
       </header>
       <ConnectWalletModal
         {...ConnectWalletModalProps}
-        // Pass handleShowReferral1 function as prop
+      // Pass handleShowReferral1 function as prop
       />
 
       <Modal
