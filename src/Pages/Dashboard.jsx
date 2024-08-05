@@ -231,7 +231,7 @@ export const Dashboard = () => {
                     </button>
                     <button
                       className="common-btn bg-left bg-black-btn w-100"
-                      onClick={() => navigate("/deposit-step-1")}
+                      onClick={() => navigate("/direct-withdraw")}
                     >
                       <img src="assets/img/graph2.png" alt="" /> Withdraw
                     </button>

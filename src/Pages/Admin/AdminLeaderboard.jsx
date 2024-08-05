@@ -200,8 +200,8 @@ export const AdminLeaderboard = () => {
                                       alt=""
                                     />
                                     <div>
-                                      <h4>{items?.from_referral_code}</h4>
-                                      <p>
+                                      <h4>
+                                        {" "}
                                         {items?.wallet_address?.replace(
                                           items?.wallet_address?.substring(
                                             5,
@@ -209,6 +209,9 @@ export const AdminLeaderboard = () => {
                                           ),
                                           "..."
                                         )}
+                                      </h4>
+                                      <p>
+                                        {items.ENS_name ? items.ENS_name : "-"}
                                       </p>
                                     </div>
                                   </div>
@@ -260,8 +263,8 @@ export const AdminLeaderboard = () => {
                                       alt=""
                                     />
                                     <div>
-                                      <h4>{items?.from_referral_code}</h4>
-                                      <p>
+                                      <h4>
+                                        {" "}
                                         {items?.wallet_address?.replace(
                                           items?.wallet_address?.substring(
                                             5,
@@ -269,6 +272,9 @@ export const AdminLeaderboard = () => {
                                           ),
                                           "..."
                                         )}
+                                      </h4>
+                                      <p>
+                                        {items.ENS_name ? items.ENS_name : "-"}
                                       </p>
                                     </div>
                                   </div>

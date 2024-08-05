@@ -132,7 +132,7 @@ export const Header = () => {
               onClick={() => {
                 if (path == "dashboard") {
                   navigate("/");
-                } else if (path == "activities") {
+                } else if (path == "activities" || path == "direct-withdraw") {
                   navigate("/dashboard");
                 }else{
                   navigate("/activities");

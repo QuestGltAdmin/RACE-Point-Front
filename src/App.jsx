@@ -20,6 +20,7 @@ import { AdminGenealogy } from "./Pages/Admin/AdminGenealogy";
 import { AdminLogin } from "./Pages/Admin/Adminlogin";
 import { AdminUpdateMulti } from "./Pages/Admin/AdminUpdateMulti";
 import ScrollToTop from "./Components/ScrollToTop";
+import { DirectWithdraw } from "./Pages/DirectWithdraw";
 
 function App() {
   return (
@@ -50,6 +51,14 @@ function App() {
               element={
                 <UserPrivateRoutes>
                   <Activities />
+                </UserPrivateRoutes>
+              }
+            />
+            <Route
+              path="/direct-withdraw"
+              element={
+                <UserPrivateRoutes>
+                  <DirectWithdraw />
                 </UserPrivateRoutes>
               }
             />
