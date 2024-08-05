@@ -99,7 +99,8 @@ export const DirectWithdraw = () => {
   };
 
   const handleShow = async (data) => {
-    setShow1(true);
+    // setShow1(true);
+    handleopenWithdraw()
     // setShow(true);
     setFlag(true);
     setChainId(data?.chainId);
@@ -446,8 +447,8 @@ export const DirectWithdraw = () => {
 
   const handleClose1 = () => setShow1(false);
   const DepositModel = () => {
-    setShow1(false);
-    handleopenWithdraw()
+    // setShow1(false);
+    // handleopenWithdraw()
   };
 
   return (
