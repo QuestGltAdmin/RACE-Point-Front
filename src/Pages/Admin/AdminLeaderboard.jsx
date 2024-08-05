@@ -11,6 +11,7 @@ export const AdminLeaderboard = () => {
   const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
   const [topDeposits, setTopDeposits] = useState([]);
   const [topReferrals, setTopReferrals] = useState([]);
+  const [allTopUser, setAllTopUser] = useState([]);
 
   const getDashboardData = async () => {
     try {
@@ -22,9 +23,10 @@ export const AdminLeaderboard = () => {
       });
       if (getData?.data?.status) {
         setMonthlyTopUser(getData?.data?.monthlyTopUser);
-        setQuarterlyTopUser(getData?.data?.quarterlyTopUser);
+        setQuarterlyTopUser(getData?.data?.weeklyTopUser);
         setTopDeposits(getData?.data?.topDeposits);
         setTopReferrals(getData?.data?.topReferrals);
+        setAllTopUser(getData.data.allTopUser);
       }
     } catch (err) {}
   };
@@ -176,7 +178,76 @@ export const AdminLeaderboard = () => {
             <Row>
               <Col lg={12} className="m-auto">
                 <div className="top-deposit-table">
-                  <Tabs defaultActiveKey="top-depsit1" className="mb-3 ">
+                  <Tabs defaultActiveKey="top-depsit-all" className="mb-3 ">
+                    {/*================================================All============================================== */}
+                    <Tab eventKey="top-depsit-all" title="All">
+                      <ul className="deposit-list-outer">
+                        {allTopUser?.length > 0 ? (
+                          allTopUser?.slice(0, 50).map((monthly, index) => (
+                            <li key={index}>
+                              <div
+                                className="deposit-list-main"
+                              >
+                                <div className="left-user">
+                                  <div className="count-deposit">
+                                    <span>{index + 1}</span>
+                                    <img
+                                      className="crown-img"
+                                      src={
+                                        index + 1 === 1
+                                          ? "assets/img/king.png"
+                                          : "assets/img/crown.png"
+                                      }
+                                      alt=""
+                                    />
+                                  </div>
+                                  <img
+                                    className="user-img"
+                                    src={monthly.profile}
+                                    alt=""
+                                  />
+                                  <div>
+                                    <h4>{monthly.wallet_address} </h4>
+                                    <p>
+                                      {monthly.ENS_name
+                                        ? monthly.ENS_name
+                                        : "-"}
+                                    </p>
+                                  </div>
+                                </div>
+                                {/* <div>
+                                  <h4>
+                                    {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                    monthly?.wallet_address?.toLowerCase()
+                                      ? "(You)"
+                                      : ""}
+                                  </h4>
+                                </div> */}
+                                <div className="right-trophy">
+                                  <img
+                                    className="trophy-img"
+                                    src="assets/img/trophy.png"
+                                    alt=""
+                                  />
+                                  <div>
+                                    <h4>{monthly.earn_points.toFixed(2)}</h4>
+                                    <p>Points</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          ))
+                        ) : (
+                          <li>
+                            <div className="deposit-list-main">
+                              <p className="text-center">No Data Found</p>
+                            </div>
+                          </li>
+                        )}
+                      </ul>
+                    </Tab>
+
+                    {/*================================================End Of Code============================================== */}
                     {/*================================================Monthly============================================== */}
                     <Tab eventKey="top-depsit1" title="Monthly">
                       <ul className="deposit-list-outer">
@@ -241,7 +312,7 @@ export const AdminLeaderboard = () => {
                         )}
                       </ul>
                     </Tab>
-                    <Tab eventKey="top-depsit2" title="Quarterly">
+                    <Tab eventKey="top-depsit2" title="Weekly">
                       <ul className="deposit-list-outer">
                         {quarterlyTopUser?.length ? (
                           quarterlyTopUser?.map((items, index) => {

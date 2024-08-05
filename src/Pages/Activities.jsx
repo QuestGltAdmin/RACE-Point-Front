@@ -27,6 +27,7 @@ export const Activities = () => {
   const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
   const [showShareSocial, setShowShareSocial] = useState(false);
   const [codeShare, setCodeShare] = useState("");
+  const [allTopUser, setAllTopUser] = useState([]);
   //================================End of code==============================//
 
   //================================Style for social share==============================//
@@ -119,7 +120,8 @@ export const Activities = () => {
       setTopDeposits(response.data.topDeposits); // Set the topDeposits state
       setTopReferrals(response.data.topReferrals);
       setMonthlyTopUser(response.data.monthlyTopUser);
-      setQuarterlyTopUser(response.data.quarterlyTopUser);
+      setQuarterlyTopUser(response.data.weeklyTopUser);
+      setAllTopUser(response.data.allTopUser);
     } catch (err) {
       console.error("Error fetching leaderboard data:", err);
     }
@@ -225,8 +227,6 @@ export const Activities = () => {
                 </div>
               </div> */}
 
-
-
               <Row>
                 <Col lg={4}>
                   <div className="deposit-outer-box d-block">
@@ -254,7 +254,6 @@ export const Activities = () => {
                         Invite now
                       </button>
                     </div>
-                   
                   </div>
                 </Col>
                 <Col lg={4}>
@@ -264,25 +263,19 @@ export const Activities = () => {
                         <img src="assets/images/coming-soon.png" alt="" />
                         <div>
                           <h3>Coming Soon</h3>
-                          
                         </div>
                       </div>
                       <div className="coming-soon-box">
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. 
-                  </p>
-                 
-                </div>
-                      <button
-                        className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon"
-                        
-                      >
+                        <p>
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typesetting industry.
+                        </p>
+                      </div>
+                      <button className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon">
                         <img src="assets/images/share.png" alt="" />
                         Invite now
                       </button>
                     </div>
-                   
                   </div>
                 </Col>
                 <Col lg={4}>
@@ -292,39 +285,29 @@ export const Activities = () => {
                         <img src="assets/images/coming-soon.png" alt="" />
                         <div>
                           <h3>Coming Soon</h3>
-                          
                         </div>
                       </div>
                       <div className="coming-soon-box">
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. 
-                  </p>
-                 
-                </div>
-                      <button
-                        className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon"
-                        
-                      >
+                        <p>
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typesetting industry.
+                        </p>
+                      </div>
+                      <button className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon">
                         <img src="assets/images/share.png" alt="" />
                         Invite now
                       </button>
                     </div>
-                   
                   </div>
                 </Col>
-                
               </Row>
-
-
-
             </Col>
           </Row>
         </Container>
       </section>
 
       {/* ============================================Leaderboard section ======================================================== */}
-      <section className="leaderboard-main-sec pt-0">
+      {/* <section className="leaderboard-main-sec pt-0">
         <Container>
           <Row>
             <Col>
@@ -332,7 +315,6 @@ export const Activities = () => {
             </Col>
           </Row>
           <Row>
-            {/* =============================Top deposits ====================================== */}
             <Col lg={5}>
               <div className="top-deposit-box for-min-height">
                 <h4 className="sub-heading text-start">Top Deposits</h4>
@@ -361,9 +343,7 @@ export const Activities = () => {
                 </Row>
               </div>
             </Col>
-            {/* ===============================================End of code ======================================= */}
 
-            {/* ================================================Top Referrals ==================================== */}
             <Col lg={7}>
               <div className="top-deposit-box for-min-height">
                 <h4 className="sub-heading text-start">Top Referrals</h4>
@@ -398,26 +378,72 @@ export const Activities = () => {
                 </Row>
               </div>
             </Col>
-            {/* ========================================End of code ================================================ */}
           </Row>
 
           <Row>
             <Col lg={10} className="m-auto">
               <div className="top-deposit-table">
-                <Tabs defaultActiveKey="top-depsit1" className="mb-3 ">
-                  {/*================================================Monthly============================================== */}
+                <Tabs defaultActiveKey="top-depsit-all" className="mb-3 ">
+                  <Tab eventKey="top-depsit-all" title="All">
+                    <ul className="deposit-list-outer">
+                      {allTopUser?.slice(0, 50).map((monthly, index) => (
+                        <li>
+                          <div className="deposit-list-main">
+                            <div className="left-user">
+                              <div className="count-deposit">
+                                <span>{index + 1}</span>
+                                <img
+                                  className="crown-img"
+                                  src={
+                                    index + 1 === 1
+                                      ? "assets/img/king.png"
+                                      : "assets/img/crown.png"
+                                  }
+                                  alt=""
+                                />
+                              </div>
+                              <img
+                                className="user-img"
+                                src={monthly.profile}
+                                alt=""
+                              />
+                              <div>
+                                <h4>{monthly.wallet_address} </h4>
+                                <p>
+                                  {monthly.ENS_name ? monthly.ENS_name : "-"}
+                                </p>
+                              </div>
+                            </div>
+                            <div>
+                              <h4>
+                                {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                monthly?.wallet_address?.toLowerCase()
+                                  ? "(You)"
+                                  : ""}
+                              </h4>
+                            </div>
+                            <div className="right-trophy">
+                              <img
+                                className="trophy-img"
+                                src="assets/img/trophy.png"
+                                alt=""
+                              />
+                              <div>
+                                <h4>{monthly.earn_points.toFixed(2)}</h4>
+                                <p>Points</p>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </Tab>
+
                   <Tab eventKey="top-depsit1" title="Monthly">
                     <ul className="deposit-list-outer">
-                      {monthlyTopUser.slice(0, 10).map((monthly, index) => (
+                      {monthlyTopUser?.slice(0, 10).map((monthly, index) => (
                         <li>
-                          <div
-                            className={
-                              WalletEVM?.selectedAccount?.toLowerCase() ==
-                              monthly?.wallet_address?.toLowerCase()
-                                ? "deposit-list-main user-address-main"
-                                : "deposit-list-main"
-                            }
-                          >
+                          <div className="deposit-list-main">
                             <div className="left-user">
                               <div className="count-deposit">
                                 <span>{index + 1}</span>
@@ -469,52 +495,42 @@ export const Activities = () => {
                       ))}
                     </ul>
                   </Tab>
-                  {/*================================================End of code =================================== */}
 
-                  {/*================================================Quarterly =================================== */}
-                  <Tab eventKey="top-depsit2" title="Quarterly">
+                  <Tab eventKey="top-depsit2" title="Weekly">
                     <ul className="deposit-list-outer">
-                      {quarterlyTopUser.slice(0, 10).map((quarterly, index) => (
-                        <li>
-                          <div
-                            className={
-                              WalletEVM?.selectedAccount?.toLowerCase() ==
-                              quarterly?.wallet_address?.toLowerCase()
-                                ? "deposit-list-main user-address-main"
-                                : "deposit-list-main"
-                            }
-                          >
-                            <div className="left-user">
-                              <div className="count-deposit">
-                                <span>{index + 1}</span>
+                      {quarterlyTopUser
+                        ?.slice(0, 10)
+                        .map((quarterly, index) => (
+                          <li>
+                            <div className="deposit-list-main">
+                              <div className="left-user">
+                                <div className="count-deposit">
+                                  <span>{index + 1}</span>
+                                  <img
+                                    className="crown-img"
+                                    src={
+                                      index + 1 === 1
+                                        ? "assets/img/king.png"
+                                        : "assets/img/crown.png"
+                                    }
+                                    alt=""
+                                  />
+                                </div>
                                 <img
-                                  className="crown-img"
-                                  src={
-                                    index + 1 === 1
-                                      ? "assets/img/king.png"
-                                      : "assets/img/crown.png"
-                                  }
+                                  className="user-img"
+                                  src={quarterly.profile}
                                   alt=""
                                 />
+                                <div>
+                                  <h4>{quarterly.wallet_address} </h4>
+                                  <p>
+                                    {quarterly.ENS_name
+                                      ? quarterly.ENS_name
+                                      : "-"}
+                                  </p>{" "}
+                                </div>
                               </div>
-                              <img
-                                className="user-img"
-                                src={quarterly.profile}
-                                alt=""
-                              />
                               <div>
-                                <h4>
-                                  {quarterly.wallet_address}{" "}
-                                 
-                                </h4>
-                                <p>
-                                  {quarterly.ENS_name
-                                    ? quarterly.ENS_name
-                                    : "-"}
-                                </p>{" "}
-                              </div>
-                            </div>
-                            <div>
                                 <h4>
                                   {WalletEVM?.selectedAccount?.toLowerCase() ==
                                   quarterly?.wallet_address?.toLowerCase()
@@ -522,31 +538,30 @@ export const Activities = () => {
                                     : ""}
                                 </h4>
                               </div>
-                            <div className="right-trophy">
-                              <img
-                                className="trophy-img"
-                                src="assets/img/trophy.png"
-                                alt=""
-                              />
-                              <div>
-                                <h4>
-                                  {quarterly.quarterly_earn_points.toFixed(2)}
-                                </h4>
-                                <p>Points</p>
+                              <div className="right-trophy">
+                                <img
+                                  className="trophy-img"
+                                  src="assets/img/trophy.png"
+                                  alt=""
+                                />
+                                <div>
+                                  <h4>
+                                    {quarterly.weekly_earn_points?.toFixed(2)}
+                                  </h4>
+                                  <p>Points</p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </li>
-                      ))}
+                          </li>
+                        ))}
                     </ul>
                   </Tab>
-                  {/*================================================End of code =================================== */}
                 </Tabs>
               </div>
             </Col>
           </Row>
         </Container>
-      </section>
+      </section> */}
 
       {/* Referral Codes Modal */}
       <Modal

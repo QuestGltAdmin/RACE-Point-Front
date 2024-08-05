@@ -317,7 +317,7 @@ const Landing = () => {
         setTopDeposits(response.data.topDeposits); // Set the topDeposits state
         setTopReferrals(response.data.topReferrals);
         setMonthlyTopUser(response.data.monthlyTopUser);
-        setQuarterlyTopUser(response.data.quarterlyTopUser);
+        setQuarterlyTopUser(response.data.weeklyTopUser);
         setAllTopUser(response.data.allTopUser)
       } catch (err) {
         console.error("Error fetching leaderboard data:", err);
@@ -640,7 +640,7 @@ const Landing = () => {
                   {/*================================================End of code =================================== */}
 
                   {/*================================================Quarterly =================================== */}
-                  <Tab eventKey="top-depsit2" title="Quarterly">
+                  <Tab eventKey="top-depsit2" title="Weekly">
                     <ul className="deposit-list-outer">
                       {quarterlyTopUser?.slice(0, 10).map((quarterly, index) => (
                         <li>
@@ -698,7 +698,7 @@ const Landing = () => {
                               />
                               <div>
                                 <h4>
-                                  {quarterly.quarterly_earn_points.toFixed(2)}
+                                  {quarterly.weekly_earn_points?.toFixed(2)}
                                 </h4>
                                 <p>Points</p>
                               </div>
