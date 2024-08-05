@@ -510,7 +510,7 @@ const Landing = () => {
                   {/*================================================All============================================== */}
                   <Tab eventKey="top-depsit-all" title="All">
                     <ul className="deposit-list-outer">
-                      {allTopUser.slice(0, 50).map((monthly, index) => (
+                      {allTopUser?.slice(0, 50).map((monthly, index) => (
                         <li>
                           <div
                             className={
@@ -576,7 +576,7 @@ const Landing = () => {
                   {/*================================================Monthly============================================== */}
                   <Tab eventKey="top-depsit1" title="Monthly">
                     <ul className="deposit-list-outer">
-                      {monthlyTopUser.slice(0, 10).map((monthly, index) => (
+                      {monthlyTopUser?.slice(0, 10).map((monthly, index) => (
                         <li>
                           <div
                             className={
@@ -642,7 +642,7 @@ const Landing = () => {
                   {/*================================================Quarterly =================================== */}
                   <Tab eventKey="top-depsit2" title="Quarterly">
                     <ul className="deposit-list-outer">
-                      {quarterlyTopUser.slice(0, 10).map((quarterly, index) => (
+                      {quarterlyTopUser?.slice(0, 10).map((quarterly, index) => (
                         <li>
                           <div
                             className={
