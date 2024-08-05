@@ -357,7 +357,7 @@ export const AdminLeaderboard = () => {
                                     />
                                     <div>
                                       <h4>
-                                        {(items?.earn_points * 1).toFixed(4)}
+                                        {(items?.weekly_earn_points * 1).toFixed(4)}
                                       </h4>
                                       <p>Points</p>
                                     </div>
