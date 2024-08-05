@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AdmindashHeader } from "../../Components/Ui/AdmindashHeader";
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Dropdown, Form, Row } from "react-bootstrap";
 import axiosMain from "../../http/axios/axios_main";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
@@ -63,13 +63,39 @@ export const AdminUpdateMulti = () => {
         <AdmindashHeader />
         <Container>
           <Row>
-            <Col lg={6} className="m-auto">
+            <Col xl={6} lg={8} className="m-auto">
               <div className="form-box-multiplier">
                 <Form.Group className="mb-3">
-                  <Form.Label>Current Multiplier</Form.Label>
-                  <Form.Control type="text" placeholder="" value={showValue} />
+                  <Form.Label>Multiplier Update Percentage</Form.Label>
+                  <div className="layer-outer-display">
+                      <p>Base % : <span>100%</span></p>
+                      <p>Layer 1 %  : <span>100%</span></p>
+                      <p>Layer 2 % : <span>1%</span></p>
+                      <p>Layer 3 % : <span>1%</span></p>
+                      <p>Layer 4 % : <span>1%</span></p>
+                  </div>
                 </Form.Group>
-                <Form.Group className="mb-3">
+                <Row>
+                  <Col lg={6}>
+                    <Form.Group className="mb-3">
+                    <Form.Label>Select Layer</Form.Label>
+                    <Dropdown className="select-layer">
+                      <Dropdown.Toggle>
+                      Select Layer
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="">Layer 1</Dropdown.Item>
+                        <Dropdown.Item href="">Layer 2</Dropdown.Item>
+                        <Dropdown.Item href="">Layer 3</Dropdown.Item>
+                        <Dropdown.Item href="">Layer 4</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    {/* <Form.Control type="text" placeholder="" value={showValue} /> */}
+                    </Form.Group>
+                  </Col>
+                  <Col lg={6}>
+                  <Form.Group className="mb-3">
                   <Form.Label>New Multiplier</Form.Label>
                   <Form.Control
                     type="number"
@@ -81,8 +107,12 @@ export const AdminUpdateMulti = () => {
                     value={inputValue}
                   />
                 </Form.Group>
+                  </Col>
+                </Row>
+                
+               
                 <button
-                  className="common-btn bg-left"
+                  className="common-btn bg-left w-100"
                   onClick={() => {
                     updateData();
                   }}

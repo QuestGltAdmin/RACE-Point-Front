@@ -362,10 +362,82 @@ input[type="date"] {
     box-shadow: none  !important;
     outline: none !important;
 }
+
+.form-box-multiplier .select-layer{
+
+}
+.form-box-multiplier .select-layer .dropdown-toggle {
+    margin-right: 10px;
+    border-radius: 8px;
+    background-color: #0F172A;
+    padding: 8px 10px;
+    border: none !important;
+    color: #fff;
+    font-size: 14px;
+    box-shadow: none !important;
+    outline: none !important;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    padding-right: 30px;
+}
+.form-box-multiplier .select-layer .dropdown-toggle::after {
+    content: "";
+    border: none;
+    border-bottom: 1px solid #fff;
+    height: 7px;
+    width: 7px;
+    border-right: 1px solid #fff;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 15px;
+    top: 13px;
+}
+.form-box-multiplier .select-layer .dropdown-menu {
+    width: 100%;
+    background-color: #041F34;
+}
+.form-box-multiplier .select-layer .dropdown-menu .dropdown-item {
+    color: #ddd;
+    font-size: 14px;
+}
+.form-box-multiplier .select-layer .dropdown-menu .dropdown-item:hover,
+.form-box-multiplier .select-layer .dropdown-menu .dropdown-item:focus,
+.form-box-multiplier .select-layer .dropdown-menu .dropdown-item:active{
+    background-color: #0F172A;
+}
+
+
 .form-box-multiplier .common-btn{
     margin-top: 20px;
     font-size: 16px;
     padding: 8px 30px;
+}
+.layer-outer-display {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.layer-outer-display p {
+    font-weight: 300;
+    color: #ddd;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.layer-outer-display p span {
+    color: #fff;
+    background-color: #0F172A;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-left: 0;
+    display: block;
+    line-height: 15px;
+    width: 50px;
+    text-align: center;
+    margin-top: 5px;
 }
 
 
@@ -478,5 +550,13 @@ input[type="date"] {
         margin-top: 10px;
         font-size: 14px;
         padding: 5px 15px;
+    }
+    .layer-outer-display p {
+        font-size: 12px;
+    }
+    .layer-outer-display p span {
+        font-size: 10px;
+        line-height: 12px;
+        width: 40px;
     }
 }

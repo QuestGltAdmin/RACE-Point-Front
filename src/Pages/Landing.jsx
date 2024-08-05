@@ -39,7 +39,7 @@ const Landing = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //=================================End Of Code=================================//
-  
+
   //=================================Local Variable=================================//
   const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
   const [showReferralModal, setShowReferralModal] = useState(false);
@@ -59,7 +59,7 @@ const Landing = () => {
   const [copiedCodeIndex, setCopiedCodeIndex] = useState(null);
   //=================================End Of Code=================================//
 
-  
+
   const handleCloseReferralCodesModal = () => {
     setShowReferralCodesModal(false);
     navigate("/dashboard"); // Redirect to dashboard when closing the referral codes modal
@@ -166,7 +166,7 @@ const Landing = () => {
         return;
       }
 
-      let ensName = await resolveENSName(walletAddress);      
+      let ensName = await resolveENSName(walletAddress);
 
       // Prepare payload with encrypted data
       const encryptedReferralCode = await encryptData(referralCode);
@@ -301,28 +301,28 @@ const Landing = () => {
   const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
   const [allTopUser, setAllTopUser] = useState([]);
 
-    //===============get refferal data  api====================//
+  //===============get refferal data  api====================//
 
-    useEffect(() => {
-      getleaderboardData();
-    }, []);
-  
+  useEffect(() => {
+    getleaderboardData();
+  }, []);
 
-  
-    //================================= Get the leaderboeard data API ==============================================
-    const getleaderboardData = async () => {
-      try {
-        const response = await axiosMain.get("/auth/get-leaderboard-deatils");
-        // console.log(response);
-        setTopDeposits(response.data.topDeposits); // Set the topDeposits state
-        setTopReferrals(response.data.topReferrals);
-        setMonthlyTopUser(response.data.monthlyTopUser);
-        setQuarterlyTopUser(response.data.weeklyTopUser);
-        setAllTopUser(response.data.allTopUser)
-      } catch (err) {
-        console.error("Error fetching leaderboard data:", err);
-      }
-    };
+
+
+  //================================= Get the leaderboeard data API ==============================================
+  const getleaderboardData = async () => {
+    try {
+      const response = await axiosMain.get("/auth/get-leaderboard-deatils");
+      // console.log(response);
+      setTopDeposits(response.data.topDeposits); // Set the topDeposits state
+      setTopReferrals(response.data.topReferrals);
+      setMonthlyTopUser(response.data.monthlyTopUser);
+      setQuarterlyTopUser(response.data.weeklyTopUser);
+      setAllTopUser(response.data.allTopUser)
+    } catch (err) {
+      console.error("Error fetching leaderboard data:", err);
+    }
+  };
 
   return (
     <>
@@ -425,8 +425,12 @@ const Landing = () => {
         </Container>
       </section>
 
-            {/* ============================================Leaderboard section ======================================================== */}
-            <section className="leaderboard-main-sec pt-0">
+      <div className="text-center">
+         <a href="#leaderboard" className="arrow-img"><img src="assets/img/arrow-down.png" alt="" /></a>
+      </div>
+
+      {/* ============================================Leaderboard section ======================================================== */}
+      <section className="leaderboard-main-sec" id="leaderboard">
         <Container>
           <Row>
             <Col>
@@ -515,7 +519,7 @@ const Landing = () => {
                           <div
                             className={
                               WalletEVM?.selectedAccount?.toLowerCase() ==
-                              monthly?.wallet_address?.toLowerCase()
+                                monthly?.wallet_address?.toLowerCase()
                                 ? "deposit-list-main user-address-main"
                                 : "deposit-list-main"
                             }
@@ -548,7 +552,7 @@ const Landing = () => {
                             <div>
                               <h4>
                                 {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                monthly?.wallet_address?.toLowerCase()
+                                  monthly?.wallet_address?.toLowerCase()
                                   ? "(You)"
                                   : ""}
                               </h4>
@@ -581,7 +585,7 @@ const Landing = () => {
                           <div
                             className={
                               WalletEVM?.selectedAccount?.toLowerCase() ==
-                              monthly?.wallet_address?.toLowerCase()
+                                monthly?.wallet_address?.toLowerCase()
                                 ? "deposit-list-main user-address-main"
                                 : "deposit-list-main"
                             }
@@ -614,7 +618,7 @@ const Landing = () => {
                             <div>
                               <h4>
                                 {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                monthly?.wallet_address?.toLowerCase()
+                                  monthly?.wallet_address?.toLowerCase()
                                   ? "(You)"
                                   : ""}
                               </h4>
@@ -647,7 +651,7 @@ const Landing = () => {
                           <div
                             className={
                               WalletEVM?.selectedAccount?.toLowerCase() ==
-                              quarterly?.wallet_address?.toLowerCase()
+                                quarterly?.wallet_address?.toLowerCase()
                                 ? "deposit-list-main user-address-main"
                                 : "deposit-list-main"
                             }
@@ -673,7 +677,7 @@ const Landing = () => {
                               <div>
                                 <h4>
                                   {quarterly.wallet_address}{" "}
-                                 
+
                                 </h4>
                                 <p>
                                   {quarterly.ENS_name
@@ -683,13 +687,13 @@ const Landing = () => {
                               </div>
                             </div>
                             <div>
-                                <h4>
-                                  {WalletEVM?.selectedAccount?.toLowerCase() ==
+                              <h4>
+                                {WalletEVM?.selectedAccount?.toLowerCase() ==
                                   quarterly?.wallet_address?.toLowerCase()
-                                    ? "(You)"
-                                    : ""}
-                                </h4>
-                              </div>
+                                  ? "(You)"
+                                  : ""}
+                              </h4>
+                            </div>
                             <div className="right-trophy">
                               <img
                                 className="trophy-img"

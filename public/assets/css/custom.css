@@ -43,13 +43,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    padding: 95px 0px 0px;
+    min-height: 80vh;
+    padding: 85px 0px 0px;
 }
 
 .landing-banner-sec .left-img img {
-    max-width: 90%;
-    margin-top: 5rem;
+    max-width: 75%;
+    margin-top: 3rem;
 }
 
 .landing-banner-sec .right-sid-content h2 {
@@ -1529,7 +1529,9 @@ letter-spacing: 0.5px;
 /* leaderboard page css */
 
 .leaderboard-main-sec{
-    padding: 120px 0 100px;
+    padding: 100px 0;
+    background: rgba(3, 39, 68, 0.60);
+    backdrop-filter: blur(12.5px);
 }
 .leaderboard-main-sec .common-heading{
     margin-bottom: 40px;
@@ -2210,3 +2212,13 @@ justify-content: center;
     color: #fff !important;
     font-weight: 400;
 }
+.arrow-img {
+    margin: 15px 0 60px;
+    display: inline-block;
+}
+.arrow-img img{
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+
