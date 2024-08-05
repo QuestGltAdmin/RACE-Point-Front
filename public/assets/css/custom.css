@@ -2204,3 +2204,9 @@ justify-content: center;
     filter: blur(3px);
     cursor: not-allowed !important;
 }
+.common-btn.bg-black-btn {
+    background: none !important;
+    background-color: #05131B !important;
+    color: #fff !important;
+    font-weight: 400;
+}

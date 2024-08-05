@@ -223,18 +223,17 @@ export const Dashboard = () => {
                   </div> */}
                   <div>
                     <button
-                      className="common-btn bg-left w-100"
+                      className="common-btn bg-left w-100 mb-2"
                       onClick={() => navigate("/deposit-step-1")}
                     >
                       <img src="assets/img/graph.png" alt="" /> Boost Your
                       Account
                     </button>
                     <button
-                      className="common-btn bg-left w-100"
+                      className="common-btn bg-left bg-black-btn w-100"
                       onClick={() => navigate("/deposit-step-1")}
                     >
-                      <img src="assets/img/graph.png" alt="" /> Boost Your
-                      Account
+                      <img src="assets/img/graph2.png" alt="" /> Withdraw
                     </button>
                   </div>
                 </Col>
