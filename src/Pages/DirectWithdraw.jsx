@@ -460,7 +460,7 @@ export const DirectWithdraw = () => {
 
           <Row>
             <Col>
-              <h2 className="common-heading">Start Your Points Journey</h2>
+              <h2 className="common-heading">Select Vault Chain Below</h2>
             </Col>
           </Row>
           <Row>
