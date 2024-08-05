@@ -7,6 +7,8 @@ import {
   Row,
   Button,
   Spinner,
+  Tabs,
+  Tab,
 } from "react-bootstrap";
 import ConnectWalletModal from "../../src/Components/Ui/ConnectWalletModal";
 import useAuth from "../hooks/useAuth";
@@ -292,6 +294,36 @@ const Landing = () => {
     }
   };*/
 
+
+  const [topDeposits, setTopDeposits] = useState([]);
+  const [topReferrals, setTopReferrals] = useState([]);
+  const [monthlyTopUser, setMonthlyTopUser] = useState([]);
+  const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
+  const [allTopUser, setAllTopUser] = useState([]);
+
+    //===============get refferal data  api====================//
+
+    useEffect(() => {
+      getleaderboardData();
+    }, []);
+  
+
+  
+    //================================= Get the leaderboeard data API ==============================================
+    const getleaderboardData = async () => {
+      try {
+        const response = await axiosMain.get("/auth/get-leaderboard-deatils");
+        // console.log(response);
+        setTopDeposits(response.data.topDeposits); // Set the topDeposits state
+        setTopReferrals(response.data.topReferrals);
+        setMonthlyTopUser(response.data.monthlyTopUser);
+        setQuarterlyTopUser(response.data.quarterlyTopUser);
+        setAllTopUser(response.data.allTopUser)
+      } catch (err) {
+        console.error("Error fetching leaderboard data:", err);
+      }
+    };
+
   return (
     <>
       <LandingPageHeader />
@@ -387,6 +419,297 @@ const Landing = () => {
                 <Row className="align-items-center">
                   <p className="restrict "></p>
                 </Row>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+            {/* ============================================Leaderboard section ======================================================== */}
+            <section className="leaderboard-main-sec pt-0">
+        <Container>
+          <Row>
+            <Col>
+              <h2 className="common-heading">Leaderboard</h2>
+            </Col>
+          </Row>
+          <Row>
+            {/* =============================Top deposits ====================================== */}
+            <Col lg={5}>
+              <div className="top-deposit-box for-min-height">
+                <h4 className="sub-heading text-start">Top Deposits</h4>
+                <Row>
+                  {topDeposits.map((deposit, index) => (
+                    <Col lg={6} md={6} sm={6} xs={6}>
+                      <div className="inner-user-box">
+                        <div className="user-img">
+                          <img src={deposit.profile} alt="" />
+                        </div>
+                        <h4>{`${deposit.wallet_address.slice(
+                          0,
+                          5
+                        )}...${deposit.wallet_address.slice(-5)}`}</h4>
+                        <p>{deposit.ENS_name ? deposit.ENS_name : "-"}</p>{" "}
+                        <h3>
+                          <b>
+                            {deposit.currency}
+                            {deposit.deposit.toFixed(4)}
+                          </b>{" "}
+                          Deposited
+                        </h3>
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+            </Col>
+            {/* ===============================================End of code ======================================= */}
+
+            {/* ================================================Top Referrals ==================================== */}
+            <Col lg={7}>
+              <div className="top-deposit-box for-min-height">
+                <h4 className="sub-heading text-start">Top Referrals</h4>
+                <Row>
+                  {topReferrals.map((refer, index) => (
+                    <Col lg={4} md={4} sm={6} xs={6}>
+                      <div className="inner-user-box top-referrals">
+                        <div className="user-img">
+                          <img src={refer.profile} alt="" />
+                        </div>
+                        <h4>{`${refer.wallet_address.slice(
+                          0,
+                          5
+                        )}...${refer.wallet_address.slice(-5)}`}</h4>
+                        <p>{refer.ENS_name ? refer.ENS_name : "-"}</p>{" "}
+                        <div className="referral-point">
+                          <h3>
+                            <img src="assets/img/referal.png" alt="" />{" "}
+                            <b>{refer.referral_count}</b> <span>Referrals</span>
+                          </h3>
+                          <h3>
+                            <img src="assets/img/trophy.png" alt="" />{" "}
+                            <div>
+                              <b>{refer.earn_points.toFixed(2)}</b>{" "}
+                              <span>Points</span>
+                            </div>
+                          </h3>
+                        </div>
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+            </Col>
+            {/* ========================================End of code ================================================ */}
+          </Row>
+
+          <Row>
+            <Col lg={10} className="m-auto">
+              <div className="top-deposit-table">
+                <Tabs defaultActiveKey="top-depsit-all" className="mb-3 ">
+                  {/*================================================All============================================== */}
+                  <Tab eventKey="top-depsit-all" title="All">
+                    <ul className="deposit-list-outer">
+                      {allTopUser.slice(0, 50).map((monthly, index) => (
+                        <li>
+                          <div
+                            className={
+                              WalletEVM?.selectedAccount?.toLowerCase() ==
+                              monthly?.wallet_address?.toLowerCase()
+                                ? "deposit-list-main user-address-main"
+                                : "deposit-list-main"
+                            }
+                          >
+                            <div className="left-user">
+                              <div className="count-deposit">
+                                <span>{index + 1}</span>
+                                <img
+                                  className="crown-img"
+                                  src={
+                                    index + 1 === 1
+                                      ? "assets/img/king.png"
+                                      : "assets/img/crown.png"
+                                  }
+                                  alt=""
+                                />
+                              </div>
+                              <img
+                                className="user-img"
+                                src={monthly.profile}
+                                alt=""
+                              />
+                              <div>
+                                <h4>{monthly.wallet_address} </h4>
+                                <p>
+                                  {monthly.ENS_name ? monthly.ENS_name : "-"}
+                                </p>
+                              </div>
+                            </div>
+                            <div>
+                              <h4>
+                                {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                monthly?.wallet_address?.toLowerCase()
+                                  ? "(You)"
+                                  : ""}
+                              </h4>
+                            </div>
+                            <div className="right-trophy">
+                              <img
+                                className="trophy-img"
+                                src="assets/img/trophy.png"
+                                alt=""
+                              />
+                              <div>
+                                <h4>
+                                  {monthly.earn_points.toFixed(2)}
+                                </h4>
+                                <p>Points</p>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </Tab>
+
+                  {/*================================================End Of Code============================================== */}
+                  {/*================================================Monthly============================================== */}
+                  <Tab eventKey="top-depsit1" title="Monthly">
+                    <ul className="deposit-list-outer">
+                      {monthlyTopUser.slice(0, 10).map((monthly, index) => (
+                        <li>
+                          <div
+                            className={
+                              WalletEVM?.selectedAccount?.toLowerCase() ==
+                              monthly?.wallet_address?.toLowerCase()
+                                ? "deposit-list-main user-address-main"
+                                : "deposit-list-main"
+                            }
+                          >
+                            <div className="left-user">
+                              <div className="count-deposit">
+                                <span>{index + 1}</span>
+                                <img
+                                  className="crown-img"
+                                  src={
+                                    index + 1 === 1
+                                      ? "assets/img/king.png"
+                                      : "assets/img/crown.png"
+                                  }
+                                  alt=""
+                                />
+                              </div>
+                              <img
+                                className="user-img"
+                                src={monthly.profile}
+                                alt=""
+                              />
+                              <div>
+                                <h4>{monthly.wallet_address} </h4>
+                                <p>
+                                  {monthly.ENS_name ? monthly.ENS_name : "-"}
+                                </p>
+                              </div>
+                            </div>
+                            <div>
+                              <h4>
+                                {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                monthly?.wallet_address?.toLowerCase()
+                                  ? "(You)"
+                                  : ""}
+                              </h4>
+                            </div>
+                            <div className="right-trophy">
+                              <img
+                                className="trophy-img"
+                                src="assets/img/trophy.png"
+                                alt=""
+                              />
+                              <div>
+                                <h4>
+                                  {monthly.monthly_earn_points.toFixed(2)}
+                                </h4>
+                                <p>Points</p>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </Tab>
+                  {/*================================================End of code =================================== */}
+
+                  {/*================================================Quarterly =================================== */}
+                  <Tab eventKey="top-depsit2" title="Quarterly">
+                    <ul className="deposit-list-outer">
+                      {quarterlyTopUser.slice(0, 10).map((quarterly, index) => (
+                        <li>
+                          <div
+                            className={
+                              WalletEVM?.selectedAccount?.toLowerCase() ==
+                              quarterly?.wallet_address?.toLowerCase()
+                                ? "deposit-list-main user-address-main"
+                                : "deposit-list-main"
+                            }
+                          >
+                            <div className="left-user">
+                              <div className="count-deposit">
+                                <span>{index + 1}</span>
+                                <img
+                                  className="crown-img"
+                                  src={
+                                    index + 1 === 1
+                                      ? "assets/img/king.png"
+                                      : "assets/img/crown.png"
+                                  }
+                                  alt=""
+                                />
+                              </div>
+                              <img
+                                className="user-img"
+                                src={quarterly.profile}
+                                alt=""
+                              />
+                              <div>
+                                <h4>
+                                  {quarterly.wallet_address}{" "}
+                                 
+                                </h4>
+                                <p>
+                                  {quarterly.ENS_name
+                                    ? quarterly.ENS_name
+                                    : "-"}
+                                </p>{" "}
+                              </div>
+                            </div>
+                            <div>
+                                <h4>
+                                  {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                  quarterly?.wallet_address?.toLowerCase()
+                                    ? "(You)"
+                                    : ""}
+                                </h4>
+                              </div>
+                            <div className="right-trophy">
+                              <img
+                                className="trophy-img"
+                                src="assets/img/trophy.png"
+                                alt=""
+                              />
+                              <div>
+                                <h4>
+                                  {quarterly.quarterly_earn_points.toFixed(2)}
+                                </h4>
+                                <p>Points</p>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </Tab>
+                  {/*================================================End of code =================================== */}
+                </Tabs>
               </div>
             </Col>
           </Row>

@@ -229,6 +229,13 @@ export const Dashboard = () => {
                       <img src="assets/img/graph.png" alt="" /> Boost Your
                       Account
                     </button>
+                    <button
+                      className="common-btn bg-left w-100"
+                      onClick={() => navigate("/deposit-step-1")}
+                    >
+                      <img src="assets/img/graph.png" alt="" /> Boost Your
+                      Account
+                    </button>
                   </div>
                 </Col>
               </Row>
