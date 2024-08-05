@@ -165,9 +165,9 @@ export const Header = () => {
                           chainData == 10
                             ? "coin1.png"
                             : chainData == 42161
-                            ? "coin2.png"
-                            : chainData == 137
                             ? "coin3.png"
+                            : chainData == 137
+                            ? "coin2.png"
                             : "coin4.png"
                         }`}
                         alt=""
