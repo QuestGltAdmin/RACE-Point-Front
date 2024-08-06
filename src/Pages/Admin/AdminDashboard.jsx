@@ -69,7 +69,7 @@ export const AdminDashboard = () => {
                                       className="switch-admin-btn"
                                       type="switch"
                                       id="custom-switch"
-                                      label="system stop"
+                                      label="Emergency Shutdown"
                                       checked={
                                         systemStop === false
                                           ? false
