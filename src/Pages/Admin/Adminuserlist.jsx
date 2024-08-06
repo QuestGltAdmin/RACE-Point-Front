@@ -255,6 +255,7 @@ export const Adminuserlist = () => {
                                   </p>
                                   <p>
                                     <Form.Check // prettier-ignore
+                                      className="switch-admin-btn"
                                       type="switch"
                                       id="custom-switch"
                                     />
