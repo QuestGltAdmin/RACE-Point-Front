@@ -64,8 +64,8 @@ export const AdminDashboard = () => {
               <Col lg={12}>
                 <div className="dashboard-white-box">
                   <div className="w-100">
-                    <h2 className="inner-page-heading">Dashboard</h2>
-                    <Form.Check // prettier-ignore
+                    <h2 className="inner-page-heading d-flex justify-content-between">Dashboard 
+                      <Form.Check // prettier-ignore
                                       className="switch-admin-btn"
                                       type="switch"
                                       id="custom-switch"
@@ -82,7 +82,7 @@ export const AdminDashboard = () => {
                                           updateStatus("false");
                                         }
                                       }}
-                                    />
+                                    /></h2>
                     <Row>
                       <Col lg={4} md={6} sm={6} xs={12}>
                         <div className="shadow-box-dash">
