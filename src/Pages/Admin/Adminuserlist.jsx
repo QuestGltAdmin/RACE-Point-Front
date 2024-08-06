@@ -22,14 +22,14 @@ export const Adminuserlist = () => {
   const [show, setShow] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [idCheck , setIdCheck] = useState("")
+  const [idCheck, setIdCheck] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseEarnData = async () => {
     setIdCheck("");
-    setStartDate("")
-    setEndDate("")
+    setStartDate("");
+    setEndDate("");
     setShowEarnData(false);
   };
   const handleCloseReferralUser = async () => {
@@ -76,14 +76,14 @@ export const Adminuserlist = () => {
 
   //==============================Get Data All Trx==============================//
 
-  useEffect(()=>{
-if(idCheck != ""){
-  getEarnData(idCheck) 
-}
-  },[startDate , endDate])
+  useEffect(() => {
+    if (idCheck != "") {
+      getEarnData(idCheck);
+    }
+  }, [startDate, endDate]);
 
   const getEarnData = async (id) => {
-    setIdCheck(id)
+    setIdCheck(id);
     try {
       const payload = {
         userId: id,
@@ -165,6 +165,7 @@ if(idCheck != ""){
                             <p>Joining Date</p>
                             <p>Status</p>
                             <p>Action</p>
+                            <p>Enable/Disable</p>
                           </div>
                         </div>
                         <div className="tbody">
@@ -251,6 +252,12 @@ if(idCheck != ""){
                                         Earn Point
                                       </a>
                                     </div>
+                                  </p>
+                                  <p>
+                                    <Form.Check // prettier-ignore
+                                      type="switch"
+                                      id="custom-switch"
+                                    />
                                   </p>
                                 </div>
                               );

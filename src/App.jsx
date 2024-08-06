@@ -21,6 +21,7 @@ import { AdminLogin } from "./Pages/Admin/Adminlogin";
 import { AdminUpdateMulti } from "./Pages/Admin/AdminUpdateMulti";
 import ScrollToTop from "./Components/ScrollToTop";
 import { DirectWithdraw } from "./Pages/DirectWithdraw";
+import { AdminContractList } from "./Pages/Admin/AdminContractList";
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
             <Route path="/admin-earnpoint" element={<Adminearnpoint />} />
             <Route path="/admin-genealogy" element={<AdminGenealogy />} />
             <Route path="/admin-update-multi" element={<AdminUpdateMulti />} />
+            <Route path="/admin-token-list" element={<AdminContractList />} />
           </Routes>
         </ScrollToTop>
       </BrowserRouter>
