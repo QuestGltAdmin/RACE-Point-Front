@@ -448,6 +448,25 @@ input[type="date"] {
     outline: none !important;
 }
 
+.network-popup.add-wallet-popup .modal-content .modal-body {
+    text-align: center;
+    padding: 30px;
+}
+.add-wallet-popup .form-label {
+    color: #fff;
+    margin-bottom: 10px;
+}
+.add-wallet-popup .form-control {
+    margin-right: 10px;
+    border-radius: 8px;
+    background-color: #0F172A;
+    padding: 8px 10px;
+    border: none !important;
+    color: #fff;
+    font-size: 14px;
+    box-shadow: none  !important;
+    outline: none !important;
+}
 
 @media (max-width:992px){
     .dashboard-layout {

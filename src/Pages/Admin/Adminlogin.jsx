@@ -221,7 +221,7 @@ export const AdminLogin = () => {
                   {disable === true ? "Processing" : "Login"}
                 </button>
                 </div>
-                <p className="text-center">Or</p>
+                <p className="text-center mt-3">Or</p>
                 {!WalletEVM?.selectedAccount ? (
                   <button
                     className="common-btn bg-left w-100 m-0"
