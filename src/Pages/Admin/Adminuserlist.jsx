@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import axiosMain from "../../http/axios/axios_main";
 import { debounce } from "lodash";
 import moment from "moment/moment";
+import { toast } from "react-toastify";
 
 export const Adminuserlist = () => {
   //==================================Global Variable================================//
@@ -121,6 +122,28 @@ export const Adminuserlist = () => {
       console.log(getDataReferral);
       if (getDataReferral?.data?.status) {
         setShowDataReferral(getDataReferral?.data?.data);
+      }
+    } catch (err) {}
+  };
+
+  const updateStatus = async (id, flag) => {
+    console.log(id, flag);
+
+    try {
+      const updateData = await axiosMain.get(
+        `/admin/update-user?user_id=${id}&emergency_stop=${flag}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${user.token}`,
+          },
+        }
+      );
+      if (updateData?.data?.status) {
+        toast.success(
+          `User ${flag == "true" ? "Disable" : "Enable"} successfully`
+        );
+        getDataTrxAll(pageNumberTrxAll, searchTrxAll);
       }
     } catch (err) {}
   };
@@ -258,6 +281,18 @@ export const Adminuserlist = () => {
                                       className="switch-admin-btn"
                                       type="switch"
                                       id="custom-switch"
+                                      checked={
+                                        items?.emergency_stop === false
+                                          ? true
+                                          : false
+                                      }
+                                      onChange={(e) => {
+                                        if (items?.emergency_stop === false) {
+                                          updateStatus(items?._id, "true");
+                                        } else {
+                                          updateStatus(items?._id, "false");
+                                        }
+                                      }}
                                     />
                                   </p>
                                 </div>

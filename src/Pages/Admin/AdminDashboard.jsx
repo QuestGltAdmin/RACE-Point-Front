@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { AdmindashHeader } from "../../Components/Ui/AdmindashHeader";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import axiosMain from "../../http/axios/axios_main";
 import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 export const AdminDashboard = () => {
   const { user } = useAuth();
   console.log(user);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalDeposit, setTotalDeposit] = useState(0);
+  const [systemStop , setSystemStop] = useState(false)
   const getDashboardData = async () => {
     try {
       const getData = await axiosMain.get("/admin/dashboard", {
@@ -18,8 +20,11 @@ export const AdminDashboard = () => {
         },
       });
       if (getData?.data?.status) {
+        console.log(getData);
+        
         setTotalUsers(getData?.data?.userCount);
         setTotalDeposit(getData?.data?.totalDeposit);
+        setSystemStop(getData?.data?.system_stop)
       }
       console.log(getData);
     } catch (err) {}
@@ -28,6 +33,27 @@ export const AdminDashboard = () => {
   useEffect(() => {
     getDashboardData();
   }, []);
+
+  const updateStatus = async (flag) => {
+
+    try {
+      const updateData = await axiosMain.get(
+        `/admin/system-stop?system_stop=${flag}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${user.token}`,
+          },
+        }
+      );
+      if (updateData?.data?.status) {
+        toast.success(
+          `All system ${flag == "true" ? "Disable" : "Enable"} successfully`
+        );
+        getDashboardData()
+      }
+    } catch (err) {}
+  };
   return (
     <>
       <div className="dashboard-layout">
@@ -39,7 +65,24 @@ export const AdminDashboard = () => {
                 <div className="dashboard-white-box">
                   <div className="w-100">
                     <h2 className="inner-page-heading">Dashboard</h2>
-
+                    <Form.Check // prettier-ignore
+                                      className="switch-admin-btn"
+                                      type="switch"
+                                      id="custom-switch"
+                                      label="system stop"
+                                      checked={
+                                        systemStop === false
+                                          ? false
+                                          : true
+                                      }
+                                      onChange={(e) => {
+                                        if (systemStop == false) {
+                                          updateStatus("true");
+                                        } else {
+                                          updateStatus("false");
+                                        }
+                                      }}
+                                    />
                     <Row>
                       <Col lg={4} md={6} sm={6} xs={12}>
                         <div className="shadow-box-dash">
