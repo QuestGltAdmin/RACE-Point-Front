@@ -87,6 +87,13 @@ export const AdmindashHeader = () => {
                       >
                         <i className="fa fa-exchange"></i>VAULT LIST
                       </Nav.Link>
+                      <Nav.Link
+                        onClick={() => {
+                          navigate("/admin-add-user");
+                        }}
+                      >
+                        <i className="fa fa-exchange"></i>ADD WALLET
+                      </Nav.Link>
 
                       <Nav.Link onClick={() => HandleLogout()}>
                         <i className="fa fa-sign-out"></i> LOGOUT
