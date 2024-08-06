@@ -22,6 +22,7 @@ import { AdminUpdateMulti } from "./Pages/Admin/AdminUpdateMulti";
 import ScrollToTop from "./Components/ScrollToTop";
 import { DirectWithdraw } from "./Pages/DirectWithdraw";
 import { AdminContractList } from "./Pages/Admin/AdminContractList";
+import { AdminAddUsers } from "./Pages/Admin/AdminAddUsers";
 
 function App() {
   return (
@@ -78,6 +79,7 @@ function App() {
             <Route path="/admin-genealogy" element={<AdminGenealogy />} />
             <Route path="/admin-update-multi" element={<AdminUpdateMulti />} />
             <Route path="/admin-token-list" element={<AdminContractList />} />
+            <Route path="/admin-add-user" element={<AdminAddUsers />} />
           </Routes>
         </ScrollToTop>
       </BrowserRouter>
