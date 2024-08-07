@@ -1,18 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logout } from "../../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
+import useAuth from "../../hooks/useAuth";
+import { jwtDecode } from "jwt-decode";
 
 export const AdmindashHeader = () => {
+  const { user } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const HandleLogout = async () => {
     toast.success("Logged Out Successfully!");
     navigate("/");
     dispatch(logout({}));
   };
+
+  const verifyTokenSignature = () => {
+    try {
+      let newDate = new Date();
+      newDate = newDate.toISOString();
+      const token = user.token;
+      const decoded = jwtDecode(token);
+      const date = new Date(decoded?.exp * 1000);
+      const isoString = date.toISOString();
+      if (newDate > isoString) {
+        HandleLogout();
+      }
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    verifyTokenSignature();
+  }, [location]);
   return (
     <>
       <header className="admin-dash-header">
