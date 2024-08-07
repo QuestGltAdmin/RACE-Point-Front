@@ -16,11 +16,13 @@ import useAuth from "../hooks/useAuth";
 import { reConnect } from "../helpers/web3Model";
 import { commonSwitch } from "../helpers/ChainSwitch";
 import ConnectWalletModal from "./Ui/ConnectWalletModal";
+import { useNavigate } from "react-router-dom";
 
 export const LandingPageHeader = () => {
   //========================= Global variable =========================//
   const { WalletEVM, walletbalance } = useAuth();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [chainData, setChainData] = useState(WalletEVM?.chainId);
   const [showLogout1, setShowLogout1] = useState(false);
   const [showLogout2, setShowLogout2] = useState(false);
@@ -136,9 +138,9 @@ export const LandingPageHeader = () => {
       <header className="header-landing" id="headerId">
         <Navbar expand="lg" className="">
           <Container>
-            <a href="#" className="text-white">
+            <a href="#" className="text-white text-decoration-none">
               {" "}
-              <img src="assets/img/arrow.png" alt="" /> Return to Foundation
+              <i class="fa fa-arrow-left" aria-hidden="true"></i>{" "}&nbsp; Return to Foundation
             </a>
             <Navbar.Brand href="/">
               <h1>
