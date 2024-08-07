@@ -86,7 +86,7 @@ const Landing = () => {
       const response = await axiosMain.post("/auth/get-user-profile", {
         walletAddress: RowWalletAddress,
       });
-      console.log("response", response);
+      // console.log("response", response);
       if (response?.data?.status) {
         if (response?.data?.isLogin) {
           dispatch(userWalletLogin(response.data.data));
@@ -97,7 +97,7 @@ const Landing = () => {
       }
     } catch (error) {
       setCheckApiRes(0);
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -152,7 +152,7 @@ const Landing = () => {
   };
 
   const handleShowReferral1 = () => {
-    console.log("Handling referral 1");
+    // console.log("Handling referral 1");
   };
 
   //========================================== Add user to the backend ============================================

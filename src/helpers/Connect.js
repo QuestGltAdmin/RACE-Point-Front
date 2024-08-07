@@ -76,11 +76,11 @@ export const onDisconnect = async (type) => {
 
     const provider = await Provider(type);
 
-    console.log("Killing the wallet connection", provider);
+    // console.log("Killing the wallet connection", provider);
 
     // TODO: Which providers have close method?
     if (provider) {
-      console.log("provider",provider)
+      // console.log("provider",provider)
       // await provider.close();
 
       // If the cached provider is not cleared,

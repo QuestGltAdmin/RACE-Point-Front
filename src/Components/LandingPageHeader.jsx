@@ -136,10 +136,10 @@ export const LandingPageHeader = () => {
       <header className="header-landing" id="headerId">
         <Navbar expand="lg" className="">
           <Container>
-            {/* <a href="#" className="text-white">
+            <a href="#" className="text-white">
               {" "}
               <img src="assets/img/arrow.png" alt="" /> Return to Foundation
-            </a> */}
+            </a>
             <Navbar.Brand href="/">
               <h1>
                 <img src="assets/img/Logo.png" alt="" /> Points

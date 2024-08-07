@@ -194,7 +194,7 @@ export const Depositstepfirst = () => {
   const racetokenbalance = async () => {
     try {
       const racebalance = await getRaceBalance(chainid, walletaddress);
-      console.log(racebalance, "justnow bal.");
+      // console.log(racebalance, "justnow bal.");
       const raceliveprice = await getRaceTokenPrice(chainid);
       setRaceLivePrice(raceliveprice == 0 ? 1 : raceliveprice);
       setRaceBalance(racebalance?.balance);
@@ -386,7 +386,7 @@ export const Depositstepfirst = () => {
       setFormError("Please enter amount");
     } else if (inputValue?.amount < 0.000001) {
       setFormError("Please enter valid amount");
-      console.log("here3++++++++++++++=");
+      // console.log("here3++++++++++++++=");
     } else if (inputValue?.amount > balance) {
       setFormError("Balance is insufficient");
     } else {
@@ -402,7 +402,7 @@ export const Depositstepfirst = () => {
           userAddress: walletaddress,
         };
         let deposite = await deposit(data);
-        console.log(deposite, "here1");
+        // console.log(deposite, "here1");
 
         // console.log(deposite?.transactionHash);
 

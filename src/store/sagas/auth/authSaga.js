@@ -25,7 +25,7 @@ export function* userLoginSaga(action) {
   const { toast, payload, navigate, setDisable } = action.payload;
   try {
     const response = yield axiosMain.post(``, payload);
-    console.log(response, "res");
+    // console.log(response, "res");
     if (response?.data.status) {
       yield call(setItemToLocalStorage, "isUserAuthenticated", true);
 

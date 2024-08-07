@@ -37,7 +37,7 @@ export const generateSignature = async (data) => {
       setTimeout(() => {
         // window.location.reload();
       }, 3000);
-      console.log(error);
+      // console.log(error);
       throw error;
     }
   } else {
@@ -68,7 +68,7 @@ export const generateSignature = async (data) => {
       setTimeout(() => {
         // window.location.reload();
       }, 3000);
-      console.log(error);
+      // console.log(error);
     }
   }
 };

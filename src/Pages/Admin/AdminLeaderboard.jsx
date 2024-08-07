@@ -6,7 +6,7 @@ import axiosMain from "../../http/axios/axios_main";
 
 export const AdminLeaderboard = () => {
   const { user } = useAuth();
-  console.log(user);
+  // console.log(user);
   const [monthlyTopUser, setMonthlyTopUser] = useState([]);
   const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
   const [topDeposits, setTopDeposits] = useState([]);

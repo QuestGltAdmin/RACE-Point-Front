@@ -51,7 +51,7 @@ export const getWithdrawPricedetails = async (data) => {
         raceTokenPrice: raceTokenPrice / 10 ** 18,
         AssetInOnePoint: (raceTokenPrice / assetPrice) / 10 ** 18
     }
-    console.log(obj, "obj------------------------");
+    // console.log(obj, "obj------------------------");
     return obj;
 };
 

@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 export const AdminDashboard = () => {
   const { user } = useAuth();
-  console.log(user);
+  // console.log(user);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalDeposit, setTotalDeposit] = useState(0);
   const [systemStop , setSystemStop] = useState(false)
@@ -20,13 +20,13 @@ export const AdminDashboard = () => {
         },
       });
       if (getData?.data?.status) {
-        console.log(getData);
+        // console.log(getData);
         
         setTotalUsers(getData?.data?.userCount);
         setTotalDeposit(getData?.data?.totalDeposit);
         setSystemStop(getData?.data?.system_stop)
       }
-      console.log(getData);
+      // console.log(getData);
     } catch (err) {}
   };
 

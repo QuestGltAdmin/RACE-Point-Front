@@ -59,7 +59,7 @@ export const AdminUpdateMulti = () => {
       }
     }
   };
-  console.log(prvId);
+  // console.log(prvId);
 
   return (
     <>

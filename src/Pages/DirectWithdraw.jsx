@@ -195,7 +195,7 @@ export const DirectWithdraw = () => {
   const racetokenbalance = async () => {
     try {
       const racebalance = await getRaceBalance(chainid, walletaddress);
-      console.log(racebalance, "justnow bal.");
+      // console.log(racebalance, "justnow bal.");
       const raceliveprice = await getRaceTokenPrice(chainid);
       setRaceLivePrice(raceliveprice == 0 ? 1 : raceliveprice);
       setRaceBalance(racebalance?.balance);

@@ -6,6 +6,7 @@ import axiosMain from "../../http/axios/axios_main";
 import { debounce } from "lodash";
 import moment from "moment/moment";
 import { toast } from "react-toastify";
+import ExportEXCEL from "../../Components/ExportToExcel";
 
 export const Adminuserlist = () => {
   //==================================Global Variable================================//
@@ -24,6 +25,8 @@ export const Adminuserlist = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [idCheck, setIdCheck] = useState("");
+  const [exportData, setExportData] = useState([]);
+  const [disableData, setDisableData] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -35,6 +38,50 @@ export const Adminuserlist = () => {
   };
   const handleCloseReferralUser = async () => {
     setShowReferralUser(false);
+  };
+
+  useEffect(() => {
+    getDataForCsv();
+  }, []);
+
+  const getDataForCsv = async () => {
+    try {
+      const getResAll = await axiosMain.get(
+        `/admin/user-list`,
+        // payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${user.token}`,
+          },
+        }
+      );
+      if (getResAll?.data?.status) {
+        const mapData = await getResAll?.data?.data?.list.map(
+          (items, index) => {
+            return {
+              SNo : index + 1,
+              ensName: items?.ENS_name ? items?.ENS_name : "No ENS Name",
+              data: moment(items?.createdAt).format("lll"),
+              fromReferralCode: items?.from_referral_code,
+              myReferralCode1: items?.referral_codes[0]?.code,
+              myReferralCode2: items?.referral_codes[1]?.code,
+              myReferralCode3: items?.referral_codes[2]?.code,
+              myReferralCode4: items?.referral_codes[3]?.code,
+              myReferralCode5: items?.referral_codes[4]?.code,
+              walletAddress: items?.wallet_address,
+              status: items?.status,
+              Deposit: items?.deposit,
+              EarnPoints: items?.earn_points,
+            };
+          }
+        );
+        setDisableData(true);
+        setExportData(mapData);
+      }
+    } catch (err) {
+      setDisableData(false);
+    }
   };
   //==============================Get Data All Trx==============================//
   const getDataTrxAll = async (pageNumberTrxAll, searchTrxAll) => {
@@ -50,7 +97,7 @@ export const Adminuserlist = () => {
           },
         }
       );
-      console.log(getResAll);
+      // console.log(getResAll);
       if (getResAll?.data?.status) {
         setShowDataTrxAll(getResAll?.data?.data?.list);
         setTotalOrderCountTrxAll(getResAll?.data?.data?.totalRecords[0]?.count);
@@ -119,7 +166,7 @@ export const Adminuserlist = () => {
           },
         }
       );
-      console.log(getDataReferral);
+      // console.log(getDataReferral);
       if (getDataReferral?.data?.status) {
         setShowDataReferral(getDataReferral?.data?.data);
       }
@@ -127,7 +174,7 @@ export const Adminuserlist = () => {
   };
 
   const updateStatus = async (id, flag) => {
-    console.log(id, flag);
+    // console.log(id, flag);
 
     try {
       const updateData = await axiosMain.get(
@@ -159,7 +206,9 @@ export const Adminuserlist = () => {
                 <div className="dashboard-white-box">
                   <div className="w-100">
                     <h2 className="inner-page-heading">User List</h2>
-
+                    {disableData && (
+                      <ExportEXCEL csvData={exportData} fileName="User list" />
+                    )}
                     <div className="table-box-new shadow-box-main">
                       <InputGroup className="mb-3 search-input">
                         <Form.Control
@@ -398,7 +447,7 @@ export const Adminuserlist = () => {
                     name="startDate"
                     type="date"
                     onChange={(e) => {
-                      console.log(e.target.value);
+                      // console.log(e.target.value);
                       setStartDate(e.target.value);
                     }}
                     value={startDate}

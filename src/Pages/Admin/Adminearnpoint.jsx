@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { AdmindashHeader } from "../../Components/Ui/AdmindashHeader";
-import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Col, Container, Form, InputGroup, Modal, Row } from "react-bootstrap";
 import { debounce } from "lodash";
 import axiosMain from "../../http/axios/axios_main";
 import useAuth from "../../hooks/useAuth";
 import moment from "moment/moment";
+import ExportEXCEL from "../../Components/ExportToExcel";
 
 export const Adminearnpoint = () => {
   //==================================Global Variable================================//
@@ -17,6 +18,65 @@ export const Adminearnpoint = () => {
   const [showDataTrxAll, setShowDataTrxAll] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [startDateExport, setStartDateExport] = useState("");
+  const [endDateExport, setEndDateExport] = useState("");
+  const [show, setShow] = useState(false);
+  const [showExportData, setShowExportData] = useState([]);
+  const [disableData, setDisableData] = useState(false);
+  const handleClose = () => {
+    setDisableData(false);
+    setStartDateExport("");
+    setEndDateExport("");
+    setShowExportData([]);
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    if (startDateExport !== "" && endDateExport !== "") {
+      getDataExport();
+    }
+  }, [startDateExport, endDateExport]);
+
+  const getDataExport = async () => {
+    try {
+      const payload = {
+        date_from: startDateExport,
+        date_to: endDateExport,
+      };
+      const getResAll = await axiosMain.post(
+        `/admin/all-user-income`,
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${user.token}`,
+          },
+        }
+      );
+      if (getResAll?.data?.status) {
+        const mapData = await getResAll?.data?.data?.list?.map(
+          (items, index) => {
+            return {
+              SNo: index + 1,
+              baseEarnPoints: items?.base_earn_points,
+              layerEarnPoints: items?.layer_earn_points,
+              totalEarnPoints: items?.total_earn_points,
+              date: moment(items?.createdAt).format("lll"),
+              walletAddress: items?.user_id?.wallet_address,
+              fromReferralCode: items?.user_id?.from_referral_code,
+              earnPoints: items?.user_id?.earn_points,
+              deposit: items?.user_id?.deposit,
+            };
+          }
+        );
+        setDisableData(true);
+        setShowExportData(mapData);
+      }
+    } catch (err) {
+      setDisableData(false);
+    }
+  };
   //==============================Get Data All Trx==============================//
   const getDataTrxAll = async (
     pageNumberTrxAll,
@@ -39,7 +99,7 @@ export const Adminearnpoint = () => {
           },
         }
       );
-      console.log(getResAll);
+      // console.log(getResAll);
       if (getResAll?.data?.status) {
         setShowDataTrxAll(getResAll?.data?.data?.list);
         setTotalOrderCountTrxAll(getResAll?.data?.data?.totalRecords[0]?.count);
@@ -76,7 +136,14 @@ export const Adminearnpoint = () => {
                 <div className="dashboard-white-box">
                   <div className="w-100">
                     <h2 className="inner-page-heading">Earn Point Statment</h2>
-
+                    <button
+                      className="common-btn"
+                      onClick={() => {
+                        setShow(true);
+                      }}
+                    >
+                      Export Data
+                    </button>
                     <div className="table-box-new shadow-box-main">
                       <div className="d-flex gap-2">
                         <InputGroup className="mb-3 search-input">
@@ -101,7 +168,7 @@ export const Adminearnpoint = () => {
                             name="startDate"
                             type="date"
                             onChange={(e) => {
-                              console.log(e.target.value);
+                              // console.log(e.target.value);
                               setStartDate(e.target.value);
                             }}
                             value={startDate}
@@ -288,6 +355,58 @@ export const Adminearnpoint = () => {
             </Row>
           </Container>
         </section>
+
+        <Modal
+          className="new-user-modal"
+          centered
+          show={show}
+          onHide={handleClose}
+        >
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body>
+            <div>
+              <img
+                src="assets/img/Logo.png"
+                alt=""
+                className="img-fluid logo"
+              />
+              <p>Select Date range to get data</p>
+              <div className="d-flex gap-2">
+                <InputGroup className="mb-3 search-input">
+                  <Form.Control
+                    placeholder="Search...."
+                    name="startDateExport"
+                    type="date"
+                    onChange={(e) => {
+                      // console.log(e.target.value);
+                      setStartDateExport(e.target.value);
+                    }}
+                    value={startDateExport}
+                  />
+                </InputGroup>
+                <InputGroup className="mb-3 search-input">
+                  <Form.Control
+                    placeholder="Search...."
+                    name="endDateExport"
+                    type="date"
+                    onChange={(e) => {
+                      setEndDateExport(e.target.value);
+                    }}
+                    value={endDateExport}
+                  />
+                </InputGroup>
+              </div>
+
+              {disableData && <p>{showExportData?.length} Data</p>}
+              {disableData && (
+                <ExportEXCEL
+                  csvData={showExportData}
+                  fileName="Earn Point List"
+                />
+              )}
+            </div>
+          </Modal.Body>
+        </Modal>
       </div>
     </>
   );

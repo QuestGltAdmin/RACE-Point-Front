@@ -122,7 +122,7 @@ export const deposit = async (data) => {
                 // window.location.reload();
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error("Transaction Reverted");
             setTimeout(() => {
                 // window.location.reload();
@@ -139,7 +139,7 @@ export const deposit = async (data) => {
 
             const caddress = web3connect.utils.toChecksumAddress(vaultAddress);
             let vaultContract = new web3connect.eth.Contract(abi, caddress);
-            console.log("here");
+            // console.log("here");
 
             let depositAmount = web3connect.utils.toWei(data.amount.toString(), "mwei");
             

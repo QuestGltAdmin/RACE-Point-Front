@@ -13,7 +13,7 @@ const RaceTokensList = RaceTokens.tokens;
 const RaceSwapperList = RaceSwapper.contracts;
 
 export const withdrawVault = async (data) => {
-    console.log(data,"data");
+    // console.log(data,"data");
 
     let address = RaceTokensList.filter((token) => token.chainId == data.chainId);
     address = address[0];
@@ -51,7 +51,7 @@ export const withdrawVault = async (data) => {
         let swapperContract = new web3connect.eth.Contract(abi, caddress);
 
         let tokenAmount = web3connect.utils.toWei(data.amount.toString(), "ether");
-        console.log(tokenAmount,"tokenAmount"); 
+        // console.log(tokenAmount,"tokenAmount"); 
         let Data = swapperContract.methods 
         .withdraw(vaultAddress,tokenAmount,AssetAddress,expextedAmount)
         .encodeABI();
@@ -136,7 +136,7 @@ export const withdrawVault = async (data) => {
                 // window.location.reload();
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error("Transaction Reverted");
             setTimeout(() => {
                 // window.location.reload();
@@ -158,7 +158,7 @@ export const withdrawVault = async (data) => {
             let Data = swapperContract.methods 
             .withdraw(vaultAddress,tokenAmount,AssetAddress,expextedAmount)
             .encodeABI();
-            console.log("here");
+            // console.log("here");
 
             const nonce = await web3connect.eth.getTransactionCount(
                 selectedAccount,

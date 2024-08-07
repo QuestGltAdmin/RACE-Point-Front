@@ -135,7 +135,7 @@ export const approveRace = async (data) => {
     }
   }catch(err){
     
-    console.log(err);
+    // console.log(err);
     window.location.reload();
   }  
   } else {

@@ -180,7 +180,7 @@ export const AdminGenealogy = () => {
         }
       );
       if (get_data?.data?.status) {
-        console.log(get_data);
+        // console.log(get_data);
         setNodes(get_data?.data?.levelDetail);
       }
     } catch (err) {}

@@ -11,7 +11,7 @@ const TokensList = Tokens.tokens;
 const RaceTokensList = RaceTokens.tokens;
 
 export const approveERC20 = async (data) => {
-  console.log("data", data);
+  // console.log("data", data);
   let token = TokensList.filter(
     (token) =>
       token.currency == data?.currency && token.symbol == data?.cointype
@@ -129,7 +129,7 @@ export const approveERC20 = async (data) => {
       window.location.reload();
     }
   }catch(err){
-    console.log(err);
+    // console.log(err);
     // window.location.reload();
   }
   } else {
