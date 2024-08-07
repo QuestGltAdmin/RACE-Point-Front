@@ -302,7 +302,9 @@ export const Depositstepfirst = () => {
           setShow(false);
           handleCloseWithdraw();
         }
-      } catch (err) {}
+      } catch (err) {
+        toast.error(err?.response?.data?.message);
+      }
     }
   };
   //========================= end of code =========================//
@@ -874,7 +876,19 @@ export const Depositstepfirst = () => {
                     <button
                       className="common-btn bg-left mt-3 "
                       disabled={depositeDisable}
-                      onClick={() => HandleDeposit()}
+                      onClick={() => {
+                        if (user?.emergency_stop) {
+                          toast.warn(
+                            "Your profile is currently blocked by admin, contact admin to get more details!"
+                          );
+                        } else if (user?.system_stop) {
+                          toast.warn(
+                            "System is currently stoped by admin, contact admin to get more details!"
+                          );
+                        } else {
+                          HandleDeposit();
+                        }
+                      }}
                     >
                       {depositeDisable ? "Processing" : "Deposit"}
                     </button>
@@ -1313,7 +1327,19 @@ export const Depositstepfirst = () => {
                     <button
                       className="common-btn bg-left mt-3 "
                       disabled={depositeDisable}
-                      onClick={() => HandleWithdraw()}
+                      onClick={() => {
+                        if (user?.emergency_stop) {
+                          toast.warn(
+                            "Your profile is currently blocked by admin, contact admin to get more details!"
+                          );
+                        } else if (user?.system_stop) {
+                          toast.warn(
+                            "System is currently stoped by admin, contact admin to get more details!"
+                          );
+                        } else {
+                          HandleWithdraw();
+                        }
+                      }}
                     >
                       {depositeDisable ? "Processing" : "Withdraw"}
                     </button>

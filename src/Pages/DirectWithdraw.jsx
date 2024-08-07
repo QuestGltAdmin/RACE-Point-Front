@@ -100,7 +100,7 @@ export const DirectWithdraw = () => {
 
   const handleShow = async (data) => {
     // setShow1(true);
-    handleopenWithdraw()
+    handleopenWithdraw();
     // setShow(true);
     setFlag(true);
     setChainId(data?.chainId);
@@ -303,7 +303,9 @@ export const DirectWithdraw = () => {
           setShow(false);
           handleCloseWithdraw();
         }
-      } catch (err) {}
+      } catch (err) {
+        toast.error(err?.response?.data?.message);
+      }
     }
   };
   //========================= end of code =========================//
@@ -373,7 +375,6 @@ export const DirectWithdraw = () => {
       }
     } catch (err) {}
   };
-
 
   const approveTokenWithdraw = async () => {
     if (!walletaddress) {
@@ -548,9 +549,6 @@ export const DirectWithdraw = () => {
           </div>
         </Container>
       </section>
-
-
-
 
       {/* Withdraw popup 1 */}
       <Modal
@@ -950,7 +948,19 @@ export const DirectWithdraw = () => {
                     <button
                       className="common-btn bg-left mt-3 "
                       disabled={depositeDisable}
-                      onClick={() => HandleWithdraw()}
+                      onClick={() => {
+                        if (user?.emergency_stop) {
+                          toast.warn(
+                            "Your profile is currently blocked by admin, contact admin to get more details!"
+                          );
+                        } else if (user?.system_stop) {
+                          toast.warn(
+                            "System is currently stoped by admin, contact admin to get more details!"
+                          );
+                        } else {
+                          HandleWithdraw();
+                        }
+                      }}
                     >
                       {depositeDisable ? "Processing" : "Withdraw"}
                     </button>
