@@ -138,7 +138,7 @@ export const LandingPageHeader = () => {
       <header className="header-landing" id="headerId">
         <Navbar expand="lg" className="">
           <Container>
-            <a href="#" className="text-white text-decoration-none">
+            <a href="#" className="text-white text-decoration-none mobile-none">
               {" "}
               <i class="fa fa-arrow-left" aria-hidden="true"></i>{" "}&nbsp; Return to Foundation
             </a>
@@ -150,7 +150,7 @@ export const LandingPageHeader = () => {
             <div className="d-flex align-items-center">
               {!WalletEVM?.selectedAccount ? (
                 <button
-                  className="common-btn"
+                  className="common-btn connect-wallet-btn"
                   onClick={() => {
                     setShowConnectWalletModal(true);
                   }}
