@@ -138,7 +138,7 @@ export const LandingPageHeader = () => {
       <header className="header-landing" id="headerId">
         <Navbar expand="lg" className="">
           <Container>
-            <a href="#" className="text-white text-decoration-none mobile-none">
+            <a href="https://race.foundation/" target="_blank" className="text-white text-decoration-none mobile-none">
               {" "}
               <i class="fa fa-arrow-left" aria-hidden="true"></i>{" "}&nbsp; Return to Foundation
             </a>
@@ -213,10 +213,10 @@ export const LandingPageHeader = () => {
                   </Dropdown>
                 </>
               )}
-              <a href="" className="social-head">
+              <a href="https://t.me/RACEecosystem" target="_blank" className="social-head">
                 <img src="assets/images/telegram.png" alt="" />
               </a>
-              <a href="" className="social-head">
+              <a href="https://x.com/RACEecosystem" target="_blank" className="social-head">
                 <img src="assets/images/twitt.png" alt="" />
               </a>
             </div>

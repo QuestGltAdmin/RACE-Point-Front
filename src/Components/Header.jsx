@@ -206,10 +206,10 @@ export const Header = () => {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                  <a href="" className="social-head">
-                    <img src="assets/images/telegram.png" alt="" />
+                  <a href="https://t.me/RACEecosystem" target="_blank" className="social-head">
+                    <img src="assets/images/telegram.png" target="_blank" alt="" />
                   </a>
-                  <a href="" className="social-head">
+                  <a href="https://x.com/RACEecosystem" className="social-head">
                     <img src="assets/images/twitt.png" alt="" />
                   </a>
                 </>
