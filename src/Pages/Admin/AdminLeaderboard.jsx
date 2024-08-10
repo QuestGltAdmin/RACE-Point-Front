@@ -61,7 +61,7 @@ export const AdminLeaderboard = () => {
                           <Col lg={6} md={6} sm={6} xs={6}>
                             <div class="inner-user-box">
                               <div class="user-img">
-                                <img src={items?.profile} alt="" />
+                                <img src="assets/images/avatar.png" alt="" />
                               </div>
                               <h4>
                                 {items?.wallet_address?.replace(
@@ -112,7 +112,7 @@ export const AdminLeaderboard = () => {
                           <Col lg={6} md={6} sm={6} xs={6}>
                             <div class="inner-user-box top-referrals">
                               <div class="user-img">
-                                <img src={items?.profile} alt="" />
+                                <img src="assets/images/avatar.png" alt="" />
                               </div>
                               <h4>
                                 {" "}
@@ -203,7 +203,7 @@ export const AdminLeaderboard = () => {
                                   </div>
                                   <img
                                     className="user-img"
-                                    src={monthly.profile}
+                                src="assets/images/avatar.png"
                                     alt=""
                                   />
                                   <div>
@@ -267,7 +267,7 @@ export const AdminLeaderboard = () => {
                                     </div>
                                     <img
                                       className="user-img"
-                                      src={items?.profile}
+                                   src="assets/images/avatar.png"
                                       alt=""
                                     />
                                     <div>
@@ -330,7 +330,7 @@ export const AdminLeaderboard = () => {
                                     </div>
                                     <img
                                       className="user-img"
-                                      src={items?.profile}
+                                   src="assets/images/avatar.png"
                                       alt=""
                                     />
                                     <div>

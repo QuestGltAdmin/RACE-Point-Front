@@ -447,7 +447,7 @@ const Landing = () => {
                     <Col lg={6} md={6} sm={6} xs={6}>
                       <div className="inner-user-box">
                         <div className="user-img">
-                          <img src={deposit.profile} alt="" />
+                          <img src="assets/images/avatar.png" alt="" />
                         </div>
                         <h4>{`${deposit.wallet_address.slice(
                           0,
@@ -478,7 +478,7 @@ const Landing = () => {
                     <Col lg={4} md={4} sm={6} xs={6}>
                       <div className="inner-user-box top-referrals">
                         <div className="user-img">
-                          <img src={refer.profile} alt="" />
+                          <img src="assets/images/avatar.png" alt="" />
                         </div>
                         <h4>{`${refer.wallet_address.slice(
                           0,
@@ -539,7 +539,7 @@ const Landing = () => {
                               </div>
                               <img
                                 className="user-img"
-                                src={monthly.profile}
+                               src="assets/images/avatar.png"
                                 alt=""
                               />
                               <div>
@@ -605,7 +605,7 @@ const Landing = () => {
                               </div>
                               <img
                                 className="user-img"
-                                src={monthly.profile}
+                                src="assets/images/avatar.png"
                                 alt=""
                               />
                               <div>
@@ -671,7 +671,7 @@ const Landing = () => {
                               </div>
                               <img
                                 className="user-img"
-                                src={quarterly.profile}
+                               src="assets/images/avatar.png"
                                 alt=""
                               />
                               <div>
