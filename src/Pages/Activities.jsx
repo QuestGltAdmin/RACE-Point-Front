@@ -108,7 +108,7 @@ export const Activities = () => {
       if (getdata?.data?.status) {
         // setReferralCodes(getdata?.data?.data?.referral_codes);
       }
-    } catch (err) {}
+    } catch (err) { }
   };
   //===============End of code====================//
 
@@ -267,8 +267,8 @@ export const Activities = () => {
                       </div>
                       <div className="coming-soon-box">
                         <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry.
+                          Invite your friends to join the race and earn more
+                          points!
                         </p>
                       </div>
                       <button className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon">
@@ -289,8 +289,8 @@ export const Activities = () => {
                       </div>
                       <div className="coming-soon-box">
                         <p>
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry.
+                          Invite your friends to join the race and earn more
+                          points!
                         </p>
                       </div>
                       <button className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon">
