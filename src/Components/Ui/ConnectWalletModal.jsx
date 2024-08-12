@@ -140,7 +140,7 @@ const ConnectWalletModal = ({ forMobileView, chainData, checkForAdmin ,  ...prop
           <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
           <p>
             You’ll need an Ethereum wallet to sign in.
-            <a href="" className="links">
+            <a href="https://ethereum.org/en/wallets/" target="_blank" className="links">
               Learn more <img src="assets/img/open_in_new.png" alt="" />
             </a>
           </p>
