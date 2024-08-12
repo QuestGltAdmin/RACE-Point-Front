@@ -17,7 +17,7 @@ export const Activities = () => {
 
   //=================Local Variables==================//
   const [showReferralCodesModal, setShowReferralCodesModal] = useState(false);
-  const [referralCodes, setReferralCodes] = useState([]);
+  const [referralCodes, setReferralCodes] = useState(user?.referral_codes);
   //===============End of code====================//
 
   //========================= Leaderboard States ============================
@@ -76,7 +76,7 @@ export const Activities = () => {
   //===============get refferal data  api====================//
 
   useEffect(() => {
-    getdata();
+    // getdata();
     getleaderboardData();
   }, []);
 
@@ -106,7 +106,7 @@ export const Activities = () => {
         }
       );
       if (getdata?.data?.status) {
-        setReferralCodes(getdata?.data?.data?.referral_codes);
+        // setReferralCodes(getdata?.data?.data?.referral_codes);
       }
     } catch (err) {}
   };
