@@ -146,7 +146,7 @@ const ConnectWalletModal = ({ forMobileView, chainData, checkForAdmin ,  ...prop
           </p>
           <p>
             Once connected, you will need to sign a message to agree to the{" "}
-            <a href="" className="links">
+            <a href="https://race.foundation/terms-and-conditions" target="_blank" className="links">
               legal disclaimer
             </a>{" "}
             before using this website.
