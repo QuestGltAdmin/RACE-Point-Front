@@ -14,16 +14,16 @@ import { reconnect, disconnect } from "@wagmi/core";
 // const queryClient = new QueryClient();
 
 // 1. Get projectId at https://cloud.walletconnect.com
-const projectId = "95da9d9d55eccab86c8b2c8a88d384aa";
-// if (!projectId) throw new Error("Project ID is undefined");
+const projectId = "f2a5499b6a760906a269e1ed083a9784";
+// const projectId = "1d25936dcdb260ac3b1d086332913a2a";
 
 // 2. Create wagmiConfig
 const metadata = {
   name: "Race_Point",
   description: "Race Point",
-  url: "https://race-point.netlify.app/",
+  url: "https://pointsystem.race.foundation/",
   icons: [
-    "https://bafybeigesge5mcfs5ipekq7wvjrqnrl6o7nlgknrjqhp6t52x7j75sym2a.ipfs.nftstorage.link/",
+    "https://race.foundation/static/media/logo.62bdf57f4fc5d741d933.png",
   ],
 };
 
