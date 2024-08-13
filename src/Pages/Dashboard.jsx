@@ -65,6 +65,9 @@ export const Dashboard = () => {
         // data: [30, 40, 10, 20],
         backgroundColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
         borderColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
+
+        // backgroundColor: ["#213147", "#7FA8FF", "#FF0420", "#8247E5"],
+        // borderColor: ["#213147", "#7FA8FF", "#FF0420", "#8247E5"],
         borderWidth: 1,
       },
     ],
