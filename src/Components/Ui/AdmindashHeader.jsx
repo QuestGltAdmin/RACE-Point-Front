@@ -59,14 +59,14 @@ export const AdmindashHeader = () => {
                     <Nav className="me-auto">
                       <Nav.Link
                         onClick={() => {
-                          navigate("/admin-dashboard");
+                          navigate("/main-dashboard");
                         }}
                       >
                         <i className="fa fa-th-large"></i> DASHBOARD
                       </Nav.Link>
                       <Nav.Link
                         onClick={() => {
-                          navigate("/admin-leaderboard");
+                          navigate("/main-leaderboard");
                         }}
                       >
                         <i className="fa fa-money"></i> LEADER BOARD
@@ -74,7 +74,7 @@ export const AdmindashHeader = () => {
 
                       <Nav.Link
                         onClick={() => {
-                          navigate("/admin-userlist");
+                          navigate("/main-userlist");
                         }}
                       >
                         <i className="fa fa-exchange"></i>USER LIST
@@ -82,7 +82,7 @@ export const AdmindashHeader = () => {
 
                       <Nav.Link
                         onClick={() => {
-                          navigate("/admin-genealogy");
+                          navigate("/main-genealogy");
                         }}
                       >
                         <i className="fa fa-exchange"></i>USER GENEALOGY
@@ -90,7 +90,7 @@ export const AdmindashHeader = () => {
 
                       <Nav.Link
                         onClick={() => {
-                          navigate("/admin-earnpoint");
+                          navigate("/main-earnpoint");
                         }}
                       >
                         <i className="fa fa-exchange"></i>EARN POINT STATEMENT
@@ -98,7 +98,7 @@ export const AdmindashHeader = () => {
 
                       <Nav.Link
                         onClick={() => {
-                          navigate("/admin-update-multi");
+                          navigate("/main-update-multi");
                         }}
                       >
                         <i className="fa fa-exchange"></i>MULTIPLIER
@@ -106,14 +106,14 @@ export const AdmindashHeader = () => {
 
                       <Nav.Link
                         onClick={() => {
-                          navigate("/admin-token-list");
+                          navigate("/main-token-list");
                         }}
                       >
                         <i className="fa fa-exchange"></i>VAULT LIST
                       </Nav.Link>
                       <Nav.Link
                         onClick={() => {
-                          navigate("/admin-add-user");
+                          navigate("/main-add-user");
                         }}
                       >
                         <i className="fa fa-exchange"></i>ADD WALLET

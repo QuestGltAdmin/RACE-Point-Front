@@ -82,7 +82,7 @@ export const AdminLogin = () => {
           setDisable(false);
           toast.success("Admin login success. Please verify otp.");
           setTimeout(() => {
-            navigate("/admin-otp", { state: { email: RowEmail } });
+            navigate("/main-otp", { state: { email: RowEmail } });
           }, 3000);
         }
       } catch (err) {
@@ -144,7 +144,7 @@ export const AdminLogin = () => {
             dispatch(adminloginSuccess(loginObj?.data?.data));
             toast.success("Admin login success");
             setTimeout(() => {
-              navigate("/admin-dashboard");
+              navigate("/main-dashboard");
             }, 2000);
           }
         } catch (err) {

@@ -70,16 +70,16 @@ function App() {
             <Route path="/governance" element={<Governace />} />
             <Route path="/economy" element={<Economy />} />
 
-            <Route path="/admin-login" element={<AdminLogin />} />
-            <Route path="/admin-otp" element={<AdminVerifyOtp />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            <Route path="/admin-leaderboard" element={<AdminLeaderboard />} />
-            <Route path="/admin-userlist" element={<Adminuserlist />} />
-            <Route path="/admin-earnpoint" element={<Adminearnpoint />} />
-            <Route path="/admin-genealogy" element={<AdminGenealogy />} />
-            <Route path="/admin-update-multi" element={<AdminUpdateMulti />} />
-            <Route path="/admin-token-list" element={<AdminContractList />} />
-            <Route path="/admin-add-user" element={<AdminAddUsers />} />
+            <Route path="/main-login" element={<AdminLogin />} />
+            <Route path="/main-otp" element={<AdminVerifyOtp />} />
+            <Route path="/main-dashboard" element={<AdminDashboard />} />
+            <Route path="/main-leaderboard" element={<AdminLeaderboard />} />
+            <Route path="/main-userlist" element={<Adminuserlist />} />
+            <Route path="/main-earnpoint" element={<Adminearnpoint />} />
+            <Route path="/main-genealogy" element={<AdminGenealogy />} />
+            <Route path="/main-update-multi" element={<AdminUpdateMulti />} />
+            <Route path="/main-token-list" element={<AdminContractList />} />
+            <Route path="/main-add-user" element={<AdminAddUsers />} />
           </Routes>
         </ScrollToTop>
       </BrowserRouter>
