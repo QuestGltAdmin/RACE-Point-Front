@@ -126,9 +126,9 @@ export const AdmindashHeader = () => {
                   </Navbar.Collapse>
 
                   <div className="d-flex align-items-center">
-                    <Nav.Link className="user-profile-icon">
+                    {/* <Nav.Link className="user-profile-icon">
                     {user?.email?.replace(user?.email?.substring(4 , 15) , "...")}
-                    </Nav.Link>
+                    </Nav.Link> */}
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                   </div>

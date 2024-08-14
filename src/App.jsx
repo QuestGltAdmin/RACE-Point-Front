@@ -2,7 +2,7 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./Pages/Landing";
 import { Depositstepfirst } from "./Pages/Depositstepfirst";
 import { Dashboard } from "./Pages/Dashboard";
@@ -23,6 +23,7 @@ import ScrollToTop from "./Components/ScrollToTop";
 import { DirectWithdraw } from "./Pages/DirectWithdraw";
 import { AdminContractList } from "./Pages/Admin/AdminContractList";
 import { AdminAddUsers } from "./Pages/Admin/AdminAddUsers";
+import AdminPrivateRoute from "./PrivateRoutes/AdminPrivateRoute";
 
 function App() {
   return (
@@ -72,14 +73,71 @@ function App() {
 
             <Route path="/main-login" element={<AdminLogin />} />
             <Route path="/main-otp" element={<AdminVerifyOtp />} />
-            <Route path="/main-dashboard" element={<AdminDashboard />} />
-            <Route path="/main-leaderboard" element={<AdminLeaderboard />} />
-            <Route path="/main-userlist" element={<Adminuserlist />} />
-            <Route path="/main-earnpoint" element={<Adminearnpoint />} />
-            <Route path="/main-genealogy" element={<AdminGenealogy />} />
-            <Route path="/main-update-multi" element={<AdminUpdateMulti />} />
-            <Route path="/main-token-list" element={<AdminContractList />} />
-            <Route path="/main-add-user" element={<AdminAddUsers />} />
+            <Route
+              path="/main-dashboard"
+              element={
+                <AdminPrivateRoute>
+                  <AdminDashboard />
+                </AdminPrivateRoute>
+              }
+            />
+            <Route
+              path="/main-leaderboard"
+              element={
+                <AdminPrivateRoute>
+                  <AdminLeaderboard />
+                </AdminPrivateRoute>
+              }
+            />
+            <Route
+              path="/main-userlist"
+              element={
+                <AdminPrivateRoute>
+                  <Adminuserlist />
+                </AdminPrivateRoute>
+              }
+            />
+            <Route
+              path="/main-earnpoint"
+              element={
+                <AdminPrivateRoute>
+                  <Adminearnpoint />
+                </AdminPrivateRoute>
+              }
+            />
+            <Route
+              path="/main-genealogy"
+              element={
+                <AdminPrivateRoute>
+                  <AdminGenealogy />
+                </AdminPrivateRoute>
+              }
+            />
+            <Route
+              path="/main-update-multi"
+              element={
+                <AdminPrivateRoute>
+                  <AdminUpdateMulti />
+                </AdminPrivateRoute>
+              }
+            />
+            <Route
+              path="/main-token-list"
+              element={
+                <AdminPrivateRoute>
+                  <AdminContractList />
+                </AdminPrivateRoute>
+              }
+            />
+            <Route
+              path="/main-add-user"
+              element={
+                <AdminPrivateRoute>
+                  <AdminAddUsers />
+                </AdminPrivateRoute>
+              }
+            />
+            <Route path="/*" element={<Navigate to={"/"} />} />
           </Routes>
         </ScrollToTop>
       </BrowserRouter>

@@ -18,28 +18,46 @@ export const AdminAddUsers = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const [pageNumberTrxAll, setPageNumberTrxAll] = useState(1);
+  const [searchTrxAll, setSearchTrxAll] = useState("");
+  const [totalOrderCountTrxAll, setTotalOrderCountTrxAll] = useState(1);
   const [showValue, setShowValue] = useState([]);
   const [prvId, setPrvId] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [disable, setDisable] = useState(false);
-  const getMultiplier = async () => {
+  const getMultiplier = async (pageNumberTrxAll, searchTrxAll) => {
     try {
-      const getData = await axiosMain.get("/admin/get-all-approve-address", {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `bearer ${user.token}`,
-        },
-      });
+      const getData = await axiosMain.get(
+        `/admin/get-all-approve-address?page=${pageNumberTrxAll}&limit=10&search=${searchTrxAll}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${user.token}`,
+          },
+        }
+      );
       if (getData?.data?.status) {
-        setShowValue(getData?.data?.data);
+        setShowValue(getData?.data?.data?.list);
+        setTotalOrderCountTrxAll(getResAll?.data?.data?.totalRecords[0]?.count);
       }
     } catch (err) {}
   };
 
+  const incressFunctionTrxAll = () => {
+    if (pageNumberTrxAll < Math.ceil(totalOrderCountTrxAll / 10)) {
+      setPageNumberTrxAll(pageNumberTrxAll + 1);
+    }
+  };
+  const decressFunctionTrxAll = () => {
+    if (pageNumberTrxAll > 1) {
+      setPageNumberTrxAll(pageNumberTrxAll - 1);
+    }
+  };
+
+  const filterDataTrxAll = useCallback(debounce(getMultiplier, 1000), []);
   useEffect(() => {
-    getMultiplier();
-  }, []);
+    filterDataTrxAll(pageNumberTrxAll, searchTrxAll);
+  }, [pageNumberTrxAll, searchTrxAll]);
 
   const updateWallet = async () => {
     const checkWallet = await CheckWallet(inputValue);
@@ -93,6 +111,10 @@ export const AdminAddUsers = () => {
                             placeholder="Search...."
                             name="searchTrxAll"
                             type="text"
+                            onChange={(e) => {
+                              setSearchTrxAll(e.target.value);
+                            }}
+                            value={searchTrxAll}
                           />
                           <InputGroup.Text id="basic-addon2">
                             <a href="">
@@ -143,6 +165,36 @@ export const AdminAddUsers = () => {
                             <p>Active</p>
                           </div> */}
                         </div>
+                      </div>
+                      <div className="d-flex justify-content-end">
+                        {showValue?.length > 0 ? (
+                          <div className="d-flex justify-content-center paginate-register">
+                            <div className="d-flex align-items-center">
+                              <button
+                                className="common-btn"
+                                onClick={() => {
+                                  decressFunctionTrxAll();
+                                }}
+                              >
+                                <i className="fa fa-angle-left"></i>
+                              </button>
+                              <button className="common-btn m-2">
+                                Page {pageNumberTrxAll} of{" "}
+                                {Math.ceil(totalOrderCountTrxAll / 10)}
+                              </button>
+                              <button
+                                className="common-btn"
+                                onClick={() => {
+                                  incressFunctionTrxAll();
+                                }}
+                              >
+                                <i className="fa fa-angle-right"></i>
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </div>
                   </div>
