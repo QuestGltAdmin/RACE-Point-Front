@@ -283,7 +283,9 @@ export const Adminuserlist = () => {
                                     <span class="mobile-only">
                                       Joining Date -{" "}
                                     </span>
-                                    {moment(items?.createdAt).format("lll")}
+                                    {/* {moment(items?.createdAt).format("lll")} */}
+                                    {/* {items?.createdAt} */}
+                                    {moment.utc(items?.createdAt).format("lll")}
                                   </p>
                                   <p>
                                     <span class="mobile-only">Status - </span>
@@ -483,7 +485,8 @@ export const Adminuserlist = () => {
                           <p>{index + 1}</p>
                           <p>
                             <span class="mobile-only">Date</span>{" "}
-                            {moment(items?.createdAt).format("lll")}
+                            {/* {moment(items?.createdAt).format("lll")} */}
+                            {moment.utc(items?.createdAt).format("lll")}
                           </p>
                           <p>
                             <span class="mobile-only">Base Earn Points - </span>{" "}
@@ -615,7 +618,8 @@ export const Adminuserlist = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
-                            {moment(items?.createdAt).format("lll")}
+                            {/* {moment(items?.createdAt).format("lll")} */}
+                            {moment.utc(items?.createdAt).format("lll")}
                           </p>
                         </div>
                       );
@@ -655,7 +659,8 @@ export const Adminuserlist = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
-                            {moment(items?.createdAt).format("lll")}
+                            {/* {moment(items?.createdAt).format("lll")} */}
+                            {moment.utc(items?.createdAt).format("lll")}
                           </p>
                         </div>
                       );
@@ -695,7 +700,8 @@ export const Adminuserlist = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
-                            {moment(items?.createdAt).format("lll")}
+                            {/* {moment(items?.createdAt).format("lll")} */}
+                            {moment.utc(items?.createdAt).format("lll")}
                           </p>
                         </div>
                       );
@@ -735,7 +741,8 @@ export const Adminuserlist = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
-                            {moment(items?.createdAt).format("lll")}
+                            {/* {moment(items?.createdAt).format("lll")} */}
+                            {moment.utc(items?.createdAt).format("lll")}
                           </p>
                         </div>
                       );

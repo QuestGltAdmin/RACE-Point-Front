@@ -241,7 +241,8 @@ export const Adminearnpoint = () => {
                                   </p>
                                   <p>
                                     <span class="mobile-only">Date - </span>
-                                    {moment(items?.createdAt).format("lll")}
+                                    {/* {moment(items?.createdAt).format("lll")} */}
+                                    {moment.utc(items?.createdAt).format("lll")}
                                   </p>
                                 </div>
                               );
