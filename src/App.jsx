@@ -6,9 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./Pages/Landing";
 import { Depositstepfirst } from "./Pages/Depositstepfirst";
 import { Dashboard } from "./Pages/Dashboard";
-import { Homepage } from "./Pages/Homepage";
-import { Governace } from "./Pages/Governace";
-import Economy from "./Pages/Economy";
+// import { Homepage } from "./Pages/Homepage";
+// import { Governace } from "./Pages/Governace";
+// import Economy from "./Pages/Economy";
 import { Activities } from "./Pages/Activities";
 import UserPrivateRoutes from "./PrivateRoutes/userRoutes";
 import { AdminDashboard } from "./Pages/Admin/AdminDashboard";
@@ -66,9 +66,9 @@ function App() {
             />
 
             {/* front pages */}
-            <Route path="/home" element={<Homepage />} />
+            {/* <Route path="/home" element={<Homepage />} />
             <Route path="/governance" element={<Governace />} />
-            <Route path="/economy" element={<Economy />} />
+            <Route path="/economy" element={<Economy />} /> */}
 
             <Route path="/main-login" element={<AdminLogin />} />
             <Route path="/main-otp" element={<AdminVerifyOtp />} />
