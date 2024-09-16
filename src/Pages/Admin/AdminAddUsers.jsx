@@ -38,7 +38,7 @@ export const AdminAddUsers = () => {
       );
       if (getData?.data?.status) {
         setShowValue(getData?.data?.data?.list);
-        setTotalOrderCountTrxAll(getResAll?.data?.data?.totalRecords[0]?.count);
+        setTotalOrderCountTrxAll(getData?.data?.data?.totalRecords[0]?.count);
       }
     } catch (err) {}
   };
