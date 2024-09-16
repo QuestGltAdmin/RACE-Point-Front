@@ -524,6 +524,10 @@ export const Depositstepfirst = () => {
     }
   };
 
+  const bridge = async () => {
+    window.open('https://bridge.race.foundation/', '_blank'); 
+  }
+
   const [show1, setShow1] = useState(false);
 
   const handleClose1 = () => setShow1(false);
@@ -627,6 +631,22 @@ export const Depositstepfirst = () => {
               Powered by <img src="assets/img/dhed.png" alt="" />
             </h3>
           </div>
+          <Row className="d-flex justify-content-center">
+            <Col lg={3} md={6} sm={6} xs={6}>
+              <div
+                className="coin-box"
+                onClick={() => bridge()}
+              >
+                <img src="assets/img/Logo.png" alt="" />
+                <h3>RACE Chain</h3>
+                <h5>Bridge to</h5>
+                {/* <div className="btn-row">
+                  <button className="coin-btn">USDC</button>
+                  <button className="coin-btn">Tether</button>
+                </div> */}
+              </div>
+            </Col>
+          </Row>
         </Container>
       </section>
 

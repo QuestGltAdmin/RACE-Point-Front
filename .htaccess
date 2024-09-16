@@ -11,7 +11,7 @@
       Header set Referrer-Policy "origin"
       Header set Referrer "origin"
       Header always set Permissions-Policy "interest-cohort=()"
-      Header always set Content-Security-Policy "default-src wss: https:; img-src https: data:; script-src https: 'unsafe-inline' 'unsafe-eval'; style-src https: 'unsafe-inline' 'unsafe-eval';"
+      Header always set Content-Security-Policy "default-src wss: https:; img-src https: data: blob:; script-src https: 'unsafe-inline' 'unsafe-eval'; style-src https: 'unsafe-inline' 'unsafe-eval';"
       Header add Cross-Origin-Embedder-Policy "unsafe-none"
       Header add Cross-Origin-Opener-Policy "origin"
       Header add Cross-Origin-Resource-Policy "origin"
