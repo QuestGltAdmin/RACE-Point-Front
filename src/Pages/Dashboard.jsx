@@ -52,7 +52,7 @@ export const Dashboard = () => {
   //========================= end of code =========================//
 
   const data = {
-    labels: ["Arbitrum", "Base", "Optimism", "Polygon"],
+    labels: ["Arbitrum", "Base", "Optimism", "Polygon", "Race"],
     datasets: [
       {
         label: "Deposit",
@@ -61,10 +61,11 @@ export const Dashboard = () => {
           (dashboarddata?.location?.base * 1),
           (dashboarddata?.location?.optimism * 1),
           (dashboarddata?.location?.polygon * 1),
+          (dashboarddata?.location?.racemainnet * 1),
         ],
         // data: [30, 40, 10, 20],
-        backgroundColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
-        borderColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED"],
+        backgroundColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED","#157BD1"],
+        borderColor: ["#053863", "#1771BD", "#06487E", "#7BB9ED","#157BD1"],
 
         // backgroundColor: ["#213147", "#7FA8FF", "#FF0420", "#8247E5"],
         // borderColor: ["#213147", "#7FA8FF", "#FF0420", "#8247E5"],
