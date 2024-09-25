@@ -254,6 +254,32 @@ body {
     cursor: not-allowed !important;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #041928;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #b37a56;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b37a56;
+  }
+.more-scroll {
+    max-height: 370px;
+    overflow-y: auto;
+}
+
 .referal-copy-row {
     background-color: #1E293B;
     border-radius: 8px 8px 0 0;
@@ -1979,6 +2005,7 @@ margin-bottom: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-height: 265px;
 }
 .deposit-outer-box .deposit-inner-box{
     display: flex;
@@ -2066,6 +2093,20 @@ max-width: max-content;
     padding: 120px 0 40px;
 }
 
+
+@media (max-width:1200px){
+    .deposit-outer-box {
+        padding: 15px;
+    }
+    .deposit-outer-box .deposit-inner-box img {
+        height: 50px;
+        width: 50px;
+        margin-right: 10px;
+    }
+    p {
+        font-size: 0.9rem !important;
+    }
+}
 @media (max-width: 992px) {
     .common-heading {
         font-size: 2rem;

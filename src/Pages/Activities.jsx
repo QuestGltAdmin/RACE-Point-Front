@@ -572,9 +572,10 @@ export const Activities = () => {
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <div>
+        <div>
             <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
             <p>Here are your referral codes</p>
+            <div className="more-scroll">
             {referralCodes?.map((items, index) => (
               <div className="referal-copy-row" key={index}>
                 {items?.is_used ? (
@@ -601,26 +602,29 @@ export const Activities = () => {
                       <span className="text-white m-2">Copied!</span>
                     ) : (
                       <>
-                        <a
-                          href="#"
-                          onClick={() => handleCopy(items.code, index)}
-                        >
-                          <img src="assets/img/copy.png" alt="Copy" />
-                        </a>
-                        <a
-                          className="text-white"
-                          onClick={() => {
-                            HandleReferral(items.code);
-                          }}
-                        >
-                          <i class="fa fa-share" aria-hidden="true"></i>
-                        </a>
+                        <div className="d-flex align-items-center">
+                            <a
+                              href="#"
+                              onClick={() => handleCopy(items.code, index)}
+                            >
+                              <img src="assets/img/copy.png" alt="Copy" />
+                            </a>
+                            <a
+                              className="text-white"
+                              onClick={() => {
+                                HandleReferral(items.code);
+                              }}
+                            >
+                              <i class="fa fa-share" aria-hidden="true"></i>
+                            </a>
+                        </div>
                       </>
                     )}
                   </>
                 )}
               </div>
             ))}
+            </div>
           </div>
         </Modal.Body>
       </Modal>

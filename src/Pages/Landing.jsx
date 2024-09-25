@@ -842,24 +842,26 @@ const Landing = () => {
           <div>
             <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
             <p>Here are your referral codes</p>
-            {referralCodes.map((code, index) => (
-              <div className="referal-copy-row" key={index}>
-                <div>
-                  <span>{index + 1}</span>
-                  {code.code}
-                </div>
-                {copiedCodeIndex === index ? (
-                  <span className="text-white m-2">Copied!</span>
-                ) : (
-                  <a
-                    href="#"
-                    onClick={(event) => handleCopy(code.code, index, event)}
-                  >
-                    <img src="assets/img/copy.png" alt="Copy" />
-                  </a>
-                )}
-              </div>
-            ))}
+            <div className="more-scroll">
+                {referralCodes.map((code, index) => (
+                  <div className="referal-copy-row" key={index}>
+                    <div>
+                      <span>{index + 1}</span>
+                      {code.code}
+                    </div>
+                    {copiedCodeIndex === index ? (
+                      <span className="text-white m-2">Copied!</span>
+                    ) : (
+                      <a
+                        href="#"
+                        onClick={(event) => handleCopy(code.code, index, event)}
+                      >
+                        <img src="assets/img/copy.png" alt="Copy" />
+                      </a>
+                    )}
+                  </div>
+                ))}
+            </div>
           </div>
         </Modal.Body>
       </Modal>

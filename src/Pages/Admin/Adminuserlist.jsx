@@ -408,6 +408,7 @@ export const Adminuserlist = () => {
                 className="img-fluid logo"
               />
               <p>Here are your referral codes</p>
+              <div className="more-scroll">
               {refferalCode?.length &&
                 refferalCode?.map((items, index) => {
                   return (
@@ -427,6 +428,7 @@ export const Adminuserlist = () => {
                     </div>
                   );
                 })}
+              </div>
             </div>
           </Modal.Body>
         </Modal>
