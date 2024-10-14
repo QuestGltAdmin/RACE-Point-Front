@@ -1,0 +1,94 @@
+{
+    "tokens": [
+      {
+        "name": "ETH",
+        "currency": "ETH",
+        "symbol": "ETH",
+        "chainId": 6806,
+        "decimals": 18,
+        "address": "0x0000000000000000000000000000000000000000",
+        "logos": "assets/DepositImg/eth.png"
+      },
+      {
+        "name": "DAI",
+        "currency": "DAI",
+        "symbol": "DAI",
+        "chainId": 6806,
+        "decimals": 18,
+        "address": "0x4d481c2bf245794d3511537b2d3c78a5c6d07a9c",
+        "logos": "assets/DepositImg/dai.png"
+      },
+      {
+        "name": "USDC",
+        "currency": "USDC",
+        "symbol": "USDC",
+        "chainId": 6806,
+        "decimals": 6,
+        "address": "0xaF51F1A4700055242a21ccb77bF70127Fa31Cf3a",
+        "logos": "assets/DepositImg/usdc.png"
+      },
+      {
+        "name": "USDT",
+        "currency": "USDT",
+        "symbol": "USDT",
+        "chainId": 6806,
+        "decimals": 6,
+        "address": "0x64f9960d84e0bbe5dcc08199d96468a165645422",
+        "logos": "assets/DepositImg/usdt.png"
+      },
+      {
+        "name": "wBTC",
+        "currency": "wBTC",
+        "symbol": "wBTC",
+        "chainId": 6806,
+        "decimals": 8,
+        "address": "0xacaafcd79c54f60c7cd0122f0a697c03b12c69a1",
+        "logos": "assets/DepositImg/wbtc.png"
+      }, {
+        "name": "ETH",
+        "currency": "ETH",
+        "symbol": "ETH",
+        "chainId": 11155111,
+        "decimals": 18,
+        "address": "0x0000000000000000000000000000000000000000",
+        "logos": "assets/DepositImg/eth.png"
+      },
+      {
+        "name": "DAI",
+        "currency": "DAI",
+        "symbol": "DAI",
+        "chainId": 11155111,
+        "decimals": 18,
+        "address": "0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357",
+        "logos": "assets/DepositImg/dai.png"
+      },
+      {
+        "name": "USDC",
+        "currency": "USDC",
+        "symbol": "USDC",
+        "chainId": 11155111,
+        "decimals": 6,
+        "address": "0x3266873ff490a9510e13CCf0Fd919BE5e822F6c7",
+        "logos": "assets/DepositImg/usdc.png"
+      },
+      {
+        "name": "USDT",
+        "currency": "USDT",
+        "symbol": "USDT",
+        "chainId": 11155111,
+        "decimals": 6,
+        "address": "0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0",
+        "logos": "assets/DepositImg/usdt.png"
+      },
+      {
+        "name": "wBTC",
+        "currency": "wBTC",
+        "symbol": "wBTC",
+        "chainId": 11155111,
+        "decimals": 8,
+        "address": "0x29f2D40B0605204364af54EC677bD022dA425d03",
+        "logos": "assets/DepositImg/wbtc.png"
+      }
+    ]
+  }
+  

@@ -96,6 +96,15 @@
         "chainIdHex": "0xA4B1",
         "rpc":"https://holy-still-scion.arbitrum-mainnet.quiknode.pro/2b7d2d6074b8e18f3c3fe7fafb0772c77aad7d5b/",
         "explorer": "https://arbiscan.io"
+      },
+      {
+        "name": "Race Testnet",
+        "symbol": "ETH",
+        "chainId": 6806,
+        "coinName": "Eth",
+        "chainIdHex": "0x1A96",
+        "rpc":"https://racetestnet.io/",
+        "explorer": "https://testnet.racescan.io/"
       }
     ]
   }

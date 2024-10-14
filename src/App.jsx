@@ -24,6 +24,8 @@ import { DirectWithdraw } from "./Pages/DirectWithdraw";
 import { AdminContractList } from "./Pages/Admin/AdminContractList";
 import { AdminAddUsers } from "./Pages/Admin/AdminAddUsers";
 import AdminPrivateRoute from "./PrivateRoutes/AdminPrivateRoute";
+import { DepositNew } from "./Pages/DepositNew";
+import { History } from "./Pages/History";
 
 function App() {
   return (
@@ -63,6 +65,24 @@ function App() {
                 <UserPrivateRoutes>
                   <DirectWithdraw />
                 </UserPrivateRoutes>
+              }
+            />
+
+            <Route
+              path="/deposit-new"
+              element={
+                // <UserPrivateRoutes>
+                <DepositNew />
+                // </UserPrivateRoutes>
+              }
+            />
+
+            <Route
+              path="/history"
+              element={
+                // <UserPrivateRoutes>
+                <History />
+                // </UserPrivateRoutes>
               }
             />
 
@@ -124,9 +144,9 @@ function App() {
             <Route
               path="/main-token-list"
               element={
-                <AdminPrivateRoute>
-                  <AdminContractList />
-                </AdminPrivateRoute>
+                // <AdminPrivateRoute>
+                <AdminContractList />
+                // </AdminPrivateRoute>
               }
             />
             <Route

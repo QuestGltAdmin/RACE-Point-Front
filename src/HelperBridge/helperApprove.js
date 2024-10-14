@@ -1,0 +1,235 @@
+import { web3 } from "../helpers/Web3Helper";
+import { toast } from "react-toastify";
+import TokenABI from "../ABI/ERC20ABI.json";
+import { config, getAccountDetail, getNetworkDetail } from "../helpers/web3Model";
+import Web3 from "web3";
+import { sendTransaction } from "@wagmi/core";
+import ContractData from "../JSON/ContractBridge.json";
+
+export const approveERC20 = async (data) => {
+  let depositAddress;
+  if (data?.TrxType == "Deposit" && data?.chainId == 11155111) {
+    depositAddress = ContractData?.DEPOSITTESTNET;
+  }
+  if (data?.TrxType == "Deposit" && data?.chainId == 1) {
+    depositAddress = ContractData?.DEPOSITMAINNET;
+  }
+  if (data?.TrxType == "Withdraw" && data?.chainId == 6806) {
+    depositAddress = ContractData?.WITHDRAWTESTNET;
+  }
+  if (data?.TrxType == "Withdraw" && data?.chainId == 6805) {
+    depositAddress = ContractData?.WITHDRAWMAINNET;
+  }
+  const abi = TokenABI;
+
+  if (data.type === "walletConnect") {
+    try {
+      let network = await getNetworkDetail();
+      let web3connect = new Web3(
+        new Web3.providers.HttpProvider(network.chain.rpcUrls.default.http[0])
+      );
+
+      const accounts = await getAccountDetail();
+      let selectedAccount = accounts.selectedAccount;
+      const chainId = accounts.chainId;
+
+      let amt = parseFloat(data.amount) + parseFloat(data.amount) * 0.001;
+
+      // let amountIn = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+      let amountIn = "0x" + parseInt(amt * 10 ** data.decimals).toString(16);
+
+      const caddress = web3connect.utils.toChecksumAddress(depositAddress);
+      const tokenAddress = web3connect.utils.toChecksumAddress(data.address);
+
+      const nonce = await web3connect.eth.getTransactionCount(
+        selectedAccount,
+        "latest"
+      ); //get latest nonce
+
+      if (chainId !== data.chainId) {
+        toast.warn("Wrong Network");
+        // _switch();
+        return false;
+      }
+      const from_account = web3connect.utils.toChecksumAddress(selectedAccount);
+      if (from_account.toLowerCase() !== data.userAddress.toLowerCase()) {
+        toast.warn("Wrong Account");
+        // _switch();
+        return false;
+      }
+
+      let ercContract = new web3connect.eth.Contract(abi, tokenAddress);
+
+      let Data = ercContract.methods.approve(caddress, amountIn).encodeABI();
+
+      let estimates_gas = await web3connect.eth.estimateGas({
+        from: from_account,
+        to: tokenAddress,
+        data: Data,
+      });
+
+      let balance = await web3connect.eth.getBalance(from_account);
+
+      let gasLimit = web3connect.utils.toHex(parseInt(estimates_gas) * 2);
+      let gasPrice_bal = await web3connect.eth.getGasPrice();
+      let gasPrice = web3connect.utils.toHex(parseInt(gasPrice_bal));
+
+      let gasfee = gasLimit * gasPrice;
+
+      if (parseInt(balance) < parseInt(gasfee)) {
+        toast.warn("insufficient fund for gas fee");
+        return false;
+      }
+
+      let tx = {
+        from: from_account,
+        to: tokenAddress,
+        nonce: nonce,
+        gasPrice: gasPrice,
+        gasLimit: gasLimit,
+        data: Data,
+      };
+
+      let _config = config();
+      let hash = await sendTransaction(_config, tx);
+      const ids = toast.loading(
+        "Please Check your Wallet for any Pending Transaction"
+      );
+      // toast.success('Wait For transaction to Success')
+      // show modal
+      const expectedBlockTime = 1000; // 1sec
+      const sleep = (milliseconds) => {
+        return new Promise((resolve) => setTimeout(resolve, milliseconds));
+      };
+      let transactionReceipt = null;
+      while (transactionReceipt == null) {
+        // Waiting expectedBlockTime until the transaction is mined
+        transactionReceipt = await web3connect.eth.getTransactionReceipt(hash);
+        await sleep(expectedBlockTime);
+      }
+
+      if (transactionReceipt.status) {
+        toast.update(ids, {
+          render: "Transaction Success",
+          type: "success",
+          isLoading: false,
+          autoClose: 2000,
+        });
+        return transactionReceipt;
+      } else {
+        toast.update(ids, {
+          render: "Transaction Reverted",
+          type: "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+        window.location.reload();
+      }
+    } catch (err) {
+      // console.log(err);
+      // window.location.reload();
+    }
+  } else {
+    const web3connect = await web3(data.type);
+
+    const accounts = await web3connect.eth.getAccounts();
+
+    let selectedAccount = accounts[0];
+    let amt = parseFloat(data.amount) + parseFloat(data.amount) * 0.001;
+
+    let amountIn = "0x" + parseInt(amt * 10 ** data.decimals).toString(16);
+    // let amountIn = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
+
+    const caddress = web3connect.utils.toChecksumAddress(depositAddress);
+    const tokenAddress = web3connect.utils.toChecksumAddress(data.address);
+
+    const nonce = await web3connect.eth.getTransactionCount(
+      selectedAccount,
+      "latest"
+    ); //get latest nonce
+
+    const chainId = await web3connect.eth.getChainId();
+
+    if (chainId !== data.chainId) {
+      toast.warn("Wrong Network");
+      // _switch();
+      return false;
+    }
+
+    const from_account = web3connect.utils.toChecksumAddress(selectedAccount);
+    if (from_account.toLowerCase() !== data.userAddress.toLowerCase()) {
+      toast.warn("Wrong Account");
+      // _switch();
+      return false;
+    }
+
+    let ercContract = new web3connect.eth.Contract(abi, tokenAddress);
+
+    let Data = ercContract.methods.approve(caddress, amountIn).encodeABI();
+
+    let estimates_gas = await web3connect.eth.estimateGas({
+      from: from_account,
+      to: tokenAddress,
+      data: Data,
+    });
+
+    let gasLimit = web3connect.utils.toHex(parseInt(estimates_gas) * 2);
+    let gasPrice_bal = await web3connect.eth.getGasPrice();
+    let gasPrice = web3connect.utils.toHex(parseInt(gasPrice_bal));
+
+    let tx = {
+      from: from_account,
+      to: tokenAddress,
+      nonce: nonce,
+      gasPrice: gasPrice,
+      gasLimit: gasLimit,
+      data: Data,
+    };
+
+    await web3connect.eth.sendTransaction(tx, function (err, hash) {
+      if (!err) {
+        const ids = toast.loading(
+          "Please Check your Metamask for any Pending Transaction"
+        );
+
+        const expectedBlockTime = 1000; // 1sec
+
+        const sleep = (milliseconds) => {
+          return new Promise((resolve) => setTimeout(resolve, milliseconds));
+        };
+        (async function () {
+          let transactionReceipt = null;
+          while (transactionReceipt == null) {
+            // Waiting expectedBlockTime until the transaction is mined
+            transactionReceipt = await web3connect.eth.getTransactionReceipt(
+              hash
+            );
+            await sleep(expectedBlockTime);
+          }
+          if (transactionReceipt.status) {
+            toast.update(ids, {
+              render: "Transaction Success",
+              type: "success",
+              isLoading: false,
+              autoClose: 2000,
+            });
+            return true;
+          } else {
+            toast.update(ids, {
+              render: "Transaction Reverted",
+              type: "error",
+              isLoading: false,
+              autoClose: 2000,
+            });
+
+            window.location.reload();
+          }
+        })();
+      } else {
+        toast.error("Transaction Reverted");
+        window.location.reload();
+      }
+    });
+    return true;
+  }
+};
