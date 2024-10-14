@@ -14,17 +14,17 @@ export const History = () => {
 
   return (
     <>
-      <div className="dashboard-layout">
         <Header />
-        <section className="outer-dash-section">
+        <section className="activity-main-sec">
           <Container>
             <Row>
               <Col lg={12}>
-                <div className="dashboard-white-box">
-                  <div className="w-100">
-                    <h2 className="inner-page-heading">Vault List</h2>
+              <h2 class="common-heading text-start mb-2 font-mid">Deposit History</h2>
+              {/* <p className="sub-heading text-start">
+                Complete the activities below and earn points
+              </p> */}
 
-                    <div className="table-box-new shadow-box-main">
+<div className="table-box-new deposit-outer-box">
                       <div className="table-view-transaction">
                         <div className="thead">
                           <div>
@@ -58,7 +58,7 @@ export const History = () => {
                                     <a
                                       href={`https://dhedge.org/vault/${items?.address}`}
                                       target="_blank"
-                                      className="common-btn"
+                                      className="common-btn view-btn"
                                     >
                                View dHedge 
                                     </a>
@@ -69,13 +69,10 @@ export const History = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
               </Col>
             </Row>
           </Container>
         </section>
-      </div>
     </>
   );
 };

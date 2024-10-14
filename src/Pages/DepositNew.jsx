@@ -365,289 +365,302 @@ export const DepositNew = () => {
       <section className="deposit-step-sec">
         <Container>
           <Row>
-            <Col lg={6}>
-              <Tabs defaultActiveKey="deposit" className="mb-3 ">
-                {/*================================================All============================================== */}
-                <Tab eventKey="deposit" title="Deposit">
-                  {" "}
-                  <div>
-                    <h4 className="sub-heading">Deposit</h4>
+            <Col lg={6} className="m-auto">
+                <div className="deposit-outer-box">
+                   <div className="w-100 outer-deposit-tab">
+                   <Tabs defaultActiveKey="deposit" className="mb-3 ">
+                        {/*================================================All============================================== */}
+                        <Tab eventKey="deposit" title="Deposit">
+                          {" "}
+                          <div>
+                            <h4 className="sub-heading">Deposit</h4>
 
-                    <Form.Group className="mb-3 form-row">
-                      <Form.Label>From</Form.Label>
-                      <div className="input-flex-row">
-                        <InputGroup className="">
-                          <Form.Control
-                            type="number"
-                            placeholder="0"
-                            name="amountInDeposit"
-                            onChange={(e) => {
-                              setAmountInDeposit(e.target.value);
-                            }}
-                            value={amountInDeposit}
-                          />
-                          {/* <InputGroup.Text>max</InputGroup.Text> */}
-                        </InputGroup>
-                        <Dropdown
-                          onSelect={(e) => {
-                            HandelTokenListDeposit(e);
-                          }}
-                        >
-                          <Dropdown.Toggle>
-                            <img
-                              className="profile-main-img"
-                              height={50}
-                              src={tokenInDeposit?.logos}
-                              alt="image"
-                            />{" "}
-                            {tokenInDeposit?.name}
-                          </Dropdown.Toggle>
+                            <Form.Group className="mb-3 form-row">
+                              <Form.Label>From</Form.Label>
+                              <div className="input-flex-row">
+                                <InputGroup className="">
+                                  <Form.Control
+                                    type="number"
+                                    placeholder="0"
+                                    name="amountInDeposit"
+                                    onChange={(e) => {
+                                      setAmountInDeposit(e.target.value);
+                                    }}
+                                    value={amountInDeposit}
+                                  />
+                                  {/* <InputGroup.Text>max</InputGroup.Text> */}
+                                </InputGroup>
+                                <Dropdown
+                                  onSelect={(e) => {
+                                    HandelTokenListDeposit(e);
+                                  }}
+                                >
+                                  <Dropdown.Toggle>
+                                    <img
+                                      className="profile-main-img"
+                                      height={50}
+                                      src={tokenInDeposit?.logos}
+                                      alt="image"
+                                    />{" "}
+                                    {tokenInDeposit?.name}
+                                  </Dropdown.Toggle>
 
-                          <Dropdown.Menu>
-                            {Tokens.tokens?.length > 0
-                              ? Tokens.tokens
-                                  .filter((item) => item?.chainId == 11155111)
-                                  .map((items, index) => {
-                                    return (
-                                      <Dropdown.Item
-                                        eventKey={JSON.stringify(items)}
-                                      >
-                                        <img
-                                          src={items?.logos}
-                                          height={30}
-                                          alt=""
-                                        />{" "}
-                                        {items?.name}
-                                      </Dropdown.Item>
-                                    );
-                                  })
-                              : ""}
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
-                      <p>
-                        Balance:{" "}
-                        {balanceDeposit?.balance
-                          ? (balanceDeposit?.balance * 1).toFixed(6)
-                          : 0}{" "}
-                        {tokenInDeposit?.name}
-                      </p>
-                    </Form.Group>
+                                  <Dropdown.Menu>
+                                    {Tokens.tokens?.length > 0
+                                      ? Tokens.tokens
+                                          .filter((item) => item?.chainId == 11155111)
+                                          .map((items, index) => {
+                                            return (
+                                              <Dropdown.Item
+                                                eventKey={JSON.stringify(items)}
+                                              >
+                                                <img
+                                                  src={items?.logos}
+                                                  height={30}
+                                                  alt=""
+                                                />{" "}
+                                                {items?.name}
+                                              </Dropdown.Item>
+                                            );
+                                          })
+                                      : ""}
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                              </div>
+                              <p>
+                                Balance:{" "}
+                                {balanceDeposit?.balance
+                                  ? (balanceDeposit?.balance * 1).toFixed(6)
+                                  : 0}{" "}
+                                {tokenInDeposit?.name}
+                              </p>
+                            </Form.Group>
 
-                    <Form.Group className="mb-3 form-row">
-                      <Form.Label>To</Form.Label>
-                      <div className="input-flex-row">
-                        <InputGroup className="">
-                          <Form.Control
-                            placeholder="0.00"
-                            value={amountInDeposit ? amountInDeposit : 0}
-                            readOnly
-                          />
-                          {/* <InputGroup.Text>max</InputGroup.Text> */}
-                        </InputGroup>
-                        <Dropdown>
-                          <Dropdown.Toggle className="content-none">
-                            <img src="assets/img/Logo.png" alt="" />
-                            RACE
-                          </Dropdown.Toggle>
-                        </Dropdown>
-                      </div>
-                      {/* <p>Balance: 0.00</p> */}
-                    </Form.Group>
+                            <Form.Group className="mb-3 form-row">
+                              <Form.Label>To</Form.Label>
+                              <div className="input-flex-row">
+                                <InputGroup className="">
+                                  <Form.Control
+                                    placeholder="0.00"
+                                    value={amountInDeposit ? amountInDeposit : 0}
+                                    readOnly
+                                  />
+                                  {/* <InputGroup.Text>max</InputGroup.Text> */}
+                                </InputGroup>
+                                <Dropdown>
+                                  <Dropdown.Toggle className="content-none">
+                                    <img src="assets/img/Logo.png" alt="" />
+                                    RACE
+                                  </Dropdown.Toggle>
+                                </Dropdown>
+                              </div>
+                              {/* <p>Balance: 0.00</p> */}
+                            </Form.Group>
 
-                    <Row>
-                      <Col lg={6} className="p-1">
-                        <p>{formError}</p>
-                        {!WalletEVM?.selectedAccount ? (
-                          <button className="common-btn w-100 bg-left mt-3 ">
-                            Connect Wallet
-                          </button>
-                        ) : WalletEVM?.chainId != 11155111 ? (
-                          <button
-                            className="common-btn w-100 bg-left mt-3 "
-                            onClick={() => {
-                              switchNetwork("11155111");
-                            }}
-                          >
-                            Switch Network
-                          </button>
-                        ) : amountInDeposit <= 0 ? (
-                          <button className="common-btn w-100 bg-left mt-3 ">
-                            Enter Amount
-                          </button>
-                        ) : parseFloat(amountInDeposit) >
-                          parseFloat(balanceDeposit?.balance) ? (
-                          <button className="common-btn w-100 bg-left mt-3 ">
-                            Insufficient Balance
-                          </button>
-                        ) : tokenInDeposit?.name != "ETH" &&
-                          parseFloat(amountInDeposit) >
-                            parseFloat(balanceDeposit?.allowance) ? (
-                          <button
-                            className="common-btn w-100 bg-left mt-3"
-                            onClick={() => {
-                              approveBalance();
-                            }}
-                            disabled={disable}
-                          >
-                            {disable ? "Please wait..." : "Approve"}
-                          </button>
-                        ) : (
-                          <button
-                            className="common-btn w-100 bg-left mt-3 "
-                            disabled={disable}
-                            onClick={() => {
-                              if (tokenInDeposit?.name == "ETH") {
-                                depositBalanceEth();
-                              } else {
-                                depositBalanceOther();
-                              }
-                            }}
-                          >
-                            {disable ? "Please wait..." : "Deposit"}
-                          </button>
-                        )}
-                      </Col>
-                    </Row>
-                  </div>
-                </Tab>
-                <Tab eventKey="withdraw" title="Withdraw">
-                  <div>
-                    <h4 className="sub-heading">Withdraw</h4>
+                            <Row>
+                              <Col  >
+                                <p>{formError}</p>
+                                {!WalletEVM?.selectedAccount ? (
+                                  <button className="common-btn w-100 bg-left mt-3 ">
+                                    Connect Wallet
+                                  </button>
+                                ) : WalletEVM?.chainId != 11155111 ? (
+                                  <button
+                                    className="common-btn w-100 bg-left mt-3 "
+                                    onClick={() => {
+                                      switchNetwork("11155111");
+                                    }}
+                                  >
+                                    Switch Network
+                                  </button>
+                                ) : amountInDeposit <= 0 ? (
+                                  <button className="common-btn w-100 bg-left mt-3 ">
+                                    Enter Amount
+                                  </button>
+                                ) : parseFloat(amountInDeposit) >
+                                  parseFloat(balanceDeposit?.balance) ? (
+                                  <button className="common-btn w-100 bg-left mt-3 ">
+                                    Insufficient Balance
+                                  </button>
+                                ) : tokenInDeposit?.name != "ETH" &&
+                                  parseFloat(amountInDeposit) >
+                                    parseFloat(balanceDeposit?.allowance) ? (
+                                  <button
+                                    className="common-btn w-100 bg-left mt-3"
+                                    onClick={() => {
+                                      approveBalance();
+                                    }}
+                                    disabled={disable}
+                                  >
+                                    {disable ? "Please wait..." : "Approve"}
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="common-btn w-100 bg-left mt-3 "
+                                    disabled={disable}
+                                    onClick={() => {
+                                      if (tokenInDeposit?.name == "ETH") {
+                                        depositBalanceEth();
+                                      } else {
+                                        depositBalanceOther();
+                                      }
+                                    }}
+                                  >
+                                    {disable ? "Please wait..." : "Deposit"}
+                                  </button>
+                                )}
+                              </Col>
+                            </Row>
+                          </div>
+                        </Tab>
+                        <Tab eventKey="withdraw" title="Withdraw">
+                          <div>
+                            <h4 className="sub-heading">Withdraw</h4>
 
-                    <Form.Group className="mb-3 form-row">
-                      <Form.Label>From</Form.Label>
-                      <div className="input-flex-row">
-                        <InputGroup className="">
-                          <Form.Control
-                            type="number"
-                            placeholder="0.00"
-                            name="amountInWithdraw"
-                            onChange={(e) => {
-                              setAmountInWithdraw(e.target.value);
-                            }}
-                            value={amountInWithdraw}
-                          />
-                          {/* <InputGroup.Text>max</InputGroup.Text> */}
-                        </InputGroup>
-                        <Dropdown>
-                          <Dropdown.Toggle className="content-none">
-                            <img src="assets/img/Logo.png" alt="" />
-                            RACE
-                          </Dropdown.Toggle>
-                        </Dropdown>
-                      </div>
-                      <p>
-                        Balance:{" "}
-                        {balanceWithdraw?.balance
-                          ? (balanceWithdraw?.balance*1).toFixed(6)
-                          : 0}{" "}
-                        {tokenInWithdraw?.name}
-                      </p>
-                    </Form.Group>
+                            <div className="withdrow-note">
+                                <img src="assets/img/shield.png" alt="" />
+                                <div>
+                                   <h5>Use the official bridge</h5>
+                                   <p>This usually takes 7 days <br/> Bridge any token to Ethereum Mainnet</p>
+                                </div>
+                            </div>
 
-                    <Form.Group className="mb-3 form-row">
-                      <Form.Label>To</Form.Label>
-                      <div className="input-flex-row">
-                        <InputGroup className="">
-                          <Form.Control
-                            placeholder="0.00"
-                            value={amountInWithdraw ? amountInWithdraw : 0}
-                            readOnly
-                          />
-                          {/* <InputGroup.Text>max</InputGroup.Text> */}
-                        </InputGroup>
-                        <Dropdown
-                          onSelect={(e) => {
-                            HandelTokenListWithdraw(e);
-                          }}
-                        >
-                          <Dropdown.Toggle>
-                            <img
-                              className="profile-main-img"
-                              height={50}
-                              src={tokenInWithdraw?.logos}
-                              alt="image"
-                            />{" "}
-                            {tokenInWithdraw?.name}
-                          </Dropdown.Toggle>
+                            <Form.Group className="mb-3 form-row">
+                              <Form.Label>From</Form.Label>
+                              <div className="input-flex-row">
+                                <InputGroup className="">
+                                  <Form.Control
+                                    type="number"
+                                    placeholder="0.00"
+                                    name="amountInWithdraw"
+                                    onChange={(e) => {
+                                      setAmountInWithdraw(e.target.value);
+                                    }}
+                                    value={amountInWithdraw}
+                                  />
+                                  {/* <InputGroup.Text>max</InputGroup.Text> */}
+                                </InputGroup>
+                                <Dropdown>
+                                  <Dropdown.Toggle className="content-none">
+                                    <img src="assets/img/Logo.png" alt="" />
+                                    RACE
+                                  </Dropdown.Toggle>
+                                </Dropdown>
+                              </div>
+                              <p>
+                                Balance:{" "}
+                                {balanceWithdraw?.balance
+                                  ? (balanceWithdraw?.balance*1).toFixed(6)
+                                  : 0}{" "}
+                                {tokenInWithdraw?.name}
+                              </p>
+                            </Form.Group>
 
-                          <Dropdown.Menu>
-                            {Tokens.tokens?.length > 0
-                              ? Tokens.tokens
-                                  .filter((item) => item?.chainId == 6806)
-                                  .map((items, index) => {
-                                    return (
-                                      <Dropdown.Item
-                                        eventKey={JSON.stringify(items)}
-                                      >
-                                        <img
-                                          src={items?.logos}
-                                          height={30}
-                                          alt=""
-                                        />{" "}
-                                        {items?.name}
-                                      </Dropdown.Item>
-                                    );
-                                  })
-                              : ""}
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
-                    </Form.Group>
+                            <Form.Group className="mb-3 form-row">
+                              <Form.Label>To</Form.Label>
+                              <div className="input-flex-row">
+                                <InputGroup className="">
+                                  <Form.Control
+                                    placeholder="0.00"
+                                    value={amountInWithdraw ? amountInWithdraw : 0}
+                                    readOnly
+                                  />
+                                  {/* <InputGroup.Text>max</InputGroup.Text> */}
+                                </InputGroup>
+                                <Dropdown
+                                  onSelect={(e) => {
+                                    HandelTokenListWithdraw(e);
+                                  }}
+                                >
+                                  <Dropdown.Toggle>
+                                    <img
+                                      className="profile-main-img"
+                                      height={50}
+                                      src={tokenInWithdraw?.logos}
+                                      alt="image"
+                                    />{" "}
+                                    {tokenInWithdraw?.name}
+                                  </Dropdown.Toggle>
 
-                    <Row>
-                      <Col lg={6} className="p-1">
-                        {!WalletEVM?.selectedAccount ? (
-                          <button className="common-btn w-100 bg-left mt-3 ">
-                            Connect Wallet
-                          </button>
-                        ) : WalletEVM?.chainId != 6806 ? (
-                          <button
-                            className="common-btn w-100 bg-left mt-3 "
-                            onClick={() => {
-                              switchNetwork("6806");
-                            }}
-                          >
-                            Switch Network
-                          </button>
-                        ) : amountInWithdraw <= 0 ? (
-                          <button className="common-btn w-100 bg-left mt-3 ">
-                            Enter Amount
-                          </button>
-                        ) : parseFloat(amountInWithdraw) >
-                          parseFloat(balanceWithdraw?.balance) ? (
-                          <button className="common-btn w-100 bg-left mt-3 ">
-                            Insufficient Balance
-                          </button>
-                        ) : tokenInDeposit?.name != "ETH" &&
-                          parseFloat(amountInWithdraw) >
-                            parseFloat(balanceWithdraw?.allowance) ? (
-                          <button
-                            className="common-btn w-100 bg-left mt-3"
-                            onClick={() => {
-                              approveBalanceWithdraw();
-                            }}
-                            disabled={disableWithdraw}
-                          >
-                            {disableWithdraw ? "Please wait..." : "Approve"}
-                          </button>
-                        ) : (
-                          <button
-                            className="common-btn w-100 bg-left mt-3 "
-                            disabled={disableWithdraw}
-                            onClick={() => {
-                              withdrawBalanceEth();
-                            }}
-                          >
-                            {disableWithdraw ? "Please wait..." : "Withdraw"}
-                          </button>
-                        )}
-                      </Col>
-                    </Row>
-                  </div>
-                </Tab>
-              </Tabs>
+                                  <Dropdown.Menu>
+                                    {Tokens.tokens?.length > 0
+                                      ? Tokens.tokens
+                                          .filter((item) => item?.chainId == 6806)
+                                          .map((items, index) => {
+                                            return (
+                                              <Dropdown.Item
+                                                eventKey={JSON.stringify(items)}
+                                              >
+                                                <img
+                                                  src={items?.logos}
+                                                  height={30}
+                                                  alt=""
+                                                />{" "}
+                                                {items?.name}
+                                              </Dropdown.Item>
+                                            );
+                                          })
+                                      : ""}
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                              </div>
+                            </Form.Group>
+
+                            <Row>
+                              <Col >
+                                {!WalletEVM?.selectedAccount ? (
+                                  <button className="common-btn w-100 bg-left mt-3 ">
+                                    Connect Wallet
+                                  </button>
+                                ) : WalletEVM?.chainId != 6806 ? (
+                                  <button
+                                    className="common-btn w-100 bg-left mt-3 "
+                                    onClick={() => {
+                                      switchNetwork("6806");
+                                    }}
+                                  >
+                                    Switch Network
+                                  </button>
+                                ) : amountInWithdraw <= 0 ? (
+                                  <button className="common-btn w-100 bg-left mt-3 ">
+                                    Enter Amount
+                                  </button>
+                                ) : parseFloat(amountInWithdraw) >
+                                  parseFloat(balanceWithdraw?.balance) ? (
+                                  <button className="common-btn w-100 bg-left mt-3 ">
+                                    Insufficient Balance
+                                  </button>
+                                ) : tokenInDeposit?.name != "ETH" &&
+                                  parseFloat(amountInWithdraw) >
+                                    parseFloat(balanceWithdraw?.allowance) ? (
+                                  <button
+                                    className="common-btn w-100 bg-left mt-3"
+                                    onClick={() => {
+                                      approveBalanceWithdraw();
+                                    }}
+                                    disabled={disableWithdraw}
+                                  >
+                                    {disableWithdraw ? "Please wait..." : "Approve"}
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="common-btn w-100 bg-left mt-3 "
+                                    disabled={disableWithdraw}
+                                    onClick={() => {
+                                      withdrawBalanceEth();
+                                    }}
+                                  >
+                                    {disableWithdraw ? "Please wait..." : "Withdraw"}
+                                  </button>
+                                )}
+                              </Col>
+                            </Row>
+                          </div>
+                        </Tab>
+                      </Tabs>
+                   </div>
+                </div>
+              
             </Col>
           </Row>
         </Container>

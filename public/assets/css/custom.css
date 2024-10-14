@@ -2263,3 +2263,116 @@ justify-content: center;
     object-fit: contain;
 }
 
+/* deposit page new css */
+
+.outer-deposit-tab .nav-tabs{
+border: none !important;
+margin-bottom: 3rem;
+}
+.outer-deposit-tab .nav-tabs .nav-item{
+width: 50%;
+padding: 10px;
+}
+.outer-deposit-tab .nav-tabs .nav-item .nav-link {
+    width: 100%;
+    color: #fff;
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+    background-color: #05131B;
+    border-radius: 10px;
+    /* margin: 0 10px; */
+}
+.outer-deposit-tab .nav-tabs .nav-item .nav-link:hover,
+.outer-deposit-tab .nav-tabs .nav-item .nav-link:focus,
+.outer-deposit-tab .nav-tabs .nav-item .nav-link:active,
+.outer-deposit-tab .nav-tabs .nav-item .nav-link.active{
+    background-color: #06487E;
+}
+.outer-deposit-tab .input-flex-row .input-group{
+    background-color: #05131B;
+    padding: 10px 10px;
+}
+.outer-deposit-tab .form-row .form-label{
+    font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 150% */
+letter-spacing: 0.5px;
+color: #fff;
+}
+.outer-deposit-tab .form-row p{
+    color: #fff;
+    font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px; /* 133.333% */
+letter-spacing: 0.4px;
+margin-top: 10px;
+}
+.withdrow-note{
+    align-items: center;
+    border: 1px solid #fbcba7;
+    border-radius: 8px;
+    display: flex;
+    margin-top: 30px;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+.withdrow-note img{
+    margin-right: 20px;
+}
+.withdrow-note h5{
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 5px;
+}
+.withdrow-note p{
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+}
+.common-btn.view-btn {
+    font-size: 12px !important;
+    padding: 8px 12px  !important;
+    line-height: 16px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+@media (max-width: 768px){
+
+    .outer-deposit-tab .nav-tabs .nav-item .nav-link {
+        font-size: 0.8rem;
+    }
+    .outer-deposit-tab .form-row .form-label {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .outer-deposit-tab .form-row p{
+        font-size: 10px !important;
+    }
+    .deposit-outer-box .outer-deposit-tab .common-btn.bg-left {
+        font-size: 14px;
+        padding: 6px;
+        margin: 0;
+    }
+    .outer-deposit-tab .withdrow-note {
+        margin-top: 15px;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+    .outer-deposit-tab .withdrow-note img {
+        margin-right: 10px;
+        height: 20px;
+    }
+    .outer-deposit-tab .withdrow-note h5 {
+        font-size: 12px;
+    }
+    .outer-deposit-tab .withdrow-note p {
+        font-size: 10px !important;
+        line-height: 14px;
+    }
+}
