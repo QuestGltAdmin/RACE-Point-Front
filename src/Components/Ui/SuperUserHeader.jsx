@@ -69,6 +69,13 @@ const SuperUserHeader = () => {
                         }}
                       >
                         <i className="fa fa-exchange"></i>EARN POINT STATEMENT
+                      </Nav.Link>
+                      <Nav.Link
+                        onClick={() => {
+                          navigate("/manager-refferals-earnpoints");
+                        }}
+                      >
+                        <i className="fa fa-exchange"></i>REFFERALS EARN POINT
                       </Nav.Link>{" "}
                       <Nav.Link onClick={() => HandleLogout()}>
                         <i className="fa fa-sign-out"></i> LOGOUT
@@ -77,6 +84,15 @@ const SuperUserHeader = () => {
                   </Navbar.Collapse>
 
                   <div className="d-flex align-items-center">
+                    <a
+                      style={{ cursor: "pointer" }}
+                      className="common-btn bg-left"
+                      onClick={() => {
+                        navigate("/dashboard");
+                      }}
+                    >
+                      Back
+                    </a>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                   </div>
                 </div>

@@ -52,7 +52,7 @@ const UserEarnPoints = () => {
         walletAddress: wallet,
       };
       const getResAll = await axiosMain.post(
-        `/super-user/all-referral-user-income`,
+        `/super-user/all-user-income`,
         payload,
         {
           headers: {
@@ -66,14 +66,10 @@ const UserEarnPoints = () => {
           (items, index) => {
             return {
               SNo: index + 1,
+              date: moment(items?.createdAt).format("lll"),            
               baseEarnPoints: items?.base_earn_points,
               layerEarnPoints: items?.layer_earn_points,
               totalEarnPoints: items?.total_earn_points,
-              date: moment(items?.createdAt).format("lll"),
-              walletAddress: items?.user_id?.wallet_address,
-              fromReferralCode: items?.user_id?.from_referral_code,
-              earnPoints: items?.user_id?.earn_points,
-              deposit: items?.user_id?.deposit,
             };
           }
         );
@@ -103,7 +99,7 @@ const UserEarnPoints = () => {
     };
     try {
       const getResAll = await axiosMain.post(
-        `/super-user/all-referral-user-income?page=${pageNumberTrxAll}&limit=10&search=${searchTrxAll}`,
+        `/super-user/all-user-income?page=${pageNumberTrxAll}&limit=10&search=${searchTrxAll}`,
         payload,
         {
           headers: {
@@ -199,11 +195,10 @@ const UserEarnPoints = () => {
                         <div className="thead">
                           <div>
                             <p>S. no</p>
-                            <p>Wallet & ENS</p>
+                            <p>Date</p>
                             <p>Base Earn Points</p>
                             <p>Layer Earn Points</p>
                             <p>Total Earn Points</p>
-                            <p>Date</p>
                           </div>
                         </div>
                         <div className="tbody">
@@ -213,22 +208,9 @@ const UserEarnPoints = () => {
                                 <div>
                                   <p>{index + 1}</p>
                                   <p>
-                                    <span class="mobile-only">Name - </span>{" "}
-                                    <big>
-                                      <b>
-                                        {items?.user_id?.ENS_name
-                                          ? items?.user_id?.ENS_name
-                                          : "No ENS Name"}
-                                      </b>
-                                    </big>{" "}
-                                    <br />{" "}
-                                    {items?.user_id?.wallet_address?.replace(
-                                      items?.user_id?.wallet_address?.substring(
-                                        5,
-                                        37
-                                      ),
-                                      "..."
-                                    )}
+                                    <span class="mobile-only">Date - </span>
+                                    {/* {moment(items?.createdAt).format("lll")} */}
+                                    {moment.utc(items?.createdAt).format("lll")}
                                   </p>
                                   <p>
                                     <span class="mobile-only">
@@ -248,11 +230,7 @@ const UserEarnPoints = () => {
                                     </span>
                                     {(items?.total_earn_points * 1).toFixed(4)}
                                   </p>
-                                  <p>
-                                    <span class="mobile-only">Date - </span>
-                                    {/* {moment(items?.createdAt).format("lll")} */}
-                                    {moment.utc(items?.createdAt).format("lll")}
-                                  </p>
+                                 
                                 </div>
                               );
                             })}

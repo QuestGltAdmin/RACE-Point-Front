@@ -32,6 +32,7 @@ import UserList from "./Pages/SuperUser/UserList";
 import UserGenealogy from "./Pages/SuperUser/UserGenealogy";
 import UserEarnPoints from "./Pages/SuperUser/UserEarnPoints";
 import SuperUserRoutes from "./PrivateRoutes/SuperUserRoutes";
+import UserRefferalsEarnPoints from "./Pages/SuperUser/UserRefferalsEarnPoints";
 
 function App() {
   return (
@@ -203,6 +204,14 @@ function App() {
               element={
                 <SuperUserRoutes>
                   <UserEarnPoints />
+                </SuperUserRoutes>
+              }
+            />
+              <Route
+              path="/manager-refferals-earnpoints"
+              element={
+                <SuperUserRoutes>
+                  <UserRefferalsEarnPoints />
                 </SuperUserRoutes>
               }
             />

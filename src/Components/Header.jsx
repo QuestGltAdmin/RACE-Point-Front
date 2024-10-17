@@ -151,21 +151,20 @@ export const Header = () => {
               </h1>
             </Navbar.Brand>
 
-            {user?.role == "super user" ? (
-              <Navbar.Brand
-                style={{cursor:"pointer"}}
-                onClick={() => {
-                  navigate("/manager-dashboard");
-                }}
-              >
-                <h1>Dashboard</h1>
-              </Navbar.Brand>
-            ) : (
-              ""
-            )}
-
             <div className="d-flex align-items-center">
-            
+              {user?.role == "super user" ? (
+                <a
+                  style={{ cursor: "pointer" }}
+                  className="common-btn bg-left me-2"
+                  onClick={() => {
+                    navigate("/manager-dashboard");
+                  }}
+                >
+                  Dashboard
+                </a>
+              ) : (
+                ""
+              )}
               <>
                 <Dropdown
                   className="wallet-address-dropdown"
