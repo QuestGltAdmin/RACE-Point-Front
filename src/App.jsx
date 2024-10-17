@@ -26,6 +26,12 @@ import { AdminAddUsers } from "./Pages/Admin/AdminAddUsers";
 import AdminPrivateRoute from "./PrivateRoutes/AdminPrivateRoute";
 import { DepositNew } from "./Pages/DepositNew";
 import { History } from "./Pages/History";
+import UserDashboard from "./Pages/SuperUser/UserDashboard";
+import UserLeaderboard from "./Pages/SuperUser/UserLeaderboard";
+import UserList from "./Pages/SuperUser/UserList";
+import UserGenealogy from "./Pages/SuperUser/UserGenealogy";
+import UserEarnPoints from "./Pages/SuperUser/UserEarnPoints";
+import SuperUserRoutes from "./PrivateRoutes/SuperUserRoutes";
 
 function App() {
   return (
@@ -158,6 +164,48 @@ function App() {
               }
             />
             <Route path="/*" element={<Navigate to={"/"} />} />
+
+            {/* superuser routes */}
+            <Route
+              path="/user-dashboard"
+              element={
+                <SuperUserRoutes>
+                  <UserDashboard />
+                </SuperUserRoutes>
+              }
+            />
+            <Route
+              path="/user-leaderboard"
+              element={
+                <SuperUserRoutes>
+                  <UserLeaderboard />
+                </SuperUserRoutes>
+              }
+            />
+            <Route
+              path="/user-list"
+              element={
+                <SuperUserRoutes>
+                  <UserList />
+                </SuperUserRoutes>
+              }
+            />
+            <Route
+              path="/user-genealogy"
+              element={
+                <SuperUserRoutes>
+                  <UserGenealogy />
+                </SuperUserRoutes>
+              }
+            />
+            <Route
+              path="/user-earnpoints"
+              element={
+                <SuperUserRoutes>
+                  <UserEarnPoints />
+                </SuperUserRoutes>
+              }
+            />
           </Routes>
         </ScrollToTop>
       </BrowserRouter>

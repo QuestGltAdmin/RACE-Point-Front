@@ -19,7 +19,7 @@ import { commonSwitch } from "../helpers/ChainSwitch";
 
 export const Header = () => {
   //========================= Global variable =========================//
-  const { WalletEVM, walletbalance } = useAuth();
+  const { WalletEVM, walletbalance, user } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -150,70 +150,84 @@ export const Header = () => {
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
+
+            {user?.role == "super user" ? (
+              <Navbar.Brand
+                style={{cursor:"pointer"}}
+                onClick={() => {
+                  navigate("/user-dashboard");
+                }}
+              >
+                <h1>Dashboard</h1>
+              </Navbar.Brand>
+            ) : (
+              ""
+            )}
+
             <div className="d-flex align-items-center">
             
-                <>
-                  <Dropdown
-                    className="wallet-address-dropdown"
-                    onSelect={(e) => {
-                      handleChain(e);
-                    }}
-                  >
-                    <Dropdown.Toggle id="dropdown-basic">
-                      <img
-                        src={`assets/img/${
-                          chainData == 10
-                            ? "coin1.png"
-                            : chainData == 42161
-                            ? "coin3.png"
-                            : chainData == 137
-                            ? "coin2.png"
-                            : "coin4.png"
-                        }`}
-                        alt=""
-                      />
-                      {WalletEVM?.selectedAccount?.replace(
-                        WalletEVM?.selectedAccount?.substring(5, 37),
-                        "..."
-                      )}
-                    </Dropdown.Toggle>
+              <>
+                <Dropdown
+                  className="wallet-address-dropdown"
+                  onSelect={(e) => {
+                    handleChain(e);
+                  }}
+                >
+                  <Dropdown.Toggle id="dropdown-basic">
+                    <img
+                      src={`assets/img/${
+                        chainData == 10
+                          ? "coin1.png"
+                          : chainData == 42161
+                          ? "coin3.png"
+                          : chainData == 137
+                          ? "coin2.png"
+                          : "coin4.png"
+                      }`}
+                      alt=""
+                    />
+                    {WalletEVM?.selectedAccount?.replace(
+                      WalletEVM?.selectedAccount?.substring(5, 37),
+                      "..."
+                    )}
+                  </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      <Dropdown.Item eventKey="10">
-                        {" "}
-                        <img src="assets/img/coin1.png" alt="" /> Optimism
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="42161">
-                        {" "}
-                        <img src="assets/img/coin3.png" alt="" /> Arbitrum
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="137">
-                        {" "}
-                        <img src="assets/img/coin2.png" alt="" /> Polygon
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="8453">
-                        {" "}
-                        <img src="assets/img/coin4.png" alt="" /> Base
-                      </Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item
-                        onClick={() => {
-                          setShowLogout1(true);
-                        }}
-                      >
-                        {" "}
-                        <img src="assets/img/logout.png" alt="" /> Log Out
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <Dropdown.Menu>
+                    <Dropdown.Item eventKey="10">
+                      {" "}
+                      <img src="assets/img/coin1.png" alt="" /> Optimism
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="42161">
+                      {" "}
+                      <img src="assets/img/coin3.png" alt="" /> Arbitrum
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="137">
+                      {" "}
+                      <img src="assets/img/coin2.png" alt="" /> Polygon
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="8453">
+                      {" "}
+                      <img src="assets/img/coin4.png" alt="" /> Base
+                    </Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item
+                      onClick={() => {
+                        setShowLogout1(true);
+                      }}
+                    >
+                      {" "}
+                      <img src="assets/img/logout.png" alt="" /> Log Out
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
                   <a href="https://t.me/RACEecosystem" target="_blank" className="social-head">
                     <img src="assets/images/telegram.png" target="_blank" alt="" />
-                  </a>
-                  <a href="https://x.com/RACEecosystem" className="social-head">
-                    <img src="assets/images/twitt.png" alt="" />
-                  </a>
-                </>
-           
+                </a>
+                <a href="https://x.com/RACEecosystem" className="social-head">
+                  <img src="assets/images/twitt.png" alt="" />
+                </a>
+              </>
+
               {/* {path !== "dashboard" && (
                 <Nav.Link
                   onClick={() => {
