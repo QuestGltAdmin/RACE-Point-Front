@@ -155,7 +155,7 @@ export const Header = () => {
               <Navbar.Brand
                 style={{cursor:"pointer"}}
                 onClick={() => {
-                  navigate("/user-dashboard");
+                  navigate("/manager-dashboard");
                 }}
               >
                 <h1>Dashboard</h1>

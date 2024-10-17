@@ -37,35 +37,35 @@ const SuperUserHeader = () => {
                     <Nav className="me-auto">
                       <Nav.Link
                         onClick={() => {
-                          navigate("/user-dashboard");
+                          navigate("/manager-dashboard");
                         }}
                       >
                         <i className="fa fa-th-large"></i> DASHBOARD
                       </Nav.Link>
                       <Nav.Link
                         onClick={() => {
-                          navigate("/user-leaderboard");
+                          navigate("/manager-leaderboard");
                         }}
                       >
                         <i className="fa fa-money"></i> LEADER BOARD
                       </Nav.Link>
                       <Nav.Link
                         onClick={() => {
-                          navigate("/user-list");
+                          navigate("/manager-list");
                         }}
                       >
                         <i className="fa fa-exchange"></i>USER LIST
                       </Nav.Link>
                       <Nav.Link
                         onClick={() => {
-                          navigate("/user-genealogy");
+                          navigate("/manager-genealogy");
                         }}
                       >
                         <i className="fa fa-exchange"></i>USER GENEALOGY
                       </Nav.Link>
                       <Nav.Link
                         onClick={() => {
-                          navigate("/user-earnpoints");
+                          navigate("/manager-earnpoints");
                         }}
                       >
                         <i className="fa fa-exchange"></i>EARN POINT STATEMENT

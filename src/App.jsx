@@ -167,7 +167,7 @@ function App() {
 
             {/* superuser routes */}
             <Route
-              path="/user-dashboard"
+              path="/manager-dashboard"
               element={
                 <SuperUserRoutes>
                   <UserDashboard />
@@ -175,7 +175,7 @@ function App() {
               }
             />
             <Route
-              path="/user-leaderboard"
+              path="/manager-leaderboard"
               element={
                 <SuperUserRoutes>
                   <UserLeaderboard />
@@ -183,7 +183,7 @@ function App() {
               }
             />
             <Route
-              path="/user-list"
+              path="/manager-list"
               element={
                 <SuperUserRoutes>
                   <UserList />
@@ -191,7 +191,7 @@ function App() {
               }
             />
             <Route
-              path="/user-genealogy"
+              path="/manager-genealogy"
               element={
                 <SuperUserRoutes>
                   <UserGenealogy />
@@ -199,7 +199,7 @@ function App() {
               }
             />
             <Route
-              path="/user-earnpoints"
+              path="/manager-earnpoints"
               element={
                 <SuperUserRoutes>
                   <UserEarnPoints />
