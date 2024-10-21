@@ -61,7 +61,6 @@ const Landing = () => {
   const [copiedCodeIndex, setCopiedCodeIndex] = useState(null);
   //=================================End Of Code=================================//
 
-
   const handleCloseReferralCodesModal = () => {
     setShowReferralCodesModal(false);
     navigate("/dashboard"); // Redirect to dashboard when closing the referral codes modal
@@ -296,7 +295,6 @@ const Landing = () => {
     }
   };*/
 
-
   const [topDeposits, setTopDeposits] = useState([]);
   const [topReferrals, setTopReferrals] = useState([]);
   const [monthlyTopUser, setMonthlyTopUser] = useState([]);
@@ -309,8 +307,6 @@ const Landing = () => {
     getleaderboardData();
   }, []);
 
-
-
   //================================= Get the leaderboeard data API ==============================================
   const getleaderboardData = async () => {
     try {
@@ -320,7 +316,7 @@ const Landing = () => {
       setTopReferrals(response.data.topReferrals);
       setMonthlyTopUser(response.data.monthlyTopUser);
       setQuarterlyTopUser(response.data.weeklyTopUser);
-      setAllTopUser(response.data.allTopUser)
+      setAllTopUser(response.data.allTopUser);
     } catch (err) {
       console.error("Error fetching leaderboard data:", err);
     }
@@ -534,8 +530,8 @@ const Landing = () => {
                           //   }
                           // }}
                           className="common-btn"
-                          onClick={() =>{
-                            handleModal7();
+                          onClick={() => {
+                            handleModalActivity();
                           }}
                         >
                           <img src="assets/img/star.png" alt="" />
@@ -579,6 +575,9 @@ const Landing = () => {
 
               </h2>
 
+              <h2 className="common-heading">
+                Leaderboard <i class="fa fa-info-circle"></i>
+              </h2>
             </Col>
           </Row>
           <Row>
@@ -708,9 +707,7 @@ const Landing = () => {
                                 alt=""
                               />
                               <div>
-                                <h4>
-                                  {monthly.earn_points.toFixed(2)}
-                                </h4>
+                                <h4>{monthly.earn_points.toFixed(2)}</h4>
                                 <p>Points</p>
                               </div>
                             </div>
@@ -790,7 +787,9 @@ const Landing = () => {
                   {/*================================================Quarterly =================================== */}
                   <Tab eventKey="top-depsit2" title="Weekly">
                     <ul className="deposit-list-outer">
-                      {quarterlyTopUser?.slice(0, 10).map((quarterly, index) => (
+                      {quarterlyTopUser
+                        ?.slice(0, 10)
+                        .map((quarterly, index) => (
                           <li>
                             <div
                               className={
@@ -819,10 +818,7 @@ const Landing = () => {
                                   alt=""
                                 />
                                 <div>
-                                <h4>
-                                  {quarterly.wallet_address}{" "}
-
-                                </h4>
+                                  <h4>{quarterly.wallet_address} </h4>
                                   <p>
                                     {quarterly.ENS_name
                                       ? quarterly.ENS_name
@@ -863,12 +859,12 @@ const Landing = () => {
           </Row>
         </Container>
       </section>
-
       <ConnectWalletModal
         {...ConnectWalletModalProps}
         handleConnectSuccess={handleShowReferral1} // Pass handleShowReferral1 function as prop
       />
-      /////////////////////////////////////* new models*///////////////////////////////////////////////
+      /////////////////////////////////////* new
+      models*///////////////////////////////////////////////
       <Modal
         className="new-user-modal"
         centered
@@ -878,10 +874,12 @@ const Landing = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
-            <p>Welcome to the RACE Points System!</p>
-            <p>
-              The “Point System” is your gateway to understand the future of
-              asset tokenization and to learn about RACE.
+            <h4>Welcome to the RACE Points System!</h4>
+            <p className="mt-4">
+              <small>
+                The “Point System” is your gateway to understand the future of
+                asset tokenization and to learn about RACE.
+              </small>
             </p>
 
             <Button variant="primary" className="common-btn bg-left">
@@ -900,10 +898,12 @@ const Landing = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
-            <p>Welcome to the RACE Points System!</p>
-            <p>
-              The platform is designed to facilitate your learning through a
-              structured rewards mechanism.
+            <h4>Welcome to the RACE Points System!</h4>
+            <p className="mt-4">
+              <small>
+                The platform is designed to facilitate your learning through a
+                structured rewards mechanism.
+              </small>
             </p>
 
             <Button variant="primary" className="common-btn bg-left">
@@ -928,20 +928,23 @@ const Landing = () => {
             <ul>
               <li>
                 <b>Earn points by depositing money:</b>
-                <br/>
+                <br />
                 The more you deposit, the more points you'll accumulate.
               </li>
             </ul>
             <p></p>
             <ul>
               <li>
-                <b>Earn points by referring friends:</b> Invite friends to join and earn points when they sign up.
+                <b>Earn points by referring friends:</b> Invite friends to join
+                and earn points when they sign up.
               </li>
             </ul>
-           
+
             <p className="mt-5">
-              <small>(For more details, go to the “Referrals” section to learn how to
-                refer friends and earn points.)</small>
+              <small>
+                (For more details, go to the “Referrals” section to learn how to
+                refer friends and earn points.)
+              </small>
             </p>
             <Button variant="primary" className="common-btn bg-left">
               Next
@@ -961,11 +964,15 @@ const Landing = () => {
           <div>
             <h4>How To Earn Points</h4>
 
-            <p><b>Depositing: Points-per-Dollar-per-Day (P/D/D).</b></p>
+            <p className="mt-4">
+              <b>Depositing: Points-per-Dollar-per-Day (P/D/D).</b>
+            </p>
             <p>
-              This means that every day, you'll receive points based on the
-              amount of money you have in your vault. Each dollar is worth one
-              point.
+              <small>
+                This means that every day, you'll receive points based on the
+                amount of money you have in your vault. Each dollar is worth one
+                point.
+              </small>
             </p>
             <Button variant="primary" className="common-btn bg-left">
               Next
@@ -986,8 +993,10 @@ const Landing = () => {
             <h4>How To Earn Points</h4>
 
             <p>
-              For instance, If you have $100 in your vault, you'll earn 100
-              points daily.
+              <small>
+                For instance, If you have $100 in your vault, you'll earn 100
+                points daily.
+              </small>
             </p>
             <Button variant="primary" className="common-btn bg-left">
               Next
@@ -1007,13 +1016,16 @@ const Landing = () => {
           <div>
             <h4>How To Earn Points</h4>
 
-            <p>
+            <p className="mt-4">
               There’s more! Points can be multiplied by the “multipliers” earned
               by completing activities!
             </p>
             <p>
-              (Check the “multipliers” & “activities” tabs for further
-              information)
+              {" "}
+              <small>
+                (Check the “multipliers” & “activities” tabs for further
+                information)
+              </small>
             </p>
             <Button variant="primary" className="common-btn bg-left">
               Okey
@@ -1038,16 +1050,15 @@ const Landing = () => {
               When you refer other users to the platform, you earn points based
               on their activity. Referrals are organized into layers:
             </p>
-            <p>Layer 0: This is you, the main user. <br/> Layer 1: These are the users you directly referred.</p>
             <p>
-              Layer 2: These are the users referred by your Layer 1 referrals.
+              Layer 0: This is you, the main user. <br /> Layer 1: These are the
+              users you directly referred. <br /> Layer 2: These are the users
+              referred by your Layer 1 referrals. <br />
+              Layer 3: These are the users referred by your Layer 2 referrals.{" "}
+              <br /> Layer 4: These are the users referred by your Layer 3
+              referrals.
             </p>
-            <p>
-              Layer 3: These are the users referred by your Layer 2 referrals.
-            </p>
-            <p>
-              Layer 4: These are the users referred by your Layer 3 referrals.
-            </p>
+
             <Button variant="primary" className="common-btn bg-left">
               Next
               <img src="assets/img/arrow_forward.png" alt="" />
@@ -1066,23 +1077,15 @@ const Landing = () => {
           <div>
             <h4>Referrals</h4>
 
-            <p>
+            <p className="mt-4">
               Each user can have a total of 5 referrals, distributed across
               these layers. You earn points as follows:
             </p>
             <ul>
-              <li>
-                <p>100% of the points earned by your Layer 1 referrals.</p>
-              </li>
-              <li>
-                <p>50% of the points earned by your Layer 2 referrals.</p>
-              </li>{" "}
-              <li>
-                <p>25% of the points earned by your Layer 3 referrals.</p>
-              </li>{" "}
-              <li>
-                <p>12.5% of the points earned by your Layer 4 referrals.</p>
-              </li>
+              <li>100% of the points earned by your Layer 1 referrals.</li>
+              <li>50% of the points earned by your Layer 2 referrals.</li>{" "}
+              <li>25% of the points earned by your Layer 3 referrals.</li>{" "}
+              <li>12.5% of the points earned by your Layer 4 referrals.</li>
             </ul>
             <Button variant="primary" className="common-btn bg-left">
               Next
@@ -1103,9 +1106,11 @@ const Landing = () => {
             <h4>Referrals</h4>
 
             <p>
-              This tiered system allows you to accumulate points from the
-              activity of users across multiple layers, maximizing your rewards
-              as your network grows.
+              <small>
+                This tiered system allows you to accumulate points from the
+                activity of users across multiple layers, maximizing your
+                rewards as your network grows.
+              </small>
             </p>
 
             <Button variant="primary" className="common-btn bg-left">
@@ -1125,14 +1130,17 @@ const Landing = () => {
         <Modal.Body>
           <div>
             <h4>Multipliers</h4>
-            <p>Here’s how the multiplier system works:</p>
+            <p className="mt-4">Here’s how the multiplier system works:</p>
             <p>
               The multiplier boosts the number of points you earn daily from the
               Points-per-Dollar-per-Day (P/D/D) system.
+              <br />
             </p>
             <p>
-              (Go to “How to earn points” to better understand how the P/D/D
-              system works.)
+              <small>
+                (Go to “How to earn points” to better understand how the P/D/D
+                system works.)
+              </small>
             </p>
             <Button variant="primary" className="common-btn bg-left">
               Next
@@ -1152,9 +1160,11 @@ const Landing = () => {
           <div>
             <h4>Multipliers</h4>
             <p>
-              Instead of multiplying the points you’ve already accumulated, the
-              multiplier enhances the points you earn each day. Each activity on
-              the platform offers a specific multiplier value.
+              <small>
+                Instead of multiplying the points you’ve already accumulated,
+                the multiplier enhances the points you earn each day. Each
+                activity on the platform offers a specific multiplier value.
+              </small>
             </p>
 
             <Button variant="primary" className="common-btn bg-left">
@@ -1175,11 +1185,13 @@ const Landing = () => {
           <div>
             <h4>Multipliers</h4>
             <p>
-              Once you complete an activity, the corresponding multiplier is
-              activated and will increase your daily points earnings until the
-              activity’s deadline. After the deadline, the multiplier will
-              deactivate, and your points will return to the standard rate of
-              P/D/D.
+              <small>
+                Once you complete an activity, the corresponding multiplier is
+                activated and will increase your daily points earnings until the
+                activity’s deadline. After the deadline, the multiplier will
+                deactivate, and your points will return to the standard rate of
+                P/D/D.
+              </small>
             </p>
 
             <Button variant="primary" className="common-btn bg-left">
@@ -1200,8 +1212,10 @@ const Landing = () => {
           <div>
             <h4>Multipliers</h4>
             <p>
-              Engage in activities to maximize your daily points and make the
-              most of the multipliers available!
+              <small>
+                Engage in activities to maximize your daily points and make the
+                most of the multipliers available!
+              </small>
             </p>
 
             <Button variant="primary" className="common-btn bg-left">
@@ -1221,9 +1235,11 @@ const Landing = () => {
         <Modal.Body>
           <div>
             <h4>Welcome to your Dashboard!</h4>
-            <p>
-              Here, you can easily track your deposits, view your total points,
-              and check the distribution of your vaults.
+            <p className="mt-4">
+              <small>
+                Here, you can easily track your deposits, view your total
+                points, and check the distribution of your vaults.
+              </small>
             </p>
 
             <Button variant="primary" className="common-btn bg-left">
@@ -1242,10 +1258,12 @@ const Landing = () => {
         <Modal.Body>
           <div>
             <h4>Welcome to your Activities!</h4>
-            <p>
-              Here, you have the opportunity to multiply the points you've
-              already earned by completing dynamic tasks. Explore the tasks to
-              see how you can boost your point totals.
+            <p className="mt-4">
+              <small>
+                Here, you have the opportunity to multiply the points you've
+                already earned by completing dynamic tasks. Explore the tasks to
+                see how you can boost your point totals.
+              </small>
             </p>
 
             <Button variant="primary" className="common-btn bg-left">
@@ -1313,9 +1331,7 @@ const Landing = () => {
           </div>
         </Modal.Body>
       </Modal>
-
       {/* New share */}
-
       <Modal
         className="new-user-modal"
         centered
@@ -1360,7 +1376,6 @@ const Landing = () => {
           </div>
         </Modal.Body>
       </Modal>
-
       {/* Referral Codes Modal */}
       <Modal
         className="new-user-modal"
@@ -1396,7 +1411,6 @@ const Landing = () => {
           </div>
         </Modal.Body>
       </Modal>
-
       {/* wallet connect popup */}
       {/* <Modal
           className="new-user-modal wallet-connect"
