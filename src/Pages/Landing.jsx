@@ -534,7 +534,7 @@ const Landing = () => {
                           // }}
                           className="common-btn"
                           onClick={() =>{
-                            handleModal3();
+                            handleModal7();
                           }}
                         >
                           <img src="assets/img/star.png" alt="" />
@@ -913,18 +913,20 @@ const Landing = () => {
             <ul>
               <li>
                 <b>Earn points by depositing money:</b>
+                <br/>
+                The more you deposit, the more points you'll accumulate.
               </li>
             </ul>
-            <p>The more you deposit, the more points you'll accumulate.</p>
+            <p></p>
             <ul>
               <li>
-                <b>Earn points by referring friends:</b>
+                <b>Earn points by referring friends:</b> Invite friends to join and earn points when they sign up.
               </li>
             </ul>
-            <p>Invite friends to join and earn points when they sign up.</p>
-            <p>
-              (For more details, go to the “Referrals” section to learn how to
-              refer friends and earn points.)
+           
+            <p className="mt-5">
+              <small>(For more details, go to the “Referrals” section to learn how to
+                refer friends and earn points.)</small>
             </p>
             <Button variant="primary" className="common-btn bg-left">
               Next
@@ -944,7 +946,7 @@ const Landing = () => {
           <div>
             <h4>How To Earn Points</h4>
 
-            <b>Depositing: Points-per-Dollar-per-Day (P/D/D).</b>
+            <p><b>Depositing: Points-per-Dollar-per-Day (P/D/D).</b></p>
             <p>
               This means that every day, you'll receive points based on the
               amount of money you have in your vault. Each dollar is worth one
@@ -1021,8 +1023,7 @@ const Landing = () => {
               When you refer other users to the platform, you earn points based
               on their activity. Referrals are organized into layers:
             </p>
-            <p>Layer 0: This is you, the main user.</p>
-            <p>Layer 1: These are the users you directly referred.</p>
+            <p>Layer 0: This is you, the main user. <br/> Layer 1: These are the users you directly referred.</p>
             <p>
               Layer 2: These are the users referred by your Layer 1 referrals.
             </p>
