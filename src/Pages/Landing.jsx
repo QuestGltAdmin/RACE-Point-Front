@@ -516,22 +516,18 @@ const Landing = () => {
 
                         <Button
                           variant="primary"
-                          // className={
-                          //   isRestricted
-                          //     ? "common-btn disable-btn"
-                          //     : "common-btn"
-                          // }
-                          // disabled={isRestricted}
-                          // onClick={() => {
-                          //   if (isUserAuthenticated) {
-                          //     navigate("/activities");
-                          //   } else {
-                          //     navigate("/");
-                          //   }
-                          // }}
-                          className="common-btn"
+                          className={
+                            isRestricted
+                              ? "common-btn disable-btn"
+                              : "common-btn"
+                          }
+                          disabled={isRestricted}
                           onClick={() => {
-                            handleModalActivity();
+                            if (isUserAuthenticated) {
+                              navigate("/activities");
+                            } else {
+                              navigate("/");
+                            }
                           }}
                         >
                           <img src="assets/img/star.png" alt="" />
@@ -559,23 +555,28 @@ const Landing = () => {
         <Container>
           <Row>
             <Col>
-          
-              <h2 className="common-heading">Leaderboard 
+              <h2 className="common-heading">
+                Leaderboard
                 <span className="info-tooltip">
-                  <img src="assets/img/infor2.png" className="info-icon" alt="" />
+                  <img
+                    src="assets/img/infor2.png"
+                    className="info-icon"
+                    alt=""
+                  />
                   <div>
                     <h5>Welcome to the Leaderboard!</h5>
-                    <p>Here, you can check your current ranking and see how you stack up against others. Keep an eye on the top spots—future awards will be given to the best-ranked
-                    individuals.</p>
+                    <p>
+                      Here, you can check your current ranking and see how you
+                      stack up against others. Keep an eye on the top
+                      spots—future awards will be given to the best-ranked
+                      individuals.
+                    </p>
                     <p className="text-end">
-                        <button className="okey-btn">Okey</button>
+                      <button className="okey-btn">Okey</button>
                     </p>
                   </div>
                 </span>
-
               </h2>
-
-            
             </Col>
           </Row>
           <Row>
