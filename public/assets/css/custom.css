@@ -2360,6 +2360,7 @@ margin-top: 10px;
     margin: 10px 0;
 }
 
+
 @media (max-width: 768px){
 
     .outer-deposit-tab .nav-tabs .nav-item .nav-link {
@@ -2393,4 +2394,69 @@ margin-top: 10px;
         font-size: 10px !important;
         line-height: 14px;
     }
+}
+
+/* tooltip css */
+.info-tooltip {
+    position: relative;
+    margin-left: 10px;
+    cursor: pointer;
+    
+}
+.info-tooltip img.info-icon{
+height: 24px;
+width: 24px;
+object-fit: contain;
+}
+.info-tooltip > div {
+    position: absolute;
+    right: -133px;
+    left: auto;
+    border-radius: 15px;
+    background: var(--Palette-Teal-600, #06487E);
+    z-index: 10;
+    min-width: 290px;
+    padding: 20px;
+    top: 70px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all ease-in-out .2s;
+}
+.info-tooltip > div::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 10px solid #06487E;
+    top: -7px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+.info-tooltip > div h5{
+    font-size: 16px;
+    text-align: left;
+}
+.info-tooltip > div p{
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+}
+.okey-btn{
+    background-color: transparent;
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+    color: #AEDAFF;
+    font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 20px; /* 142.857% */
+letter-spacing: 0.1px;
+}
+.info-tooltip:hover > div{
+    opacity: 1;
+    visibility: visible;
 }

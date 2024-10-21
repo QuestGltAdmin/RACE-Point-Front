@@ -10,6 +10,7 @@ import {
   Tabs,
   Tab,
   OverlayTrigger,
+  Tooltip,
 } from "react-bootstrap";
 import ConnectWalletModal from "../../src/Components/Ui/ConnectWalletModal";
 import useAuth from "../hooks/useAuth";
@@ -563,7 +564,21 @@ const Landing = () => {
           <Row>
             <Col>
           
-              <h2 className="common-heading">Leaderboard <i class="fa fa-info-circle"></i></h2>
+              <h2 className="common-heading">Leaderboard 
+                <span className="info-tooltip">
+                  <img src="assets/img/infor2.png" className="info-icon" alt="" />
+                  <div>
+                    <h5>Welcome to the Leaderboard!</h5>
+                    <p>Here, you can check your current ranking and see how you stack up against others. Keep an eye on the top spots—future awards will be given to the best-ranked
+                    individuals.</p>
+                    <p className="text-end">
+                        <button className="okey-btn">Okey</button>
+                    </p>
+                  </div>
+                </span>
+
+              </h2>
+
             </Col>
           </Row>
           <Row>
