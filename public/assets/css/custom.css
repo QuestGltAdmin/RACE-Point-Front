@@ -2414,7 +2414,7 @@ object-fit: contain;
     left: auto;
     border-radius: 15px;
     background: var(--Palette-Teal-600, #06487E);
-    z-index: 10;
+    z-index: 15;
     min-width: 290px;
     padding: 20px;
     top: 70px;
