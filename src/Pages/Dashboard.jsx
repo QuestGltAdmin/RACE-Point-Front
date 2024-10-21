@@ -157,7 +157,31 @@ export const Dashboard = () => {
                   {/* ======================================== Amount In Vaults ======================================== */}
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
-                    <h3>Amount in vaults <i class="fa fa-info-circle"></i></h3>
+
+                    <h3>
+                      Amount in vaults{" "}
+                      <span className="info-tooltip">
+                        <img
+                          src="assets/img/infor2.png"
+                          className="info-icon"
+                          alt=""
+                        />
+                        <div>
+                          <h5>Welcome to the Amount in Vaults!</h5>
+                          <p>
+                            This is where you can see the total amount of money
+                            you've deposited. It’s your personal vault that
+                            reflects your commitment and potential to earn
+                            rewards. The more you deposit, the higher your
+                            chances to unlock more opportunities and rewards.
+                            Dive in and win!
+                          </p>
+                          <p className="text-end">
+                            <button className="okey-btn">Next</button>
+                          </p>
+                        </div>
+                      </span>{" "}
+                    </h3>
                     <div
                       className="digits-container"
                       style={{ display: "flex" }}
@@ -178,7 +202,27 @@ export const Dashboard = () => {
                   {/* ======================================== Amount In Vaults ======================================== */}
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
-                    <h3>Points  <i class="fa fa-info-circle"></i> </h3>
+                    <h3>
+                      Points{" "}
+                      <span className="info-tooltip">
+                        <img
+                          src="assets/img/infor2.png"
+                          className="info-icon"
+                          alt=""
+                        />
+                        <div>
+                          <h5>Welcome to Points!</h5>
+                          <p>
+                            Here, you’ll see the total points you've
+                            accumulated. Explore how your points can unlock
+                            rewards.
+                          </p>
+                          <p className="text-end">
+                            <button className="okey-btn">Next</button>
+                          </p>
+                        </div>
+                      </span>{" "}
+                    </h3>
                     <div
                       className="digits-container"
                       style={{ display: "flex" }}

@@ -575,9 +575,7 @@ const Landing = () => {
 
               </h2>
 
-              <h2 className="common-heading">
-                Leaderboard <i class="fa fa-info-circle"></i>
-              </h2>
+            
             </Col>
           </Row>
           <Row>
