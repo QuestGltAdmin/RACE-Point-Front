@@ -157,7 +157,7 @@ export const Dashboard = () => {
                   {/* ======================================== Amount In Vaults ======================================== */}
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
-                    <h3>Amount in vaults</h3>
+                    <h3>Amount in vaults <i class="fa fa-info-circle"></i></h3>
                     <div
                       className="digits-container"
                       style={{ display: "flex" }}
@@ -178,7 +178,7 @@ export const Dashboard = () => {
                   {/* ======================================== Amount In Vaults ======================================== */}
                   <div className="dash-count-box">
                     <img src="assets/img/dash-icon-1.png" alt="" />
-                    <h3>Points</h3>
+                    <h3>Points  <i class="fa fa-info-circle"></i> </h3>
                     <div
                       className="digits-container"
                       style={{ display: "flex" }}

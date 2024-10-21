@@ -9,6 +9,7 @@ import {
   Spinner,
   Tabs,
   Tab,
+  OverlayTrigger,
 } from "react-bootstrap";
 import ConnectWalletModal from "../../src/Components/Ui/ConnectWalletModal";
 import useAuth from "../hooks/useAuth";
@@ -324,6 +325,129 @@ const Landing = () => {
     }
   };
 
+  /////////////////////new models ////////////////////////////////////
+
+  const [show1, setShow1] = useState(false);
+  const handleModal1 = () => {
+    setShow1(true);
+  };
+  const handleModalClose1 = () => {
+    setShow1(false);
+  };
+
+  const [show2, setShow2] = useState(false);
+  const handleModal2 = () => {
+    setShow2(true);
+  };
+  const handleModalClose2 = () => {
+    setShow2(false);
+  };
+
+  const [show3, setShow3] = useState(false);
+  const handleModal3 = () => {
+    setShow3(true);
+  };
+  const handleModalClose3 = () => {
+    setShow3(false);
+  };
+
+  const [show4, setShow4] = useState(false);
+  const handleModal4 = () => {
+    setShow4(true);
+  };
+  const handleModalClose4 = () => {
+    setShow4(false);
+  };
+
+  const [show5, setShow5] = useState(false);
+  const handleModal5 = () => {
+    setShow5(true);
+  };
+  const handleModalClose5 = () => {
+    setShow5(false);
+  };
+
+  const [show6, setShow6] = useState(false);
+  const handleModal6 = () => {
+    setShow6(true);
+  };
+  const handleModalClose6 = () => {
+    setShow6(false);
+  };
+
+  const [show7, setShow7] = useState(false);
+  const handleModal7 = () => {
+    setShow7(true);
+  };
+  const handleModalClose7 = () => {
+    setShow7(false);
+  };
+
+  const [show8, setShow8] = useState(false);
+  const handleModal8 = () => {
+    setShow8(true);
+  };
+  const handleModalClose8 = () => {
+    setShow8(false);
+  };
+
+  const [show9, setShow9] = useState(false);
+  const handleModal9 = () => {
+    setShow9(true);
+  };
+  const handleModalClose9 = () => {
+    setShow9(false);
+  };
+
+  const [show10, setShow10] = useState(false);
+  const handleModal10 = () => {
+    setShow10(true);
+  };
+  const handleModalClose10 = () => {
+    setShow10(false);
+  };
+
+  const [show11, setShow11] = useState(false);
+  const handleModal11 = () => {
+    setShow11(true);
+  };
+  const handleModalClose11 = () => {
+    setShow11(false);
+  };
+
+  const [show12, setShow12] = useState(false);
+  const handleModal12 = () => {
+    setShow12(true);
+  };
+  const handleModalClose12 = () => {
+    setShow12(false);
+  };
+
+  const [show13, setShow13] = useState(false);
+  const handleModal13 = () => {
+    setShow13(true);
+  };
+  const handleModalClose13 = () => {
+    setShow13(false);
+  };
+
+  const [showdashboard, setShowDashboard] = useState(false);
+  const handleModaldashboard = () => {
+    setShowDashboard(true);
+  };
+  const handleModaldashboardClose = () => {
+    setShowDashboard(false);
+  };
+
+  const [showActivity, setShowActivity] = useState(false);
+  const handleModalActivity = () => {
+    setShowActivity(true);
+  };
+  const handleModalActivityClose = () => {
+    setShowActivity(false);
+  };
+  /////////////////////end of code////////////////////////////////////
+
   return (
     <>
       <LandingPageHeader />
@@ -395,18 +519,22 @@ const Landing = () => {
 
                         <Button
                           variant="primary"
-                          className={
-                            isRestricted
-                              ? "common-btn disable-btn"
-                              : "common-btn"
-                          }
-                          disabled={isRestricted}
-                          onClick={() => {
-                            if (isUserAuthenticated) {
-                              navigate("/activities");
-                            } else {
-                              navigate("/");
-                            }
+                          // className={
+                          //   isRestricted
+                          //     ? "common-btn disable-btn"
+                          //     : "common-btn"
+                          // }
+                          // disabled={isRestricted}
+                          // onClick={() => {
+                          //   if (isUserAuthenticated) {
+                          //     navigate("/activities");
+                          //   } else {
+                          //     navigate("/");
+                          //   }
+                          // }}
+                          className="common-btn"
+                          onClick={() =>{
+                            handleModal3();
                           }}
                         >
                           <img src="assets/img/star.png" alt="" />
@@ -424,17 +552,18 @@ const Landing = () => {
           </Row>
         </Container>
       </section>
-
       <div className="text-center">
-         <a href="#leaderboard" className="arrow-img"><img src="assets/img/arrow-down.png" alt="" /></a>
+        <a href="#leaderboard" className="arrow-img">
+          <img src="assets/img/arrow-down.png" alt="" />
+        </a>
       </div>
-
       {/* ============================================Leaderboard section ======================================================== */}
       <section className="leaderboard-main-sec" id="leaderboard">
         <Container>
           <Row>
             <Col>
-              <h2 className="common-heading">Leaderboard</h2>
+          
+              <h2 className="common-heading">Leaderboard <i class="fa fa-info-circle"></i></h2>
             </Col>
           </Row>
           <Row>
@@ -519,73 +648,7 @@ const Landing = () => {
                           <div
                             className={
                               WalletEVM?.selectedAccount?.toLowerCase() ==
-                                monthly?.wallet_address?.toLowerCase()
-                                ? "deposit-list-main user-address-main"
-                                : "deposit-list-main"
-                            }
-                          >
-                            <div className="left-user">
-                              <div className="count-deposit">
-                                <span>{index + 1}</span>
-                                <img
-                                  className="crown-img"
-                                  src={
-                                    index + 1 === 1
-                                      ? "assets/img/king.png"
-                                      : "assets/img/crown.png"
-                                  }
-                                  alt=""
-                                />
-                              </div>
-                              <img
-                                className="user-img"
-                               src="assets/images/avatar.png"
-                                alt=""
-                              />
-                              <div>
-                                <h4>{monthly.wallet_address} </h4>
-                                <p>
-                                  {monthly.ENS_name ? monthly.ENS_name : "-"}
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <h4>
-                                {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                  monthly?.wallet_address?.toLowerCase()
-                                  ? "(You)"
-                                  : ""}
-                              </h4>
-                            </div>
-                            <div className="right-trophy">
-                              <img
-                                className="trophy-img"
-                                src="assets/img/trophy.png"
-                                alt=""
-                              />
-                              <div>
-                                <h4>
-                                  {monthly.earn_points.toFixed(2)}
-                                </h4>
-                                <p>Points</p>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </Tab>
-
-                  {/*================================================End Of Code============================================== */}
-                  {/*================================================Monthly============================================== */}
-                  <Tab eventKey="top-depsit1" title="Monthly">
-                    <ul className="deposit-list-outer">
-                      {monthlyTopUser?.slice(0, 10).map((monthly, index) => (
-                        <li>
-                          <div
-                            className={
-                              WalletEVM?.selectedAccount?.toLowerCase() ==
-                                monthly?.wallet_address?.toLowerCase()
+                              monthly?.wallet_address?.toLowerCase()
                                 ? "deposit-list-main user-address-main"
                                 : "deposit-list-main"
                             }
@@ -618,7 +681,73 @@ const Landing = () => {
                             <div>
                               <h4>
                                 {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                  monthly?.wallet_address?.toLowerCase()
+                                monthly?.wallet_address?.toLowerCase()
+                                  ? "(You)"
+                                  : ""}
+                              </h4>
+                            </div>
+                            <div className="right-trophy">
+                              <img
+                                className="trophy-img"
+                                src="assets/img/trophy.png"
+                                alt=""
+                              />
+                              <div>
+                                <h4>
+                                  {monthly.earn_points.toFixed(2)}
+                                </h4>
+                                <p>Points</p>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </Tab>
+
+                  {/*================================================End Of Code============================================== */}
+                  {/*================================================Monthly============================================== */}
+                  <Tab eventKey="top-depsit1" title="Monthly">
+                    <ul className="deposit-list-outer">
+                      {monthlyTopUser?.slice(0, 10).map((monthly, index) => (
+                        <li>
+                          <div
+                            className={
+                              WalletEVM?.selectedAccount?.toLowerCase() ==
+                              monthly?.wallet_address?.toLowerCase()
+                                ? "deposit-list-main user-address-main"
+                                : "deposit-list-main"
+                            }
+                          >
+                            <div className="left-user">
+                              <div className="count-deposit">
+                                <span>{index + 1}</span>
+                                <img
+                                  className="crown-img"
+                                  src={
+                                    index + 1 === 1
+                                      ? "assets/img/king.png"
+                                      : "assets/img/crown.png"
+                                  }
+                                  alt=""
+                                />
+                              </div>
+                              <img
+                                className="user-img"
+                                src="assets/images/avatar.png"
+                                alt=""
+                              />
+                              <div>
+                                <h4>{monthly.wallet_address} </h4>
+                                <p>
+                                  {monthly.ENS_name ? monthly.ENS_name : "-"}
+                                </p>
+                              </div>
+                            </div>
+                            <div>
+                              <h4>
+                                {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                monthly?.wallet_address?.toLowerCase()
                                   ? "(You)"
                                   : ""}
                               </h4>
@@ -647,69 +776,69 @@ const Landing = () => {
                   <Tab eventKey="top-depsit2" title="Weekly">
                     <ul className="deposit-list-outer">
                       {quarterlyTopUser?.slice(0, 10).map((quarterly, index) => (
-                        <li>
-                          <div
-                            className={
-                              WalletEVM?.selectedAccount?.toLowerCase() ==
+                          <li>
+                            <div
+                              className={
+                                WalletEVM?.selectedAccount?.toLowerCase() ==
                                 quarterly?.wallet_address?.toLowerCase()
-                                ? "deposit-list-main user-address-main"
-                                : "deposit-list-main"
-                            }
-                          >
-                            <div className="left-user">
-                              <div className="count-deposit">
-                                <span>{index + 1}</span>
+                                  ? "deposit-list-main user-address-main"
+                                  : "deposit-list-main"
+                              }
+                            >
+                              <div className="left-user">
+                                <div className="count-deposit">
+                                  <span>{index + 1}</span>
+                                  <img
+                                    className="crown-img"
+                                    src={
+                                      index + 1 === 1
+                                        ? "assets/img/king.png"
+                                        : "assets/img/crown.png"
+                                    }
+                                    alt=""
+                                  />
+                                </div>
                                 <img
-                                  className="crown-img"
-                                  src={
-                                    index + 1 === 1
-                                      ? "assets/img/king.png"
-                                      : "assets/img/crown.png"
-                                  }
+                                  className="user-img"
+                                  src="assets/images/avatar.png"
                                   alt=""
                                 />
-                              </div>
-                              <img
-                                className="user-img"
-                               src="assets/images/avatar.png"
-                                alt=""
-                              />
-                              <div>
+                                <div>
                                 <h4>
                                   {quarterly.wallet_address}{" "}
 
                                 </h4>
-                                <p>
-                                  {quarterly.ENS_name
-                                    ? quarterly.ENS_name
-                                    : "-"}
-                                </p>{" "}
+                                  <p>
+                                    {quarterly.ENS_name
+                                      ? quarterly.ENS_name
+                                      : "-"}
+                                  </p>{" "}
+                                </div>
                               </div>
-                            </div>
-                            <div>
-                              <h4>
-                                {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                  quarterly?.wallet_address?.toLowerCase()
-                                  ? "(You)"
-                                  : ""}
-                              </h4>
-                            </div>
-                            <div className="right-trophy">
-                              <img
-                                className="trophy-img"
-                                src="assets/img/trophy.png"
-                                alt=""
-                              />
                               <div>
                                 <h4>
-                                  {quarterly.weekly_earn_points?.toFixed(2)}
+                                  {WalletEVM?.selectedAccount?.toLowerCase() ==
+                                  quarterly?.wallet_address?.toLowerCase()
+                                    ? "(You)"
+                                    : ""}
                                 </h4>
-                                <p>Points</p>
+                              </div>
+                              <div className="right-trophy">
+                                <img
+                                  className="trophy-img"
+                                  src="assets/img/trophy.png"
+                                  alt=""
+                                />
+                                <div>
+                                  <h4>
+                                    {quarterly.weekly_earn_points?.toFixed(2)}
+                                  </h4>
+                                  <p>Points</p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </li>
-                      ))}
+                          </li>
+                        ))}
                     </ul>
                   </Tab>
                   {/*================================================End of code =================================== */}
@@ -724,7 +853,393 @@ const Landing = () => {
         {...ConnectWalletModalProps}
         handleConnectSuccess={handleShowReferral1} // Pass handleShowReferral1 function as prop
       />
+      /////////////////////////////////////* new models*///////////////////////////////////////////////
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show1}
+        onHide={handleModalClose1}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <p>Welcome to the RACE Points System!</p>
+            <p>
+              The “Point System” is your gateway to understand the future of
+              asset tokenization and to learn about RACE.
+            </p>
 
+            <Button variant="primary" className="common-btn bg-left">
+              {/* <img src="assets/img/arrow_forward.png" alt="" /> */}
+              Next
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show2}
+        onHide={handleModalClose2}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <p>Welcome to the RACE Points System!</p>
+            <p>
+              The platform is designed to facilitate your learning through a
+              structured rewards mechanism.
+            </p>
+
+            <Button variant="primary" className="common-btn bg-left">
+              {/* <img src="assets/img/arrow_forward.png" alt="" /> */}
+              Okey
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show3}
+        onHide={handleModalClose3}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>How To Earn Points</h4>
+
+            <p>Here's how the point system works:</p>
+            <ul>
+              <li>
+                <b>Earn points by depositing money:</b>
+              </li>
+            </ul>
+            <p>The more you deposit, the more points you'll accumulate.</p>
+            <ul>
+              <li>
+                <b>Earn points by referring friends:</b>
+              </li>
+            </ul>
+            <p>Invite friends to join and earn points when they sign up.</p>
+            <p>
+              (For more details, go to the “Referrals” section to learn how to
+              refer friends and earn points.)
+            </p>
+            <Button variant="primary" className="common-btn bg-left">
+              Next
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show4}
+        onHide={handleModalClose4}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>How To Earn Points</h4>
+
+            <b>Depositing: Points-per-Dollar-per-Day (P/D/D).</b>
+            <p>
+              This means that every day, you'll receive points based on the
+              amount of money you have in your vault. Each dollar is worth one
+              point.
+            </p>
+            <Button variant="primary" className="common-btn bg-left">
+              Next
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show5}
+        onHide={handleModalClose5}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>How To Earn Points</h4>
+
+            <p>
+              For instance, If you have $100 in your vault, you'll earn 100
+              points daily.
+            </p>
+            <Button variant="primary" className="common-btn bg-left">
+              Next
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show6}
+        onHide={handleModalClose6}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>How To Earn Points</h4>
+
+            <p>
+              There’s more! Points can be multiplied by the “multipliers” earned
+              by completing activities!
+            </p>
+            <p>
+              (Check the “multipliers” & “activities” tabs for further
+              information)
+            </p>
+            <Button variant="primary" className="common-btn bg-left">
+              Okey
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show7}
+        onHide={handleModalClose7}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Referrals</h4>
+
+            <p>Here’s how the referral system works:</p>
+            <p>
+              When you refer other users to the platform, you earn points based
+              on their activity. Referrals are organized into layers:
+            </p>
+            <p>Layer 0: This is you, the main user.</p>
+            <p>Layer 1: These are the users you directly referred.</p>
+            <p>
+              Layer 2: These are the users referred by your Layer 1 referrals.
+            </p>
+            <p>
+              Layer 3: These are the users referred by your Layer 2 referrals.
+            </p>
+            <p>
+              Layer 4: These are the users referred by your Layer 3 referrals.
+            </p>
+            <Button variant="primary" className="common-btn bg-left">
+              Next
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show8}
+        onHide={handleModalClose8}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Referrals</h4>
+
+            <p>
+              Each user can have a total of 5 referrals, distributed across
+              these layers. You earn points as follows:
+            </p>
+            <ul>
+              <li>
+                <p>100% of the points earned by your Layer 1 referrals.</p>
+              </li>
+              <li>
+                <p>50% of the points earned by your Layer 2 referrals.</p>
+              </li>{" "}
+              <li>
+                <p>25% of the points earned by your Layer 3 referrals.</p>
+              </li>{" "}
+              <li>
+                <p>12.5% of the points earned by your Layer 4 referrals.</p>
+              </li>
+            </ul>
+            <Button variant="primary" className="common-btn bg-left">
+              Next
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show9}
+        onHide={handleModalClose9}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Referrals</h4>
+
+            <p>
+              This tiered system allows you to accumulate points from the
+              activity of users across multiple layers, maximizing your rewards
+              as your network grows.
+            </p>
+
+            <Button variant="primary" className="common-btn bg-left">
+              Okey
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show10}
+        onHide={handleModalClose10}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Multipliers</h4>
+            <p>Here’s how the multiplier system works:</p>
+            <p>
+              The multiplier boosts the number of points you earn daily from the
+              Points-per-Dollar-per-Day (P/D/D) system.
+            </p>
+            <p>
+              (Go to “How to earn points” to better understand how the P/D/D
+              system works.)
+            </p>
+            <Button variant="primary" className="common-btn bg-left">
+              Next
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show11}
+        onHide={handleModalClose11}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Multipliers</h4>
+            <p>
+              Instead of multiplying the points you’ve already accumulated, the
+              multiplier enhances the points you earn each day. Each activity on
+              the platform offers a specific multiplier value.
+            </p>
+
+            <Button variant="primary" className="common-btn bg-left">
+              Next
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show12}
+        onHide={handleModalClose12}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Multipliers</h4>
+            <p>
+              Once you complete an activity, the corresponding multiplier is
+              activated and will increase your daily points earnings until the
+              activity’s deadline. After the deadline, the multiplier will
+              deactivate, and your points will return to the standard rate of
+              P/D/D.
+            </p>
+
+            <Button variant="primary" className="common-btn bg-left">
+              Next
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={show13}
+        onHide={handleModalClose13}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Multipliers</h4>
+            <p>
+              Engage in activities to maximize your daily points and make the
+              most of the multipliers available!
+            </p>
+
+            <Button variant="primary" className="common-btn bg-left">
+              Okey
+              <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={showdashboard}
+        onHide={handleModaldashboardClose}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Welcome to your Dashboard!</h4>
+            <p>
+              Here, you can easily track your deposits, view your total points,
+              and check the distribution of your vaults.
+            </p>
+
+            <Button variant="primary" className="common-btn bg-left">
+              Next
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={showActivity}
+        onHide={handleModalActivityClose}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Welcome to your Activities!</h4>
+            <p>
+              Here, you have the opportunity to multiply the points you've
+              already earned by completing dynamic tasks. Explore the tasks to
+              see how you can boost your point totals.
+            </p>
+
+            <Button variant="primary" className="common-btn bg-left">
+              Next <img src="assets/img/arrow_forward.png" alt="" />
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      /////////////////////////////////////* new models
+      end*///////////////////////////////////////////////
       {/* New user modal */}
       <Modal
         className="new-user-modal"
@@ -843,24 +1358,24 @@ const Landing = () => {
             <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
             <p>Here are your referral codes</p>
             <div className="more-scroll">
-                {referralCodes.map((code, index) => (
-                  <div className="referal-copy-row" key={index}>
-                    <div>
-                      <span>{index + 1}</span>
-                      {code.code}
-                    </div>
-                    {copiedCodeIndex === index ? (
-                      <span className="text-white m-2">Copied!</span>
-                    ) : (
-                      <a
-                        href="#"
-                        onClick={(event) => handleCopy(code.code, index, event)}
-                      >
-                        <img src="assets/img/copy.png" alt="Copy" />
-                      </a>
-                    )}
+              {referralCodes.map((code, index) => (
+                <div className="referal-copy-row" key={index}>
+                  <div>
+                    <span>{index + 1}</span>
+                    {code.code}
                   </div>
-                ))}
+                  {copiedCodeIndex === index ? (
+                    <span className="text-white m-2">Copied!</span>
+                  ) : (
+                    <a
+                      href="#"
+                      onClick={(event) => handleCopy(code.code, index, event)}
+                    >
+                      <img src="assets/img/copy.png" alt="Copy" />
+                    </a>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </Modal.Body>

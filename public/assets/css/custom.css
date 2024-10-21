@@ -150,7 +150,19 @@ body {
     line-height: 1.5rem;
     font-weight: 400;
 }
+.new-user-modal .modal-content .modal-body b {
+    color: #fff;
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+}
 
+.new-user-modal .modal-content .modal-body h4 {
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+}
 .new-user-modal .modal-content .modal-body .outer-input {
     position: relative;
     text-align: left;
