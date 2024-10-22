@@ -176,9 +176,9 @@ export const Dashboard = () => {
                             chances to unlock more opportunities and rewards.
                             Dive in and win!
                           </p>
-                          <p className="text-end">
+                          {/* <p className="text-end">
                             <button className="okey-btn">Next</button>
-                          </p>
+                          </p> */}
                         </div>
                       </span>{" "}
                     </h3>
@@ -217,9 +217,9 @@ export const Dashboard = () => {
                             accumulated. Explore how your points can unlock
                             rewards.
                           </p>
-                          <p className="text-end">
+                          {/* <p className="text-end">
                             <button className="okey-btn">Next</button>
-                          </p>
+                          </p> */}
                         </div>
                       </span>{" "}
                     </h3>
@@ -249,7 +249,28 @@ export const Dashboard = () => {
                 </Col>
                 <Col lg={6}>
                   <div className="dash-count-box">
-                    <h3 className="text-center">Location</h3>
+                    <h3 className="text-center">
+                      Location{" "}
+                      <span className="info-tooltip">
+                        <img
+                          src="assets/img/infor2.png"
+                          className="info-icon"
+                          alt=""
+                        />
+                        <div>
+                          <h5>Welcome to the Chains Section!</h5>
+                          <p>
+                            Here, you’ll find a chart that shows the
+                            distribution of your deposits across different
+                            blockchain networks, giving you a clear overview of
+                            where your assets are located.
+                          </p>
+                          {/* <p className="text-end">
+                            <button className="okey-btn">Next</button>
+                          </p> */}
+                        </div> 
+                      </span>{" "}
+                    </h3>
 
                     <div className="outer-box-no-deposite">
                       <div>
