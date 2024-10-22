@@ -411,7 +411,7 @@ const Landing = () => {
                             <div>Dashboard</div>
                             <span className="info-tooltip">
                               <img
-                                src="assets/img/infor2.png"
+                                src="assets/img/information.png"
                                 className="info-icon"
                                 alt=""
                               />
@@ -466,8 +466,8 @@ const Landing = () => {
                           Activities{" "}
                           <span className="info-tooltip">
                             <img
-                              src="assets/img/infor2.png"
-                              className="info-icon"
+                                src="assets/img/information.png"
+                                className="info-icon"
                               alt=""
                             />
                             <div className="dark-bg">

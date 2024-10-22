@@ -153,15 +153,15 @@ export const Header = () => {
 
             <div className="d-flex align-items-center">
               {user?.role == "super user" ? (
-                <a
+                <button
                   style={{ cursor: "pointer" }}
-                  className="common-btn bg-left me-2"
+                 className="common-btn connect-wallet-btn me-2"
                   onClick={() => {
                     navigate("/manager-dashboard");
                   }}
                 >
                   Dashboard
-                </a>
+                </button>
               ) : (
                 ""
               )}

@@ -84,15 +84,15 @@ const SuperUserHeader = () => {
                   </Navbar.Collapse>
 
                   <div className="d-flex align-items-center">
-                    <a
+                    <button
                       style={{ cursor: "pointer" }}
-                      className="common-btn bg-left"
+                      className="common-btn connect-wallet-btn "
                       onClick={() => {
                         navigate("/dashboard");
                       }}
                     >
                       Back
-                    </a>
+                    </button>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                   </div>
                 </div>
