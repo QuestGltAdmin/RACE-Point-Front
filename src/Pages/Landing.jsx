@@ -415,7 +415,7 @@ const Landing = () => {
                                 className="info-icon"
                                 alt=""
                               />
-                              <div>
+                              <div className="dark-bg">
                                 <h5>Welcome to your Dashboard!</h5>
                                 <h5>
                                   Here, you can easily track your deposits, view
@@ -470,7 +470,7 @@ const Landing = () => {
                               className="info-icon"
                               alt=""
                             />
-                            <div>
+                            <div className="dark-bg">
                               <h5>Welcome to your Activities!</h5>
                               <h5>
                                 Here, you have the opportunity to multiply the

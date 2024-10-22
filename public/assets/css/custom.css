@@ -2422,6 +2422,8 @@ object-fit: contain;
     visibility: hidden;
     transition: all ease-in-out .2s;
 }
+
+
 .info-tooltip > div::after {
     content: "";
     position: absolute;
@@ -2435,11 +2437,21 @@ object-fit: contain;
     right: 0;
     margin: 0 auto;
 }
+.dark-bg{
+    background: #041F34 !important;
+    box-shadow: 0 0 10px #000;
+}
+.dark-bg::after{
+    border-bottom: 10px solid #041F34 !important;
+}
+
 .info-tooltip > div h5{
     font-size: 16px;
     text-align: left;
+    color: #fff;
 }
 .info-tooltip > div p{
+    color: #fff;
     font-size: 14px;
     font-weight: 400;
     text-align: left;
