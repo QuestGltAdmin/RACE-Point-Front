@@ -327,6 +327,7 @@ const Landing = () => {
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
 
+
   const handleModalClose1 = () => {
     setShow1(false);
     localStorage.setItem("dashboardModal", false);
