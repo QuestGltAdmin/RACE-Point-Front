@@ -2452,7 +2452,7 @@ object-fit: contain;
 }
 .info-tooltip > div p{
     color: #fff;
-    font-size: 14px;
+    font-size: 14px !important;
     font-weight: 400;
     text-align: left;
 }
