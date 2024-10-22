@@ -2455,6 +2455,7 @@ object-fit: contain;
     font-size: 14px !important;
     font-weight: 400;
     text-align: left;
+    line-height: 20px !important;
 }
 .okey-btn{
     background-color: transparent;
