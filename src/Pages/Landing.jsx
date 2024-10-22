@@ -417,11 +417,11 @@ const Landing = () => {
                               />
                               <div className="dark-bg">
                                 <h5>Welcome to your Dashboard!</h5>
-                                <h5>
+                                <p>
                                   Here, you can easily track your deposits, view
                                   your total points, and check the distribution
                                   of your vaults.
-                                </h5>
+                                </p>
                               </div>
                             </span>
                           </Button>
@@ -472,12 +472,12 @@ const Landing = () => {
                             />
                             <div className="dark-bg">
                               <h5>Welcome to your Activities!</h5>
-                              <h5>
+                              <p>
                                 Here, you have the opportunity to multiply the
                                 points you've already earned by completing
                                 dynamic tasks. Explore the tasks to see how you
                                 can boost your point totals.
-                              </h5>
+                              </p>
                             </div>
                           </span>
                         </Button>
