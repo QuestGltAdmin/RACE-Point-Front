@@ -327,7 +327,6 @@ const Landing = () => {
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
 
-
   const handleModalClose1 = () => {
     setShow1(false);
     localStorage.setItem("dashboardModal", false);
@@ -409,6 +408,21 @@ const Landing = () => {
                             <img src="assets/img/dash.png" alt="" />
 
                             <div>Dashboard</div>
+                            <span className="info-tooltip">
+                              <img
+                                src="assets/img/infor2.png"
+                                className="info-icon"
+                                alt=""
+                              />
+                              <div>
+                                <h5>Welcome to your Dashboard!</h5>
+                                <h5>
+                                  Here, you can easily track your deposits, view
+                                  your total points, and check the distribution
+                                  of your vaults.
+                                </h5>
+                              </div>
+                            </span>
                           </Button>
                         ) : (
                           <Button
@@ -448,7 +462,23 @@ const Landing = () => {
                           }}
                         >
                           <img src="assets/img/star.png" alt="" />
-                          Activities
+                          Activities{" "}
+                          <span className="info-tooltip">
+                            <img
+                              src="assets/img/infor2.png"
+                              className="info-icon"
+                              alt=""
+                            />
+                            <div>
+                              <h5>Welcome to your Activities!</h5>
+                              <h5>
+                                Here, you have the opportunity to multiply the
+                                points you've already earned by completing
+                                dynamic tasks. Explore the tasks to see how you
+                                can boost your point totals.
+                              </h5>
+                            </div>
+                          </span>
                         </Button>
                       </div>
                     </div>
