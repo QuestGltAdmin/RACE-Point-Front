@@ -325,17 +325,14 @@ const Landing = () => {
   /////////////////////new models ////////////////////////////////////
 
   const [show1, setShow1] = useState(false);
-  const handleModal1 = () => {
-    setShow1(true);
-  };
+  const [show2, setShow2] = useState(false);
+
+
   const handleModalClose1 = () => {
     setShow1(false);
+    localStorage.setItem("dashboardModal", false);
   };
 
-  const [show2, setShow2] = useState(false);
-  const handleModal2 = () => {
-    setShow2(true);
-  };
   const handleModalClose2 = () => {
     setShow2(false);
   };
@@ -356,6 +353,14 @@ const Landing = () => {
     setShowActivity(false);
   };
   /////////////////////end of code////////////////////////////////////
+
+  const flag = localStorage.getItem("dashboardModal");
+
+  useEffect(() => {
+    if (flag == null) {
+      setShow1(true);
+    }
+  }, []);
 
   return (
     <>
@@ -793,7 +798,14 @@ const Landing = () => {
               </small>
             </p>
 
-            <Button variant="primary" className="common-btn bg-left">
+            <Button
+              variant="primary"
+              className="common-btn bg-left"
+              onClick={() => {
+                handleModalClose1();
+                setShow2(true);
+              }}
+            >
               {/* <img src="assets/img/arrow_forward.png" alt="" /> */}
               Next
             </Button>
@@ -817,7 +829,11 @@ const Landing = () => {
               </small>
             </p>
 
-            <Button variant="primary" className="common-btn bg-left">
+            <Button
+              variant="primary"
+              className="common-btn bg-left"
+              onClick={() => handleModalClose2()}
+            >
               {/* <img src="assets/img/arrow_forward.png" alt="" /> */}
               Okey
             </Button>

@@ -126,6 +126,7 @@ const authSlice = createSlice({
 
     logout: (state) => {
       localStorage.clear();
+      localStorage.setItem("dashboardModal", false);
       return {
         ...state,
         isLoading: false,
@@ -134,6 +135,7 @@ const authSlice = createSlice({
         WalletEVM: {},
         usertoken: {},
       };
+
     },
 
     registerSaga: (state, action) => {
