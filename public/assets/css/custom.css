@@ -2487,4 +2487,10 @@ letter-spacing: 0.1px;
     .info-tooltip > div::after{
         content: none !important;
     }
+    .table-box-new.shadow-box-main .d-flex.gap-2{
+        display: block !important;
+    }
+    .table-box-new.shadow-box-main .d-flex.gap-2 .search-input.input-group{
+max-width: 100%;
+    }
 }
