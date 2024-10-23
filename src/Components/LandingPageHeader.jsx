@@ -346,11 +346,11 @@ export const LandingPageHeader = () => {
               <b>Depositing: Points-per-Dollar-per-Day (P/D/D).</b>
             </p>
             <p>
-              <small>
+              {/* <small> */}
                 This means that every day, you'll receive points based on the
                 amount of money you have in your vault. Each dollar is worth one
                 point.
-              </small>
+              {/* </small> */}
             </p>
             <div className="d-flex gap-4">
               <Button
@@ -392,11 +392,11 @@ export const LandingPageHeader = () => {
           <div>
             <h4>How To Earn Points</h4>
 
-            <p>
-              <small>
+            <p className="mt-4">
+              {/* <small> */}
                 For instance, If you have $100 in your vault, you'll earn 100
                 points daily.
-              </small>
+              {/* </small> */}
             </p>
             <div className="d-flex gap-4">
               <Button
@@ -587,14 +587,14 @@ export const LandingPageHeader = () => {
           <div>
             <h4>Referrals</h4>
 
-            <p>
-              <small>
+            <p className="mt-4">
+              {/* <small> */}
                 This tiered system allows you to accumulate points from the
                 activity of users across multiple layers, maximizing your
                 rewards as your network grows.<br></br>
                 <br></br>
                 Referrals are currently located inside the 'Activities' tab. Please navigate to the 'Activities' section to view your referrals.
-              </small>
+              {/* </small> */}
             </p>
             <div className="d-flex gap-4">
               <Button
@@ -677,12 +677,12 @@ export const LandingPageHeader = () => {
         <Modal.Body>
           <div>
             <h4>Multipliers</h4>
-            <p>
-              <small>
+            <p className="mt-4">
+              {/* <small> */}
                 Instead of multiplying the points you’ve already accumulated,
                 the multiplier enhances the points you earn each day. Each
                 activity on the platform offers a specific multiplier value.
-              </small>
+              {/* </small> */}
             </p>
             <div className="d-flex gap-4">
               <Button
@@ -723,14 +723,14 @@ export const LandingPageHeader = () => {
         <Modal.Body>
           <div>
             <h4>Multipliers</h4>
-            <p>
-              <small>
+            <p className="mt-4">
+              {/* <small> */}
                 Once you complete an activity, the corresponding multiplier is
                 activated and will increase your daily points earnings until the
                 activity’s deadline. After the deadline, the multiplier will
                 deactivate, and your points will return to the standard rate of
                 P/D/D.
-              </small>
+              {/* </small> */}
             </p>
             <div className="d-flex gap-4">
               <Button
@@ -771,11 +771,11 @@ export const LandingPageHeader = () => {
         <Modal.Body>
           <div>
             <h4>Multipliers</h4>
-            <p>
-              <small>
+            <p className="mt-4">
+              {/* <small> */}
                 Engage in activities to maximize your daily points and make the
                 most of the multipliers available!
-              </small>
+              {/* </small> */}
             </p>
             <div className="d-flex gap-4">
               <Button
