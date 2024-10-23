@@ -2474,3 +2474,17 @@ letter-spacing: 0.1px;
     opacity: 1;
     visibility: visible;
 }
+
+@media (max-width: 768px){
+    .info-tooltip > div {
+        position: fixed;
+        right: 0;
+        left: 0;
+        top: 30%;
+        margin: 10px;
+        z-index: 101;
+    }
+    .info-tooltip > div::after{
+        content: none !important;
+    }
+}
