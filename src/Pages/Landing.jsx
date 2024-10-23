@@ -338,17 +338,13 @@ const Landing = () => {
   };
 
   const [showdashboard, setShowDashboard] = useState(false);
-  const handleModaldashboard = () => {
-    setShowDashboard(true);
-  };
+
   const handleModaldashboardClose = () => {
     setShowDashboard(false);
   };
 
   const [showActivity, setShowActivity] = useState(false);
-  const handleModalActivity = () => {
-    setShowActivity(true);
-  };
+
   const handleModalActivityClose = () => {
     setShowActivity(false);
   };
@@ -466,8 +462,8 @@ const Landing = () => {
                           Activities{" "}
                           <span className="info-tooltip">
                             <img
-                                src="assets/img/information.png"
-                                className="info-icon"
+                              src="assets/img/information.png"
+                              className="info-icon"
                               alt=""
                             />
                             <div className="dark-bg">

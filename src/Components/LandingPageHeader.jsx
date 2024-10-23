@@ -296,7 +296,7 @@ export const LandingPageHeader = () => {
             <p>Here's how the point system works:</p>
             <ul>
               <li>
-                <b>Earn points by depositing money:</b>
+                <b>Earn points by depositing money :</b>
                 <br />
                 The more you deposit, the more points you'll accumulate.
               </li>
@@ -304,7 +304,7 @@ export const LandingPageHeader = () => {
             <p></p>
             <ul>
               <li>
-                <b>Earn points by referring friends:</b> Invite friends to join
+                <b>Earn points by referring friends :</b> Invite friends to join
                 and earn points when they sign up.
               </li>
             </ul>
@@ -352,18 +352,30 @@ export const LandingPageHeader = () => {
                 point.
               </small>
             </p>
-            <Button
-              variant="primary"
-              className="common-btn bg-left"
-              onClick={() => {
-                setShowEarn2(false);
-
-                setShowEarn3(true);
-              }}
-            >
-              Next
-              <img src="assets/img/arrow_forward.png" alt="" />
-            </Button>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowEarn2(false);
+                  setShowEarn1(true);
+                }}
+              >
+                <img src="assets/img/arrow_backward.png" alt="" />
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowEarn2(false);
+                  setShowEarn3(true);
+                }}
+              >
+                Next
+                <img src="assets/img/arrow_forward.png" alt="" />
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>
@@ -386,17 +398,30 @@ export const LandingPageHeader = () => {
                 points daily.
               </small>
             </p>
-            <Button
-              variant="primary"
-              className="common-btn bg-left"
-              onClick={() => {
-                setShowEarn3(false);
-                setShowEarn4(true);
-              }}
-            >
-              Next
-              <img src="assets/img/arrow_forward.png" alt="" />
-            </Button>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowEarn3(false);
+                  setShowEarn2(true);
+                }}
+              >
+                <img src="assets/img/arrow_backward.png" alt="" />
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowEarn3(false);
+                  setShowEarn4(true);
+                }}
+              >
+                Next
+                <img src="assets/img/arrow_forward.png" alt="" />
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>
@@ -424,16 +449,29 @@ export const LandingPageHeader = () => {
                 information)
               </small>
             </p>
-            <Button
-              variant="primary"
-              className="common-btn bg-left"
-              onClick={() => {
-                setShowEarn4(false);
-              }}
-            >
-              Okey
-              <img src="assets/img/arrow_forward.png" alt="" />
-            </Button>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowEarn4(false);
+                  setShowEarn3(true);
+                }}
+              >
+                <img src="assets/img/arrow_backward.png" alt="" />
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowEarn4(false);
+                }}
+              >
+                Okey
+                {/* <img src="assets/img/arrow_forward.png" alt="" /> */}
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>
@@ -458,14 +496,20 @@ export const LandingPageHeader = () => {
               When you refer other users to the platform, you earn points based
               on their activity. Referrals are organized into layers:
             </p>
-            <p>
-              Layer 0: This is you, the main user. <br /> Layer 1: These are the
-              users you directly referred. <br /> Layer 2: These are the users
-              referred by your Layer 1 referrals. <br />
-              Layer 3: These are the users referred by your Layer 2 referrals.{" "}
-              <br /> Layer 4: These are the users referred by your Layer 3
-              referrals.
-            </p>
+
+            <ul>
+              <li>Layer 0: This is you, the main user. </li>
+              <li>Layer 1: These are the users you directly referred.</li>
+              <li>
+                Layer 2: These are the users referred by your Layer 1 referrals.
+              </li>
+              <li>
+                Layer 3: These are the users referred by your Layer 2 referrals.
+              </li>
+              <li>
+                Layer 4: These are the users referred by your Layer 3 referrals.
+              </li>
+            </ul>
 
             <Button
               variant="primary"
@@ -493,7 +537,6 @@ export const LandingPageHeader = () => {
         <Modal.Body>
           <div>
             <h4>Referrals</h4>
-
             <p className="mt-4">
               Each user can have a total of 5 referrals, distributed across
               these layers. You earn points as follows:
@@ -503,18 +546,31 @@ export const LandingPageHeader = () => {
               <li>50% of the points earned by your Layer 2 referrals.</li>{" "}
               <li>25% of the points earned by your Layer 3 referrals.</li>{" "}
               <li>12.5% of the points earned by your Layer 4 referrals.</li>
-            </ul>
-            <Button
-              variant="primary"
-              className="common-btn bg-left"
-              onClick={() => {
-                setShowReferrals2(false);
-                setShowReferrals3(true);
-              }}
-            >
-              Next
-              <img src="assets/img/arrow_forward.png" alt="" />
-            </Button>
+            </ul>{" "}
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowReferrals2(false);
+                  setShowReferrals1(true);
+                }}
+              >
+                <img src="assets/img/arrow_backward.png" alt="" />
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowReferrals2(false);
+                  setShowReferrals3(true);
+                }}
+              >
+                Next
+                <img src="assets/img/arrow_forward.png" alt="" />
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>
@@ -535,20 +591,34 @@ export const LandingPageHeader = () => {
               <small>
                 This tiered system allows you to accumulate points from the
                 activity of users across multiple layers, maximizing your
-                rewards as your network grows.
+                rewards as your network grows.<br></br>
+                <br></br>
+                Referrals are currently located inside the 'Activities' tab. Please navigate to the 'Activities' section to view your referrals.
               </small>
             </p>
-
-            <Button
-              variant="primary"
-              className="common-btn bg-left"
-              onClick={() => {
-                setShowReferrals3(false);
-              }}
-            >
-              Okey
-              <img src="assets/img/arrow_forward.png" alt="" />
-            </Button>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowReferrals3(false);
+                  setShowReferrals2(true);
+                }}
+              >
+                <img src="assets/img/arrow_backward.png" alt="" />
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowReferrals3(false);
+                }}
+              >
+                Okey
+                {/* <img src="assets/img/arrow_forward.png" alt="" /> */}
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>
@@ -580,6 +650,7 @@ export const LandingPageHeader = () => {
                 system works.)
               </small>
             </p>
+
             <Button
               variant="primary"
               className="common-btn bg-left"
@@ -613,18 +684,30 @@ export const LandingPageHeader = () => {
                 activity on the platform offers a specific multiplier value.
               </small>
             </p>
-
-            <Button
-              variant="primary"
-              className="common-btn bg-left"
-              onClick={() => {
-                setShowMultipliers2(false);
-                setShowMultipliers3(true);
-              }}
-            >
-              Next
-              <img src="assets/img/arrow_forward.png" alt="" />
-            </Button>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowMultipliers2(false);
+                  setShowMultipliers1(true);
+                }}
+              >
+                <img src="assets/img/arrow_backward.png" alt="" />
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowMultipliers2(false);
+                  setShowMultipliers3(true);
+                }}
+              >
+                Next
+                <img src="assets/img/arrow_forward.png" alt="" />
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>
@@ -649,18 +732,30 @@ export const LandingPageHeader = () => {
                 P/D/D.
               </small>
             </p>
-
-            <Button
-              variant="primary"
-              className="common-btn bg-left"
-              onClick={() => {
-                setShowMultipliers3(false);
-                setShowMultipliers4(true);
-              }}
-            >
-              Next
-              <img src="assets/img/arrow_forward.png" alt="" />
-            </Button>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowMultipliers3(false);
+                  setShowMultipliers2(true);
+                }}
+              >
+                <img src="assets/img/arrow_backward.png" alt="" />
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowMultipliers3(false);
+                  setShowMultipliers4(true);
+                }}
+              >
+                Next
+                <img src="assets/img/arrow_forward.png" alt="" />
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>
@@ -682,17 +777,29 @@ export const LandingPageHeader = () => {
                 most of the multipliers available!
               </small>
             </p>
-
-            <Button
-              variant="primary"
-              className="common-btn bg-left"
-              onClick={() => {
-                setShowMultipliers4(false);
-              }}
-            >
-              Okey
-              <img src="assets/img/arrow_forward.png" alt="" />
-            </Button>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowMultipliers4(false);
+                  setShowMultipliers3(true);
+                }}
+              >
+                {" "}
+                <img src="assets/img/arrow_backward.png" alt="" />
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowMultipliers4(false);
+                }}
+              >
+                Okey
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>

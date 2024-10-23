@@ -155,6 +155,7 @@ body {
     font-size: 1.1rem;
     line-height: 1.5rem;
     font-weight: 400;
+    text-align: left;
 }
 .new-user-modal .modal-content .modal-body b {
     color: #fff;
