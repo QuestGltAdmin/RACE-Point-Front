@@ -160,7 +160,14 @@ export const LandingPageHeader = () => {
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-            <div className="d-flex align-items-center gap-2">
+            <div className="d-flex align-items-center gap-2"><button
+                className="common-btn connect-wallet-btn"
+                onClick={() => {
+                  setShowEarn1(true);
+                }}
+              >
+                How To Earn Points
+              </button>
               <button
                 className="common-btn connect-wallet-btn"
                 onClick={() => {
@@ -177,14 +184,7 @@ export const LandingPageHeader = () => {
               >
                 Referrals
               </button>{" "}
-              <button
-                className="common-btn connect-wallet-btn"
-                onClick={() => {
-                  setShowEarn1(true);
-                }}
-              >
-                How To Earn Points
-              </button>
+              
               {!WalletEVM?.selectedAccount ? (
                 <button
                   className="common-btn connect-wallet-btn"

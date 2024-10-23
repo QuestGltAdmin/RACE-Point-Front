@@ -730,7 +730,7 @@ export const Depositstepfirst = () => {
             <div className="date-rang-percentage ">
               <span
                 className={
-                  activeflag == 0 && chainid == WalletEVM?.chainId
+                  activeflag == 0 && chainid == WalletEVM?.chainId && balance > 0 
                     ? "active"
                     : ""
                 }
@@ -745,7 +745,7 @@ export const Depositstepfirst = () => {
               </span>
               <span
                 className={
-                  activeflag == 25 && chainid == WalletEVM?.chainId
+                  activeflag == 25 && chainid == WalletEVM?.chainId && balance > 0
                     ? "active"
                     : ""
                 }
@@ -760,7 +760,7 @@ export const Depositstepfirst = () => {
               </span>
               <span
                 className={
-                  activeflag == 50 && chainid == WalletEVM?.chainId
+                  activeflag == 50 && chainid == WalletEVM?.chainId && balance > 0
                     ? "active"
                     : ""
                 }
@@ -775,7 +775,7 @@ export const Depositstepfirst = () => {
               </span>
               <span
                 className={
-                  activeflag == 75 && chainid == WalletEVM?.chainId
+                  activeflag == 75 && chainid == WalletEVM?.chainId && balance > 0
                     ? "active"
                     : ""
                 }
@@ -790,7 +790,7 @@ export const Depositstepfirst = () => {
               </span>
               <span
                 className={
-                  activeflag == 100 && chainid == WalletEVM?.chainId
+                  activeflag == 100 && chainid == WalletEVM?.chainId && balance > 0
                     ? "active"
                     : ""
                 }
