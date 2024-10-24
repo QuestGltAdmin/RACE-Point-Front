@@ -464,7 +464,7 @@ export const LandingPageHeader = () => {
                   setShowEarn4(false);
                 }}
               >
-                Okey
+                Done
                 {/* <img src="assets/img/arrow_forward.png" alt="" /> */}
               </Button>
             </div>
@@ -609,7 +609,7 @@ export const LandingPageHeader = () => {
                   setShowReferrals3(false);
                 }}
               >
-                Okey
+                Done
                 {/* <img src="assets/img/arrow_forward.png" alt="" /> */}
               </Button>
             </div>
@@ -785,7 +785,7 @@ export const LandingPageHeader = () => {
                   setShowMultipliers4(false);
                 }}
               >
-                Okey
+                Done
               </Button>
             </div>
           </div>
