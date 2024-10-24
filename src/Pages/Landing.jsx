@@ -806,8 +806,7 @@ const Landing = () => {
         {...ConnectWalletModalProps}
         handleConnectSuccess={handleShowReferral1} // Pass handleShowReferral1 function as prop
       />
-      /////////////////////////////////////* new
-      models*///////////////////////////////////////////////
+  
       <Modal
         className="new-user-modal"
         centered
@@ -914,8 +913,7 @@ const Landing = () => {
           </div>
         </Modal.Body>
       </Modal>
-      /////////////////////////////////////* new models
-      end*///////////////////////////////////////////////
+      
       {/* New user modal */}
       <Modal
         className="new-user-modal"
