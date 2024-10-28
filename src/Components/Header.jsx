@@ -16,6 +16,7 @@ import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { reConnect } from "../helpers/web3Model";
 import { commonSwitch } from "../helpers/ChainSwitch";
+import Modals from "./Modals";
 
 export const Header = () => {
   //========================= Global variable =========================//
@@ -152,10 +153,10 @@ export const Header = () => {
             </Navbar.Brand>
 
             <div className="d-flex align-items-center">
-              {user?.role == "super user" ? (
+              {/* {user?.role == "super user" ? (
                 <button
                   style={{ cursor: "pointer" }}
-                 className="common-btn connect-wallet-btn me-2"
+                  className="common-btn connect-wallet-btn me-2"
                   onClick={() => {
                     navigate("/manager-dashboard");
                   }}
@@ -164,67 +165,79 @@ export const Header = () => {
                 </button>
               ) : (
                 ""
-              )}
+              )} */}
               <>
-                <Dropdown
-                  className="wallet-address-dropdown"
-                  onSelect={(e) => {
-                    handleChain(e);
-                  }}
-                >
-                  <Dropdown.Toggle id="dropdown-basic">
+                <div className="d-flex align-items-center">
+                  <a
+                    href="https://t.me/RACEecosystem"
+                    target="_blank"
+                    className="social-head"
+                  >
                     <img
-                      src={`assets/img/${
-                        chainData == 10
-                          ? "coin1.png"
-                          : chainData == 42161
-                          ? "coin3.png"
-                          : chainData == 137
-                          ? "coin2.png"
-                          : "coin4.png"
-                      }`}
+                      src="assets/images/telegram.png"
+                      target="_blank"
                       alt=""
                     />
-                    {WalletEVM?.selectedAccount?.replace(
-                      WalletEVM?.selectedAccount?.substring(5, 37),
-                      "..."
-                    )}
-                  </Dropdown.Toggle>
+                  </a>
+                  <a href="https://x.com/RACEecosystem" className="social-head">
+                    <img src="assets/images/twitt.png" alt="" />
+                  </a>
+                  <Dropdown
+                    className="wallet-address-dropdown"
+                    onSelect={(e) => {
+                      handleChain(e);
+                    }}
+                  >
+                    <Dropdown.Toggle id="dropdown-basic">
+                      <img
+                        src={`assets/img/${
+                          chainData == 10
+                            ? "coin1.png"
+                            : chainData == 42161
+                            ? "coin3.png"
+                            : chainData == 137
+                            ? "coin2.png"
+                            : "coin4.png"
+                        }`}
+                        alt=""
+                      />
+                      {WalletEVM?.selectedAccount?.replace(
+                        WalletEVM?.selectedAccount?.substring(5, 37),
+                        "..."
+                      )}
+                    </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
-                    <Dropdown.Item eventKey="10">
-                      {" "}
-                      <img src="assets/img/coin1.png" alt="" /> Optimism
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey="42161">
-                      {" "}
-                      <img src="assets/img/coin3.png" alt="" /> Arbitrum
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey="137">
-                      {" "}
-                      <img src="assets/img/coin2.png" alt="" /> Polygon
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey="8453">
-                      {" "}
-                      <img src="assets/img/coin4.png" alt="" /> Base
-                    </Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item
-                      onClick={() => {
-                        setShowLogout1(true);
-                      }}
-                    >
-                      {" "}
-                      <img src="assets/img/logout.png" alt="" /> Log Out
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                  <a href="https://t.me/RACEecosystem" target="_blank" className="social-head">
-                    <img src="assets/images/telegram.png" target="_blank" alt="" />
-                </a>
-                <a href="https://x.com/RACEecosystem" className="social-head">
-                  <img src="assets/images/twitt.png" alt="" />
-                </a>
+                    <Dropdown.Menu>
+                      <Dropdown.Item eventKey="10">
+                        {" "}
+                        <img src="assets/img/coin1.png" alt="" /> Optimism
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="42161">
+                        {" "}
+                        <img src="assets/img/coin3.png" alt="" /> Arbitrum
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="137">
+                        {" "}
+                        <img src="assets/img/coin2.png" alt="" /> Polygon
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="8453">
+                        {" "}
+                        <img src="assets/img/coin4.png" alt="" /> Base
+                      </Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item
+                        onClick={() => {
+                          setShowLogout1(true);
+                        }}
+                      >
+                        {" "}
+                        <img src="assets/img/logout.png" alt="" /> Log Out
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+
+                </div>
+                <Modals />
               </>
 
               {/* {path !== "dashboard" && (
