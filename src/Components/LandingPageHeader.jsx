@@ -270,6 +270,37 @@ export const LandingPageHeader = () => {
                 Logout <img src="assets/img/logout.png" alt="" />
               </Nav.Link>
             )} */}
+             <Dropdown
+                    className="wallet-address-dropdown menu-btn-dropdown me-0"
+                   
+                  >
+                    <Dropdown.Toggle id="dropdown-basic">
+                      <img
+                        src="assets/img/new-menu1.png"
+                        
+                        alt=""
+                      />
+                     
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item eventKey="10">
+                        {" "}
+                        How To Earn Points <img src="assets/img/new-menu2.png" alt="" />
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="42161">
+                        {" "}
+                        Multipliers
+                         <img src="assets/img/new-menu3.png" alt="" />
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="137">
+                        {" "}
+                        Referrals
+                         <img src="assets/img/new-menu4.png" alt="" />
+                      </Dropdown.Item>
+                     
+                    </Dropdown.Menu>
+                  </Dropdown>
           </Container>
         </Navbar>
       </header>

@@ -2494,3 +2494,35 @@ letter-spacing: 0.1px;
 max-width: 100%;
     }
 }
+
+
+/* menu btn dropdown css */
+
+.wallet-address-dropdown.menu-btn-dropdown .dropdown-toggle {
+    border-radius: 10px;
+    padding: 3px 5px !important;
+}
+.wallet-address-dropdown.menu-btn-dropdown .dropdown-toggle::after{
+content: none;
+}
+.wallet-address-dropdown.menu-btn-dropdown .dropdown-toggle img{
+    margin: 0;
+}
+.wallet-address-dropdown.menu-btn-dropdown .dropdown-menu {
+    right: 0;
+    left: auto;
+    border-radius: 5px;
+    top: 48px;
+    min-width: 220px;
+}
+.wallet-address-dropdown.menu-btn-dropdown .dropdown-menu .dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+}
+.wallet-address-dropdown.menu-btn-dropdown .dropdown-menu .dropdown-item img{
+    height: 20px;
+    width: 20px;
+    object-fit: contain;
+}
