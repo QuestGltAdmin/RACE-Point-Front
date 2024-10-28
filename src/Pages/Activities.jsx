@@ -183,7 +183,7 @@ export const Activities = () => {
               </div>
 
               <h2 className="common-heading text-start mb-2 font-mid">
-                Multiplier
+                Multipliers
               </h2>
 
               {/* <div className="deposit-outer-box d-block">

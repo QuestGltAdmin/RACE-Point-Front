@@ -151,16 +151,21 @@ export const LandingPageHeader = () => {
       <header className="header-landing" id="headerId">
         <Navbar expand="lg" className="">
           <Container>
-            <a href="https://race.foundation/" target="_blank" className="text-white text-decoration-none mobile-none">
+            {/* <a
+              href="https://race.foundation/"
+              target="_blank"
+              className="text-white text-decoration-none mobile-none"
+            >
               {" "}
-              <i class="fa fa-arrow-left" aria-hidden="true"></i>{" "}&nbsp; Return to Foundation
-            </a>
+              <i class="fa fa-arrow-left" aria-hidden="true"></i> &nbsp; Return
+              to Foundation
+            </a> */}
             <Navbar.Brand href="/">
               <h1>
                 <img src="assets/img/Logo.png" alt="" /> Points
               </h1>
             </Navbar.Brand>
-            <div className="d-flex align-items-center gap-2"><button
+            {/* <div className="d-flex align-items-center gap-2"><button
                 className="common-btn connect-wallet-btn"
                 onClick={() => {
                   setShowEarn1(true);
@@ -184,123 +189,133 @@ export const LandingPageHeader = () => {
               >
                 Referrals
               </button>{" "}
-              
-              {!WalletEVM?.selectedAccount ? (
-                <button
-                  className="common-btn connect-wallet-btn"
-                  onClick={() => {
-                    setShowConnectWalletModal(true);
+               */}
+            <div className="d-flex align-items-center">
+            <a
+              href="https://t.me/RACEecosystem"
+              target="_blank"
+              className="social-head"
+            >
+              <img src="assets/images/telegram.png" alt="" />
+            </a>
+            <a
+              href="https://x.com/RACEecosystem"
+              target="_blank"
+              className="social-head"
+            >
+              <img src="assets/images/twitt.png" alt="" />
+            </a>
+            {!WalletEVM?.selectedAccount ? (
+              <button
+                className="common-btn connect-wallet-btn"
+                onClick={() => {
+                  setShowConnectWalletModal(true);
+                }}
+              >
+                Connect Wallet
+              </button>
+            ) : (
+              <>
+                <Dropdown
+                  className="wallet-address-dropdown"
+                  onSelect={(e) => {
+                    handleChain(e);
                   }}
                 >
-                  Connect Wallet
-                </button>
-              ) : (
-                <>
-                  <Dropdown
-                    className="wallet-address-dropdown"
-                    onSelect={(e) => {
-                      handleChain(e);
-                    }}
-                  >
-                    <Dropdown.Toggle id="dropdown-basic">
-                      <img
-                        src={`assets/img/${chainData == 10
-                            ? "coin1.png"
-                            : chainData == 42161
-                            ? "coin3.png"
-                            : chainData == 137
-                            ? "coin2.png"
-                            : "coin4.png"
-                        }`}
-                        alt=""
-                      />
-                      {WalletEVM?.selectedAccount?.replace(
-                        WalletEVM?.selectedAccount?.substring(5, 37),
-                        "..."
-                      )}
-                    </Dropdown.Toggle>
+                  <Dropdown.Toggle id="dropdown-basic">
+                    <img
+                      src={`assets/img/${
+                        chainData == 10
+                          ? "coin1.png"
+                          : chainData == 42161
+                          ? "coin3.png"
+                          : chainData == 137
+                          ? "coin2.png"
+                          : "coin4.png"
+                      }`}
+                      alt=""
+                    />
+                    {WalletEVM?.selectedAccount?.replace(
+                      WalletEVM?.selectedAccount?.substring(5, 37),
+                      "..."
+                    )}
+                  </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      <Dropdown.Item eventKey="10">
-                        {" "}
-                        <img src="assets/img/coin1.png" alt="" /> Optimism
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="42161">
-                        {" "}
-                        <img src="assets/img/coin3.png" alt="" /> Arbitrum
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="137">
-                        {" "}
-                        <img src="assets/img/coin2.png" alt="" /> Polygon
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="8453">
-                        {" "}
-                        <img src="assets/img/coin4.png" alt="" /> Base
-                      </Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item
-                        onClick={() => {
-                          setShowLogout1(true);
-                        }}
-                      >
-                        {" "}
-                        <img src="assets/img/logout.png" alt="" /> Log Out
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </>
-              )}
-              <a
-                href="https://t.me/RACEecosystem"
-                target="_blank"
-                className="social-head"
-              >
-                <img src="assets/images/telegram.png" alt="" />
-              </a>
-              <a
-                href="https://x.com/RACEecosystem"
-                target="_blank"
-                className="social-head"
-              >
-                <img src="assets/images/twitt.png" alt="" />
-              </a>
+                  <Dropdown.Menu>
+                    <Dropdown.Item eventKey="10">
+                      {" "}
+                      <img src="assets/img/coin1.png" alt="" /> Optimism
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="42161">
+                      {" "}
+                      <img src="assets/img/coin3.png" alt="" /> Arbitrum
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="137">
+                      {" "}
+                      <img src="assets/img/coin2.png" alt="" /> Polygon
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="8453">
+                      {" "}
+                      <img src="assets/img/coin4.png" alt="" /> Base
+                    </Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item
+                      onClick={() => {
+                        setShowLogout1(true);
+                      }}
+                    >
+                      {" "}
+                      <img src="assets/img/logout.png" alt="" /> Log Out
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </>
+            )}
             </div>
+            {/* </div> */}
             {/* {WalletEVM?.selectedAccount && (
               <Nav.Link onClick={() => handleLogout()}>
                 Logout <img src="assets/img/logout.png" alt="" />
               </Nav.Link>
             )} */}
-             <Dropdown
-                    className="wallet-address-dropdown menu-btn-dropdown me-0"
-                   
-                  >
-                    <Dropdown.Toggle id="dropdown-basic">
-                      <img
-                        src="assets/img/new-menu1.png"
-                        
-                        alt=""
-                      />
-                     
-                    </Dropdown.Toggle>
+            <Dropdown className="wallet-address-dropdown menu-btn-dropdown me-0">
+              <Dropdown.Toggle id="dropdown-basic">
+                <img src="assets/img/new-menu1.png" alt="" />
+              </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      <Dropdown.Item eventKey="10">
-                        {" "}
-                        How To Earn Points <img src="assets/img/new-menu2.png" alt="" />
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="42161">
-                        {" "}
-                        Multipliers
-                         <img src="assets/img/new-menu3.png" alt="" />
-                      </Dropdown.Item>
-                      <Dropdown.Item eventKey="137">
-                        {" "}
-                        Referrals
-                         <img src="assets/img/new-menu4.png" alt="" />
-                      </Dropdown.Item>
-                     
-                    </Dropdown.Menu>
-                  </Dropdown>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  eventKey="10"
+                  onClick={() => {
+                    setShowEarn1(true);
+                  }}
+                >
+                  {" "}
+                  How To Earn Points{" "}
+                  <img src="assets/img/new-menu2.png" alt="" />
+                </Dropdown.Item>
+                <Dropdown.Item
+                  eventKey="42161"
+                  onClick={() => {
+                    setShowMultipliers1(true);
+                  }}
+                >
+                  {" "}
+                  Multipliers
+                  <img src="assets/img/new-menu3.png" alt="" />
+                </Dropdown.Item>
+                <Dropdown.Item
+                  eventKey="137"
+                  onClick={() => {
+                    setShowReferrals1(true);
+                  }}
+                >
+                  {" "}
+                  Referrals
+                  <img src="assets/img/new-menu4.png" alt="" />
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Container>
         </Navbar>
       </header>
@@ -377,9 +392,9 @@ export const LandingPageHeader = () => {
               <b>Depositing: Points-per-Dollar-per-Day (P/D/D).</b>
             </p>
             <p>
-                This means that every day, you'll receive points based on the
-                amount of money you have in your vault. Each dollar is worth one
-                point.
+              This means that every day, you'll receive points based on the
+              amount of money you have in your vault. Each dollar is worth one
+              point.
             </p>
             <div className="d-flex gap-4">
               <Button
@@ -422,8 +437,8 @@ export const LandingPageHeader = () => {
             <h4>How To Earn Points</h4>
 
             <p className="mt-4">
-                For instance, If you have $100 in your vault, you'll earn 100
-                points daily.
+              For instance, If you have $100 in your vault, you'll earn 100
+              points daily.
             </p>
             <div className="d-flex gap-4">
               <Button
@@ -615,11 +630,13 @@ export const LandingPageHeader = () => {
             <h4>Referrals</h4>
 
             <p className="mt-4">
-                This tiered system allows you to accumulate points from the
-                activity of users across multiple layers, maximizing your
-                rewards as your network grows.<br></br>
-                <br></br>
-                Referrals are currently located inside the 'Activities' tab. Please navigate to the 'Activities' section to view your referrals.
+              This tiered system allows you to accumulate points from the
+              activity of users across multiple layers, maximizing your rewards
+              as your network grows.<br></br>
+              <br></br>
+              Referrals are currently located inside the 'Activities' tab.
+              Please navigate to the 'Activities' section to view your
+              referrals.
             </p>
             <div className="d-flex gap-4">
               <Button
@@ -703,9 +720,9 @@ export const LandingPageHeader = () => {
           <div>
             <h4>Multipliers</h4>
             <p className="mt-4">
-                Instead of multiplying the points you’ve already accumulated,
-                the multiplier enhances the points you earn each day. Each
-                activity on the platform offers a specific multiplier value.
+              Instead of multiplying the points you’ve already accumulated, the
+              multiplier enhances the points you earn each day. Each activity on
+              the platform offers a specific multiplier value.
             </p>
             <div className="d-flex gap-4">
               <Button
@@ -747,11 +764,11 @@ export const LandingPageHeader = () => {
           <div>
             <h4>Multipliers</h4>
             <p className="mt-4">
-                Once you complete an activity, the corresponding multiplier is
-                activated and will increase your daily points earnings until the
-                activity’s deadline. After the deadline, the multiplier will
-                deactivate, and your points will return to the standard rate of
-                P/D/D.
+              Once you complete an activity, the corresponding multiplier is
+              activated and will increase your daily points earnings until the
+              activity’s deadline. After the deadline, the multiplier will
+              deactivate, and your points will return to the standard rate of
+              P/D/D.
             </p>
             <div className="d-flex gap-4">
               <Button
@@ -793,8 +810,8 @@ export const LandingPageHeader = () => {
           <div>
             <h4>Multipliers</h4>
             <p className="mt-4">
-                Engage in activities to maximize your daily points and make the
-                most of the multipliers available!
+              Engage in activities to maximize your daily points and make the
+              most of the multipliers available!
             </p>
             <div className="d-flex gap-4">
               <Button
