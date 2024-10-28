@@ -207,7 +207,7 @@ export const LandingPageHeader = () => {
             </a>
             {!WalletEVM?.selectedAccount ? (
               <button
-                className="common-btn connect-wallet-btn"
+                className="common-btn connect-wallet-btn ms-3"
                 onClick={() => {
                   setShowConnectWalletModal(true);
                 }}
@@ -217,7 +217,7 @@ export const LandingPageHeader = () => {
             ) : (
               <>
                 <Dropdown
-                  className="wallet-address-dropdown"
+                  className="wallet-address-dropdown ms-3"
                   onSelect={(e) => {
                     handleChain(e);
                   }}
@@ -271,14 +271,14 @@ export const LandingPageHeader = () => {
                 </Dropdown>
               </>
             )}
-            </div>
+           
             {/* </div> */}
             {/* {WalletEVM?.selectedAccount && (
               <Nav.Link onClick={() => handleLogout()}>
                 Logout <img src="assets/img/logout.png" alt="" />
               </Nav.Link>
             )} */}
-            <Dropdown className="wallet-address-dropdown menu-btn-dropdown me-0">
+            <Dropdown className="wallet-address-dropdown menu-btn-dropdown me-0 ms-3">
               <Dropdown.Toggle id="dropdown-basic">
                 <img src="assets/img/new-menu1.png" alt="" />
               </Dropdown.Toggle>
@@ -316,6 +316,7 @@ export const LandingPageHeader = () => {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            </div>
           </Container>
         </Navbar>
       </header>
