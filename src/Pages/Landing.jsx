@@ -861,7 +861,7 @@ const Landing = () => {
               onClick={() => handleModalClose2()}
             >
               {/* <img src="assets/img/arrow_forward.png" alt="" /> */}
-              Okey
+              Done
             </Button>
           </div>
         </Modal.Body>
