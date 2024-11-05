@@ -10,6 +10,7 @@ import {
   Modal,
   ProgressBar,
   Row,
+  Spinner,
 } from "react-bootstrap";
 
 import {
@@ -49,6 +50,7 @@ export const Dashboard = () => {
   const [dashboarddata, setDashboardData] = useState({});
   const [amountInVault, setAmountInVault] = useState(0);
   const [points, setPoints] = useState(0);
+  const [loading, setLoading] = useState(false);
   //========================= end of code =========================//
 
   const data = {
@@ -106,12 +108,14 @@ export const Dashboard = () => {
   useEffect(() => {
     getdata();
   }, []);
+
   const getdata = async () => {
     const wallet = await encryptData(WalletEVM?.selectedAccount);
     const payload = {
       walletAddress: wallet,
     };
     try {
+      setLoading(true);
       const getdata = await axiosMain.post(
         "/auth/get-dashboard-deatils",
         payload,
@@ -123,11 +127,14 @@ export const Dashboard = () => {
         }
       );
       if (getdata?.data?.status) {
+        setLoading(false);
         setDashboardData(getdata?.data);
         setAmountInVault(getdata?.data?.amountInVaults);
-        setPoints(getdata?.data?.points)
+        setPoints(getdata?.data?.points);
       }
-    } catch (err) { }
+    } catch (err) {
+      setLoading(false);
+    }
   };
   //===============End of code====================//
 
@@ -194,7 +201,28 @@ export const Dashboard = () => {
                       ))} */}
                       <div className="counter-otp">
                         <p>$</p>
-                        <p className="full-num">{amountInVault.toFixed(2)}</p>
+                        {/* <p className="full-num">{amountInVault.toFixed(2)}</p> */}
+
+                        {loading ? (
+                          <>
+                            <p className="full-num">
+                              <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                                className=""
+                              />
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <p className="full-num">
+                              {amountInVault.toFixed(2)}
+                            </p>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -234,7 +262,25 @@ export const Dashboard = () => {
                         </div>
                       ))} */}
                       <div className="counter-otp">
-                        <p className="full-num">{points.toFixed(2)}</p>
+                        {/* <p className="full-num">{points.toFixed(2)}</p> */}
+                        {loading ? (
+                          <>
+                            <p className="full-num">
+                              <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                                className=""
+                              />
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            <p className="full-num">{points.toFixed(2)}</p>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -268,19 +314,43 @@ export const Dashboard = () => {
                           {/* <p className="text-end">
                             <button className="okey-btn">Next</button>
                           </p> */}
-                        </div> 
+                        </div>
                       </span>{" "}
                     </h3>
 
                     <div className="outer-box-no-deposite">
                       <div>
-                        {amountInVault > 0 ? (
+                        {loading ? (
+                          <>
+                            <div className="pie-chart-outer">
+                              <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                                className=""
+                              />
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            {amountInVault > 0 ? (
+                              <div className="pie-chart-outer">
+                                <Pie data={data} options={options} />
+                              </div>
+                            ) : (
+                              <h3>You currently have no deposits</h3>
+                            )}
+                          </>
+                        )}
+                        {/* {amountInVault > 0 ? (
                           <div className="pie-chart-outer">
                             <Pie data={data} options={options} />
                           </div>
                         ) : (
                           <h3>You currently have no deposits</h3>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   </div>
