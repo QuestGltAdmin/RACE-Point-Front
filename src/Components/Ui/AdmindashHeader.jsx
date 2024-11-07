@@ -113,6 +113,13 @@ export const AdmindashHeader = () => {
                       </Nav.Link>
                       <Nav.Link
                         onClick={() => {
+                          navigate("/main-activity");
+                        }}
+                      >
+                        <i className="fa fa-exchange"></i>ACTIVITY
+                      </Nav.Link>
+                      <Nav.Link
+                        onClick={() => {
                           navigate("/main-add-user");
                         }}
                       >

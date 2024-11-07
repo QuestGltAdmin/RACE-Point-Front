@@ -33,6 +33,8 @@ import UserGenealogy from "./Pages/SuperUser/UserGenealogy";
 import UserEarnPoints from "./Pages/SuperUser/UserEarnPoints";
 import SuperUserRoutes from "./PrivateRoutes/SuperUserRoutes";
 import UserRefferalsEarnPoints from "./Pages/SuperUser/UserRefferalsEarnPoints";
+import AdminActivity from "./Pages/Admin/AdminActivity";
+import AdminAddActivity from "./Pages/Admin/AdminAddActivity";
 
 function App() {
   return (
@@ -161,6 +163,22 @@ function App() {
               element={
                 <AdminPrivateRoute>
                   <AdminAddUsers />
+                </AdminPrivateRoute>
+              }
+            />
+            <Route
+              path="/main-activity"
+              element={
+                <AdminPrivateRoute>
+                  <AdminActivity />
+                </AdminPrivateRoute>
+              }
+            />
+             <Route
+              path="/main-activity-add"
+              element={
+                <AdminPrivateRoute>
+                  <AdminAddActivity />
                 </AdminPrivateRoute>
               }
             />

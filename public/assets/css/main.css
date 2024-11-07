@@ -221,6 +221,12 @@
 .table-box-new {
     margin: 30px 0;
 }
+.formlabel{
+    color: #fff;
+    font-size: 16spx;
+    font-weight: 400;
+    margin-top: 15px;
+}
 .table-view-transaction {
     display: table;
     border-collapse: collapse;
