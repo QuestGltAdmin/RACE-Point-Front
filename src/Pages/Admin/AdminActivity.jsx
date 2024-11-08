@@ -77,7 +77,7 @@ const AdminActivity = () => {
                     <button
                       className="common-btn"
                       onClick={() => {
-                       navigate("/main-activity-add")
+                        navigate("/main-activity-add");
                       }}
                     >
                       Create Activity
@@ -90,7 +90,7 @@ const AdminActivity = () => {
                             name="searchall"
                             type="text"
                             onChange={(e) => {
-                              setSearchTrxAll(e.target.value);
+                              setSearchall(e.target.value);
                             }}
                             value={searchall}
                           />
@@ -106,9 +106,14 @@ const AdminActivity = () => {
                           <div>
                             <p>S. no</p>
                             <p>Title</p>
-                            <p>Type</p>
+                            <p>Activity Id</p>
                             <p>Multiplier</p>
+                            <p>Type</p>
+                            <p>Min. Deposite</p>
+                            <p>Link</p>
+                            <p>Chain</p>
                             <p>Start Date</p>
+                            <p>End Date</p>
                           </div>
                         </div>
                         <div className="tbody">
@@ -118,24 +123,62 @@ const AdminActivity = () => {
                                 index + 1 + (pagenumber - 1) * 10;
                               return (
                                 <div key={adjustedIndex}>
-                                  <p>{adjustedIndex}</p>
+                                  <p>{adjustedIndex}</p>{" "}
                                   <p>
                                     <span class="mobile-only">Title - </span>{" "}
-                                    {items?.title ? items?.title : "No Title"}
+                                    {items?.title ? items?.title : "-"}
                                   </p>
                                   <p>
-                                    <span class="mobile-only">Type</span>
-                                    {items?.type}
+                                    <span class="mobile-only">
+                                      Activity ID -{" "}
+                                    </span>{" "}
+                                    {items?.activity_id
+                                      ? items?.activity_id
+                                      : "-"}
                                   </p>
                                   <p>
                                     <span class="mobile-only">Multiplier</span>
                                     {items?.multiplier}
                                   </p>
                                   <p>
+                                    <span class="mobile-only">Type</span>
+                                    {items?.type}
+                                  </p>
+                                  <p>
+                                    <span class="mobile-only">
+                                      Min. Deposite
+                                    </span>
+                                    {items?.min_deposit
+                                      ? items?.min_deposit
+                                      : "-"}
+                                  </p>
+                                  <p>
+                                    <span class="mobile-only">Link</span>
+                                    {items?.link ? items?.link : "-"}
+                                  </p>
+                                  <p>
+                                    <span className="mobile-only">Link</span>
+                                    {items?.deposit_chain
+                                      ? items.deposit_chain.map(
+                                          (item, index) => (
+                                            <div key={index}>{item.chain}</div>
+                                          )
+                                        )
+                                      : "-"}
+                                  </p>
+                                  <p>
                                     <span class="mobile-only">Start Date</span>
                                     {moment
                                       .utc(items?.start_date)
                                       .format("YYYY-MM-DD")}
+                                  </p>
+                                  <p>
+                                    <span class="mobile-only">End Date</span>
+                                    {items?.end_date
+                                      ? moment
+                                          .utc(items?.end_date)
+                                          .format("YYYY-MM-DD")
+                                      : "-"}
                                   </p>
                                 </div>
                               );

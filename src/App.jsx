@@ -35,6 +35,7 @@ import SuperUserRoutes from "./PrivateRoutes/SuperUserRoutes";
 import UserRefferalsEarnPoints from "./Pages/SuperUser/UserRefferalsEarnPoints";
 import AdminActivity from "./Pages/Admin/AdminActivity";
 import AdminAddActivity from "./Pages/Admin/AdminAddActivity";
+import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   return (
