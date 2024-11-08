@@ -235,6 +235,7 @@ export const Adminuserlist = () => {
                             <p>Deposit</p>
                             <p>Earn Points</p>
                             <p>Joining Date</p>
+                            <p>Role</p>
                             <p>Status</p>
                             <p>Action</p>
                             <p>Enable/Disable</p>
@@ -286,6 +287,10 @@ export const Adminuserlist = () => {
                                     {/* {moment(items?.createdAt).format("lll")} */}
                                     {/* {items?.createdAt} */}
                                     {moment.utc(items?.createdAt).format("lll")}
+                                  </p>
+                                  <p>
+                                    <span class="mobile-only">Role - </span>
+                                    {items?.role}
                                   </p>
                                   <p>
                                     <span class="mobile-only">Status - </span>

@@ -36,6 +36,7 @@ import UserRefferalsEarnPoints from "./Pages/SuperUser/UserRefferalsEarnPoints";
 import AdminActivity from "./Pages/Admin/AdminActivity";
 import AdminAddActivity from "./Pages/Admin/AdminAddActivity";
 import "react-datepicker/dist/react-datepicker.css";
+import AdminAddManager from "./Pages/Admin/AdminAddManager";
 
 function App() {
   return (
@@ -166,7 +167,15 @@ function App() {
                   <AdminAddUsers />
                 </AdminPrivateRoute>
               }
-            />
+            /> 
+            <Route
+            path="/main-add-manager"
+            element={
+              <AdminPrivateRoute>
+                < AdminAddManager/>
+              </AdminPrivateRoute>
+            }
+          />
             <Route
               path="/main-activity"
               element={

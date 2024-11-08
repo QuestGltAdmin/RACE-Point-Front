@@ -118,6 +118,13 @@ export const AdmindashHeader = () => {
                       >
                         <i className="fa fa-exchange"></i>ACTIVITY
                       </Nav.Link> */}
+                        <Nav.Link
+                        onClick={() => {
+                          navigate("/main-add-manager");
+                        }}
+                      >
+                        <i className="fa fa-exchange"></i>ADD PROTOCOL MANAGER 
+                      </Nav.Link>
                       <Nav.Link
                         onClick={() => {
                           navigate("/main-add-user");
