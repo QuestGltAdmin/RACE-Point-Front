@@ -543,7 +543,10 @@ const Landing = () => {
                         <h3>
                           <b>
                             {deposit.currency}
-                            {deposit.deposit.toFixed(4)}
+                            {/* {deposit.deposit.toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              deposit.deposit.toFixed(4)
+                            )}
                           </b>{" "}
                           Deposited
                         </h3>
@@ -579,7 +582,13 @@ const Landing = () => {
                           <h3>
                             <img src="assets/img/trophy.png" alt="" />{" "}
                             <div>
-                              <b>{refer.earn_points.toFixed(2)}</b>{" "}
+                              {/* <b>{refer.earn_points.toFixed(2)}</b>{" "} */}
+                              <b>
+                                {" "}
+                                {new Intl.NumberFormat("en-US").format(
+                                  refer.earn_points.toFixed(2)
+                                )}
+                              </b>
                               <span>Points</span>
                             </div>
                           </h3>
@@ -650,7 +659,13 @@ const Landing = () => {
                                 alt=""
                               />
                               <div>
-                                <h4>{monthly.earn_points.toFixed(2)}</h4>
+                                {/* <h4>{monthly.earn_points.toFixed(2)}</h4> */}
+                                <h4>
+                                  {" "}
+                                  {new Intl.NumberFormat("en-US").format(
+                                    monthly.earn_points.toFixed(2)
+                                  )}
+                                </h4>
                                 <p>Points</p>
                               </div>
                             </div>
@@ -714,8 +729,14 @@ const Landing = () => {
                                 alt=""
                               />
                               <div>
-                                <h4>
+                                {/* <h4>
                                   {monthly.monthly_earn_points.toFixed(2)}
+                                </h4> */}
+                                <h4>
+                                  {" "}
+                                  {new Intl.NumberFormat("en-US").format(
+                                    monthly.monthly_earn_points.toFixed(2)
+                                  )}
                                 </h4>
                                 <p>Points</p>
                               </div>
@@ -784,8 +805,13 @@ const Landing = () => {
                                   alt=""
                                 />
                                 <div>
-                                  <h4>
+                                  {/* <h4>
                                     {quarterly.weekly_earn_points?.toFixed(2)}
+                                  </h4> */}
+                                  <h4>
+                                    {new Intl.NumberFormat("en-US").format(
+                                      quarterly.weekly_earn_points?.toFixed(2)
+                                    )}
                                   </h4>
                                   <p>Points</p>
                                 </div>
@@ -806,7 +832,7 @@ const Landing = () => {
         {...ConnectWalletModalProps}
         handleConnectSuccess={handleShowReferral1} // Pass handleShowReferral1 function as prop
       />
-  
+
       <Modal
         className="new-user-modal"
         centered
@@ -913,7 +939,7 @@ const Landing = () => {
           </div>
         </Modal.Body>
       </Modal>
-      
+
       {/* New user modal */}
       <Modal
         className="new-user-modal"

@@ -324,6 +324,7 @@ export const Dashboard = () => {
                           <>
                             <div className="pie-chart-outer">
                               <Spinner
+                                style={{ color: "white" }}
                                 as="span"
                                 animation="border"
                                 size="sm"
@@ -336,7 +337,10 @@ export const Dashboard = () => {
                         ) : (
                           <>
                             {amountInVault > 0 ? (
-                              <div className="pie-chart-outer">
+                              <div
+                                className="pie-chart-outer"
+                                style={{ color: "white" }}
+                              >
                                 <Pie data={data} options={options} />
                               </div>
                             ) : (
@@ -385,7 +389,6 @@ export const Dashboard = () => {
       {/* <Button variant="primary" onClick={handleShow}>
         Launch demo modal
       </Button> */}
-
     </>
   );
 };
