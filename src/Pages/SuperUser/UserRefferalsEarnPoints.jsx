@@ -7,6 +7,7 @@ import moment from "moment/moment";
 import ExportEXCEL from "../../Components/ExportToExcel";
 import SuperUserHeader from "../../Components/Ui/SuperUserHeader";
 import { encryptData } from "../../Encrypt-Decrypt/encryption-decryption";
+import { IphoneSpinner } from "../../Components/IphoneSpinner";
 
 const UserRefferalsEarnPoints = () => {
   //==================================Global Variable================================//
@@ -23,6 +24,7 @@ const UserRefferalsEarnPoints = () => {
   const [endDateExport, setEndDateExport] = useState("");
   const [show, setShow] = useState(false);
   const [showExportData, setShowExportData] = useState([]);
+  const [checkForData, setCheckForData] = useState(0);
   const [disableData, setDisableData] = useState(false);
   const handleClose = () => {
     setDisableData(false);
@@ -102,6 +104,8 @@ const UserRefferalsEarnPoints = () => {
       walletAddress: wallet,
     };
     try {
+      setCheckForData(0);
+
       const getResAll = await axiosMain.post(
         `/super-user/all-referral-user-income?page=${pageNumberTrxAll}&limit=10&search=${searchTrxAll}`,
         payload,
@@ -112,10 +116,17 @@ const UserRefferalsEarnPoints = () => {
         }
       );
       if (getResAll?.data?.status) {
-        setShowDataTrxAll(getResAll?.data?.data?.list);
-        setTotalOrderCountTrxAll(getResAll?.data?.data?.totalRecords[0]?.count);
+        if(getResAll?.data?.data?.list?.length > 0 ){          setCheckForData(2);
+
+          setShowDataTrxAll(getResAll?.data?.data?.list);
+          setTotalOrderCountTrxAll(getResAll?.data?.data?.totalRecords[0]?.count);
+        }else{
+          setCheckForData(1);
+
+        }
       }
-    } catch (err) {}
+    } catch (err) {          setCheckForData(1);
+    }
   };
   //==================================End of code================================//
 
@@ -207,7 +218,21 @@ const UserRefferalsEarnPoints = () => {
                           </div>
                         </div>
                         <div className="tbody">
-                          {showDataTrxAll?.length > 0 &&
+                        {checkForData === 0 ? (
+                            <tr>
+                              <td >
+                                <p className="text-center">
+                                  <IphoneSpinner />
+                                </p>
+                              </td>
+                            </tr>
+                          ) : checkForData === 1 ? (
+                            <tr>
+                              <td>
+                                <p className="text-center">No Data Found</p>
+                              </td>
+                            </tr>
+                          ) : (showDataTrxAll?.length > 0 &&
                             showDataTrxAll?.map((items, index) => {
                               return (
                                 <div>
@@ -234,19 +259,28 @@ const UserRefferalsEarnPoints = () => {
                                     <span class="mobile-only">
                                       Base Earn Points -{" "}
                                     </span>{" "}
-                                    {(items?.base_earn_points * 1).toFixed(4)}
+                                    {/* {(items?.base_earn_points * 1).toFixed(4)} */}
+                                    {new Intl.NumberFormat("en-US").format(
+                                      (items?.base_earn_points * 1).toFixed(4)
+                                    )}
                                   </p>
                                   <p>
                                     <span class="mobile-only">
                                       Layer Earn Points -{" "}
                                     </span>
-                                    {(items?.layer_earn_points * 1).toFixed(4)}
+                                    {/* {(items?.layer_earn_points * 1).toFixed(4)} */}
+                                    {new Intl.NumberFormat("en-US").format(
+                                      (items?.layer_earn_points * 1).toFixed(4)
+                                    )}
                                   </p>
                                   <p>
                                     <span class="mobile-only">
                                       Total Earn Points -{" "}
                                     </span>
-                                    {(items?.total_earn_points * 1).toFixed(4)}
+                                    {/* {(items?.total_earn_points * 1).toFixed(4)} */}
+                                    {new Intl.NumberFormat("en-US").format(
+                                      (items?.total_earn_points * 1).toFixed(4)
+                                    )}
                                   </p>
                                   <p>
                                     <span class="mobile-only">Date - </span>
@@ -255,15 +289,15 @@ const UserRefferalsEarnPoints = () => {
                                   </p>
                                 </div>
                               );
-                            })}
+                            }))}
                         </div>
                       </div>
 
-                      {showDataTrxAll?.length <= 0 && (
+                      {/* {showDataTrxAll?.length <= 0 && (
                         <div>
                           <p className="text-center">No Data Found</p>
                         </div>
-                      )}
+                      )} */}
                       <div className="d-flex justify-content-end">
                         {showDataTrxAll?.length > 0 ? (
                           <div className="d-flex justify-content-center paginate-register">

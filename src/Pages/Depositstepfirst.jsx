@@ -716,7 +716,8 @@ export const Depositstepfirst = () => {
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
-              <p>Balance: {balance}</p>
+              {/* <p>Balance: {balance}</p> */}
+              <p>Balance: {new Intl.NumberFormat("en-US").format(balance)}</p>
             </Form.Group>
 
             <div>
@@ -730,7 +731,9 @@ export const Depositstepfirst = () => {
             <div className="date-rang-percentage ">
               <span
                 className={
-                  activeflag == 0 && chainid == WalletEVM?.chainId && balance > 0 
+                  activeflag == 0 &&
+                  chainid == WalletEVM?.chainId &&
+                  balance > 0
                     ? "active"
                     : ""
                 }
@@ -745,7 +748,9 @@ export const Depositstepfirst = () => {
               </span>
               <span
                 className={
-                  activeflag == 25 && chainid == WalletEVM?.chainId && balance > 0
+                  activeflag == 25 &&
+                  chainid == WalletEVM?.chainId &&
+                  balance > 0
                     ? "active"
                     : ""
                 }
@@ -760,7 +765,9 @@ export const Depositstepfirst = () => {
               </span>
               <span
                 className={
-                  activeflag == 50 && chainid == WalletEVM?.chainId && balance > 0
+                  activeflag == 50 &&
+                  chainid == WalletEVM?.chainId &&
+                  balance > 0
                     ? "active"
                     : ""
                 }
@@ -775,7 +782,9 @@ export const Depositstepfirst = () => {
               </span>
               <span
                 className={
-                  activeflag == 75 && chainid == WalletEVM?.chainId && balance > 0
+                  activeflag == 75 &&
+                  chainid == WalletEVM?.chainId &&
+                  balance > 0
                     ? "active"
                     : ""
                 }
@@ -790,7 +799,9 @@ export const Depositstepfirst = () => {
               </span>
               <span
                 className={
-                  activeflag == 100 && chainid == WalletEVM?.chainId && balance > 0
+                  activeflag == 100 &&
+                  chainid == WalletEVM?.chainId &&
+                  balance > 0
                     ? "active"
                     : ""
                 }
@@ -823,7 +834,10 @@ export const Depositstepfirst = () => {
                   </Dropdown.Toggle>
                 </Dropdown>
               </div>
-              <p>Balance: {racebalance}</p>
+              {/* <p>Balance: {racebalance}</p> */}
+              <p>
+                Balance: {new Intl.NumberFormat("en-US").format(racebalance)}
+              </p>
             </Form.Group>
 
             <div className="by-with-test mt-4">

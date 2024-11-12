@@ -72,10 +72,16 @@ const UserDashboard = () => {
                           />
                           <h4>
                             $
-                            {!isNaN(totalDeposit)
+                            {/* {!isNaN(totalDeposit)
                               ? (totalDeposit * 1).toFixed(2)
+                              : 0} */}
+                            {!isNaN(totalDeposit)
+                              ? new Intl.NumberFormat("en-US").format(
+                                  totalDeposit.toFixed(2)
+                                )
                               : 0}
                           </h4>
+
                           <p>Total Deposit</p>
                         </div>
                       </Col>
