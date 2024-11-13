@@ -143,112 +143,125 @@ const AdminAddManager = () => {
                           + Add Manager Wallet
                         </button>
                       </div>
-                      <div className="table-view-transaction">
-                        <div className="thead">
-                          <div>
-                            <p>S. no</p>
-                            <p>Wallet Address</p>
-                            <p>ENS Name</p>
-                            <p>Referrer Code</p>
-                            <p>Deposit</p>
-                            <p>Earn Points</p>
-                            <p>Joining Date</p>
-                          </div>
-                        </div>
-                        <div className="tbody">
-                          {checkForData === 0 ? (
-                            <p className="text-center">
-                              <IphoneSpinner />
-                            </p>
-                          ) : checkForData === 1 ? (
-                            <p className="text-center">No Data Found</p>
-                          ) : (
-                            showValue?.length > 0 &&
-                            showValue?.map((items, index) => {
-                              const adjustedIndex =
-                                index + 1 + (pageNumberTrxAll - 1) * 10;
-                              return (
-                                <div>
-                                  <p>{adjustedIndex}</p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Wallet Address -
-                                    </span>
-                                    {items?.wallet_address?.replace(
-                                      items?.wallet_address?.substring(5, 37),
-                                      "..."
-                                    )}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">ENS Name -</span>
-                                    {items?.ENS_name ? items?.ENS_name : "-"}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Referrer Code -
-                                    </span>
-                                    {items?.from_referral_code
-                                      ? items?.from_referral_code
-                                      : "-"}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">Deposite -</span>
-                                    {/* {(items?.deposit * 1).toFixed(4)} */}
-                                    {new Intl.NumberFormat("en-US").format(
-                                      (items?.deposit * 1).toFixed(4)
-                                    )}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Earn Points -
-                                    </span>
-                                    {new Intl.NumberFormat("en-US").format(
-                                      (items?.earn_points * 1).toFixed(4)
-                                    )}
-                                    {/* {(items?.earn_points * 1).toFixed(4)} */}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Joining Date -
-                                    </span>
-                                    {moment.utc(items?.createdAt).format("lll")}
-                                  </p>
-                                </div>
-                              );
-                            })
-                          )}
-                        </div>
-                      </div>
-                      <div className="d-flex justify-content-end">
-                        {showValue?.length > 0 ? (
-                          <div className="d-flex justify-content-center paginate-register">
-                            <div className="d-flex align-items-center">
-                              <button
-                                className="common-btn"
-                                onClick={() => {
-                                  decressFunctionTrxAll();
-                                }}
-                              >
-                                <i className="fa fa-angle-left"></i>
-                              </button>
-                              <button className="common-btn m-2">
-                                Page {pageNumberTrxAll} of{" "}
-                                {Math.ceil(totalOrderCountTrxAll / 10)}
-                              </button>
-                              <button
-                                className="common-btn"
-                                onClick={() => {
-                                  incressFunctionTrxAll();
-                                }}
-                              >
-                                <i className="fa fa-angle-right"></i>
-                              </button>
+                      {checkForData === 0 ? (
+                        <p className="text-center">
+                          <IphoneSpinner />
+                        </p>
+                      ) : checkForData === 1 ? (
+                        <p className="text-center">No Data Found</p>
+                      ) : (
+                        <>
+                          <div className="table-view-transaction">
+                            <div className="thead">
+                              <div>
+                                <p>S. no</p>
+                                <p>Wallet Address</p>
+                                <p>ENS Name</p>
+                                <p>Referrer Code</p>
+                                <p>Deposit</p>
+                                <p>Earn Points</p>
+                                <p>Joining Date</p>
+                              </div>
+                            </div>
+                            <div className="tbody">
+                              {showValue?.length > 0 &&
+                                showValue?.map((items, index) => {
+                                  const adjustedIndex =
+                                    index + 1 + (pageNumberTrxAll - 1) * 10;
+                                  return (
+                                    <div>
+                                      <p>{adjustedIndex}</p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Wallet Address -
+                                        </span>
+                                        {items?.wallet_address?.replace(
+                                          items?.wallet_address?.substring(
+                                            5,
+                                            37
+                                          ),
+                                          "..."
+                                        )}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          ENS Name -
+                                        </span>
+                                        {items?.ENS_name
+                                          ? items?.ENS_name
+                                          : "-"}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Referrer Code -
+                                        </span>
+                                        {items?.from_referral_code
+                                          ? items?.from_referral_code
+                                          : "-"}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Deposite -
+                                        </span>
+                                        {/* {(items?.deposit * 1).toFixed(4)} */}
+                                        {new Intl.NumberFormat("en-US").format(
+                                          (items?.deposit * 1).toFixed(4)
+                                        )}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Earn Points -
+                                        </span>
+                                        {new Intl.NumberFormat("en-US").format(
+                                          (items?.earn_points * 1).toFixed(4)
+                                        )}
+                                        {/* {(items?.earn_points * 1).toFixed(4)} */}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Joining Date -
+                                        </span>
+                                        {moment
+                                          .utc(items?.createdAt)
+                                          .format("lll")}
+                                      </p>
+                                    </div>
+                                  );
+                                })}
                             </div>
                           </div>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
+                          <div className="d-flex justify-content-end">
+                            {showValue?.length > 0 ? (
+                              <div className="d-flex justify-content-center paginate-register">
+                                <div className="d-flex align-items-center">
+                                  <button
+                                    className="common-btn"
+                                    onClick={() => {
+                                      decressFunctionTrxAll();
+                                    }}
+                                  >
+                                    <i className="fa fa-angle-left"></i>
+                                  </button>
+                                  <button className="common-btn m-2">
+                                    Page {pageNumberTrxAll} of{" "}
+                                    {Math.ceil(totalOrderCountTrxAll / 10)}
+                                  </button>
+                                  <button
+                                    className="common-btn"
+                                    onClick={() => {
+                                      incressFunctionTrxAll();
+                                    }}
+                                  >
+                                    <i className="fa fa-angle-right"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

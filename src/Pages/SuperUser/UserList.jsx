@@ -219,193 +219,170 @@ const UserList = () => {
                           </a>
                         </InputGroup.Text>
                       </InputGroup>
-                      <div className="table-view-transaction">
-                        <div className="thead">
-                          <div>
-                            <p>S. no</p>
-                            <p>Wallet & ENS</p>
-                            <p>Referrer Code</p>
-                            <p>Deposit</p>
-                            <p>Earn Points</p>
-                            <p>Joining Date</p>
-                            <p>Status</p>
-                            <p>Action</p>
-                            {/* <p>Enable/Disable</p> */}
-                          </div>
-                        </div>
-                        <div className="tbody">
-                          {checkForData === 0 ? (
-                            <p className="text-center">
-                              <IphoneSpinner />
-                            </p>
-                          ) : checkForData === 1 ? (
-                            <p className="text-center">No Data Found</p>
-                          ) : (
-                            showDataTrxAll?.length > 0 &&
-                            showDataTrxAll?.map((items, index) => {
-                              return (
-                                <div>
-                                  <p>{index + 1}</p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Wallet & ENS -{" "}
-                                    </span>{" "}
-                                    <big>
-                                      <b>
-                                        {items?.populated_data?.ENS_name
-                                          ? items?.populated_data?.ENS_name
-                                          : "No ENS Name"}
-                                      </b>
-                                    </big>{" "}
-                                    <br />{" "}
-                                    {items?.populated_data?.wallet_address?.replace(
-                                      items?.populated_data?.wallet_address?.substring(
-                                        5,
-                                        37
-                                      ),
-                                      "..."
-                                    )}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Referrer Code -{" "}
-                                    </span>{" "}
-                                    {items?.populated_data?.from_referral_code}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">Deposit - </span>
-                                    {/* {(
-                                      items?.populated_data?.deposit * 1
-                                    ).toFixed(4)} */}
-                                    {new Intl.NumberFormat("en-US").format(
-                                      (
-                                        items?.populated_data?.deposit * 1
-                                      ).toFixed(4)
-                                    )}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Earn Points -{" "}
-                                    </span>
-                                    {/* {(
-                                      items?.populated_data?.earn_points * 1
-                                    ).toFixed(4)} */}
-                                    {new Intl.NumberFormat("en-US").format(
-                                      (
-                                        items?.populated_data?.earn_points * 1
-                                      ).toFixed(4)
-                                    )}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Joining Date -{" "}
-                                    </span>
-
-                                    {moment
-                                      .utc(items?.populated_data?.createdAt)
-                                      .format("lll")}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">Status - </span>
-                                    {items?.populated_data?.status}
-                                  </p>
-                                  <p>
-                                    <div>
-                                      <a
-                                        onClick={() => {
-                                          setRefferalCode(
-                                            items?.populated_data
-                                              ?.referral_codes
-                                          );
-                                          handleShow();
-                                        }}
-                                        className="common-btn admin-table-btn"
-                                        href="#"
-                                      >
-                                        Referral Code
-                                      </a>
-                                      <a
-                                        onClick={() => {
-                                          getReferralData(items?._id);
-                                          setShowReferralUser(true);
-                                        }}
-                                        className="common-btn admin-table-btn"
-                                        href="#"
-                                      >
-                                        Referral User
-                                      </a>
-                                      <a
-                                        className="common-btn admin-table-btn"
-                                        href="#"
-                                        onClick={() => {
-                                          getEarnData(items?._id);
-                                          setShowEarnData(true);
-                                        }}
-                                      >
-                                        Earn Point
-                                      </a>
-                                    </div>
-                                  </p>
-                                  {/* <p>
-                                    <Form.Check
-                                      className="switch-admin-btn"
-                                      type="switch"
-                                      id="custom-switch"
-                                      checked={
-                                        items?.emergency_stop === false
-                                          ? true
-                                          : false
-                                      }
-                                      onChange={(e) => {
-                                        if (items?.emergency_stop === false) {
-                                          updateStatus(items?._id, "true");
-                                        } else {
-                                          updateStatus(items?._id, "false");
-                                        }
-                                      }}
-                                    />
-                                  </p> */}
-                                </div>
-                              );
-                            })
-                          )}
-                        </div>
-                      </div>
-                      {/* {showDataTrxAll?.length <= 0 && (
-                        <div>
-                          <p className="text-center">No Data Found</p>
-                        </div>
-                      )} */}
-                      <div className="d-flex justify-content-end">
-                        {showDataTrxAll?.length > 0 ? (
-                          <div className="d-flex justify-content-center paginate-register">
-                            <div className="d-flex align-items-center">
-                              <button
-                                className="common-btn"
-                                onClick={() => {
-                                  decressFunctionTrxAll();
-                                }}
-                              >
-                                <i className="fa fa-angle-left"></i>
-                              </button>
-                              <button className="common-btn m-2">
-                                Page {pageNumberTrxAll} of{" "}
-                                {Math.ceil(totalOrderCountTrxAll / 10)}
-                              </button>
-                              <button
-                                className="common-btn"
-                                onClick={() => {
-                                  incressFunctionTrxAll();
-                                }}
-                              >
-                                <i className="fa fa-angle-right"></i>
-                              </button>
+                      {checkForData === 0 ? (
+                        <p className="text-center">
+                          <IphoneSpinner />
+                        </p>
+                      ) : checkForData === 1 ? (
+                        <p className="text-center">No Data Found</p>
+                      ) : (
+                        <>
+                          {" "}
+                          <div className="table-view-transaction">
+                            <div className="thead">
+                              <div>
+                                <p>S. no</p>
+                                <p>Wallet & ENS</p>
+                                <p>Referrer Code</p>
+                                <p>Deposit</p>
+                                <p>Earn Points</p>
+                                <p>Joining Date</p>
+                                <p>Status</p>
+                                <p>Action</p>
+                                {/* <p>Enable/Disable</p> */}
+                              </div>
                             </div>
+
+                            <div className="tbody">
+                              {showDataTrxAll?.length > 0 &&
+                                showDataTrxAll.map((items, index) => (
+                                  <div key={index} className="data-row">
+                                    <p>{index + 1}</p>
+                                    <p>
+                                      <span className="mobile-only">
+                                        Wallet & ENS -{" "}
+                                      </span>
+                                      <big>
+                                        <b>
+                                          {items?.populated_data?.ENS_name ||
+                                            "No ENS Name"}
+                                        </b>
+                                      </big>
+                                      <br />
+                                      {items?.populated_data?.wallet_address?.replace(
+                                        items?.populated_data?.wallet_address?.substring(
+                                          5,
+                                          37
+                                        ),
+                                        "..."
+                                      )}
+                                    </p>
+                                    <p>
+                                      <span className="mobile-only">
+                                        Referrer Code -{" "}
+                                      </span>
+                                      {
+                                        items?.populated_data
+                                          ?.from_referral_code
+                                      }
+                                    </p>
+                                    <p>
+                                      <span className="mobile-only">
+                                        Deposit -{" "}
+                                      </span>
+                                      {new Intl.NumberFormat("en-US").format(
+                                        (
+                                          items?.populated_data?.deposit * 1
+                                        ).toFixed(4)
+                                      )}
+                                    </p>
+                                    <p>
+                                      <span className="mobile-only">
+                                        Earn Points -{" "}
+                                      </span>
+                                      {new Intl.NumberFormat("en-US").format(
+                                        (
+                                          items?.populated_data?.earn_points * 1
+                                        ).toFixed(4)
+                                      )}
+                                    </p>
+                                    <p>
+                                      <span className="mobile-only">
+                                        Joining Date -{" "}
+                                      </span>
+                                      {moment
+                                        .utc(items?.populated_data?.createdAt)
+                                        .format("lll")}
+                                    </p>
+                                    <p>
+                                      <span className="mobile-only">
+                                        Status -{" "}
+                                      </span>
+                                      {items?.populated_data?.status}
+                                    </p>
+                                    <p>
+                                      <div>
+                                        <a
+                                          onClick={() => {
+                                            setRefferalCode(
+                                              items?.populated_data
+                                                ?.referral_codes
+                                            );
+                                            handleShow();
+                                          }}
+                                          className="common-btn admin-table-btn"
+                                          href="#"
+                                        >
+                                          Referral Code
+                                        </a>
+                                        <a
+                                          onClick={() => {
+                                            getReferralData(items?._id);
+                                            setShowReferralUser(true);
+                                          }}
+                                          className="common-btn admin-table-btn"
+                                          href="#"
+                                        >
+                                          Referral User
+                                        </a>
+                                        <a
+                                          className="common-btn admin-table-btn"
+                                          href="#"
+                                          onClick={() => {
+                                            getEarnData(items?._id);
+                                            setShowEarnData(true);
+                                          }}
+                                        >
+                                          Earn Point
+                                        </a>
+                                      </div>
+                                    </p>
+                                  </div>
+                                ))}
+                            </div>
+                          </div>{" "}
+                          <div className="d-flex justify-content-end">
+                            {showDataTrxAll?.length > 0 ? (
+                              <div className="d-flex justify-content-center paginate-register">
+                                <div className="d-flex align-items-center">
+                                  <button
+                                    className="common-btn"
+                                    onClick={() => {
+                                      decressFunctionTrxAll();
+                                    }}
+                                  >
+                                    <i className="fa fa-angle-left"></i>
+                                  </button>
+                                  <button className="common-btn m-2">
+                                    Page {pageNumberTrxAll} of{" "}
+                                    {Math.ceil(totalOrderCountTrxAll / 10)}
+                                  </button>
+                                  <button
+                                    className="common-btn"
+                                    onClick={() => {
+                                      incressFunctionTrxAll();
+                                    }}
+                                  >
+                                    <i className="fa fa-angle-right"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
                           </div>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

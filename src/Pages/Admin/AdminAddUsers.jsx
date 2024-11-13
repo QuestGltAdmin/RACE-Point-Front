@@ -142,6 +142,13 @@ export const AdminAddUsers = () => {
                           + Add User Wallet
                         </button>
                       </div>
+                      {checkForData === 0 ? (
+                            <p className="text-center">
+                              <IphoneSpinner />
+                            </p>
+                          ) : checkForData === 1 ? (
+                            <p className="text-center">No Data Found</p>
+                          ) : (<>
                       <div className="table-view-transaction">
                         <div className="thead">
                           <div>
@@ -151,14 +158,7 @@ export const AdminAddUsers = () => {
                           </div>
                         </div>
                         <div className="tbody">
-                          {checkForData === 0 ? (
-                            <p className="text-center">
-                              <IphoneSpinner />
-                            </p>
-                          ) : checkForData === 1 ? (
-                            <p className="text-center">No Data Found</p>
-                          ) : (
-                            showValue?.length > 0 &&
+                         {showValue?.length > 0 &&
                             showValue?.map((items, index) => {
                               return (
                                 <div>
@@ -167,7 +167,7 @@ export const AdminAddUsers = () => {
                                   <p>{items?.is_use ? "Yes" : "No"}</p>
                                 </div>
                               );
-                            })
+                            }
                           )}
                         </div>
                       </div>
@@ -200,7 +200,7 @@ export const AdminAddUsers = () => {
                         ) : (
                           <></>
                         )}
-                      </div>
+                      </div></>)}
                     </div>
                   </div>
                 </div>

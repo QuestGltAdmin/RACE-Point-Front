@@ -199,122 +199,127 @@ export const Adminearnpoint = () => {
                           />
                         </InputGroup>
                       </div>
-                      <div className="table-view-transaction">
-                        <div className="thead">
-                          <div>
-                            <p>S. no</p>
-                            <p>Wallet & ENS</p>
-                            <p>Base Earn Points</p>
-                            <p>Layer Earn Points</p>
-                            <p>Total Earn Points</p>
-                            <p>Date</p>
-                          </div>
-                        </div>
-                        <div className="tbody">
-                          {checkForData === 0 ? (
-                            <p className="text-center">
-                              <IphoneSpinner />
-                            </p>
-                          ) : checkForData === 1 ? (
-                            <p className="text-center">No Data Found</p>
-                          ) : (
-                            showDataTrxAll?.length > 0 &&
-                            showDataTrxAll?.map((items, index) => {
-                              return (
-                                <div>
-                                  <p>{index + 1}</p>
-                                  <p>
-                                    <span class="mobile-only">Name - </span>{" "}
-                                    <big>
-                                      <b>
-                                        {items?.user_id?.ENS_name
-                                          ? items?.user_id?.ENS_name
-                                          : "No ENS Name"}
-                                      </b>
-                                    </big>{" "}
-                                    <br />{" "}
-                                    {items?.user_id?.wallet_address?.replace(
-                                      items?.user_id?.wallet_address?.substring(
-                                        5,
-                                        37
-                                      ),
-                                      "..."
-                                    )}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Base Earn Points -{" "}
-                                    </span>{" "}
-                                    {/* {(items?.base_earn_points * 1).toFixed(4)} */}
-                                    {new Intl.NumberFormat("en-US").format(
-                                      (items?.base_earn_points * 1).toFixed(4)
-                                    )}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Layer Earn Points -{" "}
-                                    </span>
-                                    {/* {(items?.layer_earn_points * 1).toFixed(4)} */}
-                                    {new Intl.NumberFormat("en-US").format(
-                                      (items?.layer_earn_points * 1).toFixed(4)
-                                    )}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Total Earn Points -{" "}
-                                    </span>
-                                    {/* {(items?.total_earn_points * 1).toFixed(4)} */}
-                                    {new Intl.NumberFormat("en-US").format(
-                                      (items?.total_earn_points * 1).toFixed(4)
-                                    )}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">Date - </span>
-                                    {/* {moment(items?.createdAt).format("lll")} */}
-                                    {moment.utc(items?.createdAt).format("lll")}
-                                  </p>
-                                </div>
-                              );
-                            })
-                          )}
-                        </div>
-                      </div>
-
-                      {/* {showDataTrxAll?.length <= 0 && (
-                        <div>
-                          <p className="text-center">No Data Found</p>
-                        </div>
-                      )} */}
-                      <div className="d-flex justify-content-end">
-                        {showDataTrxAll?.length > 0 ? (
-                          <div className="d-flex justify-content-center paginate-register">
-                            <div className="d-flex align-items-center">
-                              <button
-                                className="common-btn"
-                                onClick={() => {
-                                  decressFunctionTrxAll();
-                                }}
-                              >
-                                <i className="fa fa-angle-left"></i>
-                              </button>
-                              <button className="common-btn m-2">
-                                Page {pageNumberTrxAll} of{" "}
-                                {Math.ceil(totalOrderCountTrxAll / 10)}
-                              </button>
-                              <button
-                                className="common-btn"
-                                onClick={() => {
-                                  incressFunctionTrxAll();
-                                }}
-                              >
-                                <i className="fa fa-angle-right"></i>
-                              </button>
+                      {checkForData === 0 ? (
+                        <p className="text-center">
+                          <IphoneSpinner />
+                        </p>
+                      ) : checkForData === 1 ? (
+                        <p className="text-center">No Data Found</p>
+                      ) : (
+                        <>
+                          <div className="table-view-transaction">
+                            <div className="thead">
+                              <div>
+                                <p>S. no</p>
+                                <p>Wallet & ENS</p>
+                                <p>Base Earn Points</p>
+                                <p>Layer Earn Points</p>
+                                <p>Total Earn Points</p>
+                                <p>Date</p>
+                              </div>
+                            </div>
+                            <div className="tbody">
+                              {showDataTrxAll?.length > 0 &&
+                                showDataTrxAll?.map((items, index) => {
+                                  return (
+                                    <div>
+                                      <p>{index + 1}</p>
+                                      <p>
+                                        <span class="mobile-only">Name - </span>{" "}
+                                        <big>
+                                          <b>
+                                            {items?.user_id?.ENS_name
+                                              ? items?.user_id?.ENS_name
+                                              : "No ENS Name"}
+                                          </b>
+                                        </big>{" "}
+                                        <br />{" "}
+                                        {items?.user_id?.wallet_address?.replace(
+                                          items?.user_id?.wallet_address?.substring(
+                                            5,
+                                            37
+                                          ),
+                                          "..."
+                                        )}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Base Earn Points -{" "}
+                                        </span>{" "}
+                                        {/* {(items?.base_earn_points * 1).toFixed(4)} */}
+                                        {new Intl.NumberFormat("en-US").format(
+                                          (items?.base_earn_points * 1).toFixed(
+                                            4
+                                          )
+                                        )}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Layer Earn Points -{" "}
+                                        </span>
+                                        {/* {(items?.layer_earn_points * 1).toFixed(4)} */}
+                                        {new Intl.NumberFormat("en-US").format(
+                                          (
+                                            items?.layer_earn_points * 1
+                                          ).toFixed(4)
+                                        )}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Total Earn Points -{" "}
+                                        </span>
+                                        {/* {(items?.total_earn_points * 1).toFixed(4)} */}
+                                        {new Intl.NumberFormat("en-US").format(
+                                          (
+                                            items?.total_earn_points * 1
+                                          ).toFixed(4)
+                                        )}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">Date - </span>
+                                        {/* {moment(items?.createdAt).format("lll")} */}
+                                        {moment
+                                          .utc(items?.createdAt)
+                                          .format("lll")}
+                                      </p>
+                                    </div>
+                                  );
+                                })}
                             </div>
                           </div>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
+
+                          <div className="d-flex justify-content-end">
+                            {showDataTrxAll?.length > 0 ? (
+                              <div className="d-flex justify-content-center paginate-register">
+                                <div className="d-flex align-items-center">
+                                  <button
+                                    className="common-btn"
+                                    onClick={() => {
+                                      decressFunctionTrxAll();
+                                    }}
+                                  >
+                                    <i className="fa fa-angle-left"></i>
+                                  </button>
+                                  <button className="common-btn m-2">
+                                    Page {pageNumberTrxAll} of{" "}
+                                    {Math.ceil(totalOrderCountTrxAll / 10)}
+                                  </button>
+                                  <button
+                                    className="common-btn"
+                                    onClick={() => {
+                                      incressFunctionTrxAll();
+                                    }}
+                                  >
+                                    <i className="fa fa-angle-right"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
