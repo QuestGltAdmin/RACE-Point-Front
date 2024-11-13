@@ -219,7 +219,10 @@ export const Dashboard = () => {
                         ) : (
                           <>
                             <p className="full-num">
-                              {amountInVault.toFixed(2)}
+                              {new Intl.NumberFormat("en-US").format(
+                                amountInVault.toFixed(2)
+                              )}
+                              {/* {amountInVault.toFixed(2)} */}
                             </p>
                           </>
                         )}
@@ -278,7 +281,12 @@ export const Dashboard = () => {
                           </>
                         ) : (
                           <>
-                            <p className="full-num">{points.toFixed(2)}</p>
+                            <p className="full-num">
+                              {" "}
+                              {new Intl.NumberFormat("en-US").format(
+                                points.toFixed(2)
+                              )}
+                            </p>
                           </>
                         )}
                       </div>
