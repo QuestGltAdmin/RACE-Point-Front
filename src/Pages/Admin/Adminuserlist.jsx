@@ -7,6 +7,7 @@ import { debounce } from "lodash";
 import moment from "moment/moment";
 import { toast } from "react-toastify";
 import ExportEXCEL from "../../Components/ExportToExcel";
+import { IphoneSpinner } from "../../Components/IphoneSpinner";
 
 export const Adminuserlist = () => {
   //==================================Global Variable================================//
@@ -27,6 +28,7 @@ export const Adminuserlist = () => {
   const [idCheck, setIdCheck] = useState("");
   const [exportData, setExportData] = useState([]);
   const [disableData, setDisableData] = useState(false);
+  const [checkForData, setCheckForData] = useState(0);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -87,6 +89,8 @@ export const Adminuserlist = () => {
   const getDataTrxAll = async (pageNumberTrxAll, searchTrxAll) => {
     const payload = {};
     try {
+      setCheckForData(0);
+
       const getResAll = await axiosMain.get(
         `/admin/user-list?page=${pageNumberTrxAll}&limit=10&search=${searchTrxAll}`,
         // payload,
@@ -97,12 +101,21 @@ export const Adminuserlist = () => {
           },
         }
       );
-      // console.log(getResAll);
       if (getResAll?.data?.status) {
-        setShowDataTrxAll(getResAll?.data?.data?.list);
-        setTotalOrderCountTrxAll(getResAll?.data?.data?.totalRecords[0]?.count);
+        if (getResAll?.data?.data?.list?.length > 0) {
+          setCheckForData(2);
+
+          setShowDataTrxAll(getResAll?.data?.data?.list);
+          setTotalOrderCountTrxAll(
+            getResAll?.data?.data?.totalRecords[0]?.count
+          );
+        } else {
+          setCheckForData(1);
+        }
       }
-    } catch (err) {}
+    } catch (err) {
+      setCheckForData(1);
+    }
   };
   //==================================End of code================================//
 
@@ -242,7 +255,14 @@ export const Adminuserlist = () => {
                           </div>
                         </div>
                         <div className="tbody">
-                          {showDataTrxAll?.length > 0 &&
+                          {checkForData === 0 ? (
+                            <p className="text-center">
+                              <IphoneSpinner />
+                            </p>
+                          ) : checkForData === 1 ? (
+                            <p className="text-center">No Data Found</p>
+                          ) : (
+                            showDataTrxAll?.length > 0 &&
                             showDataTrxAll?.map((items, index) => {
                               return (
                                 <div>
@@ -272,13 +292,19 @@ export const Adminuserlist = () => {
                                   </p>
                                   <p>
                                     <span class="mobile-only">Deposit - </span>
-                                    {(items?.deposit * 1).toFixed(4)}
+                                    {/* {(items?.deposit * 1).toFixed(4)} */}
+                                    {new Intl.NumberFormat("en-US").format(
+                                      (items?.deposit * 1).toFixed(4)
+                                    )}
                                   </p>
                                   <p>
                                     <span class="mobile-only">
                                       Earn Points -{" "}
                                     </span>
-                                    {(items?.earn_points * 1).toFixed(4)}
+                                    {/* {(items?.earn_points * 1).toFixed(4)} */}
+                                    {new Intl.NumberFormat("en-US").format(
+                                      (items?.earn_points * 1).toFixed(4)
+                                    )}
                                   </p>
                                   <p>
                                     <span class="mobile-only">
@@ -353,14 +379,15 @@ export const Adminuserlist = () => {
                                   </p>
                                 </div>
                               );
-                            })}
+                            })
+                          )}
                         </div>
                       </div>
-                      {showDataTrxAll?.length <= 0 && (
+                      {/* {showDataTrxAll?.length <= 0 && (
                         <div>
                           <p className="text-center">No Data Found</p>
                         </div>
-                      )}
+                      )} */}
                       <div className="d-flex justify-content-end">
                         {showDataTrxAll?.length > 0 ? (
                           <div className="d-flex justify-content-center paginate-register">
@@ -414,25 +441,25 @@ export const Adminuserlist = () => {
               />
               <p>Here are your referral codes</p>
               <div className="more-scroll">
-              {refferalCode?.length &&
-                refferalCode?.map((items, index) => {
-                  return (
-                    <div class="referal-copy-row">
-                      <div>
-                        <span>{index + 1}</span>
-                        {items?.code}
+                {refferalCode?.length &&
+                  refferalCode?.map((items, index) => {
+                    return (
+                      <div class="referal-copy-row">
+                        <div>
+                          <span>{index + 1}</span>
+                          {items?.code}
+                        </div>
+                        {items?.is_used && (
+                          <a href="#">
+                            <img
+                              src="assets/img/Green-Tick-Vector-PNG-Images.png"
+                              alt="Copy"
+                            />
+                          </a>
+                        )}
                       </div>
-                      {items?.is_used && (
-                        <a href="#">
-                          <img
-                            src="assets/img/Green-Tick-Vector-PNG-Images.png"
-                            alt="Copy"
-                          />
-                        </a>
-                      )}
-                    </div>
-                  );
-                })}
+                    );
+                  })}
               </div>
             </div>
           </Modal.Body>
@@ -497,65 +524,32 @@ export const Adminuserlist = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Base Earn Points - </span>{" "}
-                            {(items?.base_earn_points * 1).toFixed(4)}
+                            {/* {(items?.base_earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.base_earn_points * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">
                               Layer Earn Points -{" "}
                             </span>
-                            {(items?.layer_earn_points * 1).toFixed(4)}
+                            {/* {(items?.layer_earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.layer_earn_points * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">
                               Total Earn Points -{" "}
                             </span>
-                            {(items?.total_earn_points * 1).toFixed(4)}
+                            {/* {(items?.total_earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.total_earn_points * 1).toFixed(4)
+                            )}
                           </p>
                         </div>
                       );
                     })}
-                  {/* <div>
-                    <p>2</p>
-                    <p>
-                      <span class="mobile-only">Name - </span>{" "}
-                      <big>
-                        <b>Name</b>
-                      </big>{" "}
-                      <br /> RTY3455g....g4hkgk
-                    </p>
-                    <p>
-                      <span class="mobile-only">Base Earn Points - </span> 23
-                    </p>
-                    <p>
-                      <span class="mobile-only">Layer Earn Points - </span>
-                      46
-                    </p>
-                    <p>
-                      <span class="mobile-only">Total Earn Points - </span>
-                      24
-                    </p>
-                  </div>
-                  <div>
-                    <p>3</p>
-                    <p>
-                      <span class="mobile-only">Name - </span>{" "}
-                      <big>
-                        <b>Name</b>
-                      </big>{" "}
-                      <br /> RTY3455g....g4hkgk
-                    </p>
-                    <p>
-                      <span class="mobile-only">Base Earn Points - </span> 23
-                    </p>
-                    <p>
-                      <span class="mobile-only">Layer Earn Points - </span>
-                      46
-                    </p>
-                    <p>
-                      <span class="mobile-only">Total Earn Points - </span>
-                      24
-                    </p>
-                  </div> */}
                 </div>
               </div>
               {showDataEarn?.length <= 0 && (
@@ -617,11 +611,17 @@ export const Adminuserlist = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Deposit - </span>
-                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                            {/* {(items?.user_id?.deposit * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.deposit * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Earn Points - </span>
-                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                            {/* {(items?.user_id?.earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.earn_points * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
@@ -658,11 +658,17 @@ export const Adminuserlist = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Deposit - </span>
-                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                            {/* {(items?.user_id?.deposit * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.deposit * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Earn Points - </span>
-                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                            {/* {(items?.user_id?.earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.earn_points * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
@@ -699,11 +705,17 @@ export const Adminuserlist = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Deposit - </span>
-                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                            {/* {(items?.user_id?.deposit * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.deposit * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Earn Points - </span>
-                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                            {/* {(items?.user_id?.earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.earn_points * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
@@ -740,11 +752,17 @@ export const Adminuserlist = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Deposit - </span>
-                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                            {/* {(items?.user_id?.deposit * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.deposit * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Earn Points - </span>
-                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                            {/* {(items?.user_id?.earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.earn_points * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>

@@ -8,6 +8,7 @@ import moment from "moment/moment";
 import { toast } from "react-toastify";
 import CheckWallet from "../../helpers/checkWalletHelper";
 import { encryptData } from "../../Encrypt-Decrypt/encryption-decryption";
+import { IphoneSpinner } from "../../Components/IphoneSpinner";
 
 export const AdminAddUsers = () => {
   //==================================Global Variable================================//
@@ -25,8 +26,12 @@ export const AdminAddUsers = () => {
   const [prvId, setPrvId] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [disable, setDisable] = useState(false);
+  const [checkForData, setCheckForData] = useState(0);
+
   const getMultiplier = async (pageNumberTrxAll, searchTrxAll) => {
     try {
+      setCheckForData(0);
+
       const getData = await axiosMain.get(
         `/admin/get-all-approve-address?page=${pageNumberTrxAll}&limit=10&search=${searchTrxAll}`,
         {
@@ -37,10 +42,18 @@ export const AdminAddUsers = () => {
         }
       );
       if (getData?.data?.status) {
-        setShowValue(getData?.data?.data?.list);
-        setTotalOrderCountTrxAll(getData?.data?.data?.totalRecords[0]?.count);
+        if (getData?.data?.data?.list?.length > 0) {
+          setCheckForData(2);
+
+          setShowValue(getData?.data?.data?.list);
+          setTotalOrderCountTrxAll(getData?.data?.data?.totalRecords[0]?.count);
+        } else {
+          setCheckForData(1);
+        }
       }
-    } catch (err) {}
+    } catch (err) {
+      setCheckForData(1);
+    }
   };
 
   const incressFunctionTrxAll = () => {
@@ -138,32 +151,24 @@ export const AdminAddUsers = () => {
                           </div>
                         </div>
                         <div className="tbody">
-                          {showValue?.length > 0
-                            ? showValue?.map((items, index) => {
-                                return (
-                                  <div>
-                                    <p>{index + 1}</p>
-                                    <p>{items?.wallet_address}</p>
-                                    <p>{items?.is_use ? "Yes" : "No"}</p>
-                                  </div>
-                                );
-                              })
-                            : ""}
-                          {/* <div>
-                            <p>2</p>
-                            <p>0x51EFE4987D9D22032aba856A8E6472913cf1Fa04</p>
-                            <p>Active</p>
-                          </div>
-                          <div>
-                            <p>3</p>
-                            <p>0x51EFE4987D9D22032aba856A8E6472913cf1Fa04</p>
-                            <p>Active</p>
-                          </div>
-                          <div>
-                            <p>4</p>
-                            <p>0x51EFE4987D9D22032aba856A8E6472913cf1Fa04</p>
-                            <p>Active</p>
-                          </div> */}
+                          {checkForData === 0 ? (
+                            <p className="text-center">
+                              <IphoneSpinner />
+                            </p>
+                          ) : checkForData === 1 ? (
+                            <p className="text-center">No Data Found</p>
+                          ) : (
+                            showValue?.length > 0 &&
+                            showValue?.map((items, index) => {
+                              return (
+                                <div>
+                                  <p>{index + 1}</p>
+                                  <p>{items?.wallet_address}</p>
+                                  <p>{items?.is_use ? "Yes" : "No"}</p>
+                                </div>
+                              );
+                            })
+                          )}
                         </div>
                       </div>
                       <div className="d-flex justify-content-end">

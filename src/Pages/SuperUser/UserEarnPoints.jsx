@@ -216,19 +216,11 @@ const UserEarnPoints = () => {
                         </div>
                         <div className="tbody">
                           {checkForData === 0 ? (
-                            <tr>
-                              <td>
-                                <p className="text-center">
-                                  <IphoneSpinner />
-                                </p>
-                              </td>
-                            </tr>
+                            <p className="text-center">
+                              <IphoneSpinner />
+                            </p>
                           ) : checkForData === 1 ? (
-                            <tr>
-                              <td>
-                                <p className="text-center">No Data Found</p>
-                              </td>
-                            </tr>
+                            <p className="text-center">No Data Found</p>
                           ) : (
                             showDataTrxAll?.length > 0 &&
                             showDataTrxAll?.map((items, index) => {

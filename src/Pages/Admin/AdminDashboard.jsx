@@ -10,7 +10,7 @@ export const AdminDashboard = () => {
   // console.log(user);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalDeposit, setTotalDeposit] = useState(0);
-  const [systemStop , setSystemStop] = useState(false)
+  const [systemStop, setSystemStop] = useState(false);
   const getDashboardData = async () => {
     try {
       const getData = await axiosMain.get("/admin/dashboard", {
@@ -21,10 +21,10 @@ export const AdminDashboard = () => {
       });
       if (getData?.data?.status) {
         // console.log(getData);
-        
+
         setTotalUsers(getData?.data?.userCount);
         setTotalDeposit(getData?.data?.totalDeposit);
-        setSystemStop(getData?.data?.system_stop)
+        setSystemStop(getData?.data?.system_stop);
       }
       // console.log(getData);
     } catch (err) {}
@@ -50,7 +50,7 @@ export const AdminDashboard = () => {
         toast.success(
           `All system ${flag == "true" ? "Disable" : "Enable"} successfully`
         );
-        getDashboardData()
+        getDashboardData();
       }
     } catch (err) {}
   };
@@ -64,25 +64,23 @@ export const AdminDashboard = () => {
               <Col lg={12}>
                 <div className="dashboard-white-box">
                   <div className="w-100">
-                    <h2 className="inner-page-heading d-flex justify-content-between">Dashboard 
+                    <h2 className="inner-page-heading d-flex justify-content-between">
+                      Dashboard
                       <Form.Check // prettier-ignore
-                                      className="switch-admin-btn"
-                                      type="switch"
-                                      id="custom-switch"
-                                      label="Emergency Shutdown"
-                                      checked={
-                                        systemStop === false
-                                          ? false
-                                          : true
-                                      }
-                                      onChange={(e) => {
-                                        if (systemStop == false) {
-                                          updateStatus("true");
-                                        } else {
-                                          updateStatus("false");
-                                        }
-                                      }}
-                                    /></h2>
+                        className="switch-admin-btn"
+                        type="switch"
+                        id="custom-switch"
+                        label="Emergency Shutdown"
+                        checked={systemStop === false ? false : true}
+                        onChange={(e) => {
+                          if (systemStop == false) {
+                            updateStatus("true");
+                          } else {
+                            updateStatus("false");
+                          }
+                        }}
+                      />
+                    </h2>
                     <Row>
                       <Col lg={4} md={6} sm={6} xs={12}>
                         <div className="shadow-box-dash">
@@ -91,7 +89,10 @@ export const AdminDashboard = () => {
                             src="assets/images/user11.png"
                             alt=""
                           />
-                          <h4>{totalUsers}</h4>
+                          {/* <h4>{totalUsers}</h4> */}
+                          <h4>
+                            {new Intl.NumberFormat("en-US").format(totalUsers)}
+                          </h4>
                           <p>Total User Count</p>
                         </div>
                       </Col>
@@ -103,8 +104,14 @@ export const AdminDashboard = () => {
                             alt=""
                           />
                           <h4>
-                            ${!isNaN(totalDeposit)
+                            $
+                            {/* {!isNaN(totalDeposit)
                               ? (totalDeposit * 1).toFixed(2)
+                              : 0} */}
+                            {!isNaN(totalDeposit)
+                              ? new Intl.NumberFormat("en-US").format(
+                                  (totalDeposit * 1).toFixed(2)
+                                )
                               : 0}
                           </h4>
                           <p>Total Deposit</p>

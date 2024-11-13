@@ -8,6 +8,7 @@ import moment from "moment/moment";
 import { toast } from "react-toastify";
 import CheckWallet from "../../helpers/checkWalletHelper";
 import { encryptData } from "../../Encrypt-Decrypt/encryption-decryption";
+import { IphoneSpinner } from "../../Components/IphoneSpinner";
 
 const AdminAddManager = () => {
   //==================================Global Variable================================//
@@ -25,9 +26,12 @@ const AdminAddManager = () => {
   const [inputValue, setInputValue] = useState("");
   const [disable, setDisable] = useState(false);
   const [dependency, setDependency] = useState(1);
+  const [checkForData, setCheckForData] = useState(0);
 
   const getMultiplier = async (pageNumberTrxAll, searchTrxAll) => {
     try {
+      setCheckForData(0);
+
       const getData = await axiosMain.get(
         `/admin/super-user-list?page=${pageNumberTrxAll}&limit=10&search=${searchTrxAll}`,
         {
@@ -39,10 +43,18 @@ const AdminAddManager = () => {
       );
 
       if (getData?.data?.status) {
-        setShowValue(getData?.data?.data?.list);
-        setTotalOrderCountTrxAll(getData?.data?.data?.totalRecords[0]?.count);
+        if (getData?.data?.data?.list?.length > 0) {
+          setCheckForData(2);
+
+          setShowValue(getData?.data?.data?.list);
+          setTotalOrderCountTrxAll(getData?.data?.data?.totalRecords[0]?.count);
+        } else {
+          setCheckForData(1);
+        }
       }
-    } catch (err) {}
+    } catch (err) {
+      setCheckForData(1);
+    }
   };
 
   const incressFunctionTrxAll = () => {
@@ -58,8 +70,8 @@ const AdminAddManager = () => {
 
   const filterDataTrxAll = useCallback(debounce(getMultiplier, 1000), []);
   useEffect(() => {
-    filterDataTrxAll(pageNumberTrxAll, searchTrxAll,dependency);
-  }, [pageNumberTrxAll, searchTrxAll,dependency]);
+    filterDataTrxAll(pageNumberTrxAll, searchTrxAll, dependency);
+  }, [pageNumberTrxAll, searchTrxAll, dependency]);
 
   const updateWallet = async () => {
     const checkWallet = await CheckWallet(inputValue);
@@ -83,7 +95,7 @@ const AdminAddManager = () => {
           }
         );
         if (updateData?.data?.status) {
-          setDependency(dependency+1)
+          setDependency(dependency + 1);
           handleClose();
           toast.success("Manager Wallet address added successfully");
           setInputValue("");
@@ -144,52 +156,67 @@ const AdminAddManager = () => {
                           </div>
                         </div>
                         <div className="tbody">
-                          {showValue?.length > 0
-                            ? showValue?.map((items, index) => {
-                                const adjustedIndex =
-                                  index + 1 + (pageNumberTrxAll - 1) * 10;
-                                return (
-                                  <div>
-                                    <p>{adjustedIndex}</p>
-                                    <p> <span class="mobile-only">
-                                      Wallet Address -{" "}
-                                    </span>{" "}  {items?.wallet_address?.replace(
+                          {checkForData === 0 ? (
+                            <p className="text-center">
+                              <IphoneSpinner />
+                            </p>
+                          ) : checkForData === 1 ? (
+                            <p className="text-center">No Data Found</p>
+                          ) : (
+                            showValue?.length > 0 &&
+                            showValue?.map((items, index) => {
+                              const adjustedIndex =
+                                index + 1 + (pageNumberTrxAll - 1) * 10;
+                              return (
+                                <div>
+                                  <p>{adjustedIndex}</p>
+                                  <p>
+                                    <span class="mobile-only">
+                                      Wallet Address -
+                                    </span>
+                                    {items?.wallet_address?.replace(
                                       items?.wallet_address?.substring(5, 37),
                                       "..."
-                                    )}</p>
-                                    <p> <span class="mobile-only">
-                                      ENS Name -{" "}
-                                    </span>{" "}
-                                      {items?.ENS_name ? items?.ENS_name : "-"}
-                                    </p>
-                                    <p> <span class="mobile-only">
-                                      Referrer Code -{" "}
-                                    </span>{" "}
-                                      {items?.from_referral_code
-                                        ? items?.from_referral_code
-                                        : "-"}
-                                    </p>
-                                    <p> <span class="mobile-only">
-                                     Deposite -{" "}
-                                    </span>{" "}{(items?.deposit * 1).toFixed(4)}</p>
-                                    <p> <span class="mobile-only">
-                                      Earn Points -{" "}
-                                    </span>{" "}
-                                      {" "}
-                                      {(items?.earn_points * 1).toFixed(4)}
-                                    </p>
-                                    <p> <span class="mobile-only">
-                                      Joining Date -{" "}
-                                    </span>{" "}
-                                      {" "}
-                                      {moment
-                                        .utc(items?.createdAt)
-                                        .format("lll")}
-                                    </p>
-                                  </div>
-                                );
-                              })
-                            : ""}
+                                    )}
+                                  </p>
+                                  <p>
+                                    <span class="mobile-only">ENS Name -</span>
+                                    {items?.ENS_name ? items?.ENS_name : "-"}
+                                  </p>
+                                  <p>
+                                    <span class="mobile-only">
+                                      Referrer Code -
+                                    </span>
+                                    {items?.from_referral_code
+                                      ? items?.from_referral_code
+                                      : "-"}
+                                  </p>
+                                  <p>
+                                    <span class="mobile-only">Deposite -</span>
+                                    {/* {(items?.deposit * 1).toFixed(4)} */}
+                                    {new Intl.NumberFormat("en-US").format(
+                                      (items?.deposit * 1).toFixed(4)
+                                    )}
+                                  </p>
+                                  <p>
+                                    <span class="mobile-only">
+                                      Earn Points -
+                                    </span>
+                                    {new Intl.NumberFormat("en-US").format(
+                                      (items?.earn_points * 1).toFixed(4)
+                                    )}
+                                    {/* {(items?.earn_points * 1).toFixed(4)} */}
+                                  </p>
+                                  <p>
+                                    <span class="mobile-only">
+                                      Joining Date -
+                                    </span>
+                                    {moment.utc(items?.createdAt).format("lll")}
+                                  </p>
+                                </div>
+                              );
+                            })
+                          )}
                         </div>
                       </div>
                       <div className="d-flex justify-content-end">

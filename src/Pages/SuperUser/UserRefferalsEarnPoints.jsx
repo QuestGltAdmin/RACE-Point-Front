@@ -62,7 +62,7 @@ const UserRefferalsEarnPoints = () => {
           },
         }
       );
-      
+
       if (getResAll?.data?.status) {
         const mapData = await getResAll?.data?.data?.list?.map(
           (items, index) => {
@@ -116,16 +116,19 @@ const UserRefferalsEarnPoints = () => {
         }
       );
       if (getResAll?.data?.status) {
-        if(getResAll?.data?.data?.list?.length > 0 ){          setCheckForData(2);
+        if (getResAll?.data?.data?.list?.length > 0) {
+          setCheckForData(2);
 
           setShowDataTrxAll(getResAll?.data?.data?.list);
-          setTotalOrderCountTrxAll(getResAll?.data?.data?.totalRecords[0]?.count);
-        }else{
+          setTotalOrderCountTrxAll(
+            getResAll?.data?.data?.totalRecords[0]?.count
+          );
+        } else {
           setCheckForData(1);
-
         }
       }
-    } catch (err) {          setCheckForData(1);
+    } catch (err) {
+      setCheckForData(1);
     }
   };
   //==================================End of code================================//
@@ -156,7 +159,9 @@ const UserRefferalsEarnPoints = () => {
               <Col lg={12}>
                 <div className="dashboard-white-box">
                   <div className="w-100">
-                    <h2 className="inner-page-heading">Refferals Earn Point Statment</h2>
+                    <h2 className="inner-page-heading">
+                      Refferals Earn Point Statment
+                    </h2>
                     <button
                       className="common-btn"
                       onClick={() => {
@@ -218,21 +223,14 @@ const UserRefferalsEarnPoints = () => {
                           </div>
                         </div>
                         <div className="tbody">
-                        {checkForData === 0 ? (
-                            <tr>
-                              <td >
-                                <p className="text-center">
-                                  <IphoneSpinner />
-                                </p>
-                              </td>
-                            </tr>
+                          {checkForData === 0 ? (
+                            <p className="text-center">
+                              <IphoneSpinner />
+                            </p>
                           ) : checkForData === 1 ? (
-                            <tr>
-                              <td>
-                                <p className="text-center">No Data Found</p>
-                              </td>
-                            </tr>
-                          ) : (showDataTrxAll?.length > 0 &&
+                            <p className="text-center">No Data Found</p>
+                          ) : (
+                            showDataTrxAll?.length > 0 &&
                             showDataTrxAll?.map((items, index) => {
                               return (
                                 <div>
@@ -289,7 +287,8 @@ const UserRefferalsEarnPoints = () => {
                                   </p>
                                 </div>
                               );
-                            }))}
+                            })
+                          )}
                         </div>
                       </div>
 

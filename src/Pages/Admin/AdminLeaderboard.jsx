@@ -3,6 +3,7 @@ import { AdmindashHeader } from "../../Components/Ui/AdmindashHeader";
 import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import useAuth from "../../hooks/useAuth";
 import axiosMain from "../../http/axios/axios_main";
+import { IphoneSpinner } from "../../Components/IphoneSpinner";
 
 export const AdminLeaderboard = () => {
   const { user } = useAuth();
@@ -12,9 +13,11 @@ export const AdminLeaderboard = () => {
   const [topDeposits, setTopDeposits] = useState([]);
   const [topReferrals, setTopReferrals] = useState([]);
   const [allTopUser, setAllTopUser] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getDashboardData = async () => {
     try {
+      setLoading(true);
       const getData = await axiosMain.get("/auth/get-leaderboard-deatils", {
         headers: {
           "Content-Type": "application/json",
@@ -22,13 +25,16 @@ export const AdminLeaderboard = () => {
         },
       });
       if (getData?.data?.status) {
+        setLoading(false);
         setMonthlyTopUser(getData?.data?.monthlyTopUser);
         setQuarterlyTopUser(getData?.data?.weeklyTopUser);
         setTopDeposits(getData?.data?.topDeposits);
         setTopReferrals(getData?.data?.topReferrals);
         setAllTopUser(getData.data.allTopUser);
       }
-    } catch (err) {}
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -55,47 +61,51 @@ export const AdminLeaderboard = () => {
                 <div className="top-deposit-box for-min-height">
                   <h4 className="sub-heading text-start">Top Deposits</h4>
                   <Row>
-                    {topDeposits?.length > 0 ? (
-                      topDeposits?.map((items, index) => {
-                        return (
-                          <Col lg={6} md={6} sm={6} xs={6}>
-                            <div class="inner-user-box">
-                              <div class="user-img">
-                                <img src="assets/images/avatar.png" alt="" />
-                              </div>
-                              <h4>
-                                {items?.wallet_address?.replace(
-                                  items?.wallet_address?.substring(5, 37),
-                                  "..."
-                                )}
-                              </h4>
-                              <p>-</p>
-                              <h3>
-                                <b>${(items?.deposit * 1).toFixed(4)}</b>{" "}
-                                Deposited
-                              </h3>
-                            </div>
-                          </Col>
-                        );
-                      })
+                    {" "}
+                    {loading ? (
+                      <>
+                        <p className="text-center">
+                          <IphoneSpinner />
+                        </p>
+                      </>
                     ) : (
-                      <p className="text-center">No Data Found</p>
+                      <>
+                        {topDeposits?.length > 0 ? (
+                          topDeposits?.map((items, index) => {
+                            return (
+                              <Col lg={6} md={6} sm={6} xs={6}>
+                                <div class="inner-user-box">
+                                  <div class="user-img">
+                                    <img
+                                      src="assets/images/avatar.png"
+                                      alt=""
+                                    />
+                                  </div>
+                                  <h4>
+                                    {items?.wallet_address?.replace(
+                                      items?.wallet_address?.substring(5, 37),
+                                      "..."
+                                    )}
+                                  </h4>
+                                  <p>-</p>
+                                  <h3>
+                                    {/* <b>${(items?.deposit * 1).toFixed(4)}</b>{" "} */}
+                                    <b>
+                                      {new Intl.NumberFormat("en-US").format(
+                                        (items?.deposit * 1).toFixed(4)
+                                      )}
+                                    </b>{" "}
+                                    &nbsp; Deposited
+                                  </h3>
+                                </div>
+                              </Col>
+                            );
+                          })
+                        ) : (
+                          <p className="text-center">No Data Found</p>
+                        )}
+                      </>
                     )}
-                    {/* <Col lg={6} md={6} sm={6} xs={6}>
-                      <div class="inner-user-box">
-                        <div class="user-img">
-                          <img
-                            src="https://q3.donative.in:3006/images/profilePic/avatar.png"
-                            alt=""
-                          />
-                        </div>
-                        <h4>0xC1A...d2b5B</h4>
-                        <p>-</p>
-                        <h3>
-                          <b>$259.9951</b> Deposited
-                        </h3>
-                      </div>
-                    </Col> */}
                   </Row>
                 </div>
               </Col>
@@ -106,69 +116,67 @@ export const AdminLeaderboard = () => {
                 <div className="top-deposit-box for-min-height">
                   <h4 className="sub-heading text-start">Top Referrals</h4>
                   <Row>
-                    {topReferrals?.length > 0 ? (
-                      topReferrals?.slice(0, 2)?.map((items, index) => {
-                        return (
-                          <Col lg={6} md={6} sm={6} xs={6}>
-                            <div class="inner-user-box top-referrals">
-                              <div class="user-img">
-                                <img src="assets/images/avatar.png" alt="" />
-                              </div>
-                              <h4>
-                                {" "}
-                                {items?.wallet_address?.replace(
-                                  items?.wallet_address?.substring(5, 37),
-                                  "..."
-                                )}
-                              </h4>
-                              <p>-</p>
-                              <div class="referral-point">
-                                <h3>
-                                  <img src="assets/img/referal.png" alt="" />
-                                  <b>{items?.referral_count}</b>
-                                  <span>Referrals</span>
-                                </h3>
-                                <h3>
-                                  <img src="assets/img/trophy.png" alt="" />
-                                  <div>
-                                    <b>{(items?.earn_points * 1).toFixed(4)}</b>
-                                    <span>Points</span>
-                                  </div>
-                                </h3>
-                              </div>
-                            </div>
-                          </Col>
-                        );
-                      })
+                    {" "}
+                    {loading ? (
+                      <>
+                        <p className="text-center">
+                          <IphoneSpinner />
+                        </p>
+                      </>
                     ) : (
-                      <p className="text-center">No Data Found</p>
+                      <>
+                        {topReferrals?.length > 0 ? (
+                          topReferrals?.slice(0, 2)?.map((items, index) => {
+                            return (
+                              <Col lg={6} md={6} sm={6} xs={6}>
+                                <div class="inner-user-box top-referrals">
+                                  <div class="user-img">
+                                    <img
+                                      src="assets/images/avatar.png"
+                                      alt=""
+                                    />
+                                  </div>
+                                  <h4>
+                                    {" "}
+                                    {items?.wallet_address?.replace(
+                                      items?.wallet_address?.substring(5, 37),
+                                      "..."
+                                    )}
+                                  </h4>
+                                  <p>-</p>
+                                  <div class="referral-point">
+                                    <h3>
+                                      <img
+                                        src="assets/img/referal.png"
+                                        alt=""
+                                      />
+                                      <b>{items?.referral_count}</b>
+                                      <span>Referrals</span>
+                                    </h3>
+                                    <h3>
+                                      <img src="assets/img/trophy.png" alt="" />
+                                      <div>
+                                        {/* <b>{(items?.earn_points * 1).toFixed(4)}</b> */}
+                                        <b>
+                                          {new Intl.NumberFormat(
+                                            "en-US"
+                                          ).format(
+                                            (items?.earn_points * 1).toFixed(4)
+                                          )}
+                                        </b>
+                                        <span>Points</span>
+                                      </div>
+                                    </h3>
+                                  </div>
+                                </div>
+                              </Col>
+                            );
+                          })
+                        ) : (
+                          <p className="text-center">No Data Found</p>
+                        )}
+                      </>
                     )}
-                    {/* <Col lg={6} md={6} sm={6} xs={6}>
-                      <div class="inner-user-box top-referrals">
-                        <div class="user-img">
-                          <img
-                            src="https://q3.donative.in:3006/images/profilePic/avatar.png"
-                            alt=""
-                          />
-                        </div>
-                        <h4>0x2DC...E25B3</h4>
-                        <p>-</p>
-                        <div class="referral-point">
-                          <h3>
-                            <img src="assets/img/referal.png" alt="" />
-                            <b>14</b>
-                            <span>Referrals</span>
-                          </h3>
-                          <h3>
-                            <img src="assets/img/trophy.png" alt="" />
-                            <div>
-                              <b>2920.26</b>
-                              <span>Points</span>
-                            </div>
-                          </h3>
-                        </div>
-                      </div>
-                    </Col> */}
                   </Row>
                 </div>
               </Col>
@@ -185,9 +193,7 @@ export const AdminLeaderboard = () => {
                         {allTopUser?.length > 0 ? (
                           allTopUser?.slice(0, 50).map((monthly, index) => (
                             <li key={index}>
-                              <div
-                                className="deposit-list-main"
-                              >
+                              <div className="deposit-list-main">
                                 <div className="left-user">
                                   <div className="count-deposit">
                                     <span>{index + 1}</span>
@@ -203,7 +209,7 @@ export const AdminLeaderboard = () => {
                                   </div>
                                   <img
                                     className="user-img"
-                                src="assets/images/avatar.png"
+                                    src="assets/images/avatar.png"
                                     alt=""
                                   />
                                   <div>
@@ -215,14 +221,7 @@ export const AdminLeaderboard = () => {
                                     </p>
                                   </div>
                                 </div>
-                                {/* <div>
-                                  <h4>
-                                    {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                    monthly?.wallet_address?.toLowerCase()
-                                      ? "(You)"
-                                      : ""}
-                                  </h4>
-                                </div> */}
+
                                 <div className="right-trophy">
                                   <img
                                     className="trophy-img"
@@ -230,7 +229,12 @@ export const AdminLeaderboard = () => {
                                     alt=""
                                   />
                                   <div>
-                                    <h4>{monthly.earn_points.toFixed(2)}</h4>
+                                    {/* <h4>{monthly.earn_points.toFixed(2)}</h4> */}
+                                    <h4>
+                                      {new Intl.NumberFormat("en-US").format(
+                                        monthly.earn_points.toFixed(2)
+                                      )}
+                                    </h4>
                                     <p>Points</p>
                                   </div>
                                 </div>
@@ -267,7 +271,7 @@ export const AdminLeaderboard = () => {
                                     </div>
                                     <img
                                       className="user-img"
-                                   src="assets/images/avatar.png"
+                                      src="assets/images/avatar.png"
                                       alt=""
                                     />
                                     <div>
@@ -294,7 +298,10 @@ export const AdminLeaderboard = () => {
                                     />
                                     <div>
                                       <h4>
-                                        {(items?.earn_points * 1).toFixed(4)}
+                                        {/* {(items?.earn_points * 1).toFixed(4)} */}
+                                        {new Intl.NumberFormat("en-US").format(
+                                          (items?.earn_points * 1).toFixed(4)
+                                        )}
                                       </h4>
                                       <p>Points</p>
                                     </div>
@@ -330,7 +337,7 @@ export const AdminLeaderboard = () => {
                                     </div>
                                     <img
                                       className="user-img"
-                                   src="assets/images/avatar.png"
+                                      src="assets/images/avatar.png"
                                       alt=""
                                     />
                                     <div>
@@ -357,7 +364,15 @@ export const AdminLeaderboard = () => {
                                     />
                                     <div>
                                       <h4>
-                                        {(items?.weekly_earn_points * 1).toFixed(4)}
+                                        {/* {(
+                                          items?.weekly_earn_points * 1
+                                        ).toFixed(4)} */}
+
+                                        {new Intl.NumberFormat("en-US").format(
+                                          (
+                                            items?.weekly_earn_points * 1
+                                          ).toFixed(4)
+                                        )}
                                       </h4>
                                       <p>Points</p>
                                     </div>

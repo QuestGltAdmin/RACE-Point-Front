@@ -6,6 +6,7 @@ import axiosMain from "../../http/axios/axios_main";
 import useAuth from "../../hooks/useAuth";
 import moment from "moment/moment";
 import ExportEXCEL from "../../Components/ExportToExcel";
+import { IphoneSpinner } from "../../Components/IphoneSpinner";
 
 export const Adminearnpoint = () => {
   //==================================Global Variable================================//
@@ -22,6 +23,7 @@ export const Adminearnpoint = () => {
   const [endDateExport, setEndDateExport] = useState("");
   const [show, setShow] = useState(false);
   const [showExportData, setShowExportData] = useState([]);
+  const [checkForData, setCheckForData] = useState(0);
   const [disableData, setDisableData] = useState(false);
   const handleClose = () => {
     setDisableData(false);
@@ -89,6 +91,8 @@ export const Adminearnpoint = () => {
       date_to: endDate,
     };
     try {
+      setCheckForData(0);
+
       const getResAll = await axiosMain.post(
         `/admin/all-user-income?page=${pageNumberTrxAll}&limit=10&search=${searchTrxAll}`,
         payload,
@@ -99,12 +103,21 @@ export const Adminearnpoint = () => {
           },
         }
       );
-      // console.log(getResAll);
       if (getResAll?.data?.status) {
-        setShowDataTrxAll(getResAll?.data?.data?.list);
-        setTotalOrderCountTrxAll(getResAll?.data?.data?.totalRecords[0]?.count);
+        if (getResAll?.data?.data?.list?.length > 0) {
+          setCheckForData(2);
+
+          setShowDataTrxAll(getResAll?.data?.data?.list);
+          setTotalOrderCountTrxAll(
+            getResAll?.data?.data?.totalRecords[0]?.count
+          );
+        } else {
+          setCheckForData(1);
+        }
       }
-    } catch (err) {}
+    } catch (err) {
+      setCheckForData(1);
+    }
   };
   //==================================End of code================================//
 
@@ -198,7 +211,14 @@ export const Adminearnpoint = () => {
                           </div>
                         </div>
                         <div className="tbody">
-                          {showDataTrxAll?.length > 0 &&
+                          {checkForData === 0 ? (
+                            <p className="text-center">
+                              <IphoneSpinner />
+                            </p>
+                          ) : checkForData === 1 ? (
+                            <p className="text-center">No Data Found</p>
+                          ) : (
+                            showDataTrxAll?.length > 0 &&
                             showDataTrxAll?.map((items, index) => {
                               return (
                                 <div>
@@ -225,19 +245,28 @@ export const Adminearnpoint = () => {
                                     <span class="mobile-only">
                                       Base Earn Points -{" "}
                                     </span>{" "}
-                                    {(items?.base_earn_points * 1).toFixed(4)}
+                                    {/* {(items?.base_earn_points * 1).toFixed(4)} */}
+                                    {new Intl.NumberFormat("en-US").format(
+                                      (items?.base_earn_points * 1).toFixed(4)
+                                    )}
                                   </p>
                                   <p>
                                     <span class="mobile-only">
                                       Layer Earn Points -{" "}
                                     </span>
-                                    {(items?.layer_earn_points * 1).toFixed(4)}
+                                    {/* {(items?.layer_earn_points * 1).toFixed(4)} */}
+                                    {new Intl.NumberFormat("en-US").format(
+                                      (items?.layer_earn_points * 1).toFixed(4)
+                                    )}
                                   </p>
                                   <p>
                                     <span class="mobile-only">
                                       Total Earn Points -{" "}
                                     </span>
-                                    {(items?.total_earn_points * 1).toFixed(4)}
+                                    {/* {(items?.total_earn_points * 1).toFixed(4)} */}
+                                    {new Intl.NumberFormat("en-US").format(
+                                      (items?.total_earn_points * 1).toFixed(4)
+                                    )}
                                   </p>
                                   <p>
                                     <span class="mobile-only">Date - </span>
@@ -246,79 +275,16 @@ export const Adminearnpoint = () => {
                                   </p>
                                 </div>
                               );
-                            })}
-                          {/* <div>
-                            <p>2</p>
-                            <p>
-                              <span class="mobile-only">Name - </span>{" "}
-                              <big>
-                                <b>Name</b>
-                              </big>{" "}
-                              <br /> RTY3455g....g4hkgk
-                            </p>
-                            <p>
-                              <span class="mobile-only">
-                                Base Earn Points -{" "}
-                              </span>{" "}
-                              23
-                            </p>
-                            <p>
-                              <span class="mobile-only">
-                                Layer Earn Points -{" "}
-                              </span>
-                              46
-                            </p>
-                            <p>
-                              <span class="mobile-only">
-                                Total Earn Points -{" "}
-                              </span>
-                              24
-                            </p>
-                            <p>
-                              <span class="mobile-only">Date - </span>
-                              22/07/2024
-                            </p>
-                          </div>
-                          <div>
-                            <p>3</p>
-                            <p>
-                              <span class="mobile-only">Name - </span>{" "}
-                              <big>
-                                <b>Name</b>
-                              </big>{" "}
-                              <br /> RTY3455g....g4hkgk
-                            </p>
-                            <p>
-                              <span class="mobile-only">
-                                Base Earn Points -{" "}
-                              </span>{" "}
-                              23
-                            </p>
-                            <p>
-                              <span class="mobile-only">
-                                Layer Earn Points -{" "}
-                              </span>
-                              46
-                            </p>
-                            <p>
-                              <span class="mobile-only">
-                                Total Earn Points -{" "}
-                              </span>
-                              24
-                            </p>
-                            <p>
-                              <span class="mobile-only">Date - </span>
-                              22/07/2024
-                            </p>
-                          </div> */}
+                            })
+                          )}
                         </div>
                       </div>
 
-                      {showDataTrxAll?.length <= 0 && (
+                      {/* {showDataTrxAll?.length <= 0 && (
                         <div>
                           <p className="text-center">No Data Found</p>
                         </div>
-                      )}
+                      )} */}
                       <div className="d-flex justify-content-end">
                         {showDataTrxAll?.length > 0 ? (
                           <div className="d-flex justify-content-center paginate-register">

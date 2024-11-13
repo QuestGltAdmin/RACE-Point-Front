@@ -22,6 +22,7 @@ import { isLogin, userWalletLogin } from "../store/reducers/authReducer";
 import axios from "axios";
 import { LandingPageHeader } from "../Components/LandingPageHeader";
 import { resolveENSName } from "../helpers/ENSname";
+import { IphoneSpinner } from "../Components/IphoneSpinner";
 
 //================================================== All the juridictions restricted countries ===================================
 {
@@ -310,14 +311,21 @@ const Landing = () => {
   //================================= Get the leaderboeard data API ==============================================
   const getleaderboardData = async () => {
     try {
+      setLoading(true);
+
       const response = await axiosMain.get("/auth/get-leaderboard-deatils");
-      // console.log(response);
-      setTopDeposits(response.data.topDeposits); // Set the topDeposits state
-      setTopReferrals(response.data.topReferrals);
-      setMonthlyTopUser(response.data.monthlyTopUser);
-      setQuarterlyTopUser(response.data.weeklyTopUser);
-      setAllTopUser(response.data.allTopUser);
+      if (response?.data?.status) {
+        setLoading(false);
+
+        setTopDeposits(response.data.topDeposits);
+        setTopReferrals(response.data.topReferrals);
+        setMonthlyTopUser(response.data.monthlyTopUser);
+        setQuarterlyTopUser(response.data.weeklyTopUser);
+        setAllTopUser(response.data.allTopUser);
+      }
     } catch (err) {
+      setLoading(false);
+
       console.error("Error fetching leaderboard data:", err);
     }
   };
@@ -529,30 +537,48 @@ const Landing = () => {
               <div className="top-deposit-box for-min-height">
                 <h4 className="sub-heading text-start">Top Deposits</h4>
                 <Row>
-                  {topDeposits.map((deposit, index) => (
-                    <Col lg={6} md={6} sm={6} xs={6}>
-                      <div className="inner-user-box">
-                        <div className="user-img">
-                          <img src="assets/images/avatar.png" alt="" />
-                        </div>
-                        <h4>{`${deposit.wallet_address.slice(
-                          0,
-                          5
-                        )}...${deposit.wallet_address.slice(-5)}`}</h4>
-                        <p>{deposit.ENS_name ? deposit.ENS_name : "-"}</p>{" "}
-                        <h3>
-                          <b>
-                            {deposit.currency}
-                            {/* {deposit.deposit.toFixed(4)} */}
-                            {new Intl.NumberFormat("en-US").format(
-                              deposit.deposit.toFixed(4)
-                            )}
-                          </b>{" "}
-                          Deposited
-                        </h3>
-                      </div>
-                    </Col>
-                  ))}
+                  {loading ? (
+                    <>
+                      <p className="text-center">
+                        <IphoneSpinner />
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      {topDeposits?.length > 0 ? (
+                        topDeposits?.map((deposit, index) => {
+                          return (
+                            <Col lg={6} md={6} sm={6} xs={6}>
+                              <div className="inner-user-box">
+                                <div className="user-img">
+                                  <img src="assets/images/avatar.png" alt="" />
+                                </div>
+                                <h4>{`${deposit.wallet_address.slice(
+                                  0,
+                                  5
+                                )}...${deposit.wallet_address.slice(-5)}`}</h4>
+                                <p>
+                                  {deposit.ENS_name ? deposit.ENS_name : "-"}
+                                </p>{" "}
+                                <h3>
+                                  <b>
+                                    {deposit.currency}
+                                    {/* {deposit.deposit.toFixed(4)} */}
+                                    {new Intl.NumberFormat("en-US").format(
+                                      deposit.deposit.toFixed(4)
+                                    )}
+                                  </b>{" "}
+                                  Deposited
+                                </h3>
+                              </div>
+                            </Col>
+                          );
+                        })
+                      ) : (
+                        <p className="text-center">No Data Found</p>
+                      )}
+                    </>
+                  )}
                 </Row>
               </div>
             </Col>
@@ -563,39 +589,56 @@ const Landing = () => {
               <div className="top-deposit-box for-min-height">
                 <h4 className="sub-heading text-start">Top Referrals</h4>
                 <Row>
-                  {topReferrals.map((refer, index) => (
-                    <Col lg={4} md={4} sm={6} xs={6}>
-                      <div className="inner-user-box top-referrals">
-                        <div className="user-img">
-                          <img src="assets/images/avatar.png" alt="" />
-                        </div>
-                        <h4>{`${refer.wallet_address.slice(
-                          0,
-                          5
-                        )}...${refer.wallet_address.slice(-5)}`}</h4>
-                        <p>{refer.ENS_name ? refer.ENS_name : "-"}</p>{" "}
-                        <div className="referral-point">
-                          <h3>
-                            <img src="assets/img/referal.png" alt="" />{" "}
-                            <b>{refer.referral_count}</b> <span>Referrals</span>
-                          </h3>
-                          <h3>
-                            <img src="assets/img/trophy.png" alt="" />{" "}
-                            <div>
-                              {/* <b>{refer.earn_points.toFixed(2)}</b>{" "} */}
-                              <b>
-                                {" "}
-                                {new Intl.NumberFormat("en-US").format(
-                                  refer.earn_points.toFixed(2)
-                                )}
-                              </b>
-                              <span>Points</span>
-                            </div>
-                          </h3>
-                        </div>
-                      </div>
-                    </Col>
-                  ))}
+                  {loading ? (
+                    <>
+                      <p className="text-center">
+                        <IphoneSpinner />
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      {topReferrals?.length > 0 ? (
+                        topReferrals?.map((refer, index) => {
+                          return (
+                            <Col lg={4} md={4} sm={6} xs={6}>
+                              <div className="inner-user-box top-referrals">
+                                <div className="user-img">
+                                  <img src="assets/images/avatar.png" alt="" />
+                                </div>
+                                <h4>{`${refer.wallet_address.slice(
+                                  0,
+                                  5
+                                )}...${refer.wallet_address.slice(-5)}`}</h4>
+                                <p>{refer.ENS_name ? refer.ENS_name : "-"}</p>{" "}
+                                <div className="referral-point">
+                                  <h3>
+                                    <img src="assets/img/referal.png" alt="" />{" "}
+                                    <b>{refer.referral_count}</b>{" "}
+                                    <span>Referrals</span>
+                                  </h3>
+                                  <h3>
+                                    <img src="assets/img/trophy.png" alt="" />{" "}
+                                    <div>
+                                      {/* <b>{refer.earn_points.toFixed(2)}</b>{" "} */}
+                                      <b>
+                                        {" "}
+                                        {new Intl.NumberFormat("en-US").format(
+                                          refer.earn_points.toFixed(2)
+                                        )}
+                                      </b>
+                                      <span>Points</span>
+                                    </div>
+                                  </h3>
+                                </div>
+                              </div>
+                            </Col>
+                          );
+                        })
+                      ) : (
+                        <p className="text-center">No Data Found</p>
+                      )}
+                    </>
+                  )}
                 </Row>
               </div>
             </Col>

@@ -20,7 +20,6 @@ const UserLeaderboard = () => {
   const getDashboardData = async () => {
     try {
       setLoading(true);
-
       const getData = await axiosMain.get("/auth/get-leaderboard-deatils", {
         headers: {
           "Content-Type": "application/json",

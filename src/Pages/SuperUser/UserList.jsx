@@ -235,19 +235,11 @@ const UserList = () => {
                         </div>
                         <div className="tbody">
                           {checkForData === 0 ? (
-                            <tr>
-                              <td colSpan={8}>
-                                <p className="text-center">
-                                  <IphoneSpinner />
-                                </p>
-                              </td>
-                            </tr>
+                            <p className="text-center">
+                              <IphoneSpinner />
+                            </p>
                           ) : checkForData === 1 ? (
-                            <tr>
-                              <td>
-                                <p className="text-center">No Data Found</p>
-                              </td>
-                            </tr>
+                            <p className="text-center">No Data Found</p>
                           ) : (
                             showDataTrxAll?.length > 0 &&
                             showDataTrxAll?.map((items, index) => {
@@ -605,11 +597,17 @@ const UserList = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Deposit - </span>
-                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                            {/* {(items?.user_id?.deposit * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.deposit * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Earn Points - </span>
-                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                            {/* {(items?.user_id?.earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.earn_points * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
@@ -645,11 +643,17 @@ const UserList = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Deposit - </span>
-                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                            {/* {(items?.user_id?.deposit * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.deposit * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Earn Points - </span>
-                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                            {/* {(items?.user_id?.earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.earn_points).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
@@ -685,11 +689,17 @@ const UserList = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Deposit - </span>
-                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                            {/* {(items?.user_id?.deposit * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.deposit * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Earn Points - </span>
-                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                            {/* {(items?.user_id?.earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.earn_points * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
@@ -725,11 +735,17 @@ const UserList = () => {
                           </p>
                           <p>
                             <span class="mobile-only">Deposit - </span>
-                            {(items?.user_id?.deposit * 1).toFixed(4)}
+                            {/* {(items?.user_id?.deposit * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.deposit * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Earn Points - </span>
-                            {(items?.user_id?.earn_points * 1).toFixed(4)}
+                            {/* {(items?.user_id?.earn_points * 1).toFixed(4)} */}
+                            {new Intl.NumberFormat("en-US").format(
+                              (items?.user_id?.earn_points * 1).toFixed(4)
+                            )}
                           </p>
                           <p>
                             <span class="mobile-only">Joining Date - </span>
