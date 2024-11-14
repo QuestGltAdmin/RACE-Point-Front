@@ -128,7 +128,7 @@ const AdminAddActivity = () => {
             <Row>
               <Col lg={12}>
                 <div className="dashboard-white-box">
-                  <div className="d-flex">
+                  <div className="d-flex justify-content-between">
                     <h2 className="inner-page-heading mb-2">Add Activity</h2>
                     <button
                       className="common-btn mt-2"

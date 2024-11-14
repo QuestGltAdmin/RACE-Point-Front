@@ -2017,8 +2017,9 @@ margin-bottom: 0;
 /* activities page css */
 .deposit-outer-box {
     border-radius: 24px;
-    background: rgba(4, 29, 49, 0.60);
-    backdrop-filter: blur(12.5px);
+    /* background: rgba(4, 29, 49, 0.60); */
+    background: #041928;
+    /* backdrop-filter: blur(12.5px); */
     padding: 24px;
     margin: 30px 0;
     display: flex;
@@ -2046,7 +2047,7 @@ margin-bottom: 0;
     letter-spacing: -0.25px;
     margin-bottom: 0.5rem;
 }
-.deposit-outer-box .deposit-inner-box h5{
+.deposit-outer-box .deposit-inner-box h5.idex-new{
 border-radius: 14px;
 background: var(--Palette-Teal-600, #06487E);
 backdrop-filter: blur(12.5px);
@@ -2056,6 +2057,37 @@ font-weight: 400;
 color: #C3DDFD;
 line-height: 20px;
 max-width: max-content;
+}
+.deposit-outer-box .deposit-inner-box h5.info-deposit-new {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 20px;
+    max-width: max-content;
+    position: absolute;
+    right: 28px;
+    top: 0;
+}
+.deposit-outer-box .deposit-inner-box h5 .info-tooltip {
+    margin-left: 5px;
+    position: absolute;
+    top: -5px;
+}
+.deposit-outer-box .deposit-inner-box h5 .info-tooltip img.info-icon {
+    height: 10px;
+    width: 10px;
+}
+.deposit-outer-box .deposit-inner-box {
+    position: relative;
+    padding: 22px 0;
+}
+
+.deposit-outer-box .desc-box .info-tooltip{
+    margin-left: 3px;
+}
+.deposit-outer-box .desc-box .info-tooltip img.info-icon {
+    height: 12px;
+    width: 12px;
 }
 .deposit-outer-box .common-btn.bg-left {
     min-width: 34%;

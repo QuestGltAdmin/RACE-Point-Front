@@ -340,7 +340,8 @@ export const Activities = () => {
                               <div className="deposit-inner-box">
                                 <img src="assets/images/invite.png" alt="" />
                                 <div>
-                                  <h5>
+                                  <h5 className="info-deposit-new">
+                                    
                                     {items?.multiplier}{" "}
                                     <span className="info-tooltip">
                                       <img
@@ -359,14 +360,14 @@ export const Activities = () => {
                                   </h5>
                                   <h3>{items?.type}</h3>{" "}
                                   {items?.end_date ? (
-                                    <h5>{timeRemaining[index]}</h5>
+                                    <h5 className="idex-new">{timeRemaining[index]}</h5>
                                   ) : (
                                     ""
                                   )}
                                 </div>
                               </div>
                               <div>
-                                <p>
+                                <p className="text-center desc-box">
                                   {items?.title}{" "}
                                   <span className="info-tooltip">
                                     <img
