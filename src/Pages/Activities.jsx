@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Header } from "../Components/Header";
-import { Col, Container, Modal, Row, Tab, Tabs } from "react-bootstrap";
+import { Button, Col, Container, Modal, Row, Tab, Tabs } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
@@ -28,6 +28,9 @@ export const Activities = () => {
   const [activitydata, setActivityData] = useState([]);
   const [showShareSocial, setShowShareSocial] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
+  const [depositmodal, setDepositModal] = useState(false);
+  const [socialmodal, setSocialModal] = useState(false);
+  const [refermodal, setReferModal] = useState(false);
   const [codeShare, setCodeShare] = useState("");
   const [iframelink, setIframeLink] = useState("");
   const [allTopUser, setAllTopUser] = useState([]);
@@ -78,15 +81,26 @@ export const Activities = () => {
   const handleCloseModals = () => {
     setShowReferralCodesModal(false);
   };
-
+  const handledepositmodalclose = () => {
+    setDepositModal(false);
+  };
+  const handlesocialmodalclose = () => {
+    setSocialModal(false);
+  };
+  const handlerefermodalclose = () => {
+    setReferModal(false);
+  };
+  
   const HandleIframes = (items) => {
     if (items?.type == "Refer") {
-      setShowReferralCodesModal(true);
+      // setShowReferralCodesModal(true);
+      setReferModal(true)
     } else if (items?.type == "Social_Media") {
       setIframeLink(items?.link);
-      setShowIframe(true);
+      // setShowIframe(true);
+      setSocialModal(true)
     } else if (items?.type == "Deposit") {
-      navigate("/deposit-step-1");
+      setDepositModal(true);
     }
   };
 
@@ -360,14 +374,14 @@ export const Activities = () => {
                                   </h5>
                                   <h3>{items?.type}</h3>{" "}
                                   {items?.end_date ? (
-                                    <h5 className="idex-new">{timeRemaining[index]}</h5>
+                                    <h5  className="idex-new">{timeRemaining[index]}</h5>
                                   ) : (
                                     ""
                                   )}
                                 </div>
                               </div>
                               <div>
-                                <p className="text-center desc-box">
+                                <p className="text-center desc">
                                   {items?.title}{" "}
                                   <span className="info-tooltip">
                                     <img
@@ -401,12 +415,12 @@ export const Activities = () => {
                                   alt=""
                                 />
                                 <div>
-                                  <h5>Multiplier</h5>
-                                  <h3>XXXX</h3> <h5># days left</h5>
+                                  <h5 className="info-deposit-new">Multiplier</h5>
+                                  <h3 >XXXX</h3> <h5 className="idex-new"># days left</h5>
                                 </div>
                               </div>
                               <div className="coming-soon-box">
-                                <p>{items?.title}</p>
+                                <p className="text-center desc">{items?.title}</p>
                                 <button className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon">
                                   Start
                                 </button>
@@ -807,15 +821,126 @@ export const Activities = () => {
         <Modal.Body>
           <div>
             <iframe
-              src={iframelink}
-              // src="https://sweepwidget.com/c/85960-ksa3hjty"
-              // src="https://sweepwidget.com/c/85960-ksa3hjty?data-walletaddress=avfdfgfh"
+              // src={iframelink}
+              src="https://sweepwidget.com/c/85960-ksa3hjty?data-name=harshal&data-email=test.user@example.com&data-wallet-address=0x7E1f02Ecb7616a15F3891C7e0365e56C5f6c3A16&data-auto-login=0"
+              // src="https://sweepwidget.com/c/438-tu2zjsh4?data-name=harshal&data-email=test.user@example.com&data-auto-login=0"
               width="100%"
               height="910px"
               frameBorder="0"
               allowFullScreen
               style={{ border: "none" }}
             ></iframe>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        className="new-user-modal"
+        centered
+        show={depositmodal}
+        onHide={handledepositmodalclose}
+        size="md"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Deposit</h4>
+            <p>Please select to continue</p>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  handledepositmodalclose();
+                }}
+              >
+                Back
+              </Button>{" "}
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  navigate("/deposit-step-1")
+                }}
+              >
+                Continue
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        className="new-user-modal"
+        centered
+        show={socialmodal}
+        onHide={handlesocialmodalclose}
+        size="md"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Social</h4>
+            <p>Please select to continue</p>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  handlesocialmodalclose();
+                }}
+              >
+                Back
+              </Button>{" "}
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowIframe(true)
+                  handlesocialmodalclose();
+                }}
+              >
+                Continue
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+
+      <Modal
+        className="new-user-modal"
+        centered
+        show={refermodal}
+        onHide={handlerefermodalclose}
+        size="md"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Refer</h4>
+            <p>Please select to continue</p>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  handlerefermodalclose();
+                }}
+              >
+                Back
+              </Button>{" "}
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setShowReferralCodesModal(true)
+                  handlerefermodalclose();
+                }}
+              >
+                Continue
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>

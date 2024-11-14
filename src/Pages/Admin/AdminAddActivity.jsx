@@ -246,11 +246,11 @@ const AdminAddActivity = () => {
                           <Col md={6}>
                             <Form.Group controlId="min_deposit">
                               <Form.Label className="formlabel">
-                                Minimum deposite :
+                                Minimum deposit :
                               </Form.Label>
                               <Form.Control
                                 type="number"
-                                placeholder="Enter deposite"
+                                placeholder="Enter deposit"
                                 name="min_deposit"
                                 onChange={HandleData}
                                 value={inputValue.min_deposit}
