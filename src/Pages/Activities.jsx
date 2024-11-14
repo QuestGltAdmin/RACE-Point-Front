@@ -340,7 +340,23 @@ export const Activities = () => {
                               <div className="deposit-inner-box">
                                 <img src="assets/images/invite.png" alt="" />
                                 <div>
-                                  <h5>{items?.multiplier}</h5>
+                                  <h5>
+                                    {items?.multiplier}{" "}
+                                    <span className="info-tooltip">
+                                      <img
+                                        src="assets/img/infor2.png"
+                                        className="info-icon"
+                                        alt=""
+                                      />
+                                      <div>
+                                        <p>
+                                          This is where you can see the total
+                                          amount of money you've deposited. It’s
+                                          your personal vault that
+                                        </p>
+                                      </div>
+                                    </span>
+                                  </h5>
                                   <h3>{items?.type}</h3>{" "}
                                   {items?.end_date ? (
                                     <h5>{timeRemaining[index]}</h5>
@@ -350,7 +366,22 @@ export const Activities = () => {
                                 </div>
                               </div>
                               <div>
-                                <p>{items?.title}</p>
+                                <p>
+                                  {items?.title}{" "}
+                                  <span className="info-tooltip">
+                                    <img
+                                      src="assets/img/infor2.png"
+                                      className="info-icon"
+                                      alt=""
+                                    />
+                                    <div>
+                                      <p>
+                                        This is where you can see the total
+                                        amount of money you've deposited.
+                                      </p>
+                                    </div>
+                                  </span>
+                                </p>
                                 <button
                                   className="common-btn bg-left w-100 mt-3"
                                   onClick={() => {
@@ -687,7 +718,9 @@ export const Activities = () => {
                 <div className="referal-copy-row" key={index}>
                   {items?.is_used ? (
                     <>
-                    <div style={{ cursor: "not-allowed", userSelect: "none" }}>
+                      <div
+                        style={{ cursor: "not-allowed", userSelect: "none" }}
+                      >
                         <span>{index + 1}</span>
                         {items.code}
                       </div>
