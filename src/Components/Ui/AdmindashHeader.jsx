@@ -111,13 +111,13 @@ export const AdmindashHeader = () => {
                       >
                         <i className="fa fa-exchange"></i>VAULT LIST
                       </Nav.Link>
-                      {/* <Nav.Link
+                      <Nav.Link
                         onClick={() => {
                           navigate("/main-activity");
                         }}
                       >
                         <i className="fa fa-exchange"></i>ACTIVITY
-                      </Nav.Link> */}
+                      </Nav.Link>
                         <Nav.Link
                         onClick={() => {
                           navigate("/main-add-manager");

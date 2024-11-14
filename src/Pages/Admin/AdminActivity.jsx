@@ -6,6 +6,7 @@ import axiosMain from "../../http/axios/axios_main";
 import useAuth from "../../hooks/useAuth";
 import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
+import { IphoneSpinner } from "../../Components/IphoneSpinner";
 
 const AdminActivity = () => {
   //==================================Global Variable================================//
@@ -19,11 +20,15 @@ const AdminActivity = () => {
   const [searchall, setSearchall] = useState("");
   const [totaldatacount, setTotalDataCount] = useState(1);
   const [showdata, setShowData] = useState([]);
+  const [checkForData, setCheckForData] = useState(0);
+
   //==================================End of code================================//
 
   //==============================Get Data All Trx==============================//
   const getdata = async (pagenumber, searchall) => {
     try {
+      setCheckForData(0);
+
       const getResAll = await axiosMain.get(
         `/admin/get-all-activity?page=${pagenumber}&limit=10&search=${searchall}`,
 
@@ -35,11 +40,17 @@ const AdminActivity = () => {
         }
       );
       if (getResAll?.data?.status) {
-        setShowData(getResAll?.data?.data?.list);
-        setTotalDataCount(getResAll?.data?.data?.totalRecords[0]?.count);
+        if (getResAll?.data?.data?.list?.length > 0) {
+          setCheckForData(2);
+
+          setShowData(getResAll?.data?.data?.list);
+          setTotalDataCount(getResAll?.data?.data?.totalRecords[0]?.count);
+        } else {
+          setCheckForData(1);
+        }
       }
     } catch (err) {
-      console.log(err, "err");
+      setCheckForData(1);
     }
   };
   //==================================End of code================================//
@@ -61,7 +72,6 @@ const AdminActivity = () => {
   }, [pagenumber, searchall]);
 
   //==============================Get Data All Trx==============================//
-  console.log(showdata, "showdata");
 
   return (
     <>
@@ -100,127 +110,147 @@ const AdminActivity = () => {
                             </a>
                           </InputGroup.Text>
                         </InputGroup>
-                      </div>
-                      <div className="table-view-transaction">
-                        <div className="thead">
-                          <div>
-                            <p>S. no</p>
-                            <p>Title</p>
-                            <p>Activity Id</p>
-                            <p>Multiplier</p>
-                            <p>Type</p>
-                            <p>Min. Deposite</p>
-                            <p>Link</p>
-                            <p>Chain</p>
-                            <p>Start Date</p>
-                            <p>End Date</p>
-                          </div>
-                        </div>
-                        <div className="tbody">
-                          {showdata?.length > 0 &&
-                            showdata?.map((items, index) => {
-                              const adjustedIndex =
-                                index + 1 + (pagenumber - 1) * 10;
-                              return (
-                                <div key={adjustedIndex}>
-                                  <p>{adjustedIndex}</p>{" "}
-                                  <p>
-                                    <span class="mobile-only">Title - </span>{" "}
-                                    {items?.title ? items?.title : "-"}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Activity ID -{" "}
-                                    </span>{" "}
-                                    {items?.activity_id
-                                      ? items?.activity_id
-                                      : "-"}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">Multiplier</span>
-                                    {items?.multiplier}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">Type</span>
-                                    {items?.type}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">
-                                      Min. Deposite
-                                    </span>
-                                    {items?.min_deposit
-                                      ? items?.min_deposit
-                                      : "-"}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">Link</span>
-                                    {items?.link ? items?.link : "-"}
-                                  </p>
-                                  <p>
-                                    <span className="mobile-only">Link</span>
-                                    {items?.deposit_chain
-                                      ? items.deposit_chain.map(
-                                          (item, index) => (
-                                            <div key={index}>{item.chain}</div>
-                                          )
-                                        )
-                                      : "-"}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">Start Date</span>
-                                    {moment
-                                      .utc(items?.start_date)
-                                      .format("YYYY-MM-DD")}
-                                  </p>
-                                  <p>
-                                    <span class="mobile-only">End Date</span>
-                                    {items?.end_date
-                                      ? moment
-                                          .utc(items?.end_date)
-                                          .format("YYYY-MM-DD")
-                                      : "-"}
-                                  </p>
-                                </div>
-                              );
-                            })}
-                        </div>
-                      </div>
+                      </div>{" "}
+                      {checkForData === 0 ? (
+                        <p className="text-center">
+                          <IphoneSpinner />
+                        </p>
+                      ) : checkForData === 1 ? (
+                        <p className="text-center">No Data Found</p>
+                      ) : (
+                        <>
+                          <div className="table-view-transaction">
+                            <div className="thead">
+                              <div>
+                                <p>S. no</p>
+                                <p>Title</p>
+                                <p>Activity Id</p>
+                                <p>Multiplier</p>
+                                <p>Type</p>
+                                <p>Min. Deposite</p>
+                                <p>Link</p>
+                                <p>Chain</p>
+                                <p>Start Date</p>
+                                <p>End Date</p>
+                              </div>
+                            </div>
+                            <div className="tbody">
+                              {showdata?.length > 0 &&
+                                showdata?.map((items, index) => {
+                                  const adjustedIndex =
+                                    index + 1 + (pagenumber - 1) * 10;
+                                  return (
+                                    <div key={adjustedIndex}>
+                                      <p>{adjustedIndex}</p>{" "}
+                                      <p>
+                                        <span class="mobile-only">
+                                          Title -{" "}
+                                        </span>{" "}
+                                        {items?.title ? items?.title : "-"}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Activity ID -{" "}
+                                        </span>{" "}
+                                        {items?.activity_id
+                                          ? items?.activity_id
+                                          : "-"}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Multiplier
+                                        </span>
+                                        {items?.multiplier}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">Type</span>
+                                        {items?.type}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Min. Deposite
+                                        </span>
 
-                      {showdata?.length <= 0 && (
-                        <div>
-                          <p className="text-center">No Data Found</p>
-                        </div>
-                      )}
-                      <div className="d-flex justify-content-end">
-                        {showdata?.length > 0 ? (
-                          <div className="d-flex justify-content-center paginate-register">
-                            <div className="d-flex align-items-center">
-                              <button
-                                className="common-btn"
-                                onClick={() => {
-                                  decressFunction();
-                                }}
-                              >
-                                <i className="fa fa-angle-left"></i>
-                              </button>
-                              <button className="common-btn m-2">
-                                Page {pagenumber} of{" "}
-                                {Math.ceil(totaldatacount / 10)}
-                              </button>
-                              <button
-                                className="common-btn"
-                                onClick={() => {
-                                  incressFunction();
-                                }}
-                              >
-                                <i className="fa fa-angle-right"></i>
-                              </button>
+                                        {items?.min_deposit
+                                          ? new Intl.NumberFormat(
+                                              "en-US"
+                                            ).format(items?.min_deposit)
+                                          : "-"}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">Link</span>
+                                        {items?.link ? items?.link : "-"}
+                                      </p>
+                                      <p>
+                                        <span className="mobile-only">
+                                          Link
+                                        </span>
+                                        {items?.deposit_chain
+                                          ? items.deposit_chain.map(
+                                              (item, index) => (
+                                                <div key={index}>
+                                                  {item.chain}
+                                                </div>
+                                              )
+                                            )
+                                          : "-"}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          Start Date
+                                        </span>
+                                        {moment
+                                          .utc(items?.start_date)
+                                          .format("lll")}
+                                      </p>
+                                      <p>
+                                        <span class="mobile-only">
+                                          End Date
+                                        </span>
+                                        {items?.end_date
+                                          ? moment
+                                              .utc(items?.end_date)
+                                              .format("lll")
+                                          : "-"}
+                                      </p>
+                                    </div>
+                                  );
+                                })}
                             </div>
                           </div>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
+
+                          <div className="d-flex justify-content-end">
+                            {showdata?.length > 0 ? (
+                              <div className="d-flex justify-content-center paginate-register">
+                                <div className="d-flex align-items-center">
+                                  <button
+                                    className="common-btn"
+                                    onClick={() => {
+                                      decressFunction();
+                                    }}
+                                  >
+                                    <i className="fa fa-angle-left"></i>
+                                  </button>
+                                  <button className="common-btn m-2">
+                                    Page {pagenumber} of{" "}
+                                    {Math.ceil(totaldatacount / 10)}
+                                  </button>
+                                  <button
+                                    className="common-btn"
+                                    onClick={() => {
+                                      incressFunction();
+                                    }}
+                                  >
+                                    <i className="fa fa-angle-right"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

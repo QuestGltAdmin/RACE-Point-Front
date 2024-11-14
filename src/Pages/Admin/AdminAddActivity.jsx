@@ -128,7 +128,17 @@ const AdminAddActivity = () => {
             <Row>
               <Col lg={12}>
                 <div className="dashboard-white-box">
-                  <h2 className="inner-page-heading mb-2">Add Activity</h2>
+                  <div className="d-flex">
+                    <h2 className="inner-page-heading mb-2">Add Activity</h2>
+                    <button
+                      className="common-btn mt-2"
+                      onClick={() => {
+                        navigate("/main-activity");
+                      }}
+                    >
+                      Back
+                    </button>
+                  </div>
                   <div className="table-box-new shadow-box-main">
                     <Row>
                       <Col md={6}>
@@ -290,7 +300,7 @@ const AdminAddActivity = () => {
                       <p className="text-danger mt-3">{formerror}</p>
                     )}
                     <button
-                      className="common-btn mt-2"
+                      className="common-btn mt-4"
                       disabled={disable}
                       onClick={() => {
                         AddActivity();

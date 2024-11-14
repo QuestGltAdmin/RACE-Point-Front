@@ -25,9 +25,14 @@ export const Activities = () => {
   const [topReferrals, setTopReferrals] = useState([]);
   const [monthlyTopUser, setMonthlyTopUser] = useState([]);
   const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
+  const [activitydata, setActivityData] = useState([]);
   const [showShareSocial, setShowShareSocial] = useState(false);
+  const [showIframe, setShowIframe] = useState(false);
   const [codeShare, setCodeShare] = useState("");
+  const [iframelink, setIframeLink] = useState("");
   const [allTopUser, setAllTopUser] = useState([]);
+  console.log(iframelink, "iframelink");
+
   //================================End of code==============================//
 
   //================================Style for social share==============================//
@@ -67,10 +72,24 @@ export const Activities = () => {
   const handleShareSocial = () => {
     setShowShareSocial(false);
   };
-
+  const handleCloseIframe = () => {
+    setShowIframe(false);
+  };
   const handleCloseModals = () => {
     setShowReferralCodesModal(false);
   };
+
+  const HandleIframes = (items) => {
+    if (items?.type == "Refer") {
+      setShowReferralCodesModal(true);
+    } else if (items?.type == "Social_Media") {
+      setIframeLink(items?.link);
+      setShowIframe(true);
+    } else if (items?.type == "Deposit") {
+      navigate("/deposit-step-1");
+    }
+  };
+
   const handleShowReferralCodesModal = () => setShowReferralCodesModal(true);
 
   //===============get refferal data  api====================//
@@ -108,7 +127,7 @@ export const Activities = () => {
       if (getdata?.data?.status) {
         // setReferralCodes(getdata?.data?.data?.referral_codes);
       }
-    } catch (err) { }
+    } catch (err) {}
   };
   //===============End of code====================//
 
@@ -116,7 +135,6 @@ export const Activities = () => {
   const getleaderboardData = async () => {
     try {
       const response = await axiosMain.get("/auth/get-leaderboard-deatils");
-      // console.log(response);
       setTopDeposits(response.data.topDeposits); // Set the topDeposits state
       setTopReferrals(response.data.topReferrals);
       setMonthlyTopUser(response.data.monthlyTopUser);
@@ -149,6 +167,60 @@ export const Activities = () => {
   };
   //==================================End Of Code==================================//
 
+  //=================================get activity=================================//
+
+  useEffect(() => {
+    getDashboardData();
+  }, []);
+
+  const getDashboardData = async () => {
+    try {
+      const getData = await axiosMain.get(
+        "auth/get-activity-plan?page=1&limit=100"
+      );
+      if (getData?.data?.status) {
+        setActivityData(getData?.data?.data?.list);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //==================================End Of Code==================================//
+  const [timeRemaining, setTimeRemaining] = useState({});
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+      const updatedTimeRemaining = {};
+
+      activitydata.forEach((item, index) => {
+        const targetDate = new Date(item.end_date);
+        const now = new Date();
+        const timeDiff = targetDate - now;
+
+        if (timeDiff > 0) {
+          const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+          const minutes = Math.floor(
+            (timeDiff % (1000 * 60 * 60)) / (1000 * 60)
+          );
+
+          if (hours >= 24) {
+            const days = Math.floor(hours / 24);
+            updatedTimeRemaining[index] = `${days} days left`;
+          } else {
+            updatedTimeRemaining[
+              index
+            ] = `${hours} hours ${minutes} minutes left`;
+          }
+        } else {
+          updatedTimeRemaining[index] = "Expired";
+        }
+      });
+
+      setTimeRemaining(updatedTimeRemaining);
+    }, 1000);
+
+    return () => clearInterval(timerInterval);
+  }, [activitydata]);
+
   return (
     <>
       <Header />
@@ -158,7 +230,7 @@ export const Activities = () => {
             <Col md={11} className="m-auto">
               <h2 className="common-heading text-start mb-2">Activities</h2>
               <p className="sub-heading text-start">
-                Complete the activities below  and multiply your points .
+                Complete the activities below and multiply your points .
               </p>
 
               <div className="deposit-outer-box">
@@ -228,7 +300,7 @@ export const Activities = () => {
               </div> */}
 
               <Row>
-                <Col lg={4}>
+                {/* <Col lg={4}>
                   <div className="deposit-outer-box d-block">
                     <div className="invite-flex d-block">
                       <div className="deposit-inner-box">
@@ -255,8 +327,65 @@ export const Activities = () => {
                       </button>
                     </div>
                   </div>
-                </Col>
-                <Col lg={4}>
+                </Col> */}
+                {activitydata?.length > 0 &&
+                  activitydata?.map((items, index) => {
+                    const currentDate = new Date();
+                    const startDate = new Date(items?.start_date);
+                    return (
+                      <Col lg={4} key={index}>
+                        <div className="deposit-outer-box d-block">
+                          {startDate <= currentDate ? (
+                            <div className="invite-flex d-block">
+                              <div className="deposit-inner-box">
+                                <img src="assets/images/invite.png" alt="" />
+                                <div>
+                                  <h5>{items?.multiplier}</h5>
+                                  <h3>{items?.type}</h3>{" "}
+                                  {items?.end_date ? (
+                                    <h5>{timeRemaining[index]}</h5>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              </div>
+                              <div>
+                                <p>{items?.title}</p>
+                                <button
+                                  className="common-btn bg-left w-100 mt-3"
+                                  onClick={() => {
+                                    HandleIframes(items);
+                                  }}
+                                >
+                                  Start
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="invite-flex d-block">
+                              <div className="deposit-inner-box">
+                                <img
+                                  src="assets/images/coming-soon.png"
+                                  alt=""
+                                />
+                                <div>
+                                  <h5>Multiplier</h5>
+                                  <h3>XXXX</h3> <h5># days left</h5>
+                                </div>
+                              </div>
+                              <div className="coming-soon-box">
+                                <p>{items?.title}</p>
+                                <button className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon">
+                                  Start
+                                </button>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </Col>
+                    );
+                  })}
+                {/* <Col lg={4}>
                   <div className="deposit-outer-box d-block">
                     <div className="invite-flex d-block">
                       <div className="deposit-inner-box">
@@ -277,29 +406,7 @@ export const Activities = () => {
                       </button>
                     </div>
                   </div>
-                </Col>
-                <Col lg={4}>
-                  <div className="deposit-outer-box d-block">
-                    <div className="invite-flex d-block">
-                      <div className="deposit-inner-box">
-                        <img src="assets/images/coming-soon.png" alt="" />
-                        <div>
-                          <h3>Coming Soon</h3>
-                        </div>
-                      </div>
-                      <div className="coming-soon-box">
-                        <p>
-                          Invite your friends to join the race and earn more
-                          points!
-                        </p>
-                      </div>
-                      <button className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon">
-                        <img src="assets/images/share.png" alt="" />
-                        Invite now
-                      </button>
-                    </div>
-                  </div>
-                </Col>
+                </Col> */}
               </Row>
             </Col>
           </Row>
@@ -572,37 +679,37 @@ export const Activities = () => {
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-        <div>
+          <div>
             <img src="assets/img/Logo.png" alt="" className="img-fluid logo" />
             <p>Here are your referral codes</p>
             <div className="more-scroll">
-            {referralCodes?.map((items, index) => (
-              <div className="referal-copy-row" key={index}>
-                {items?.is_used ? (
-                  <>
+              {referralCodes?.map((items, index) => (
+                <div className="referal-copy-row" key={index}>
+                  {items?.is_used ? (
+                    <>
                     <div style={{ cursor: "not-allowed", userSelect: "none" }}>
-                      <span>{index + 1}</span>
-                      {items.code}
-                    </div>
+                        <span>{index + 1}</span>
+                        {items.code}
+                      </div>
 
-                    <a href="#">
-                      <img
-                        src="assets/img/Green-Tick-Vector-PNG-Images.png"
-                        alt="Copy"
-                      />
-                    </a>
-                  </>
-                ) : (
-                  <>
-                    <div>
-                      <span>{index + 1}</span>
-                      {items.code}
-                    </div>
-                    {copiedCodeIndex === index ? (
-                      <span className="text-white m-2">Copied!</span>
-                    ) : (
-                      <>
-                        <div className="d-flex align-items-center">
+                      <a href="#">
+                        <img
+                          src="assets/img/Green-Tick-Vector-PNG-Images.png"
+                          alt="Copy"
+                        />
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <div>
+                        <span>{index + 1}</span>
+                        {items.code}
+                      </div>
+                      {copiedCodeIndex === index ? (
+                        <span className="text-white m-2">Copied!</span>
+                      ) : (
+                        <>
+                          <div className="d-flex align-items-center">
                             <a
                               href="#"
                               onClick={() => handleCopy(items.code, index)}
@@ -617,13 +724,13 @@ export const Activities = () => {
                             >
                               <i class="fa fa-share" aria-hidden="true"></i>
                             </a>
-                        </div>
-                      </>
-                    )}
-                  </>
-                )}
-              </div>
-            ))}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </Modal.Body>
@@ -651,6 +758,30 @@ export const Activities = () => {
                 "whatsapp",
               ]}
             />
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        className="new-user-modal"
+        centered
+        show={showIframe}
+        onHide={handleCloseIframe}
+        size="lg"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <iframe
+              src={iframelink}
+              // src="https://sweepwidget.com/c/85960-ksa3hjty"
+              // src="https://sweepwidget.com/c/85960-ksa3hjty?data-walletaddress=avfdfgfh"
+              width="100%"
+              height="910px"
+              frameBorder="0"
+              allowFullScreen
+              style={{ border: "none" }}
+            ></iframe>
           </div>
         </Modal.Body>
       </Modal>
