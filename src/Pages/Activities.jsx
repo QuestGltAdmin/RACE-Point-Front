@@ -346,7 +346,7 @@ export const Activities = () => {
                         <img src="assets/images/invite.png" alt="" />
                         <div>
                           <h3>Invite</h3>
-                          <h5 className="idex-new">{countForAv?.length}X invites available</h5>
+                          <h5 className="idex-new">{countForAv?.length} invites available</h5>
                           
                         </div>
                       </div>
@@ -381,7 +381,7 @@ export const Activities = () => {
                                 <img src="assets/images/invite.png" alt="" />
                                 <div>
                                   <h5 className="info-deposit-new">
-                                    {items?.multiplier}{" "}
+                                    {items?.multiplier}{"X"}
                                     {/* <span className="info-tooltip">
                                       <img
                                         src="assets/img/infor2.png"
@@ -407,9 +407,10 @@ export const Activities = () => {
                                       {timeRemaining[index]}
                                     </h5>
                                   ) : (
-                                    <h5 className="idex-new">
-                                    No Expiry
-                                    </h5>
+                                    // <h5 className="idex-new">
+                                    // No Expiry
+                                    // </h5>
+                                    ""
                                   )}
                                 </div>
                               </div>
