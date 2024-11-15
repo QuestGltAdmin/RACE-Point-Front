@@ -2025,7 +2025,7 @@ margin-bottom: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 265px;
+    min-height: 300px;
 }
 .deposit-outer-box .deposit-inner-box{
     display: flex;
@@ -2089,9 +2089,21 @@ max-width: max-content;
     height: 12px;
     width: 12px;
 }
+.deposit-outer-box p.text-center {
+    min-height: 50px;
+}
 .deposit-outer-box .common-btn.bg-left {
     min-width: 34%;
 }
+.new-user-modal .modal-content .modal-body h4 .copy-activity-popup{
+cursor: pointer;
+}
+.new-user-modal .modal-content .modal-body h4 .copy-activity-popup img {
+    height: 36px;
+    width: 36px;
+    object-fit: contain;
+}
+
 .coming-soon-box {
     max-width: 560px;
     position: relative;

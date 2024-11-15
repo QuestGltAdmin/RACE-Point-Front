@@ -346,13 +346,14 @@ export const Activities = () => {
                         <img src="assets/images/invite.png" alt="" />
                         <div>
                           <h3>Invite</h3>
-                          <h5>{countForAv?.length}X invites available</h5>
-                          <p className="mt-3">
+                          <h5 className="idex-new">{countForAv?.length}X invites available</h5>
+                          
+                        </div>
+                      </div>
+                      <p className=" text-center">
                             Invite your friends to join the race and earn more
                             points!
                           </p>
-                        </div>
-                      </div>
                       <button
                         className="common-btn bg-left w-100 mt-3"
                         onClick={() => {
@@ -460,7 +461,7 @@ export const Activities = () => {
                                   <h5 className="idex-new"># days left</h5>
                                 </div>
                               </div>
-                              <div className="coming-soon-box">
+                              <div className="coming-soon-box ms-0">
                                 <p className="text-center desc">
                                   {items?.title}
                                 </p>
@@ -926,7 +927,7 @@ export const Activities = () => {
           <div>
             <h4>{showData?.title}</h4>
             <p>{showData?.description}</p>
-            <p>
+            <p className="dash-count-box">
               Please use this wallet address for your reward redemption.
               Incorrect wallet addresses cannot be corrected after submission
               and will result in the loss of your rewards.
@@ -936,7 +937,7 @@ export const Activities = () => {
                 WalletEVM?.selectedAccount?.substring(5, 37),
                 "..."
               )}{" "}
-              <span>
+              <span className="copy-activity-popup">
                 {" "}
                 {copy ? (
                   <img
