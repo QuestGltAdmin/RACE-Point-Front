@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Header } from "../Components/Header";
 import { Button, Col, Container, Modal, Row, Tab, Tabs } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -30,13 +30,25 @@ export const Activities = () => {
   const [showIframe, setShowIframe] = useState(false);
   const [depositmodal, setDepositModal] = useState(false);
   const [socialmodal, setSocialModal] = useState(false);
+  const [showData, setShowData] = useState([]);
   const [refermodal, setReferModal] = useState(false);
   const [codeShare, setCodeShare] = useState("");
   const [iframelink, setIframeLink] = useState("");
   const [allTopUser, setAllTopUser] = useState([]);
-  console.log(iframelink, "iframelink");
+  const [copy, setCopy] = useState(false);
+  const [countForAv, setCountForAv] = useState([]);
 
   //================================End of code==============================//
+
+  useEffect(() => {
+    if (user?.referral_codes?.length > 0) {
+      const filterData = user?.referral_codes?.filter((items, index) => {
+        return !items?.is_used;
+      });
+      console.log(filterData);
+      setCountForAv(filterData);
+    }
+  }, []);
 
   //================================Style for social share==============================//
   const style = {
@@ -90,16 +102,21 @@ export const Activities = () => {
   const handlerefermodalclose = () => {
     setReferModal(false);
   };
-  
+
   const HandleIframes = (items) => {
+    console.log("items", items);
+
     if (items?.type == "Refer") {
       // setShowReferralCodesModal(true);
-      setReferModal(true)
+      setShowData(items);
+      setReferModal(true);
     } else if (items?.type == "Social_Media") {
       setIframeLink(items?.link);
+      setShowData(items);
       // setShowIframe(true);
-      setSocialModal(true)
+      setSocialModal(true);
     } else if (items?.type == "Deposit") {
+      setShowData(items);
       setDepositModal(true);
     }
   };
@@ -188,12 +205,20 @@ export const Activities = () => {
   }, []);
 
   const getDashboardData = async () => {
+    const RawWallet = await encryptData(WalletEVM?.selectedAccount);
+    const payload = {
+      walletAddress: RawWallet,
+    };
     try {
-      const getData = await axiosMain.get(
-        "auth/get-activity-plan?page=1&limit=100"
+      const getData = await axiosMain.post(
+        "auth/get-activity-plan?page=1&limit=100",
+        payload
       );
+      // const getData = await axiosMain.get(
+      //   "auth/get-activity-plan?page=1&limit=100"
+      // );
       if (getData?.data?.status) {
-        setActivityData(getData?.data?.data?.list);
+        setActivityData(getData?.data?.data);
       }
     } catch (err) {
       console.log(err);
@@ -314,14 +339,14 @@ export const Activities = () => {
               </div> */}
 
               <Row>
-                {/* <Col lg={4}>
+                <Col lg={4}>
                   <div className="deposit-outer-box d-block">
                     <div className="invite-flex d-block">
                       <div className="deposit-inner-box">
                         <img src="assets/images/invite.png" alt="" />
                         <div>
                           <h3>Invite</h3>
-                          <h5>5x invites available</h5>
+                          <h5>{countForAv?.length}X invites available</h5>
                           <p className="mt-3">
                             Invite your friends to join the race and earn more
                             points!
@@ -341,7 +366,7 @@ export const Activities = () => {
                       </button>
                     </div>
                   </div>
-                </Col> */}
+                </Col>
                 {activitydata?.length > 0 &&
                   activitydata?.map((items, index) => {
                     const currentDate = new Date();
@@ -355,7 +380,6 @@ export const Activities = () => {
                                 <img src="assets/images/invite.png" alt="" />
                                 <div>
                                   <h5 className="info-deposit-new">
-                                    
                                     {items?.multiplier}{" "}
                                     <span className="info-tooltip">
                                       <img
@@ -372,9 +396,15 @@ export const Activities = () => {
                                       </div>
                                     </span>
                                   </h5>
-                                  <h3>{items?.type}</h3>{" "}
+                                  <h3>
+                                    {items?.type == "Social_Media"
+                                      ? "Social Media"
+                                      : items?.type}
+                                  </h3>{" "}
                                   {items?.end_date ? (
-                                    <h5  className="idex-new">{timeRemaining[index]}</h5>
+                                    <h5 className="idex-new">
+                                      {timeRemaining[index]}
+                                    </h5>
                                   ) : (
                                     ""
                                   )}
@@ -397,14 +427,22 @@ export const Activities = () => {
                                     </div>
                                   </span>
                                 </p>
-                                <button
-                                  className="common-btn bg-left w-100 mt-3"
-                                  onClick={() => {
-                                    HandleIframes(items);
-                                  }}
-                                >
-                                  Start
-                                </button>
+                                {items?.type != "Social_Media" &&
+                                items?.doneStatus ? (
+                                  <button className="common-btn bg-left w-100 mt-3 transation-successfull">
+                                    Completed &nbsp;{" "}
+                                    <i className="fa fa-check-circle"></i>
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="common-btn bg-left w-100 mt-3"
+                                    onClick={() => {
+                                      HandleIframes(items);
+                                    }}
+                                  >
+                                    Start
+                                  </button>
+                                )}
                               </div>
                             </div>
                           ) : (
@@ -415,12 +453,17 @@ export const Activities = () => {
                                   alt=""
                                 />
                                 <div>
-                                  <h5 className="info-deposit-new">Multiplier</h5>
-                                  <h3 >XXXX</h3> <h5 className="idex-new"># days left</h5>
+                                  <h5 className="info-deposit-new">
+                                    Multiplier
+                                  </h5>
+                                  <h3>XXXX</h3>{" "}
+                                  <h5 className="idex-new"># days left</h5>
                                 </div>
                               </div>
                               <div className="coming-soon-box">
-                                <p className="text-center desc">{items?.title}</p>
+                                <p className="text-center desc">
+                                  {items?.title}
+                                </p>
                                 <button className="common-btn bg-left w-100 mt-3 blur-btn-coming-soon">
                                   Start
                                 </button>
@@ -821,8 +864,9 @@ export const Activities = () => {
         <Modal.Body>
           <div>
             <iframe
-              // src={iframelink}
-              src="https://sweepwidget.com/c/85960-ksa3hjty?data-name=harshal&data-email=test.user@example.com&data-wallet-address=0x7E1f02Ecb7616a15F3891C7e0365e56C5f6c3A16&data-auto-login=0"
+              src={iframelink}
+              // src={`https://sweepwidget.com/c/85960-ksa3hjty?data-name=harshal&data-email=test.user@example.com&sw_text_input_7_1=${WalletEVM?.selectedAccount}`}
+              // src="https://sweepwidget.com/c/85960-ksa3hjty?data-name=harshal&data-email=test.user@example.com&data-wallet-Address=0x7E1f02Ecb7616a15F3891C7e0365e56C5f6c3A16&data-auto-login=0"
               // src="https://sweepwidget.com/c/438-tu2zjsh4?data-name=harshal&data-email=test.user@example.com&data-auto-login=0"
               width="100%"
               height="910px"
@@ -844,8 +888,8 @@ export const Activities = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
-            <h4>Deposit</h4>
-            <p>Please select to continue</p>
+            <h4>{showData?.title}</h4>
+            <p>{showData?.description}</p>
             <div className="d-flex gap-4">
               <Button
                 variant="primary"
@@ -860,7 +904,7 @@ export const Activities = () => {
                 variant="primary"
                 className="common-btn bg-left"
                 onClick={() => {
-                  navigate("/deposit-step-1")
+                  navigate("/deposit-step-1");
                 }}
               >
                 Continue
@@ -880,8 +924,40 @@ export const Activities = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
-            <h4>Social</h4>
-            <p>Please select to continue</p>
+            <h4>{showData?.title}</h4>
+            <p>{showData?.description}</p>
+            <p>
+              Please use this wallet address for your reward redemption.
+              Incorrect wallet addresses cannot be corrected after submission
+              and will result in the loss of your rewards.
+            </p>
+            <h4>
+              {WalletEVM?.selectedAccount?.replace(
+                WalletEVM?.selectedAccount?.substring(5, 37),
+                "..."
+              )}{" "}
+              <span>
+                {" "}
+                {copy ? (
+                  <img
+                    width={50}
+                    src="assets/img/Green-Tick-Vector-PNG-Images.png"
+                    alt="Copy"
+                  />
+                ) : (
+                  <img
+                    src="assets/img/copy.png"
+                    onClick={() => {
+                      navigator.clipboard.writeText(WalletEVM?.selectedAccount);
+                      setCopy(true);
+                      // setTimeout(() => {
+                      //   setCopy(false);
+                      // }, 2000);
+                    }}
+                  />
+                )}
+              </span>
+            </h4>
             <div className="d-flex gap-4">
               <Button
                 variant="primary"
@@ -892,21 +968,34 @@ export const Activities = () => {
               >
                 Back
               </Button>{" "}
-              <Button
-                variant="primary"
-                className="common-btn bg-left"
-                onClick={() => {
-                  setShowIframe(true)
-                  handlesocialmodalclose();
-                }}
-              >
-                Continue
-              </Button>
+              {copy ? (
+                <Button
+                  variant="primary"
+                  className="common-btn bg-left"
+                  onClick={() => {
+                    setShowIframe(true);
+
+                    handlesocialmodalclose();
+                  }}
+                >
+                  Continue
+                </Button>
+              ) : (
+                <Button
+                  variant="primary"
+                  className="common-btn bg-left"
+                  onClick={() => {
+                    navigator.clipboard.writeText(WalletEVM?.selectedAccount);
+                    setCopy(true);
+                  }}
+                >
+                  Copy
+                </Button>
+              )}
             </div>
           </div>
         </Modal.Body>
       </Modal>
-
 
       <Modal
         className="new-user-modal"
@@ -918,8 +1007,8 @@ export const Activities = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
-            <h4>Refer</h4>
-            <p>Please select to continue</p>
+            <h4>{showData?.title}</h4>
+            <p>{showData?.description}</p>
             <div className="d-flex gap-4">
               <Button
                 variant="primary"
@@ -934,7 +1023,7 @@ export const Activities = () => {
                 variant="primary"
                 className="common-btn bg-left"
                 onClick={() => {
-                  setShowReferralCodesModal(true)
+                  setShowReferralCodesModal(true);
                   handlerefermodalclose();
                 }}
               >
