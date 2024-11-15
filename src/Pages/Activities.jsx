@@ -382,7 +382,7 @@ export const Activities = () => {
                                 <div>
                                   <h5 className="info-deposit-new">
                                     {items?.multiplier}{" "}
-                                    <span className="info-tooltip">
+                                    {/* <span className="info-tooltip">
                                       <img
                                         src="assets/img/infor2.png"
                                         className="info-icon"
@@ -395,7 +395,7 @@ export const Activities = () => {
                                           your personal vault that
                                         </p>
                                       </div>
-                                    </span>
+                                    </span> */}
                                   </h5>
                                   <h3>
                                     {items?.type == "Social_Media"
@@ -407,14 +407,16 @@ export const Activities = () => {
                                       {timeRemaining[index]}
                                     </h5>
                                   ) : (
-                                    ""
+                                    <h5 className="idex-new">
+                                    No Expiry
+                                    </h5>
                                   )}
                                 </div>
                               </div>
                               <div>
                                 <p className="text-center desc">
                                   {items?.title}{" "}
-                                  <span className="info-tooltip">
+                                  {/* <span className="info-tooltip">
                                     <img
                                       src="assets/img/infor2.png"
                                       className="info-icon"
@@ -426,7 +428,7 @@ export const Activities = () => {
                                         amount of money you've deposited.
                                       </p>
                                     </div>
-                                  </span>
+                                  </span> */}
                                 </p>
                                 {items?.type != "Social_Media" &&
                                 items?.doneStatus ? (
