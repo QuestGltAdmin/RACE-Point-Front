@@ -31,7 +31,6 @@ const AdminActivity = () => {
 
       const getResAll = await axiosMain.get(
         `/admin/get-all-activity?page=${pagenumber}&limit=10&search=${searchall}`,
-
         {
           headers: {
             "Content-Type": "application/json",
@@ -40,11 +39,10 @@ const AdminActivity = () => {
         }
       );
       if (getResAll?.data?.status) {
-        if (getResAll?.data?.data?.list?.length > 0) {
+        if (getResAll?.data?.data?.content?.length > 0) {
           setCheckForData(2);
-
-          setShowData(getResAll?.data?.data?.list);
-          setTotalDataCount(getResAll?.data?.data?.totalRecords[0]?.count);
+          setShowData(getResAll?.data?.data?.content);
+          setTotalDataCount(getResAll?.data?.data?.total);
         } else {
           setCheckForData(1);
         }

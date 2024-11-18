@@ -12,18 +12,35 @@ const AdminAddActivity = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
+  const [selecttype, setSelectType] = useState("");
   const [finalchainlist, setFinalChanList] = useState([]);
   const [formerror, setFormError] = useState("");
   const [disable, setDisable] = useState(false);
+
+  const initialquestionRow = {
+    question: "",
+    option1: "",
+    option2: "",
+    option3: "",
+    option4: "",
+    correctoption: "",
+  };
+
+  const [arrayquestiondata, setArrayQuestionData] = useState([
+    initialquestionRow,
+  ]);
+
   const [inputValue, setInputValue] = useState({
     title: "",
     multiplier: "",
+    description: "",
     start_date: "",
     end_date: "",
     activity_id: "",
     link: "",
     deposit_chain: "",
     min_deposit: "",
+    per_mcq_point: "",
   });
 
   const [options, setOptions] = useState([
@@ -36,10 +53,32 @@ const AdminAddActivity = () => {
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
-
+  const handleChangetype = (event) => {
+    setSelectType(event.target.value);
+  };
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
+
+  //============================question row functionality===========================//
+
+  const handleAddRowQuestion = () => {
+    setArrayQuestionData([...arrayquestiondata, initialquestionRow]);
+  };
+
+  const handleChangeQuestion = (index, field, value) => {
+    const updatedRows = [...arrayquestiondata];
+    updatedRows[index][field] = value;
+    setArrayQuestionData(updatedRows);
+  };
+
+  const handleRemoveRowQuestion = (index) => {
+    const updatedRows = [...arrayquestiondata];
+    updatedRows.splice(index, 1);
+    setArrayQuestionData(updatedRows);
+  };
+  //============================End Of Code===========================//
+
   //===============Handle mulitselect code for chain filter================//
   const handleMultiSelect = (selectedList) => {
     setFinalChanList(selectedList);
@@ -48,6 +87,12 @@ const AdminAddActivity = () => {
   const handleMultiSelectRemove = (selectedList) => {
     setFinalChanList(selectedList);
   };
+
+  const finaldata = arrayquestiondata?.map((item) => ({
+    question: item.question,
+    options: [item.option1, item.option2, item.option3, item.option4],
+    correctAnswer: Number(item.correctoption),
+  }));
 
   //===========================End Of Code=================================//
 
@@ -80,10 +125,13 @@ const AdminAddActivity = () => {
       const RowActivityId = await encryptData(inputValue.activity_id);
       const RowMinDeposite = await encryptData(inputValue.min_deposit);
       const RowLink = await encryptData(inputValue.link);
+      const RowDescription = await encryptData(inputValue.description);
+      // const RowPerMcqPoint = await encryptData(inputValue.per_mcq_point);
 
       const payload = {
         title: RowTitle,
         multiplier: RowMultiplier,
+        description: RowDescription,
         start_date: RowStartDate,
         type: RowType,
         end_date: RowEndDate,
@@ -91,6 +139,9 @@ const AdminAddActivity = () => {
         deposit_chain: [...finalchainlist],
         min_deposit: RowMinDeposite,
         link: RowLink,
+        quizType: selecttype,
+        questionWithAnswers: [...finaldata],
+        per_mcq_point: inputValue.per_mcq_point,
       };
 
       try {
@@ -154,18 +205,18 @@ const AdminAddActivity = () => {
                             value={inputValue.title}
                           />
                         </Form.Group>
-                      </Col>
+                      </Col>{" "}
                       <Col md={6}>
-                        <Form.Group controlId="Multiplier">
+                        <Form.Group controlId="description">
                           <Form.Label className="formlabel">
-                            Multiplier :
+                            Description :
                           </Form.Label>
                           <Form.Control
-                            type="number"
-                            placeholder="Enter Multiplier"
-                            name="multiplier"
+                            type="text"
+                            placeholder="Enter description "
+                            name="description"
                             onChange={HandleData}
-                            value={inputValue.multiplier}
+                            value={inputValue.description}
                           />
                         </Form.Group>
                       </Col>
@@ -204,7 +255,21 @@ const AdminAddActivity = () => {
                       </Col>
                     </Row>
                     <Row>
-                      {" "}
+                      <Col md={6}>
+                        <Form.Group controlId="Multiplier">
+                          <Form.Label className="formlabel">
+                            Multiplier :
+                          </Form.Label>
+                          <Form.Control
+                            type="number"
+                            placeholder="Enter Multiplier"
+                            name="multiplier"
+                            onChange={HandleData}
+                            value={inputValue.multiplier}
+                          />
+                        </Form.Group>
+                      </Col>
+
                       <Col md={6}>
                         <Form.Group controlId="startdate">
                           <Form.Label className="formlabel">Type :</Form.Label>
@@ -290,6 +355,190 @@ const AdminAddActivity = () => {
                                 value={inputValue.link}
                               />
                             </Form.Group>
+                          </Col>
+                        </>
+                      ) : (
+                        ""
+                      )}
+                      {selectedOption == "Quiz" ? (
+                        <>
+                          <Col md={6}>
+                            <Form.Group controlId="startdate">
+                              <Form.Label className="formlabel">
+                                Quiz Type :
+                              </Form.Label>
+                              <select
+                                id="options"
+                                className="form-control"
+                                value={selecttype}
+                                onChange={handleChangetype}
+                              >
+                                <option value="" disabled>
+                                  Select Quiz type
+                                </option>
+                                <option value="Tokenization">
+                                  Tokenization{" "}
+                                </option>
+                                <option value="Blockchain">Blockchain </option>
+                              </select>{" "}
+                            </Form.Group>
+                          </Col>
+                          <Col md={6}>
+                            <Form.Group controlId="per_mcq_point">
+                              <Form.Label className="formlabel">
+                                MCQ Point :
+                              </Form.Label>
+                              <Form.Control
+                                type="text"
+                                placeholder="Enter Mcq Point"
+                                name="per_mcq_point"
+                                onChange={HandleData}
+                                value={inputValue.per_mcq_point}
+                              />
+                            </Form.Group>
+                          </Col>
+                          {arrayquestiondata?.map((items, index) => (
+                            <Row key={index}>
+                              <Col md={12}>
+                                <Form.Group controlId="question">
+                                  <Form.Label className="formlabel">
+                                    Question {index + 1} :
+                                  </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Enter question"
+                                    as="textarea"
+                                    rows={2}
+                                    name="question"
+                                    value={items.question}
+                                    onChange={(e) =>
+                                      handleChangeQuestion(
+                                        index,
+                                        "question",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                </Form.Group>
+                              </Col>
+                              <Col md={6}>
+                                <Form.Group controlId="option1">
+                                  <Form.Label className="formlabel">
+                                    Option 1 :
+                                  </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Enter option 1"
+                                    value={items.option1}
+                                    onChange={(e) =>
+                                      handleChangeQuestion(
+                                        index,
+                                        "option1",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                </Form.Group>
+                              </Col>
+                              <Col md={6}>
+                                <Form.Group controlId="option2">
+                                  <Form.Label className="formlabel">
+                                    Option 2 :
+                                  </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Enter option 2"
+                                    value={items.option2}
+                                    onChange={(e) =>
+                                      handleChangeQuestion(
+                                        index,
+                                        "option2",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                </Form.Group>
+                              </Col>
+                              <Col md={6}>
+                                <Form.Group controlId="option3">
+                                  <Form.Label className="formlabel">
+                                    Option 3 :
+                                  </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Enter option 3"
+                                    value={items.option3}
+                                    onChange={(e) =>
+                                      handleChangeQuestion(
+                                        index,
+                                        "option3",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                </Form.Group>
+                              </Col>
+                              <Col md={6}>
+                                <Form.Group controlId="option4">
+                                  <Form.Label className="formlabel">
+                                    Option 4 :
+                                  </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Enter option 4"
+                                    value={items.option4}
+                                    onChange={(e) =>
+                                      handleChangeQuestion(
+                                        index,
+                                        "option4",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                </Form.Group>
+                              </Col>
+                              <Col md={6}>
+                                <Form.Group controlId="correctoption">
+                                  <Form.Label className="formlabel">
+                                    Correct Option :
+                                  </Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Enter Correct Option"
+                                    value={items.correctoption}
+                                    onChange={(e) =>
+                                      handleChangeQuestion(
+                                        index,
+                                        "correctoption",
+                                        e.target.value
+                                      )
+                                    }
+                                  />
+                                </Form.Group>
+                              </Col>
+                              <Col md="1">
+                                <div className="mb-3">
+                                  <button
+                                    onClick={() =>
+                                      handleRemoveRowQuestion(index)
+                                    }
+                                  >
+                                    <i
+                                      class="fa fa-remove"
+                                      aria-hidden="true"
+                                    ></i>{" "}
+                                  </button>
+                                </div>
+                              </Col>
+                            </Row>
+                          ))}
+
+                          <Col md="1" className="offset-md-11">
+                            <div style={{ textAlign: "start" }}>
+                              <button onClick={handleAddRowQuestion}>
+                                <i class="fa fa-plus" aria-hidden="true"></i>{" "}
+                              </button>
+                            </div>
                           </Col>
                         </>
                       ) : (
