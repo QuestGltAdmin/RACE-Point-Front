@@ -126,7 +126,6 @@ const AdminAddActivity = () => {
       const RowMinDeposite = await encryptData(inputValue.min_deposit);
       const RowLink = await encryptData(inputValue.link);
       const RowDescription = await encryptData(inputValue.description);
-      // const RowPerMcqPoint = await encryptData(inputValue.per_mcq_point);
 
       const payload = {
         title: RowTitle,
