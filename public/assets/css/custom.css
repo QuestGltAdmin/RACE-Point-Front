@@ -2570,3 +2570,27 @@ content: none;
     width: 20px;
     object-fit: contain;
 }
+
+/* quize popup css */
+
+.quiz-ques-box{
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+    text-align: left;
+}
+.quiz-ques-box .radio-flex-btn {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    gap: 1rem 2rem;
+}
+.quiz-ques-box .radio-flex-btn .form-check {
+    width: max-content;
+}
+.quiz-outer-scroll{
+    max-height: 80vh;
+    overflow-y: auto;
+}

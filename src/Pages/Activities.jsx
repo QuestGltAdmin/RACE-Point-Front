@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Header } from "../Components/Header";
-import { Button, Col, Container, Modal, Row, Tab, Tabs } from "react-bootstrap";
+import { Button, Col, Container, Form, Modal, Row, Tab, Tabs } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
@@ -823,16 +823,80 @@ export const Activities = () => {
         centered
         show={questionmodal}
         onHide={handlequizmodalclose}
-        size="md"
+        size="lg"
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <div>
-            <div className="d-flex gap-4">
+        <h4 className="text-start mb-3">Quize Questions</h4>
+          <div className="quiz-outer-scroll">
+             <div className="quiz-ques-box">
+                 <p className="text-start">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis </p>
+                 <div className="radio-flex-btn">
+                  <Form.Check
+                        label="Lorem ipsum dolor sit amet consectetur"
+                        type="radio"
+                      />
+                      <Form.Check
+                        label="Lorem ipsum dolor sit amet consectetur"
+                        type="radio"
+                      />
+                      <Form.Check
+                        label="Lorem ipsum dolor sit amet consectetur"
+                        type="radio"
+                      />
+                      <Form.Check
+                        label="Lorem ipsum dolor sit amet consectetur"
+                        type="radio"
+                      />
+                 </div>
+             </div>
+             <div className="quiz-ques-box">
+                 <p className="text-start">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis </p>
+                 <div className="radio-flex-btn">
+                  <Form.Check
+                        label="Lorem ipsum "
+                        type="radio"
+                      />
+                      <Form.Check
+                        label="Lorem ipsum "
+                        type="radio"
+                      />
+                      <Form.Check
+                        label="Lorem ipsum "
+                        type="radio"
+                      />
+                      <Form.Check
+                        label="Lorem ipsum "
+                        type="radio"
+                      />
+                 </div>
+             </div>
+             <div className="quiz-ques-box">
+                 <p className="text-start">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis </p>
+                 <div className="radio-flex-btn">
+                  <Form.Check
+                        label="Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis"
+                        type="radio"
+                      />
+                      <Form.Check
+                        label="Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis"
+                        type="radio"
+                      />
+                      <Form.Check
+                        label="Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis"
+                        type="radio"
+                      />
+                      <Form.Check
+                        label="Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis"
+                        type="radio"
+                      />
+                 </div>
+             </div>
+             
+              
               <Button variant="primary" className="common-btn bg-left">
                 Submit
               </Button>
-            </div>
           </div>
         </Modal.Body>
       </Modal>
