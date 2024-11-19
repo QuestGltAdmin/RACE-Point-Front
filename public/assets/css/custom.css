@@ -2584,7 +2584,7 @@ content: none;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     gap: 1rem 2rem;
 }
 .quiz-ques-box .radio-flex-btn .form-check {
@@ -2593,4 +2593,9 @@ content: none;
 .quiz-outer-scroll{
     max-height: 80vh;
     overflow-y: auto;
+}
+.quiz-ques-box .radio-flex-btn .form-check-input:checked {
+    background-color: #c38a79;
+    border-color: #c38a79;
+    box-shadow: none  !important;
 }

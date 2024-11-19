@@ -829,7 +829,7 @@ export const Activities = () => {
         <Modal.Body>
         <h4 className="text-start mb-3">Quize Questions</h4>
           <div className="quiz-outer-scroll">
-             <div className="quiz-ques-box">
+             <div className="quiz-ques-box shadow-box-main">
                  <p className="text-start">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis </p>
                  <div className="radio-flex-btn">
                   <Form.Check
@@ -850,7 +850,7 @@ export const Activities = () => {
                       />
                  </div>
              </div>
-             <div className="quiz-ques-box">
+             <div className="quiz-ques-box shadow-box-main">
                  <p className="text-start">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis </p>
                  <div className="radio-flex-btn">
                   <Form.Check
@@ -871,7 +871,7 @@ export const Activities = () => {
                       />
                  </div>
              </div>
-             <div className="quiz-ques-box">
+             <div className="quiz-ques-box shadow-box-main">
                  <p className="text-start">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis </p>
                  <div className="radio-flex-btn">
                   <Form.Check
