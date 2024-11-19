@@ -99,10 +99,12 @@ const AdminAddActivity = () => {
   const AddActivity = async () => {
     if (!inputValue.title) {
       setFormError("Please enter title");
-    } else if (!inputValue.multiplier) {
-      setFormError("Please enter Multiplier");
+    } else if (!inputValue.description) {
+      setFormError("Please enter description");
     } else if (!inputValue.start_date) {
       setFormError("Please enter Start Date");
+    } else if (!inputValue.multiplier) {
+      setFormError("Please enter Multiplier");
     } else if (!selectedOption) {
       setFormError("Please Select type");
     } else if (selectedOption == "Deposit" && finalchainlist.length <= 0) {
@@ -113,6 +115,10 @@ const AdminAddActivity = () => {
       setFormError("Please enter activity id");
     } else if (selectedOption == "Social_Media" && !inputValue.link) {
       setFormError("Please enter Link");
+    } else if (selectedOption == "Quiz" && !selecttype) {
+      setFormError("Please select quiz type");
+    } else if (selectedOption == "Quiz" && !inputValue.per_mcq_point) {
+      setFormError("Please Enter Mcq Point");
     } else {
       setDisable(true);
       setFormError("");
