@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const isUserAuthenticated = localStorage.getItem("isUserAuthenticated");
 const userData = localStorage.getItem("userData");
+const quizdata = localStorage.getItem("quizdata");
 const usertoken = localStorage.getItem("usertoken");
 
 const WalletEVM = localStorage.getItem("WalletEVM");
@@ -12,6 +13,7 @@ const authSlice = createSlice({
     isLoading: false,
     isUserAuthenticated: !!isUserAuthenticated ? true : false,
     user: !!userData ? JSON.parse(userData) : {},
+    quizdata: !!quizdata && quizdata !== "undefined" ? JSON.parse(quizdata) : {},
     usertoken: !!usertoken ? JSON.parse(usertoken) : {},
     WalletEVM:
       !!WalletEVM && WalletEVM !== "undefined" ? JSON.parse(WalletEVM) : {},
@@ -105,6 +107,17 @@ const authSlice = createSlice({
       };
     },
 
+    quizresult: (state, action) => {
+      console.log(action?.payload,"ppa");
+      
+      localStorage.setItem("quizdata" , JSON.stringify(action?.payload))
+      
+      return {
+        ...state,
+        quizdata: action.payload,
+      };
+    },
+
     adminLoginFail: (state, action) => {
       return {
         ...state,
@@ -186,6 +199,7 @@ export const {
   adminLoginSaga,
   adminLoginStart,
   adminloginSuccess,
+  quizresult,
   adminLoginFail,
   isLogin,
 } = authSlice.actions;

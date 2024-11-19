@@ -1,6 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Header } from "../Components/Header";
-import { Button, Col, Container, Form, Modal, Row, Tab, Tabs } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  Modal,
+  Row,
+  Tab,
+  Tabs,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
@@ -8,11 +17,16 @@ import axiosMain from "../http/axios/axios_main";
 import { ShareSocial } from "react-share-social";
 import { set } from "lodash";
 import { resolveENSName } from "../helpers/ENSname";
+import { toast } from "react-toastify";
+import { quizresult } from "../store/reducers/authReducer";
+import { useDispatch } from "react-redux";
 
 export const Activities = () => {
   //=================Global Variables==================//
   const navigate = useNavigate();
-  const { user, WalletEVM } = useAuth();
+  const { user, WalletEVM, quizdata } = useAuth();
+  const dispatch = useDispatch();
+
   //===============End of code====================//
 
   //=================Local Variables==================//
@@ -21,10 +35,6 @@ export const Activities = () => {
   //===============End of code====================//
 
   //========================= Leaderboard States ============================
-  const [topDeposits, setTopDeposits] = useState([]);
-  const [topReferrals, setTopReferrals] = useState([]);
-  const [monthlyTopUser, setMonthlyTopUser] = useState([]);
-  const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
   const [questiondata, setQuestiondata] = useState([]);
   const [activitydata, setActivityData] = useState([]);
   const [showShareSocial, setShowShareSocial] = useState(false);
@@ -32,17 +42,17 @@ export const Activities = () => {
   const [depositmodal, setDepositModal] = useState(false);
   const [questionmodal, setQuestionModal] = useState(false);
   const [quizmodal, setQuizModal] = useState(false);
+  const [resultmodal, setResultModal] = useState(false);
   const [socialmodal, setSocialModal] = useState(false);
   const [showData, setShowData] = useState([]);
   const [refermodal, setReferModal] = useState(false);
   const [codeShare, setCodeShare] = useState("");
   const [iframelink, setIframeLink] = useState("");
-  const [allTopUser, setAllTopUser] = useState([]);
   const [copy, setCopy] = useState(false);
   const [countForAv, setCountForAv] = useState([]);
-
+  const [disable, setDisable] = useState(false);
+  const [formerror, setFormError] = useState("");
   //================================End of code==============================//
-  console.log(questiondata, "questiondata");
 
   useEffect(() => {
     if (user?.referral_codes?.length > 0) {
@@ -110,22 +120,17 @@ export const Activities = () => {
   };
 
   const HandleIframes = (items) => {
-    console.log("items", items);
-
     if (items?.type == "Refer") {
-      // setShowReferralCodesModal(true);
       setShowData(items);
       setReferModal(true);
     } else if (items?.type == "Social_Media") {
       setIframeLink(items?.link);
       setShowData(items);
-      // setShowIframe(true);
       setSocialModal(true);
     } else if (items?.type == "Deposit") {
       setShowData(items);
       setDepositModal(true);
     } else if (items?.type == "Quiz") {
-      console.log(items, "iiii");
       setShowData(items);
       setQuizModal(true);
       getquestiondata(items);
@@ -133,59 +138,6 @@ export const Activities = () => {
   };
 
   const handleShowReferralCodesModal = () => setShowReferralCodesModal(true);
-
-  //===============get refferal data  api====================//
-
-  useEffect(() => {
-    // getdata();
-    getleaderboardData();
-  }, []);
-
-  const getdata = async () => {
-    let ensName = await resolveENSName(WalletEVM?.selectedAccount);
-    const encryptedReferralCode = await encryptData(user?.from_referral_code);
-    const encryptedWalletAddress = await encryptData(
-      WalletEVM?.selectedAccount
-    );
-    const encryptedENSName = ensName ? await encryptData(ensName) : null; // Encrypt ENS name if available
-
-    const payload = {
-      referralCode: encryptedReferralCode,
-      walletAddress: encryptedWalletAddress,
-    };
-    if (encryptedENSName) {
-      payload.ensName = encryptedENSName;
-    }
-    try {
-      const getdata = await axiosMain.post(
-        "/auth/add-user-with-address-and-referralcode",
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (getdata?.data?.status) {
-        // setReferralCodes(getdata?.data?.data?.referral_codes);
-      }
-    } catch (err) {}
-  };
-  //===============End of code====================//
-
-  //================================= Get the leaderboeard data API ==============================================
-  const getleaderboardData = async () => {
-    try {
-      const response = await axiosMain.get("/auth/get-leaderboard-deatils");
-      setTopDeposits(response.data.topDeposits); // Set the topDeposits state
-      setTopReferrals(response.data.topReferrals);
-      setMonthlyTopUser(response.data.monthlyTopUser);
-      setQuarterlyTopUser(response.data.weeklyTopUser);
-      setAllTopUser(response.data.allTopUser);
-    } catch (err) {
-      console.error("Error fetching leaderboard data:", err);
-    }
-  };
 
   //=============================== Funtion to copy referral code to clipboard =================================
   const handleCopy = (code, index) => {
@@ -225,12 +177,9 @@ export const Activities = () => {
         "auth/get-activity-plan?page=1&limit=100",
         payload
       );
-      // const getData = await axiosMain.get(
-      //   "auth/get-activity-plan?page=1&limit=100"
-      // );
+
       if (getData?.data?.status) {
         setActivityData(getData?.data?.data);
-        // console.log(getData?.data?.data, "getData?.data?.data");
       }
     } catch (err) {
       console.log(err);
@@ -241,6 +190,7 @@ export const Activities = () => {
   //==================================reverse time code==================================//
 
   const [timeRemaining, setTimeRemaining] = useState({});
+
   useEffect(() => {
     const timerInterval = setInterval(() => {
       const updatedTimeRemaining = {};
@@ -278,8 +228,6 @@ export const Activities = () => {
 
   //==================================getQuestionData================================//
   const getquestiondata = async (data) => {
-    console.log(data, "showData?.quiz_id");
-
     try {
       const getdata = await axiosMain.get(
         `/auth/questions?id=${data?.quiz_id}`,
@@ -291,13 +239,81 @@ export const Activities = () => {
       );
       if (getdata?.data?.status) {
         setQuestiondata(getdata?.data?.data);
-        console.log(getdata?.data?.data, "getdata?.data?.data");
       }
     } catch (err) {
       console.log();
     }
   };
   //==================================End of code================================//
+
+  //==================================question selected answers code===============================//
+
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
+
+  const handleOptionChange = (id, answer) => {
+    setSelectedAnswers((prev) => {
+      const existingAnswerIndex = prev.findIndex((answer) => answer.id === id);
+
+      if (existingAnswerIndex > -1) {
+        const updatedAnswers = [...prev];
+        updatedAnswers[existingAnswerIndex].answer = answer;
+        return updatedAnswers;
+      }
+
+      return [
+        ...prev,
+        {
+          id,
+          answer,
+        },
+      ];
+    });
+  };
+
+  const transformedAnswers = selectedAnswers.map((answer) => ({
+    id: answer.id,
+    answer: answer.answer + 1,
+  }));
+
+  //==================================End of code================================//
+
+  const SubmitQuiz = async () => {
+    if (selectedAnswers.length !== questiondata.length) {
+      setFormError("Please answer all the questions before submitting.");
+      return;
+    }
+    {
+      setDisable(true);
+
+      const payload = {
+        id: showData?.quiz_id,
+        answers: [...transformedAnswers],
+        walletAddress: WalletEVM?.selectedAccount,
+      };
+
+      try {
+        const submit = await axiosMain.post("/auth/submitquiz", payload, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (submit?.data?.status) {
+          setFormError("")
+          setDisable(false);
+          toast.success(submit?.data?.message);
+          dispatch(quizresult(submit?.data));
+          setTimeout(() => {
+            setQuestionModal(false);
+            setResultModal(true);
+          }, 3000);
+        }
+      } catch (err) {
+        setDisable(false);
+        toast.error(err?.response.data.message);
+      }
+    }
+  };
 
   return (
     <>
@@ -822,81 +838,135 @@ export const Activities = () => {
         className="new-user-modal"
         centered
         show={questionmodal}
-        onHide={handlequizmodalclose}
+        onHide={() => {
+          setQuestionModal(false);
+        }}
         size="lg"
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-        <h4 className="text-start mb-3">Quize Questions</h4>
+          <h4 className="text-start mb-3">Quiz Questions</h4>
           <div className="quiz-outer-scroll">
-             <div className="quiz-ques-box shadow-box-main">
-                 <p className="text-start">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis </p>
-                 <div className="radio-flex-btn">
-                  <Form.Check
-                        label="Lorem ipsum dolor sit amet consectetur"
-                        type="radio"
-                      />
-                      <Form.Check
-                        label="Lorem ipsum dolor sit amet consectetur"
-                        type="radio"
-                      />
-                      <Form.Check
-                        label="Lorem ipsum dolor sit amet consectetur"
-                        type="radio"
-                      />
-                      <Form.Check
-                        label="Lorem ipsum dolor sit amet consectetur"
-                        type="radio"
-                      />
-                 </div>
-             </div>
-             <div className="quiz-ques-box shadow-box-main">
-                 <p className="text-start">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis </p>
-                 <div className="radio-flex-btn">
-                  <Form.Check
-                        label="Lorem ipsum "
-                        type="radio"
-                      />
-                      <Form.Check
-                        label="Lorem ipsum "
-                        type="radio"
-                      />
-                      <Form.Check
-                        label="Lorem ipsum "
-                        type="radio"
-                      />
-                      <Form.Check
-                        label="Lorem ipsum "
-                        type="radio"
-                      />
-                 </div>
-             </div>
-             <div className="quiz-ques-box shadow-box-main">
-                 <p className="text-start">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis </p>
-                 <div className="radio-flex-btn">
-                  <Form.Check
-                        label="Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis"
-                        type="radio"
-                      />
-                      <Form.Check
-                        label="Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis"
-                        type="radio"
-                      />
-                      <Form.Check
-                        label="Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis"
-                        type="radio"
-                      />
-                      <Form.Check
-                        label="Lorem ipsum dolor sit amet consectetur adipisicing elit. At eum laborum ducimus, cumque repellendus neque nemo aut corporis"
-                        type="radio"
-                      />
-                 </div>
-             </div>
-             
-              
-              <Button variant="primary" className="common-btn bg-left">
-                Submit
-              </Button>
+            {questiondata?.map((items, index) => (
+              <div className="quiz-ques-box shadow-box-main" key={items._id}>
+                <p className="text-start">
+                  {index + 1}. {items?.question}
+                </p>
+                <div className="radio-flex-btn">
+                  {items?.options?.map((item, optionIndex) => (
+                    <Form.Check
+                      key={optionIndex}
+                      label={`${String.fromCharCode(
+                        65 + optionIndex
+                      )}. ${item}`}
+                      type="radio"
+                      name={`question-${items._id}`}
+                      value={optionIndex}
+                      onChange={() =>
+                        handleOptionChange(items._id, optionIndex)
+                      }
+                      checked={
+                        selectedAnswers?.find(
+                          (answer) => answer.id === items._id
+                        )?.answer === optionIndex
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+            {formerror && <p className="text-danger mt-3">{formerror}</p>}
+            <Button
+              variant="primary"
+              className="common-btn bg-left"
+              disabled={disable}
+              onClick={() => {
+                SubmitQuiz();
+              }}
+            >
+              {" "}
+              {disable === true ? "Processing" : "Submit"}
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        className="new-user-modal"
+        centered
+        show={resultmodal}
+        onHide={() => {
+          setResultModal(false);
+        }}
+        size="lg"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <h4 className="text-start mb-3">Quiz Result</h4>
+          <div className="quiz-outer-scroll">
+            {quizdata?.questionsDetail?.map((items, index) => (
+              <div className="quiz-ques-box shadow-box-main" key={items._id}>
+                <p className="text-start">
+                  {index + 1}. {items?.question}
+                </p>
+                <div className="radio-flex-btn">
+                  {items?.options?.map((item, optionIndex) => (
+                    <Form.Check
+                      key={optionIndex}
+                      label={`${String.fromCharCode(
+                        65 + optionIndex
+                      )}. ${item}`}
+                      type="radio"
+                      name={`question-${items._id}`}
+                      value={optionIndex}
+                      onChange={() =>
+                        handleOptionChange(items._id, optionIndex)
+                      }
+                      checked={
+                        selectedAnswers?.find(
+                          (answer) => answer.id === items._id
+                        )?.answer === optionIndex
+                      }
+                    />
+                  ))}
+                  <p
+                    style={{
+                      color:
+                        items?.correctAnswer === items?.userAnswers
+                          ? "green"
+                          : "red",
+                    }}
+                  >
+                    Correct Answer:{" "}
+                    {items?.correctAnswer === 1
+                      ? "A"
+                      : items?.correctAnswer === 2
+                      ? "B"
+                      : items?.correctAnswer === 3
+                      ? "C"
+                      : items?.correctAnswer === 4
+                      ? "D"
+                      : ""}
+                  </p>
+                </div>
+              </div>
+            ))}
+            <p>
+              Your Score {quizdata?.receivedMarks}/{quizdata?.totalMarks}{" "}
+            </p>
+            <p>
+              You will receive {quizdata?.finalMultiplier}x multiplier points!
+            </p>
+
+            <Button
+              variant="primary"
+              className="common-btn bg-left"
+              onClick={() => {
+                setResultModal(false);
+              }}
+            >
+              Done
+            </Button>
           </div>
         </Modal.Body>
       </Modal>
