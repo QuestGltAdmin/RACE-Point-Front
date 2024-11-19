@@ -25,10 +25,13 @@ export const Activities = () => {
   const [topReferrals, setTopReferrals] = useState([]);
   const [monthlyTopUser, setMonthlyTopUser] = useState([]);
   const [quarterlyTopUser, setQuarterlyTopUser] = useState([]);
+  const [questiondata, setQuestiondata] = useState([]);
   const [activitydata, setActivityData] = useState([]);
   const [showShareSocial, setShowShareSocial] = useState(false);
   const [showIframe, setShowIframe] = useState(false);
   const [depositmodal, setDepositModal] = useState(false);
+  const [questionmodal, setQuestionModal] = useState(false);
+  const [quizmodal, setQuizModal] = useState(false);
   const [socialmodal, setSocialModal] = useState(false);
   const [showData, setShowData] = useState([]);
   const [refermodal, setReferModal] = useState(false);
@@ -39,13 +42,13 @@ export const Activities = () => {
   const [countForAv, setCountForAv] = useState([]);
 
   //================================End of code==============================//
+  console.log(questiondata, "questiondata");
 
   useEffect(() => {
     if (user?.referral_codes?.length > 0) {
       const filterData = user?.referral_codes?.filter((items, index) => {
         return !items?.is_used;
       });
-      console.log(filterData);
       setCountForAv(filterData);
     }
   }, []);
@@ -96,6 +99,9 @@ export const Activities = () => {
   const handledepositmodalclose = () => {
     setDepositModal(false);
   };
+  const handlequizmodalclose = () => {
+    setQuizModal(false);
+  };
   const handlesocialmodalclose = () => {
     setSocialModal(false);
   };
@@ -118,6 +124,11 @@ export const Activities = () => {
     } else if (items?.type == "Deposit") {
       setShowData(items);
       setDepositModal(true);
+    } else if (items?.type == "Quiz") {
+      console.log(items, "iiii");
+      setShowData(items);
+      setQuizModal(true);
+      getquestiondata(items);
     }
   };
 
@@ -219,12 +230,16 @@ export const Activities = () => {
       // );
       if (getData?.data?.status) {
         setActivityData(getData?.data?.data);
+        // console.log(getData?.data?.data, "getData?.data?.data");
       }
     } catch (err) {
       console.log(err);
     }
   };
   //==================================End Of Code==================================//
+
+  //==================================reverse time code==================================//
+
   const [timeRemaining, setTimeRemaining] = useState({});
   useEffect(() => {
     const timerInterval = setInterval(() => {
@@ -259,6 +274,30 @@ export const Activities = () => {
 
     return () => clearInterval(timerInterval);
   }, [activitydata]);
+  //==================================End Of Code==================================//
+
+  //==================================getQuestionData================================//
+  const getquestiondata = async (data) => {
+    console.log(data, "showData?.quiz_id");
+
+    try {
+      const getdata = await axiosMain.get(
+        `/auth/questions?id=${data?.quiz_id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (getdata?.data?.status) {
+        setQuestiondata(getdata?.data?.data);
+        console.log(getdata?.data?.data, "getdata?.data?.data");
+      }
+    } catch (err) {
+      console.log();
+    }
+  };
+  //==================================End of code================================//
 
   return (
     <>
@@ -297,47 +336,6 @@ export const Activities = () => {
                 Multipliers
               </h2>
 
-              {/* <div className="deposit-outer-box d-block">
-                <div className="invite-flex">
-                  <div className="deposit-inner-box">
-                    <img src="assets/images/invite.png" alt="" />
-                    <div>
-                      <h3>Invite</h3>
-                      <h5>5x invites available</h5>
-                      <p>
-                        Invite your friends to join the race and earn more
-                        points!
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    className="common-btn bg-left"
-                    onClick={() => {
-                      if (referralCodes?.length > 0) {
-                        handleShowReferralCodesModal();
-                      }
-                    }}
-                  >
-                    <img src="assets/images/share.png" alt="" />
-                    Invite now
-                  </button>
-                </div>
-                <div className="coming-soon-box">
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged.
-                  </p>
-                  <h6>
-                    <span>Coming Soon!</span>
-                  </h6>
-                </div>
-              </div> */}
-
               <Row>
                 <Col lg={4}>
                   <div className="deposit-outer-box d-block">
@@ -346,14 +344,15 @@ export const Activities = () => {
                         <img src="assets/images/invite.png" alt="" />
                         <div>
                           <h3>Invite</h3>
-                          <h5 className="idex-new">{countForAv?.length} invites available</h5>
-                          
+                          <h5 className="idex-new">
+                            {countForAv?.length} invites available
+                          </h5>
                         </div>
                       </div>
                       <p className=" text-center">
-                            Invite your friends to join the race and earn more
-                            points!
-                          </p>
+                        Invite your friends to join the race and earn more
+                        points!
+                      </p>
                       <button
                         className="common-btn bg-left w-100 mt-3"
                         onClick={() => {
@@ -381,7 +380,8 @@ export const Activities = () => {
                                 <img src="assets/images/invite.png" alt="" />
                                 <div>
                                   <h5 className="info-deposit-new">
-                                    {items?.multiplier}{"X"}
+                                    {items?.multiplier}
+                                    {"X"}
                                     {/* <span className="info-tooltip">
                                       <img
                                         src="assets/img/infor2.png"
@@ -505,263 +505,6 @@ export const Activities = () => {
           </Row>
         </Container>
       </section>
-
-      {/* ============================================Leaderboard section ======================================================== */}
-      {/* <section className="leaderboard-main-sec pt-0">
-        <Container>
-          <Row>
-            <Col>
-              <h2 className="common-heading">Leaderboard</h2>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={5}>
-              <div className="top-deposit-box for-min-height">
-                <h4 className="sub-heading text-start">Top Deposits</h4>
-                <Row>
-                  {topDeposits.map((deposit, index) => (
-                    <Col lg={6} md={6} sm={6} xs={6}>
-                      <div className="inner-user-box">
-                        <div className="user-img">
-                          <img src={deposit.profile} alt="" />
-                        </div>
-                        <h4>{`${deposit.wallet_address.slice(
-                          0,
-                          5
-                        )}...${deposit.wallet_address.slice(-5)}`}</h4>
-                        <p>{deposit.ENS_name ? deposit.ENS_name : "-"}</p>{" "}
-                        <h3>
-                          <b>
-                            {deposit.currency}
-                            {deposit.deposit.toFixed(4)}
-                          </b>{" "}
-                          Deposited
-                        </h3>
-                      </div>
-                    </Col>
-                  ))}
-                </Row>
-              </div>
-            </Col>
-
-            <Col lg={7}>
-              <div className="top-deposit-box for-min-height">
-                <h4 className="sub-heading text-start">Top Referrals</h4>
-                <Row>
-                  {topReferrals.map((refer, index) => (
-                    <Col lg={4} md={4} sm={6} xs={6}>
-                      <div className="inner-user-box top-referrals">
-                        <div className="user-img">
-                          <img src={refer.profile} alt="" />
-                        </div>
-                        <h4>{`${refer.wallet_address.slice(
-                          0,
-                          5
-                        )}...${refer.wallet_address.slice(-5)}`}</h4>
-                        <p>{refer.ENS_name ? refer.ENS_name : "-"}</p>{" "}
-                        <div className="referral-point">
-                          <h3>
-                            <img src="assets/img/referal.png" alt="" />{" "}
-                            <b>{refer.referral_count}</b> <span>Referrals</span>
-                          </h3>
-                          <h3>
-                            <img src="assets/img/trophy.png" alt="" />{" "}
-                            <div>
-                              <b>{refer.earn_points.toFixed(2)}</b>{" "}
-                              <span>Points</span>
-                            </div>
-                          </h3>
-                        </div>
-                      </div>
-                    </Col>
-                  ))}
-                </Row>
-              </div>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col lg={10} className="m-auto">
-              <div className="top-deposit-table">
-                <Tabs defaultActiveKey="top-depsit-all" className="mb-3 ">
-                  <Tab eventKey="top-depsit-all" title="All">
-                    <ul className="deposit-list-outer">
-                      {allTopUser?.slice(0, 50).map((monthly, index) => (
-                        <li>
-                          <div className="deposit-list-main">
-                            <div className="left-user">
-                              <div className="count-deposit">
-                                <span>{index + 1}</span>
-                                <img
-                                  className="crown-img"
-                                  src={
-                                    index + 1 === 1
-                                      ? "assets/img/king.png"
-                                      : "assets/img/crown.png"
-                                  }
-                                  alt=""
-                                />
-                              </div>
-                              <img
-                                className="user-img"
-                                src={monthly.profile}
-                                alt=""
-                              />
-                              <div>
-                                <h4>{monthly.wallet_address} </h4>
-                                <p>
-                                  {monthly.ENS_name ? monthly.ENS_name : "-"}
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <h4>
-                                {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                monthly?.wallet_address?.toLowerCase()
-                                  ? "(You)"
-                                  : ""}
-                              </h4>
-                            </div>
-                            <div className="right-trophy">
-                              <img
-                                className="trophy-img"
-                                src="assets/img/trophy.png"
-                                alt=""
-                              />
-                              <div>
-                                <h4>{monthly.earn_points.toFixed(2)}</h4>
-                                <p>Points</p>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </Tab>
-
-                  <Tab eventKey="top-depsit1" title="Monthly">
-                    <ul className="deposit-list-outer">
-                      {monthlyTopUser?.slice(0, 10).map((monthly, index) => (
-                        <li>
-                          <div className="deposit-list-main">
-                            <div className="left-user">
-                              <div className="count-deposit">
-                                <span>{index + 1}</span>
-                                <img
-                                  className="crown-img"
-                                  src={
-                                    index + 1 === 1
-                                      ? "assets/img/king.png"
-                                      : "assets/img/crown.png"
-                                  }
-                                  alt=""
-                                />
-                              </div>
-                              <img
-                                className="user-img"
-                                src={monthly.profile}
-                                alt=""
-                              />
-                              <div>
-                                <h4>{monthly.wallet_address} </h4>
-                                <p>
-                                  {monthly.ENS_name ? monthly.ENS_name : "-"}
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <h4>
-                                {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                monthly?.wallet_address?.toLowerCase()
-                                  ? "(You)"
-                                  : ""}
-                              </h4>
-                            </div>
-                            <div className="right-trophy">
-                              <img
-                                className="trophy-img"
-                                src="assets/img/trophy.png"
-                                alt=""
-                              />
-                              <div>
-                                <h4>
-                                  {monthly.monthly_earn_points.toFixed(2)}
-                                </h4>
-                                <p>Points</p>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </Tab>
-
-                  <Tab eventKey="top-depsit2" title="Weekly">
-                    <ul className="deposit-list-outer">
-                      {quarterlyTopUser
-                        ?.slice(0, 10)
-                        .map((quarterly, index) => (
-                          <li>
-                            <div className="deposit-list-main">
-                              <div className="left-user">
-                                <div className="count-deposit">
-                                  <span>{index + 1}</span>
-                                  <img
-                                    className="crown-img"
-                                    src={
-                                      index + 1 === 1
-                                        ? "assets/img/king.png"
-                                        : "assets/img/crown.png"
-                                    }
-                                    alt=""
-                                  />
-                                </div>
-                                <img
-                                  className="user-img"
-                                  src={quarterly.profile}
-                                  alt=""
-                                />
-                                <div>
-                                  <h4>{quarterly.wallet_address} </h4>
-                                  <p>
-                                    {quarterly.ENS_name
-                                      ? quarterly.ENS_name
-                                      : "-"}
-                                  </p>{" "}
-                                </div>
-                              </div>
-                              <div>
-                                <h4>
-                                  {WalletEVM?.selectedAccount?.toLowerCase() ==
-                                  quarterly?.wallet_address?.toLowerCase()
-                                    ? "(You)"
-                                    : ""}
-                                </h4>
-                              </div>
-                              <div className="right-trophy">
-                                <img
-                                  className="trophy-img"
-                                  src="assets/img/trophy.png"
-                                  alt=""
-                                />
-                                <div>
-                                  <h4>
-                                    {quarterly.weekly_earn_points?.toFixed(2)}
-                                  </h4>
-                                  <p>Points</p>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                        ))}
-                    </ul>
-                  </Tab>
-                </Tabs>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </section> */}
 
       {/* Referral Codes Modal */}
       <Modal
@@ -1032,6 +775,62 @@ export const Activities = () => {
                 }}
               >
                 Continue
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        className="new-user-modal"
+        centered
+        show={quizmodal}
+        onHide={handlequizmodalclose}
+        size="md"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>{showData?.title}</h4>
+            <p>{showData?.description}</p>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  handlequizmodalclose();
+                }}
+              >
+                Back
+              </Button>{" "}
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  handlequizmodalclose();
+                  setQuestionModal(true);
+                }}
+              >
+                Continue
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        className="new-user-modal"
+        centered
+        show={questionmodal}
+        onHide={handlequizmodalclose}
+        size="md"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <div className="d-flex gap-4">
+              <Button variant="primary" className="common-btn bg-left">
+                Submit
               </Button>
             </div>
           </div>

@@ -41,6 +41,7 @@ const AdminAddActivity = () => {
     deposit_chain: "",
     min_deposit: "",
     per_mcq_point: "",
+    quiz_type:"",
   });
 
   const [options, setOptions] = useState([
@@ -50,6 +51,7 @@ const AdminAddActivity = () => {
     { chain: "Base" },
     { chain: "Racemainnet" },
   ]);
+  
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -115,11 +117,12 @@ const AdminAddActivity = () => {
       setFormError("Please enter activity id");
     } else if (selectedOption == "Social_Media" && !inputValue.link) {
       setFormError("Please enter Link");
-    } else if (selectedOption == "Quiz" && !selecttype) {
-      setFormError("Please select quiz type");
+    } else if (selectedOption == "Quiz" && !inputValue.quiz_type) {
+      setFormError("Please enter quiz type");
     } else if (selectedOption == "Quiz" && !inputValue.per_mcq_point) {
       setFormError("Please Enter Mcq Point");
     } else {
+      
       setDisable(true);
       setFormError("");
 
@@ -144,7 +147,7 @@ const AdminAddActivity = () => {
         deposit_chain: [...finalchainlist],
         min_deposit: RowMinDeposite,
         link: RowLink,
-        quizType: selecttype,
+        quizType: inputValue.quiz_type,
         questionWithAnswers: [...finaldata],
         per_mcq_point: inputValue.per_mcq_point,
       };
@@ -368,24 +371,18 @@ const AdminAddActivity = () => {
                       {selectedOption == "Quiz" ? (
                         <>
                           <Col md={6}>
-                            <Form.Group controlId="startdate">
+                            <Form.Group controlId="quiz_type">
                               <Form.Label className="formlabel">
                                 Quiz Type :
                               </Form.Label>
-                              <select
-                                id="options"
-                                className="form-control"
-                                value={selecttype}
-                                onChange={handleChangetype}
-                              >
-                                <option value="" disabled>
-                                  Select Quiz type
-                                </option>
-                                <option value="Tokenization">
-                                  Tokenization{" "}
-                                </option>
-                                <option value="Blockchain">Blockchain </option>
-                              </select>{" "}
+                              <Form.Control
+                                type="text"
+                                placeholder="Enter Quiz type"
+                                name="quiz_type"
+                                onChange={HandleData}
+                                value={inputValue.quiz_type}
+                              />
+                             
                             </Form.Group>
                           </Col>
                           <Col md={6}>
