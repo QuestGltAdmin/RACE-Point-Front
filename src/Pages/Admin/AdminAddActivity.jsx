@@ -41,7 +41,7 @@ const AdminAddActivity = () => {
     deposit_chain: "",
     min_deposit: "",
     per_mcq_point: "",
-    quiz_type:"",
+    quiz_type: "",
   });
 
   const [options, setOptions] = useState([
@@ -51,7 +51,7 @@ const AdminAddActivity = () => {
     { chain: "Base" },
     { chain: "Racemainnet" },
   ]);
-  
+
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -122,7 +122,6 @@ const AdminAddActivity = () => {
     } else if (selectedOption == "Quiz" && !inputValue.per_mcq_point) {
       setFormError("Please Enter Mcq Point");
     } else {
-      
       setDisable(true);
       setFormError("");
 
@@ -335,39 +334,44 @@ const AdminAddActivity = () => {
                         ""
                       )}
                       {selectedOption == "Social_Media" ? (
-                        <>
-                          <Col md={6}>
-                            <Form.Group controlId="Activity_Id">
-                              <Form.Label className="formlabel">
-                                Activity Id :
-                              </Form.Label>
-                              <Form.Control
-                                type="text"
-                                placeholder="Enter activity id"
-                                name="activity_id"
-                                onChange={HandleData}
-                                value={inputValue.activity_id}
-                              />
-                            </Form.Group>
-                          </Col>
-                          <Col md={6}>
-                            <Form.Group controlId="Type">
-                              <Form.Label className="formlabel">
-                                Link :
-                              </Form.Label>
-                              <Form.Control
-                                type="text"
-                                placeholder="Enter Link"
-                                name="link"
-                                onChange={HandleData}
-                                value={inputValue.link}
-                              />
-                            </Form.Group>
-                          </Col>
-                        </>
+                        <Col md={6}>
+                          <Form.Group controlId="Activity_Id">
+                            <Form.Label className="formlabel">
+                              Activity Id :
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter activity id"
+                              name="activity_id"
+                              onChange={HandleData}
+                              value={inputValue.activity_id}
+                            />
+                          </Form.Group>
+                        </Col>
                       ) : (
                         ""
                       )}
+
+                      {selectedOption == "Social_Media" ||
+                      selectedOption == "Register" ? (
+                        <Col md={6}>
+                          <Form.Group controlId="Type">
+                            <Form.Label className="formlabel">
+                              Link :
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter Link"
+                              name="link"
+                              onChange={HandleData}
+                              value={inputValue.link}
+                            />
+                          </Form.Group>
+                        </Col>
+                      ) : (
+                        ""
+                      )}
+
                       {selectedOption == "Quiz" ? (
                         <>
                           <Col md={6}>
@@ -382,7 +386,6 @@ const AdminAddActivity = () => {
                                 onChange={HandleData}
                                 value={inputValue.quiz_type}
                               />
-                             
                             </Form.Group>
                           </Col>
                           <Col md={6}>
@@ -499,6 +502,7 @@ const AdminAddActivity = () => {
                                   />
                                 </Form.Group>
                               </Col>
+
                               <Col md={6}>
                                 <Form.Group controlId="correctoption">
                                   <Form.Label className="formlabel">
@@ -518,9 +522,10 @@ const AdminAddActivity = () => {
                                   />
                                 </Form.Group>
                               </Col>
-                              <Col md="1">
-                                <div className="mb-3">
+                              <Col md={1}  className="align-self-end" >
+                                <div >
                                   <button
+                                    className="common-btn ps-3 pe-3"
                                     onClick={() =>
                                       handleRemoveRowQuestion(index)
                                     }
@@ -536,8 +541,11 @@ const AdminAddActivity = () => {
                           ))}
 
                           <Col md="1" className="offset-md-11">
-                            <div style={{ textAlign: "start" }}>
-                              <button onClick={handleAddRowQuestion}>
+                            <div>
+                              <button
+                                onClick={handleAddRowQuestion}
+                                className="common-btn ps-3 pe-3 mt-4"
+                              >
                                 <i class="fa fa-plus" aria-hidden="true"></i>{" "}
                               </button>
                             </div>

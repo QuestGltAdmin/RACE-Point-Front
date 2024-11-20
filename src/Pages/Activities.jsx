@@ -46,6 +46,7 @@ export const Activities = () => {
   const [socialmodal, setSocialModal] = useState(false);
   const [showData, setShowData] = useState([]);
   const [refermodal, setReferModal] = useState(false);
+  const [registermodal, setRegisterModal] = useState(false);
   const [codeShare, setCodeShare] = useState("");
   const [iframelink, setIframeLink] = useState("");
   const [copy, setCopy] = useState(false);
@@ -134,11 +135,17 @@ export const Activities = () => {
       setShowData(items);
       setQuizModal(true);
       getquestiondata(items);
+    } else if (items?.type == "Register") {
+      setShowData(items);
+      setRegisterModal(true);
     }
   };
 
   const handleShowReferralCodesModal = () => setShowReferralCodesModal(true);
 
+  const HandleRegister = () => {
+    window.open("https://raceecosystem.com/", "_blank");
+  };
   //=============================== Funtion to copy referral code to clipboard =================================
   const handleCopy = (code, index) => {
     navigator.clipboard
@@ -299,13 +306,14 @@ export const Activities = () => {
         });
 
         if (submit?.data?.status) {
-          setFormError("")
+          setFormError("");
           setDisable(false);
           toast.success(submit?.data?.message);
           dispatch(quizresult(submit?.data));
           setTimeout(() => {
             setQuestionModal(false);
             setResultModal(true);
+            getDashboardData();
           }, 3000);
         }
       } catch (err) {
@@ -589,6 +597,7 @@ export const Activities = () => {
           </div>
         </Modal.Body>
       </Modal>
+      {/*end of  Referral Codes Modal */}
 
       <Modal
         className="new-user-modal"
@@ -616,67 +625,7 @@ export const Activities = () => {
         </Modal.Body>
       </Modal>
 
-      <Modal
-        className="new-user-modal"
-        centered
-        show={showIframe}
-        onHide={handleCloseIframe}
-        size="lg"
-      >
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <div>
-            <iframe
-              src={iframelink}
-              // src={`https://sweepwidget.com/c/85960-ksa3hjty?data-name=harshal&data-email=test.user@example.com&sw_text_input_7_1=${WalletEVM?.selectedAccount}`}
-              // src="https://sweepwidget.com/c/85960-ksa3hjty?data-name=harshal&data-email=test.user@example.com&data-wallet-Address=0x7E1f02Ecb7616a15F3891C7e0365e56C5f6c3A16&data-auto-login=0"
-              // src="https://sweepwidget.com/c/438-tu2zjsh4?data-name=harshal&data-email=test.user@example.com&data-auto-login=0"
-              width="100%"
-              height="910px"
-              frameBorder="0"
-              allowFullScreen
-              style={{ border: "none" }}
-            ></iframe>
-          </div>
-        </Modal.Body>
-      </Modal>
-
-      <Modal
-        className="new-user-modal"
-        centered
-        show={depositmodal}
-        onHide={handledepositmodalclose}
-        size="md"
-      >
-        <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>
-          <div>
-            <h4>{showData?.title}</h4>
-            <p>{showData?.description}</p>
-            <div className="d-flex gap-4">
-              <Button
-                variant="primary"
-                className="common-btn bg-left"
-                onClick={() => {
-                  handledepositmodalclose();
-                }}
-              >
-                Back
-              </Button>{" "}
-              <Button
-                variant="primary"
-                className="common-btn bg-left"
-                onClick={() => {
-                  navigate("/deposit-step-1");
-                }}
-              >
-                Continue
-              </Button>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
-
+      {/*socialmedia activity Codes Modal */}
       <Modal
         className="new-user-modal"
         centered
@@ -759,7 +708,71 @@ export const Activities = () => {
           </div>
         </Modal.Body>
       </Modal>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={showIframe}
+        onHide={handleCloseIframe}
+        size="lg"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <iframe
+              src={iframelink}
+              // src={`https://sweepwidget.com/c/85960-ksa3hjty?data-name=harshal&data-email=test.user@example.com&sw_text_input_7_1=${WalletEVM?.selectedAccount}`}
+              // src="https://sweepwidget.com/c/85960-ksa3hjty?data-name=harshal&data-email=test.user@example.com&data-wallet-Address=0x7E1f02Ecb7616a15F3891C7e0365e56C5f6c3A16&data-auto-login=0"
+              // src="https://sweepwidget.com/c/438-tu2zjsh4?data-name=harshal&data-email=test.user@example.com&data-auto-login=0"
+              width="100%"
+              height="910px"
+              frameBorder="0"
+              allowFullScreen
+              style={{ border: "none" }}
+            ></iframe>
+          </div>
+        </Modal.Body>
+      </Modal>
+      {/* end of socialmedia activity Codes Modal */}
 
+      {/*deposite activity Codes Modal */}
+      <Modal
+        className="new-user-modal"
+        centered
+        show={depositmodal}
+        onHide={handledepositmodalclose}
+        size="md"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>{showData?.title}</h4>
+            <p>{showData?.description}</p>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  handledepositmodalclose();
+                }}
+              >
+                Back
+              </Button>{" "}
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  navigate("/deposit-step-1");
+                }}
+              >
+                Continue
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+      {/* end of deposite activity Codes Modal */}
+
+      {/*referral activity Codes Modal */}
       <Modal
         className="new-user-modal"
         centered
@@ -796,7 +809,9 @@ export const Activities = () => {
           </div>
         </Modal.Body>
       </Modal>
+      {/* end of referral activity Codes Modal */}
 
+      {/*quiz activity Codes Modal */}
       <Modal
         className="new-user-modal"
         centered
@@ -833,7 +848,6 @@ export const Activities = () => {
           </div>
         </Modal.Body>
       </Modal>
-
       <Modal
         className="new-user-modal"
         centered
@@ -890,7 +904,6 @@ export const Activities = () => {
           </div>
         </Modal.Body>
       </Modal>
-
       <Modal
         className="new-user-modal"
         centered
@@ -909,46 +922,41 @@ export const Activities = () => {
                 <p className="text-start">
                   {index + 1}. {items?.question}
                 </p>
-                <div className="radio-flex-btn">
-                  {items?.options?.map((item, optionIndex) => (
-                    <Form.Check
-                      key={optionIndex}
-                      label={`${String.fromCharCode(
-                        65 + optionIndex
-                      )}. ${item}`}
-                      type="radio"
-                      name={`question-${items._id}`}
-                      value={optionIndex}
-                      onChange={() =>
-                        handleOptionChange(items._id, optionIndex)
-                      }
-                      checked={
-                        selectedAnswers?.find(
-                          (answer) => answer.id === items._id
-                        )?.answer === optionIndex
-                      }
-                    />
-                  ))}
-                  <p
-                    style={{
-                      color:
-                        items?.correctAnswer === items?.userAnswers
-                          ? "green"
-                          : "red",
-                    }}
-                  >
-                    Correct Answer:{" "}
-                    {items?.correctAnswer === 1
-                      ? "A"
-                      : items?.correctAnswer === 2
-                      ? "B"
-                      : items?.correctAnswer === 3
-                      ? "C"
-                      : items?.correctAnswer === 4
-                      ? "D"
-                      : ""}
-                  </p>
-                </div>
+                {items?.options?.map((item, optionIndex) => (
+                  <>
+                    <div className="radio-flex-btn">
+                      <Form.Check
+                        key={optionIndex}
+                        label={`${String.fromCharCode(
+                          65 + optionIndex
+                        )}. ${item}`}
+                        type="radio"
+                        name={`question-${items._id}`}
+                        value={optionIndex}
+                        onChange={() =>
+                          handleOptionChange(items._id, optionIndex)
+                        }
+                        checked={
+                          selectedAnswers?.find(
+                            (answer) => answer.id === items._id
+                          )?.answer === optionIndex
+                        }
+                      />
+                    </div>{" "}
+                  </>
+                ))}
+                <p
+                  className="text-end"
+                  style={{
+                    color:
+                      items?.correctAnswer === items?.userAnswers
+                        ? "green"
+                        : "red",
+                  }}
+                >
+                  Correct Answer:{" "}
+                  {["", "A", "B", "C", "D"][items?.correctAnswer] || ""}
+                </p>
               </div>
             ))}
             <p>
@@ -970,6 +978,48 @@ export const Activities = () => {
           </div>
         </Modal.Body>
       </Modal>
+      {/* end of quiz activity Codes Modal */}
+
+      {/*register activity Codes Modal */}
+      <Modal
+        className="new-user-modal"
+        centered
+        show={registermodal}
+        onHide={() => {
+          setRegisterModal(false);
+        }}
+        size="md"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>{showData?.title}</h4>
+            <p>{showData?.description}</p>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setRegisterModal(false);
+                }}
+              >
+                Back
+              </Button>{" "}
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  setRegisterModal(false);
+                  HandleRegister();
+                }}
+              >
+                Continue
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+      {/* end of register activity modals Codes */}
     </>
   );
 };
