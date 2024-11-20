@@ -910,9 +910,9 @@ export const Activities = () => {
                 <p className="text-start">
                   {index + 1}. {items?.question}
                 </p>
-                {items?.options?.map((item, optionIndex) => (
-                  <>
-                    <div className="radio-flex-btn">
+                <div className="radio-flex-btn">
+                  {items?.options?.map((item, optionIndex) => (
+                    <>
                       <Form.Check
                         key={optionIndex}
                         label={`${String.fromCharCode(
@@ -930,9 +930,9 @@ export const Activities = () => {
                           )?.answer === optionIndex
                         }
                       />
-                    </div>{" "}
-                  </>
-                ))}
+                    </>
+                  ))}
+                </div>{" "}
                 <p
                   className="text-end"
                   style={{
