@@ -1,32 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "../Components/Header";
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  Modal,
-  Row,
-  Tab,
-  Tabs,
-} from "react-bootstrap";
+import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { encryptData } from "../Encrypt-Decrypt/encryption-decryption";
 import axiosMain from "../http/axios/axios_main";
 import { ShareSocial } from "react-share-social";
-import { set } from "lodash";
-import { resolveENSName } from "../helpers/ENSname";
 import { toast } from "react-toastify";
 import { quizresult } from "../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
 
 export const Activities = () => {
   //=================Global Variables==================//
-  const navigate = useNavigate();
   const { user, WalletEVM, quizdata } = useAuth();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
   //===============End of code====================//
 
   //=================Local Variables==================//
@@ -98,6 +86,7 @@ export const Activities = () => {
   const [copiedCodeIndex, setCopiedCodeIndex] = useState(null);
   //===============================End of code=================================
 
+  //===============================modal close function=================================
   const handleShareSocial = () => {
     setShowShareSocial(false);
   };
@@ -119,6 +108,7 @@ export const Activities = () => {
   const handlerefermodalclose = () => {
     setReferModal(false);
   };
+  //===============================End of code=================================
 
   const HandleIframes = (items) => {
     if (items?.type == "Refer") {
@@ -260,13 +250,11 @@ export const Activities = () => {
   const handleOptionChange = (id, answer) => {
     setSelectedAnswers((prev) => {
       const existingAnswerIndex = prev.findIndex((answer) => answer.id === id);
-
       if (existingAnswerIndex > -1) {
         const updatedAnswers = [...prev];
         updatedAnswers[existingAnswerIndex].answer = answer;
         return updatedAnswers;
       }
-
       return [
         ...prev,
         {

@@ -12,7 +12,6 @@ const AdminActivity = () => {
   //==================================Global Variable================================//
   const { user } = useAuth();
   const navigate = useNavigate();
-
   //==================================End of code================================//
 
   //==================================Local Variables================================//
@@ -21,7 +20,6 @@ const AdminActivity = () => {
   const [totaldatacount, setTotalDataCount] = useState(1);
   const [showdata, setShowData] = useState([]);
   const [checkForData, setCheckForData] = useState(0);
-
   //==================================End of code================================//
 
   //==============================Get Data All Trx==============================//

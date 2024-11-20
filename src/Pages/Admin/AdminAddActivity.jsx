@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AdmindashHeader } from "../../Components/Ui/AdmindashHeader";
-import { Col, Container, Row, Form, Dropdown } from "react-bootstrap";
+import { Col, Container, Row, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Multiselect from "multiselect-react-dropdown";
 import { encryptData } from "../../Encrypt-Decrypt/encryption-decryption";
@@ -9,14 +9,16 @@ import axiosMain from "../../http/axios/axios_main";
 import useAuth from "../../hooks/useAuth";
 
 const AdminAddActivity = () => {
+  //=================Global Variables==================//
   const { user } = useAuth();
   const navigate = useNavigate();
+  //===============End of code====================//
+
+  //===============Local Variable====================//
   const [selectedOption, setSelectedOption] = useState("");
-  const [selecttype, setSelectType] = useState("");
   const [finalchainlist, setFinalChanList] = useState([]);
   const [formerror, setFormError] = useState("");
   const [disable, setDisable] = useState(false);
-
   const initialquestionRow = {
     question: "",
     option1: "",
@@ -25,11 +27,9 @@ const AdminAddActivity = () => {
     option4: "",
     correctoption: "",
   };
-
   const [arrayquestiondata, setArrayQuestionData] = useState([
     initialquestionRow,
   ]);
-
   const [inputValue, setInputValue] = useState({
     title: "",
     multiplier: "",
@@ -43,7 +43,6 @@ const AdminAddActivity = () => {
     per_mcq_point: "",
     quiz_type: "",
   });
-
   const [options, setOptions] = useState([
     { chain: "Optimism" },
     { chain: "Polygon" },
@@ -51,13 +50,12 @@ const AdminAddActivity = () => {
     { chain: "Base" },
     { chain: "Racemainnet" },
   ]);
+  //===============End of code====================//
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
-  const handleChangetype = (event) => {
-    setSelectType(event.target.value);
-  };
+
   const HandleData = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
   };
@@ -522,8 +520,8 @@ const AdminAddActivity = () => {
                                   />
                                 </Form.Group>
                               </Col>
-                              <Col md={1}  className="align-self-end" >
-                                <div >
+                              <Col md={1} className="align-self-end">
+                                <div>
                                   <button
                                     className="common-btn ps-3 pe-3"
                                     onClick={() =>
