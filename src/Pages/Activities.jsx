@@ -394,7 +394,7 @@ export const Activities = () => {
                                   <h5 className="info-deposit-new">
                                     {items?.multiplier}
                                     {"X"}
-                                    {/* <span className="info-tooltip">
+                                    <span className="info-tooltip">
                                       <img
                                         src="assets/img/infor2.png"
                                         className="info-icon"
@@ -402,12 +402,13 @@ export const Activities = () => {
                                       />
                                       <div>
                                         <p>
-                                          This is where you can see the total
-                                          amount of money you've deposited. It’s
-                                          your personal vault that
+                                          This multiplier will increase your
+                                          daily points, giving you an extra
+                                          boost and maximizing your rewards in
+                                          the Point System
                                         </p>
                                       </div>
-                                    </span> */}
+                                    </span>
                                   </h5>
                                   <h3>
                                     {items?.type == "Social_Media"
@@ -450,15 +451,15 @@ export const Activities = () => {
                                     <i className="fa fa-check-circle"></i>
                                   </button>
                                 ) : (
-                                  <button
-                                    className="common-btn bg-left w-100 mt-3"
-                                    onClick={() => {
-                                      HandleIframes(items);
-                                    }}
-                                  >
-                                    Start
-                                  </button>
-                                )}
+                                <button
+                                  className="common-btn bg-left w-100 mt-3"
+                                  onClick={() => {
+                                    HandleIframes(items);
+                                  }}
+                                >
+                                  Start
+                                </button>
+                                 )} 
                               </div>
                             </div>
                           ) : (
@@ -854,8 +855,8 @@ export const Activities = () => {
                 <p className="text-start">
                   {index + 1}. {items?.question}
                 </p>
-                <div className="radio-flex-btn">
-                  {items?.options?.map((item, optionIndex) => (
+                {items?.options?.map((item, optionIndex) => (
+                  <div className="radio-flex-btn">
                     <Form.Check
                       key={optionIndex}
                       label={`${String.fromCharCode(
@@ -873,8 +874,8 @@ export const Activities = () => {
                         )?.answer === optionIndex
                       }
                     />
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             ))}
             {formerror && <p className="text-danger mt-3">{formerror}</p>}
@@ -910,29 +911,27 @@ export const Activities = () => {
                 <p className="text-start">
                   {index + 1}. {items?.question}
                 </p>
-                <div className="radio-flex-btn">
-                  {items?.options?.map((item, optionIndex) => (
-                    <>
-                      <Form.Check
-                        key={optionIndex}
-                        label={`${String.fromCharCode(
-                          65 + optionIndex
-                        )}. ${item}`}
-                        type="radio"
-                        name={`question-${items._id}`}
-                        value={optionIndex}
-                        onChange={() =>
-                          handleOptionChange(items._id, optionIndex)
-                        }
-                        checked={
-                          selectedAnswers?.find(
-                            (answer) => answer.id === items._id
-                          )?.answer === optionIndex
-                        }
-                      />
-                    </>
-                  ))}
-                </div>{" "}
+                {items?.options?.map((item, optionIndex) => (
+                  <div className="radio-flex-btn">
+                    <Form.Check
+                      key={optionIndex}
+                      label={`${String.fromCharCode(
+                        65 + optionIndex
+                      )}. ${item}`}
+                      type="radio"
+                      name={`question-${items._id}`}
+                      value={optionIndex}
+                      onChange={() =>
+                        handleOptionChange(items._id, optionIndex)
+                      }
+                      checked={
+                        selectedAnswers?.find(
+                          (answer) => answer.id === items._id
+                        )?.answer === optionIndex
+                      }
+                    />
+                  </div>
+                ))}
                 <p
                   className="text-end"
                   style={{
@@ -950,9 +949,7 @@ export const Activities = () => {
             <p>
               Your Score {quizdata?.receivedMarks}/{quizdata?.totalMarks}{" "}
             </p>
-            <p>
-              You will receive {quizdata?.finalMultiplier}x multiplier points!
-            </p>
+            <p>You will receive a {quizdata?.finalMultiplier}x multiplier</p>
 
             <Button
               variant="primary"
@@ -1007,7 +1004,7 @@ export const Activities = () => {
           </div>
         </Modal.Body>
       </Modal>
-      {/* end of register activity modals Codes */}
+      {/*end of register activity modals Codes*/}
     </>
   );
 };

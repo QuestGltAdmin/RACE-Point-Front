@@ -210,7 +210,7 @@ const AdminAddActivity = () => {
                             value={inputValue.title}
                           />
                         </Form.Group>
-                      </Col>{" "}
+                      </Col>
                       <Col md={6}>
                         <Form.Group controlId="description">
                           <Form.Label className="formlabel">
@@ -227,7 +227,7 @@ const AdminAddActivity = () => {
                       </Col>
                     </Row>
                     <Row>
-                      {" "}
+                      
                       <Col md={6}>
                         <Form.Group controlId="startdate">
                           <Form.Label className="formlabel">
@@ -292,7 +292,7 @@ const AdminAddActivity = () => {
                             <option value="Quiz">Quiz </option>
                             <option value="Register">Register </option>
                             <option value="Social_Media">Social Media</option>
-                          </select>{" "}
+                          </select>
                         </Form.Group>
                       </Col>
                       {selectedOption == "Deposit" ? (
@@ -531,7 +531,7 @@ const AdminAddActivity = () => {
                                     <i
                                       class="fa fa-remove"
                                       aria-hidden="true"
-                                    ></i>{" "}
+                                    ></i>
                                   </button>
                                 </div>
                               </Col>
@@ -544,7 +544,7 @@ const AdminAddActivity = () => {
                                 onClick={handleAddRowQuestion}
                                 className="common-btn ps-3 pe-3 mt-4"
                               >
-                                <i class="fa fa-plus" aria-hidden="true"></i>{" "}
+                                <i class="fa fa-plus" aria-hidden="true"></i>
                               </button>
                             </div>
                           </Col>
@@ -563,10 +563,10 @@ const AdminAddActivity = () => {
                         AddActivity();
                       }}
                     >
-                      {" "}
+                      
                       {disable === true ? "Processing" : "Add Activity"}
                     </button>
-                  </div>{" "}
+                  </div>
                 </div>
               </Col>
             </Row>
