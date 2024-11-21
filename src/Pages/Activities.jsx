@@ -451,15 +451,15 @@ export const Activities = () => {
                                     <i className="fa fa-check-circle"></i>
                                   </button>
                                 ) : (
-                                <button
-                                  className="common-btn bg-left w-100 mt-3"
-                                  onClick={() => {
-                                    HandleIframes(items);
-                                  }}
-                                >
-                                  Start
-                                </button>
-                                 )} 
+                                  <button
+                                    className="common-btn bg-left w-100 mt-3"
+                                    onClick={() => {
+                                      HandleIframes(items);
+                                    }}
+                                  >
+                                    Start
+                                  </button>
+                                )}
                               </div>
                             </div>
                           ) : (
@@ -946,11 +946,32 @@ export const Activities = () => {
                 </p>
               </div>
             ))}
-            <p>
-              Your Score {quizdata?.receivedMarks}/{quizdata?.totalMarks}{" "}
-            </p>
-            <p>You will receive a {quizdata?.finalMultiplier}x multiplier</p>
-
+            {quizdata.receivedMarks == 0 ? (
+              <p>
+                {" "}
+                "Oops! 😔 It looks like you didn’t get any answers correct this
+                time. But don’t worry—quizzes are a great way to learn and
+                improve! 💡 Try again and aim for those correct answers to
+                unlock your multiplier and boost your points. You've got this!
+                🚀"
+              </p>
+            ) : (
+              <>
+                <p>
+                  Your Percentage : &nbsp;
+                  {quizdata?.totalMarks
+                    ? (
+                        (quizdata.receivedMarks / quizdata.totalMarks) *
+                        100
+                      ).toFixed(2)
+                    : 0}
+                  %
+                </p>
+                <p>
+                  You will receive a {quizdata?.finalMultiplier}x multiplier
+                </p>
+              </>
+            )}
             <Button
               variant="primary"
               className="common-btn bg-left"
@@ -958,7 +979,7 @@ export const Activities = () => {
                 setResultModal(false);
               }}
             >
-              Done
+              Close
             </Button>
           </div>
         </Modal.Body>
