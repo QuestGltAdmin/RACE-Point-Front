@@ -81,11 +81,13 @@ const AdminAddActivity = () => {
 
   //===============Handle mulitselect code for chain filter================//
   const handleMultiSelect = (selectedList) => {
-    setFinalChanList(selectedList);
+    const chains = selectedList.map((item) => item.chain);
+    setFinalChanList(chains);
   };
 
   const handleMultiSelectRemove = (selectedList) => {
-    setFinalChanList(selectedList);
+    const chains = selectedList.map((item) => item.chain);
+    setFinalChanList(chains);
   };
 
   const finaldata = arrayquestiondata?.map((item) => ({
