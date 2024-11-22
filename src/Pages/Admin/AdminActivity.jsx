@@ -177,6 +177,7 @@ const AdminActivity = () => {
                                           : "-"}
                                       </p>
                                       <p>
+                                        <div className="gap-2">
                                           <button
                                             className="common-btn m-1"
                                             onClick={() => {
@@ -205,6 +206,7 @@ const AdminActivity = () => {
                                           <button className="common-btn m-1">
                                             <i className="fa fa-trash"></i>
                                           </button>
+                                        </div>
                                       </p>
                                     </div>
                                   );
@@ -264,16 +266,16 @@ const AdminActivity = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <h4>Activity Details</h4>
-          <div className="shadow-box-main">
+          <div className="admin-activity-details-box">
             {" "}
             <Row className="text-start mt-5">
-              <Col md="6">
+              <Col md="12">
                 <p>
                   <b>Title</b>:{" "}
                   {activitydetails?.title ? activitydetails?.title : "-"}
                 </p>
               </Col>
-              <Col md="6">
+              <Col md="12">
                 <p>
                   <b>Multiplier</b>:{" "}
                   {activitydetails?.multiplier
@@ -289,13 +291,13 @@ const AdminActivity = () => {
                     : "-"}
                 </p>
               </Col>
-              <Col md="6">
+              <Col md="12">
                 <p>
                   <b>Type</b>:{" "}
                   {activitydetails?.type ? activitydetails?.type : "-"}
                 </p>
               </Col>
-              <Col md="6">
+              <Col md="12">
                 <p>
                   <b>Start Date</b>:{" "}
                   {activitydetails?.start_date
@@ -305,7 +307,7 @@ const AdminActivity = () => {
                     : "-"}
                 </p>
               </Col>
-              <Col md="6">
+              <Col md="12">
                 <p>
                   <b>end Date</b>:{" "}
                   {activitydetails?.end_date
@@ -318,7 +320,7 @@ const AdminActivity = () => {
               {activitydetails?.type == "Deposit" ? (
                 <>
                   {" "}
-                  <Col md="6">
+                  <Col md="12">
                     <p>
                       <b>Deposit Chain</b>:{" "}
                       {activitydetails?.deposit_chain
@@ -328,7 +330,7 @@ const AdminActivity = () => {
                         : "-"}
                     </p>
                   </Col>
-                  <Col md="6">
+                  <Col md="12">
                     <p>
                       <b>Minimum deposit</b>:{" "}
                       {activitydetails?.min_deposit
@@ -340,13 +342,13 @@ const AdminActivity = () => {
               ) : activitydetails?.type == "Social_Media" ? (
                 <>
                   {" "}
-                  <Col md="6">
+                  <Col md="12">
                     <p>
                       <b>Link</b>:{" "}
                       {activitydetails?.link ? activitydetails?.link : "-"}
                     </p>
                   </Col>
-                  <Col md="6">
+                  <Col md="12">
                     <p>
                       <b>Activity Id</b>:{" "}
                       {activitydetails?.activity_id
@@ -358,7 +360,7 @@ const AdminActivity = () => {
               ) : activitydetails?.type == "Quiz" ? (
                 <>
                   {" "}
-                  <Col md="6">
+                  <Col md="12">
                     <p>
                       <b>Quiz Type</b>:{" "}
                       {activitydetails?.quizData
@@ -366,7 +368,7 @@ const AdminActivity = () => {
                         : "-"}
                     </p>
                   </Col>
-                  <Col md="6">
+                  <Col md="12">
                     <p>
                       <b>Per MCQ Point</b>:{" "}
                       {activitydetails?.quizData
@@ -375,17 +377,17 @@ const AdminActivity = () => {
                     </p>
                   </Col>
                   {questiondetails?.map((items, index) => (
-                    <div key={index}>
+                    <div className="shadow-box-main" key={index}>
                       <Col md="12">
                         <p>
-                          <b>Question {index + 1}</b>:{" "}
-                          {items?.question ? items?.question : "-"}
+                          <b>Question {index + 1}</b>{" "}
                         </p>
+                        <p>{items?.question ? items?.question : "-"}</p>
                       </Col>
                       {items?.options?.map((option, optionIndex) => (
                         <Col md="6" key={optionIndex}>
                           <p>
-                            <b>Option {optionIndex + 1}</b>: {option}
+                            Option {optionIndex + 1} : {option}
                           </p>
                         </Col>
                       ))}

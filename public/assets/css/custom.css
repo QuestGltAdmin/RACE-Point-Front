@@ -2599,3 +2599,15 @@ content: none;
     border-color: #c38a79;
     box-shadow: none  !important;
 }
+
+/* activity result popup css */
+
+.new-user-modal .modal-content .modal-body .admin-activity-details-box p{
+display: flex;
+align-items: flex-start;
+
+}
+.new-user-modal .modal-content .modal-body .admin-activity-details-box p b {
+    min-width: 220px;
+    display: inline-block;
+}
