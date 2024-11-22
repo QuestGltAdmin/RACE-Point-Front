@@ -2611,3 +2611,13 @@ align-items: flex-start;
     min-width: 220px;
     display: inline-block;
 }
+@media (max-width: 768px){
+    .new-user-modal .modal-content .modal-body .admin-activity-details-box p {
+        display: block;
+    }
+    .new-user-modal .modal-content .modal-body .admin-activity-details-box p b {
+        min-width: auto;
+        display: block;
+        margin-bottom: 10px;
+    }
+}
