@@ -177,9 +177,8 @@ const AdminActivity = () => {
                                           : "-"}
                                       </p>
                                       <p>
-                                        <div className="gap-2">
                                           <button
-                                            className="common-btn"
+                                            className="common-btn m-1"
                                             onClick={() => {
                                               // setDetailsModal(true);
                                               handledetails(items);
@@ -189,7 +188,7 @@ const AdminActivity = () => {
                                           </button>
 
                                           <button
-                                            className="common-btn"
+                                            className="common-btn m-1"
                                             onClick={() => {
                                               navigate(
                                                 "/main-update-activity",
@@ -203,10 +202,9 @@ const AdminActivity = () => {
                                           >
                                             <i className="fa fa-edit"></i>
                                           </button>
-                                          <button className="common-btn">
+                                          <button className="common-btn m-1">
                                             <i className="fa fa-trash"></i>
                                           </button>
-                                        </div>
                                       </p>
                                     </div>
                                   );
