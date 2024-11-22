@@ -266,140 +266,145 @@ const AdminActivity = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <h4>Activity Details</h4>
-          <Row className="text-start mt-5">
-            <Col md="6">
-              <p>
-                <b>Title</b>:{" "}
-                {activitydetails?.title ? activitydetails?.title : "-"}
-              </p>
-            </Col>
-            <Col md="6">
-              <p>
-                <b>Multiplier</b>:{" "}
-                {activitydetails?.multiplier
-                  ? activitydetails?.multiplier
-                  : "-"}
-              </p>
-            </Col>
-            <Col md="12">
-              <p>
-                <b>Description</b>:{" "}
-                {activitydetails?.description
-                  ? activitydetails?.description
-                  : "-"}
-              </p>
-            </Col>
-            <Col md="6">
-              <p>
-                <b>Type</b>:{" "}
-                {activitydetails?.type ? activitydetails?.type : "-"}
-              </p>
-            </Col>
-            <Col md="6">
-              <p>
-                <b>Start Date</b>:{" "}
-                {activitydetails?.start_date
-                  ? moment
-                      .utc(activitydetails?.start_date)
-                      .format("MMMM D, YYYY")
-                  : "-"}
-              </p>
-            </Col>
-            <Col md="6">
-              <p>
-                <b>end Date</b>:{" "}
-                {activitydetails?.end_date
-                  ? moment.utc(activitydetails?.end_date).format("MMMM D, YYYY")
-                  : "-"}
-              </p>
-            </Col>
-            {activitydetails?.type == "Deposit" ? (
-              <>
-                {" "}
-                <Col md="6">
-                  <p>
-                    <b>Deposit Chain</b>:{" "}
-                    {activitydetails?.deposit_chain
-                      ? activitydetails?.deposit_chain?.map((items) => {
-                          return items + " , ";
-                        })
-                      : "-"}
-                  </p>
-                </Col>
-                <Col md="6">
-                  <p>
-                    <b>Minimum deposit</b>:{" "}
-                    {activitydetails?.min_deposit
-                      ? activitydetails?.min_deposit
-                      : "-"}
-                  </p>
-                </Col>{" "}
-              </>
-            ) : activitydetails?.type == "Social_Media" ? (
-              <>
-                {" "}
-                <Col md="6">
-                  <p>
-                    <b>Link</b>:{" "}
-                    {activitydetails?.link ? activitydetails?.link : "-"}
-                  </p>
-                </Col>
-                <Col md="6">
-                  <p>
-                    <b>Activity Id</b>:{" "}
-                    {activitydetails?.activity_id
-                      ? activitydetails?.activity_id
-                      : "-"}
-                  </p>
-                </Col>
-              </>
-            ) : activitydetails?.type == "Quiz" ? (
-              <>
-                {" "}
-                <Col md="6">
-                  <p>
-                    <b>Quiz Type</b>:{" "}
-                    {activitydetails?.quizData
-                      ? activitydetails?.quizData[0]?.type
-                      : "-"}
-                  </p>
-                </Col>
-                <Col md="6">
-                  <p>
-                    <b>Per MCQ Point</b>:{" "}
-                    {activitydetails?.quizData
-                      ? activitydetails?.quizData[0]?.per_mcq_point
-                      : "-"}
-                  </p>
-                </Col>
-                {questiondetails?.map((items, index) => (
-                  <div key={index}>
-                    <Col md="12">
-                      <p>
-                        <b>Question {index + 1}</b>:{" "}
-                        {items?.question ? items?.question : "-"}
-                      </p>
-                    </Col>
-                    {items?.options?.map((option, optionIndex) => (
-                      <Col md="6" key={optionIndex}>
+          <div className="shadow-box-main">
+            {" "}
+            <Row className="text-start mt-5">
+              <Col md="6">
+                <p>
+                  <b>Title</b>:{" "}
+                  {activitydetails?.title ? activitydetails?.title : "-"}
+                </p>
+              </Col>
+              <Col md="6">
+                <p>
+                  <b>Multiplier</b>:{" "}
+                  {activitydetails?.multiplier
+                    ? activitydetails?.multiplier
+                    : "-"}
+                </p>
+              </Col>
+              <Col md="12">
+                <p>
+                  <b>Description</b>:{" "}
+                  {activitydetails?.description
+                    ? activitydetails?.description
+                    : "-"}
+                </p>
+              </Col>
+              <Col md="6">
+                <p>
+                  <b>Type</b>:{" "}
+                  {activitydetails?.type ? activitydetails?.type : "-"}
+                </p>
+              </Col>
+              <Col md="6">
+                <p>
+                  <b>Start Date</b>:{" "}
+                  {activitydetails?.start_date
+                    ? moment
+                        .utc(activitydetails?.start_date)
+                        .format("MMMM D, YYYY")
+                    : "-"}
+                </p>
+              </Col>
+              <Col md="6">
+                <p>
+                  <b>end Date</b>:{" "}
+                  {activitydetails?.end_date
+                    ? moment
+                        .utc(activitydetails?.end_date)
+                        .format("MMMM D, YYYY")
+                    : "-"}
+                </p>
+              </Col>
+              {activitydetails?.type == "Deposit" ? (
+                <>
+                  {" "}
+                  <Col md="6">
+                    <p>
+                      <b>Deposit Chain</b>:{" "}
+                      {activitydetails?.deposit_chain
+                        ? activitydetails?.deposit_chain?.map((items) => {
+                            return items + " , ";
+                          })
+                        : "-"}
+                    </p>
+                  </Col>
+                  <Col md="6">
+                    <p>
+                      <b>Minimum deposit</b>:{" "}
+                      {activitydetails?.min_deposit
+                        ? activitydetails?.min_deposit
+                        : "-"}
+                    </p>
+                  </Col>{" "}
+                </>
+              ) : activitydetails?.type == "Social_Media" ? (
+                <>
+                  {" "}
+                  <Col md="6">
+                    <p>
+                      <b>Link</b>:{" "}
+                      {activitydetails?.link ? activitydetails?.link : "-"}
+                    </p>
+                  </Col>
+                  <Col md="6">
+                    <p>
+                      <b>Activity Id</b>:{" "}
+                      {activitydetails?.activity_id
+                        ? activitydetails?.activity_id
+                        : "-"}
+                    </p>
+                  </Col>
+                </>
+              ) : activitydetails?.type == "Quiz" ? (
+                <>
+                  {" "}
+                  <Col md="6">
+                    <p>
+                      <b>Quiz Type</b>:{" "}
+                      {activitydetails?.quizData
+                        ? activitydetails?.quizData[0]?.type
+                        : "-"}
+                    </p>
+                  </Col>
+                  <Col md="6">
+                    <p>
+                      <b>Per MCQ Point</b>:{" "}
+                      {activitydetails?.quizData
+                        ? activitydetails?.quizData[0]?.per_mcq_point
+                        : "-"}
+                    </p>
+                  </Col>
+                  {questiondetails?.map((items, index) => (
+                    <div key={index}>
+                      <Col md="12">
                         <p>
-                          <b>Option {optionIndex + 1}</b>: {option}
+                          <b>Question {index + 1}</b>:{" "}
+                          {items?.question ? items?.question : "-"}
                         </p>
                       </Col>
-                    ))}
-                    <Col md="6">
-                      <p>
-                        <b>Correct Option</b>:{" "}
-                        {items?.correctAnswer ? items?.correctAnswer : "-"}
-                      </p>
-                    </Col>
-                  </div>
-                ))}
-              </>
-            ) : (
-              ""
-            )}
-          </Row>
+                      {items?.options?.map((option, optionIndex) => (
+                        <Col md="6" key={optionIndex}>
+                          <p>
+                            <b>Option {optionIndex + 1}</b>: {option}
+                          </p>
+                        </Col>
+                      ))}
+                      <Col md="6">
+                        <p>
+                          <b>Correct Option</b>:{" "}
+                          {items?.correctAnswer ? items?.correctAnswer : "-"}
+                        </p>
+                      </Col>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
+            </Row>
+          </div>
         </Modal.Body>
       </Modal>
     </>
