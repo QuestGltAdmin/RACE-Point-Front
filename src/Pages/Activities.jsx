@@ -238,7 +238,7 @@ export const Activities = () => {
         setQuestiondata(getdata?.data?.data);
       }
     } catch (err) {
-      console.log();
+      console.log(err);
     }
   };
   //==================================End of code================================//
@@ -710,13 +710,14 @@ export const Activities = () => {
             <iframe
               src={iframelink}
               // src={`https://sweepwidget.com/c/85960-ksa3hjty?data-name=harshal&data-email=test.user@example.com&sw_text_input_7_1=${WalletEVM?.selectedAccount}`}
-              // src="https://sweepwidget.com/c/85960-ksa3hjty?data-name=harshal&data-email=test.user@example.com&data-wallet-Address=0x7E1f02Ecb7616a15F3891C7e0365e56C5f6c3A16&data-auto-login=0"
-              // src="https://sweepwidget.com/c/438-tu2zjsh4?data-name=harshal&data-email=test.user@example.com&data-auto-login=0"
               width="100%"
               height="910px"
               frameBorder="0"
               allowFullScreen
-              style={{ border: "none" }}
+              style={{
+                backgroundColor: "#fff",
+                border: "16px",
+              }}
             ></iframe>
           </div>
         </Modal.Body>
@@ -968,7 +969,8 @@ export const Activities = () => {
                   %
                 </p>
                 <p>
-                  You will receive a {quizdata?.finalMultiplier?.toFixed(4)}x multiplier
+                  You will receive a {quizdata?.finalMultiplier?.toFixed(4)}x
+                  multiplier
                 </p>
               </>
             )}
