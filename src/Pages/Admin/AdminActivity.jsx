@@ -19,7 +19,10 @@ const AdminActivity = () => {
   const [searchall, setSearchall] = useState("");
   const [totaldatacount, setTotalDataCount] = useState(1);
   const [showdata, setShowData] = useState([]);
+  const [activitydetails, setActivityDetails] = useState([]);
+  const [questiondetails, setQuestionDetails] = useState([]);
   const [checkForData, setCheckForData] = useState(0);
+  const [detailsmodal, setDetailsModal] = useState(false);
   //==================================End of code================================//
 
   //==============================Get Data All Trx==============================//
@@ -69,6 +72,12 @@ const AdminActivity = () => {
 
   //==============================Get Data All Trx==============================//
 
+  const handledetails = (items) => {
+    setActivityDetails(items);
+    setQuestionDetails(items?.quizData[0]?.questionWithAnswers);
+    setDetailsModal(true);
+  };
+
   return (
     <>
       <div className="dashboard-layout">
@@ -106,7 +115,7 @@ const AdminActivity = () => {
                             </a>
                           </InputGroup.Text>
                         </InputGroup>
-                      </div>{" "}
+                      </div>
                       {checkForData === 0 ? (
                         <p className="text-center">
                           <IphoneSpinner />
@@ -120,14 +129,11 @@ const AdminActivity = () => {
                               <div>
                                 <p>S. no</p>
                                 <p>Title</p>
-                                <p>Activity Id</p>
                                 <p>Multiplier</p>
                                 <p>Type</p>
-                                <p>Min. Deposite</p>
-                                <p>Link</p>
-                                <p>Chain</p>
                                 <p>Start Date</p>
                                 <p>End Date</p>
+                                <p>Action</p>
                               </div>
                             </div>
                             <div className="tbody">
@@ -137,20 +143,10 @@ const AdminActivity = () => {
                                     index + 1 + (pagenumber - 1) * 10;
                                   return (
                                     <div key={adjustedIndex}>
-                                      <p>{adjustedIndex}</p>{" "}
+                                      <p>{adjustedIndex}</p>
                                       <p>
-                                        <span class="mobile-only">
-                                          Title -{" "}
-                                        </span>{" "}
+                                        <span class="mobile-only">Title -</span>
                                         {items?.title ? items?.title : "-"}
-                                      </p>
-                                      <p>
-                                        <span class="mobile-only">
-                                          Activity ID -{" "}
-                                        </span>{" "}
-                                        {items?.activity_id
-                                          ? items?.activity_id
-                                          : "-"}
                                       </p>
                                       <p>
                                         <span class="mobile-only">
@@ -164,40 +160,11 @@ const AdminActivity = () => {
                                       </p>
                                       <p>
                                         <span class="mobile-only">
-                                          Min. Deposite
-                                        </span>
-
-                                        {items?.min_deposit
-                                          ? new Intl.NumberFormat(
-                                              "en-US"
-                                            ).format(items?.min_deposit)
-                                          : "-"}
-                                      </p>
-                                      <p>
-                                        <span class="mobile-only">Link</span>
-                                        {items?.link ? items?.link : "-"}
-                                      </p>
-                                      <p>
-                                        <span className="mobile-only">
-                                          Link
-                                        </span>
-                                        {items?.deposit_chain
-                                          ? items.deposit_chain.map(
-                                              (item, index) => (
-                                                <div key={index}>
-                                                  {item.chain}
-                                                </div>
-                                              )
-                                            )
-                                          : "-"}
-                                      </p>
-                                      <p>
-                                        <span class="mobile-only">
                                           Start Date
                                         </span>
                                         {moment
                                           .utc(items?.start_date)
-                                          .format("lll")}
+                                          .format("MMMM D, YYYY")}
                                       </p>
                                       <p>
                                         <span class="mobile-only">
@@ -206,8 +173,40 @@ const AdminActivity = () => {
                                         {items?.end_date
                                           ? moment
                                               .utc(items?.end_date)
-                                              .format("lll")
+                                              .format("MMMM D, YYYY")
                                           : "-"}
+                                      </p>
+                                      <p>
+                                        <div className="gap-2">
+                                          <button
+                                            className="common-btn"
+                                            onClick={() => {
+                                              // setDetailsModal(true);
+                                              handledetails(items);
+                                            }}
+                                          >
+                                            <i className="fa fa-eye"></i>
+                                          </button>
+
+                                          <button
+                                            className="common-btn"
+                                            onClick={() => {
+                                              navigate(
+                                                "/main-update-activity",
+                                                {
+                                                  state: {
+                                                    activitydata: items,
+                                                  },
+                                                }
+                                              );
+                                            }}
+                                          >
+                                            <i className="fa fa-edit"></i>
+                                          </button>
+                                          <button className="common-btn">
+                                            <i className="fa fa-trash"></i>
+                                          </button>
+                                        </div>
                                       </p>
                                     </div>
                                   );
@@ -228,7 +227,7 @@ const AdminActivity = () => {
                                     <i className="fa fa-angle-left"></i>
                                   </button>
                                   <button className="common-btn m-2">
-                                    Page {pagenumber} of{" "}
+                                    Page {pagenumber} of
                                     {Math.ceil(totaldatacount / 10)}
                                   </button>
                                   <button
@@ -255,6 +254,154 @@ const AdminActivity = () => {
           </Container>
         </section>
       </div>
+      <Modal
+        className="new-user-modal"
+        centered
+        show={detailsmodal}
+        onHide={() => {
+          setDetailsModal(false);
+        }}
+        size="lg"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <h4>Activity Details</h4>
+          <Row className="text-start mt-5">
+            <Col md="6">
+              <p>
+                <b>Title</b>:{" "}
+                {activitydetails?.title ? activitydetails?.title : "-"}
+              </p>
+            </Col>
+            <Col md="6">
+              <p>
+                <b>Multiplier</b>:{" "}
+                {activitydetails?.multiplier
+                  ? activitydetails?.multiplier
+                  : "-"}
+              </p>
+            </Col>
+            <Col md="12">
+              <p>
+                <b>Description</b>:{" "}
+                {activitydetails?.description
+                  ? activitydetails?.description
+                  : "-"}
+              </p>
+            </Col>
+            <Col md="6">
+              <p>
+                <b>Type</b>:{" "}
+                {activitydetails?.type ? activitydetails?.type : "-"}
+              </p>
+            </Col>
+            <Col md="6">
+              <p>
+                <b>Start Date</b>:{" "}
+                {activitydetails?.start_date
+                  ? moment
+                      .utc(activitydetails?.start_date)
+                      .format("MMMM D, YYYY")
+                  : "-"}
+              </p>
+            </Col>
+            <Col md="6">
+              <p>
+                <b>end Date</b>:{" "}
+                {activitydetails?.end_date
+                  ? moment.utc(activitydetails?.end_date).format("MMMM D, YYYY")
+                  : "-"}
+              </p>
+            </Col>
+            {activitydetails?.type == "Deposit" ? (
+              <>
+                {" "}
+                <Col md="6">
+                  <p>
+                    <b>Deposit Chain</b>:{" "}
+                    {activitydetails?.deposit_chain
+                      ? activitydetails?.deposit_chain?.map((items) => {
+                          return items + " , ";
+                        })
+                      : "-"}
+                  </p>
+                </Col>
+                <Col md="6">
+                  <p>
+                    <b>Minimum deposit</b>:{" "}
+                    {activitydetails?.min_deposit
+                      ? activitydetails?.min_deposit
+                      : "-"}
+                  </p>
+                </Col>{" "}
+              </>
+            ) : activitydetails?.type == "Social_Media" ? (
+              <>
+                {" "}
+                <Col md="6">
+                  <p>
+                    <b>Link</b>:{" "}
+                    {activitydetails?.link ? activitydetails?.link : "-"}
+                  </p>
+                </Col>
+                <Col md="6">
+                  <p>
+                    <b>Activity Id</b>:{" "}
+                    {activitydetails?.activity_id
+                      ? activitydetails?.activity_id
+                      : "-"}
+                  </p>
+                </Col>
+              </>
+            ) : activitydetails?.type == "Quiz" ? (
+              <>
+                {" "}
+                <Col md="6">
+                  <p>
+                    <b>Quiz Type</b>:{" "}
+                    {activitydetails?.quizData
+                      ? activitydetails?.quizData[0]?.type
+                      : "-"}
+                  </p>
+                </Col>
+                <Col md="6">
+                  <p>
+                    <b>Per MCQ Point</b>:{" "}
+                    {activitydetails?.quizData
+                      ? activitydetails?.quizData[0]?.per_mcq_point
+                      : "-"}
+                  </p>
+                </Col>
+                {questiondetails?.map((items, index) => (
+                  <div key={index}>
+                    <Col md="12">
+                      <p>
+                        <b>Question {index + 1}</b>:{" "}
+                        {items?.question ? items?.question : "-"}
+                      </p>
+                    </Col>
+                    {items?.options?.map((option, optionIndex) => (
+                      <Col md="6" key={optionIndex}>
+                        <p>
+                          <b>Option {optionIndex + 1}</b>: {option}
+                        </p>
+                      </Col>
+                    ))}
+                    <Col md="6">
+                      <p>
+                        <b>Correct Option</b>:{" "}
+                        {items?.correctAnswer ? items?.correctAnswer : "-"}
+                      </p>
+                    </Col>
+                  </div>
+                ))}
+              </>
+            ) : (
+              ""
+            )}
+          </Row>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
