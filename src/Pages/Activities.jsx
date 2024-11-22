@@ -968,7 +968,7 @@ export const Activities = () => {
                   %
                 </p>
                 <p>
-                  You will receive a {quizdata?.finalMultiplier}x multiplier
+                  You will receive a {quizdata?.finalMultiplier?.toFixed(4)}x multiplier
                 </p>
               </>
             )}

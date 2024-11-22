@@ -1,12 +1,21 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { AdmindashHeader } from "../../Components/Ui/AdmindashHeader";
-import { Col, Container, Form, InputGroup, Modal, Row } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  InputGroup,
+  Modal,
+  Row,
+} from "react-bootstrap";
 import { debounce } from "lodash";
 import axiosMain from "../../http/axios/axios_main";
 import useAuth from "../../hooks/useAuth";
 import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
 import { IphoneSpinner } from "../../Components/IphoneSpinner";
+import { toast } from "react-toastify";
 
 const AdminActivity = () => {
   //==================================Global Variable================================//
@@ -23,8 +32,19 @@ const AdminActivity = () => {
   const [questiondetails, setQuestionDetails] = useState([]);
   const [checkForData, setCheckForData] = useState(0);
   const [detailsmodal, setDetailsModal] = useState(false);
-  //==================================End of code================================//
+  const [deletemodal, setDeleteModal] = useState(false);
+  const [deleteid, setDeleteID] = useState(false);
+  const [disable, setDisable] = useState(false);
 
+  //==================================End of code================================//
+  const handleclosedelete = () => {
+    setDeleteModal(false);
+  };
+
+  const handledelete = (items) => {
+    setDeleteModal(true);
+    setDeleteID(items?._id);
+  };
   //==============================Get Data All Trx==============================//
   const getdata = async (pagenumber, searchall) => {
     try {
@@ -78,6 +98,34 @@ const AdminActivity = () => {
     setDetailsModal(true);
   };
 
+  const DeleteActivity = async () => {
+    const payload = {
+      id: deleteid,
+    };
+
+    try {
+      setDisable(true);
+
+      const deletedata = await axiosMain.post(
+        "admin/delete-activity",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${user.token}`,
+          },
+        }
+      );
+      if (deletedata?.data?.status) {
+        setDisable(false);
+        toast.success(deletedata?.data?.message);
+        handleclosedelete();
+        getdata();
+      }
+    } catch (err) {
+      toast.error(err?.deletedata?.data?.message);
+    }
+  };
   return (
     <>
       <div className="dashboard-layout">
@@ -187,25 +235,35 @@ const AdminActivity = () => {
                                           >
                                             <i className="fa fa-eye"></i>
                                           </button>
-
-                                          <button
-                                            className="common-btn m-1"
-                                            onClick={() => {
-                                              navigate(
-                                                "/main-update-activity",
-                                                {
-                                                  state: {
-                                                    activitydata: items,
-                                                  },
-                                                }
-                                              );
-                                            }}
-                                          >
-                                            <i className="fa fa-edit"></i>
-                                          </button>
-                                          <button className="common-btn m-1">
-                                            <i className="fa fa-trash"></i>
-                                          </button>
+                                          {items?.isRunning ? (
+                                            ""
+                                          ) : (
+                                            <>
+                                              <button
+                                                className="common-btn m-1"
+                                                onClick={() => {
+                                                  navigate(
+                                                    "/main-update-activity",
+                                                    {
+                                                      state: {
+                                                        activitydata: items,
+                                                      },
+                                                    }
+                                                  );
+                                                }}
+                                              >
+                                                <i className="fa fa-edit"></i>
+                                              </button>
+                                              <button
+                                                className="common-btn m-1"
+                                                onClick={() => {
+                                                  handledelete(items);
+                                                }}
+                                              >
+                                                <i className="fa fa-trash"></i>
+                                              </button>
+                                            </>
+                                      )}
                                         </div>
                                       </p>
                                     </div>
@@ -385,15 +443,15 @@ const AdminActivity = () => {
                         <p>{items?.question ? items?.question : "-"}</p>
                       </Col>
                       {items?.options?.map((option, optionIndex) => (
-                        <Col md="6" key={optionIndex}>
+                        <Col md="12" key={optionIndex}>
                           <p>
                             Option {optionIndex + 1} : {option}
                           </p>
                         </Col>
                       ))}
-                      <Col md="6">
+                      <Col md="12">
                         <p>
-                          <b>Correct Option</b>:{" "}
+                          Correct Option:{" "}
                           {items?.correctAnswer ? items?.correctAnswer : "-"}
                         </p>
                       </Col>
@@ -404,6 +462,42 @@ const AdminActivity = () => {
                 ""
               )}
             </Row>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        className="new-user-modal"
+        centered
+        show={deletemodal}
+        onHide={handleclosedelete}
+        size="md"
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div>
+            <h4>Are you sure you want to delete this activity?</h4>
+            <div className="d-flex gap-4">
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                onClick={() => {
+                  handleclosedelete();
+                }}
+              >
+                Back
+              </Button>{" "}
+              <Button
+                variant="primary"
+                className="common-btn bg-left"
+                disabled={disable}
+                onClick={() => {
+                  DeleteActivity();
+                }}
+              >
+                {disable === true ? "Processing" : "Continue"}
+              </Button>
+            </div>
           </div>
         </Modal.Body>
       </Modal>

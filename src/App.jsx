@@ -35,6 +35,7 @@ import SuperUserRoutes from "./PrivateRoutes/SuperUserRoutes";
 import UserRefferalsEarnPoints from "./Pages/SuperUser/UserRefferalsEarnPoints";
 import AdminActivity from "./Pages/Admin/AdminActivity";
 import AdminAddActivity from "./Pages/Admin/AdminAddActivity";
+import AdminUpdateActivity from "./Pages/Admin/AdminUpdateActivity";
 import "react-datepicker/dist/react-datepicker.css";
 import AdminAddManager from "./Pages/Admin/AdminAddManager";
 
@@ -189,6 +190,14 @@ function App() {
               element={
                 <AdminPrivateRoute>
                   <AdminAddActivity />
+                </AdminPrivateRoute>
+              }
+            />
+            <Route
+              path="/main-update-activity"
+              element={
+                <AdminPrivateRoute>
+                  <AdminUpdateActivity />
                 </AdminPrivateRoute>
               }
             />
