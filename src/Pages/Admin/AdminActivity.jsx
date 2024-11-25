@@ -426,14 +426,14 @@ const AdminActivity = () => {
                         : "-"}
                     </p>
                   </Col>
-                  <Col md="12">
+                  {/* <Col md="12">
                     <p>
                       <b>Per MCQ Point</b>:{" "}
                       {activitydetails?.quizData
                         ? activitydetails?.quizData[0]?.per_mcq_point
                         : "-"}
                     </p>
-                  </Col>
+                  </Col> */}
                   {questiondetails?.map((items, index) => (
                     <div className="shadow-box-main" key={index}>
                       <Col md="12">

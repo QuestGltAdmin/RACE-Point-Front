@@ -46,7 +46,7 @@ const AdminUpdateActivity = () => {
     link: activitydata?.link || "",
     deposit_chain: activitydata?.deposit_chain || "",
     min_deposit: activitydata?.min_deposit || "",
-    per_mcq_point: activitydata?.quizData[0]?.per_mcq_point || "",
+    // per_mcq_point: activitydata?.quizData[0]?.per_mcq_point || "",
     quiz_type: activitydata?.quizData[0]?.type || "",
   });
   const [options, setOptions] = useState([
@@ -140,9 +140,11 @@ const AdminUpdateActivity = () => {
       setFormError("Please enter Link");
     } else if (selectedOption == "Quiz" && !inputValue.quiz_type) {
       setFormError("Please enter quiz type");
-    } else if (selectedOption == "Quiz" && !inputValue.per_mcq_point) {
-      setFormError("Please Enter Mcq Point");
-    } else {
+    } 
+    // else if (selectedOption == "Quiz" && !inputValue.per_mcq_point) {
+    //   setFormError("Please Enter Mcq Point");
+    // } 
+    else {
       setDisable(true);
       setFormError("");
 
@@ -176,7 +178,7 @@ const AdminUpdateActivity = () => {
       } else if (selectedOption == "Quiz") {
         payload.quizType = inputValue.quiz_type;
         payload.questionWithAnswers = [...finaldata];
-        payload.per_mcq_point = inputValue.per_mcq_point;
+        // payload.per_mcq_point = inputValue.per_mcq_point;
       } else if (selectedOption == "Register") {
         payload.link = RowLink;
       }
@@ -413,7 +415,7 @@ const AdminUpdateActivity = () => {
                               />
                             </Form.Group>
                           </Col>
-                          <Col md={6}>
+                          {/* <Col md={6}>
                             <Form.Group controlId="per_mcq_point">
                               <Form.Label className="formlabel">
                                 MCQ Point :
@@ -426,7 +428,7 @@ const AdminUpdateActivity = () => {
                                 value={inputValue.per_mcq_point}
                               />
                             </Form.Group>
-                          </Col>
+                          </Col> */}
                           {arrayquestiondata?.map((items, index) => (
                             <Row key={index}>
                               <Col md={12}>

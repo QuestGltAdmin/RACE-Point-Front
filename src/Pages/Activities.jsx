@@ -675,7 +675,6 @@ export const Activities = () => {
                   className="common-btn bg-left"
                   onClick={() => {
                     setShowIframe(true);
-
                     handlesocialmodalclose();
                   }}
                 >
@@ -960,16 +959,10 @@ export const Activities = () => {
               <>
                 <p>
                   Your Percentage : &nbsp;
-                  {quizdata?.totalMarks
-                    ? (
-                        (quizdata.receivedMarks / quizdata.totalMarks) *
-                        100
-                      ).toFixed(2)
-                    : 0}
-                  %
+                  {quizdata?.percentage ? quizdata?.percentage : "0"}%
                 </p>
                 <p>
-                  You will receive a {quizdata?.finalMultiplier?.toFixed(4)}x
+                  You will receive a {quizdata?.finalMultiplier?.toFixed(2)}x
                   multiplier
                 </p>
               </>

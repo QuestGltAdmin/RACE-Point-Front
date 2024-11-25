@@ -40,7 +40,6 @@ const AdminAddActivity = () => {
     link: "",
     deposit_chain: "",
     min_deposit: "",
-    per_mcq_point: "",
     quiz_type: "",
   });
   const [options, setOptions] = useState([
@@ -119,9 +118,7 @@ const AdminAddActivity = () => {
       setFormError("Please enter Link");
     } else if (selectedOption == "Quiz" && !inputValue.quiz_type) {
       setFormError("Please enter quiz type");
-    } else if (selectedOption == "Quiz" && !inputValue.per_mcq_point) {
-      setFormError("Please Enter Mcq Point");
-    } else {
+    }  else {
       setDisable(true);
       setFormError("");
 
@@ -148,7 +145,7 @@ const AdminAddActivity = () => {
         link: RowLink,
         quizType: inputValue.quiz_type,
         questionWithAnswers: [...finaldata],
-        per_mcq_point: inputValue.per_mcq_point,
+        // per_mcq_point: inputValue.per_mcq_point,
       };
 
       try {
@@ -388,7 +385,7 @@ const AdminAddActivity = () => {
                               />
                             </Form.Group>
                           </Col>
-                          <Col md={6}>
+                          {/* <Col md={6}>
                             <Form.Group controlId="per_mcq_point">
                               <Form.Label className="formlabel">
                                 MCQ Point :
@@ -401,7 +398,7 @@ const AdminAddActivity = () => {
                                 value={inputValue.per_mcq_point}
                               />
                             </Form.Group>
-                          </Col>
+                          </Col> */}
                           {arrayquestiondata?.map((items, index) => (
                             <Row key={index}>
                               <Col md={12}>
