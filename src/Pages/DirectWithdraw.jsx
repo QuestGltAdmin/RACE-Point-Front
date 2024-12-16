@@ -960,7 +960,7 @@ export const DirectWithdraw = () => {
                   )}
                 </Col>
                 <Col lg={6} className="p-1">
-                  <h6 className="heading-approve"> Step 2: Complete Deposit</h6>
+                  <h6 className="heading-approve"> Step 2: Complete Withdraw</h6>
                   {inputValuesell?.sellamount > raceAllowance ? (
                     <button className="common-btn mt-3 disable-btn deposit-disable">
                       Withdraw
